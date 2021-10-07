@@ -1,0 +1,130 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' name="myfrom" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment mt-2">
+    <h3 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Customer
+    </h3>
+    <h3 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit  Customer
+    </h3>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!cust.clientname && !cust.factorylocation">
+      <li>
+        <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Customer Name</label>
+        <input required type="text" placeholder="client name" [(ngModel)]="cust.clientname" id="clientname" name="clientname">
+      </div>
+      <div class="field ">
+        <label>Current Address</label>
+        <input type="text" placeholder="current address" [(ngModel)]="cust.currentaddress" id="currentaddress" name="currentaddress">
+      </div>
+      <div class="field ">
+        <label>Previous Address</label>
+        <input type="text" placeholder="previous address" [(ngModel)]="cust.previousaddress" id="previousaddress" name="previousaddress">
+      </div>
+      <div class="field required">
+        <label>Factory Location</label>
+        <input required type="text" placeholder="factory location" [(ngModel)]="cust.factorylocation" id="factorylocation" name="factorylocation">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Contact Person</label>
+        <input required type="text" placeholder="contact person" [(ngModel)]="cust.contactperson" id="contactperson" name="contactperson">
+      </div>
+      <div class="field ">
+        <label>Buyer Name</label>
+        <input type="text" placeholder="buyer name" [(ngModel)]="cust.buyername" id="buyername" name="buyername">
+      </div>
+      <div class="field required">
+        <label>Telephone</label>
+        <input required type="text"  min="0" placeholder="telephone" [(ngModel)]="cust.telephone" id="telephone" name="telephone">
+      </div>
+      <div class="field ">
+        <label>Fax</label>
+        <input type="text" placeholder="fax" [(ngModel)]="cust.fax" id="fax" name="fax">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>E-mail</label>
+        <input required type="email" placeholder="email" [(ngModel)]="cust.email" id="email" name="email">
+      </div>
+      <div class="field ">
+        <label>Major Products</label>
+        <input type="text" placeholder="major products" [(ngModel)]="cust.majorproducts" id="majorproducts" name="majorproducts">
+      </div>
+      <div class="field ">
+        <label>Major Brands</label>
+        <input type="text" placeholder="major brands" [(ngModel)]="cust.majorbrands" id="majorbrands" name="majorbrands">
+      </div>
+      <div class="field ">
+        <label>Total Capacity</label>
+        <input type="number" min="0" placeholder="total capacity" [(ngModel)]="cust.totalcapacity" id="totalcapacity" name="totalcapacity">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Total Employee</label>
+        <input type="number" min="0" placeholder="total employee" [(ngModel)]="cust.totalemployee" id="totalemployee" name="totalemployee">
+      </div>
+      <div class="field ">
+        <label>Director</label>
+        <input type="text" placeholder="director" [(ngModel)]="cust.director" id="director" name="director">
+      </div>
+      <div class="field ">
+        <label>Merchandiser</label>
+        <input type="text" placeholder="merchandiser" [(ngModel)]="cust.merchandiser" id="merchandiser" name="merchandiser">
+      </div>
+      <div class="field ">
+        <label>Commercial Person</label>
+        <input type="text" placeholder="commercial person" [(ngModel)]="cust.commercialperson" id="commercialperson" name="commercialperson">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Accounts Person</label>
+        <input type="text" placeholder="accounts person" [(ngModel)]="cust.accountsperson" id="accountsperson" name="accountsperson">
+      </div>
+      <div class="field ">
+        <label>Sales Person</label>
+        <input type="text" placeholder="sales person" [(ngModel)]="cust.salesperson" id="salesperson" name="salesperson">
+      </div>
+      <div class="field ">
+        <label>Credit Limit</label>
+        <input type="number" placeholder="credit limit" [(ngModel)]="cust.creditlimit" id="creditlimit" name="creditlimit">
+      </div>
+      <div class="field ">
+        <label>Mode of Payment</label>
+        <input type="text" placeholder="Mode Of Payment" [(ngModel)]="cust.modeofpayment" id="modeofpayment" name="modeofpayment">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Customer History</label>
+        <input type="text" placeholder="client history" [(ngModel)]="cust.clienthistory" id="clienthistory" name="clienthistory">
+      </div>
+      <div class="field ">
+        <label>Special Instruction</label>
+        <input type="text" placeholder="special instruction" [(ngModel)]="cust.specialinstruction" id="specialinstruction" name="specialinstruction">
+      </div>
+      <div class="field ">
+        <label>Nominated Price</label>
+        <input type="number" min="0" placeholder="Nominated Price" [(ngModel)]="cust.isunnominated" id="isunnominated" name="isunnominated">
+      </div>
+      <div class="field my-3">
+        <sui-checkbox  class="mt-1" [(ngModel)]="cust.issubcontractfactory" name="isSubContact">Is Sub Contract Factory</sui-checkbox>
+        <br>
+        <sui-checkbox  class="mt-1" [(ngModel)]="cust.hmallocated" name="hmallocation">H&M Allocation</sui-checkbox>
+      </div>
+    </div>
+    </div>
+  <button class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Save
+  </button>
+  <button class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+    Update
+  </button>
+</form>

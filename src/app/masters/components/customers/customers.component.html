@@ -1,0 +1,164 @@
+<script src="customers.component.ts"></script>
+<div class="mb-5 pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()" >
+    <strong><i class="angle left icon"></i></strong>
+    Back
+  </button>
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit') && addNew">
+    <span *ngIf="collapse"> <i class="add icon"></i>Create Customer</span>
+    <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+  </button>
+  <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+  <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="file excel icon"></i>
+    <div class="text">Download Excel / Csv</div>
+    <strong><i class="dropdown icon"></i></strong>
+    <!--      </button><button class="ui tiny purple dropdown button" suiPopup [popupTemplate]="popupCsv" popupTrigger="outsideClick" popupPlacement="bottom">-->
+    <!--          <i class="file excel icon"></i>-->
+    <!--          <div class="text">Download Csv</div>-->
+    <!--          <i class="dropdown icon"></i>-->
+  </button>
+  <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="file pdf icon"></i>
+    <div class="text">Download PDF</div>
+    <i class="dropdown icon"></i>
+  </button>
+  <ng-template let-popup #popupExcel >
+     <sui-message class="warning tiny mb-2" *ngIf="this.selectedClients.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedClients.length <=0"  (click)="exporttoExcel()"><strong><i class="arrow down icon"></i></strong>Excel Selected Data</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="this.selectedClients.length <=0"  (click)="exporttoCsv()"><strong><i class="arrow down icon"></i></strong> Csv Selected Data</button>
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoExcel(true)"><strong><i class="arrow down icon"></i></strong>Excel</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)"><strong><i class="arrow down icon"></i></strong>Csv</button>
+  </ng-template>
+  <!--      <ng-template let-popup #popupCsv>-->
+  <!--          <button class="ui tiny brown button m-1" (click)="exporttoCsv()">Download Current Page Data</button>-->
+  <!--          <div class="ui divider"></div>-->
+  <!--          <div class="ui form p-1">-->
+  <!--              <div class="two fields">-->
+  <!--                  <div class="field">-->
+  <!--                      <label>From Page</label>-->
+  <!--                      <input type="number" [(ngModel)]="fromPage" name="fromPage">-->
+  <!--                  </div>-->
+  <!--                  <div class="field">-->
+  <!--                      <label>To Page</label>-->
+  <!--                      <input  type="number" [(ngModel)]="toPage" name="toPage">-->
+  <!--                  </div>-->
+  <!--              </div>-->
+  <!--          </div>-->
+  <!--          <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)">Download</button>-->
+  <!--      </ng-template>-->
+  <ng-template let-popup #popupPDF >
+     <sui-message class="warning tiny mb-2" *ngIf="this.selectedClients.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedClients.length <=0"  (click)="exportToPDF()">Download Selected Data</button>
+    <button class="ui tiny blue button m-1"  [disabled]="this.selectedClients.length <=0" (click)="printOpen()"><strong><i class="print icon"></i> </strong>   Print Selected Data</button>
+
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny red button m-1" [disabled]="!fromPage || !toPage" (click)="exportToPDF(true)">Download</button>
+    <button class="ui tiny blue button m-1" [disabled]="!fromPage || !toPage" (click)="printOpen(true)"><strong><i class="print icon"></i> </strong> Print</button>
+
+  </ng-template>
+<!--  <button class="ui tiny red button" type="button" *ngIf="this.currentRoute?.toString()?.includes('edit')" [routerLink]="['/master/client']">-->
+<!--    <i class="ui x icon"></i>-->
+<!--    Cancel-->
+<!--  </button>-->
+
+<!--  <sui-search [optionsLookup]="optionsSearch" #searchBox class="ui mini  right floated ml-5"-->
+<!--              optionsField="clientname"-->
+<!--              [retainSelectedResult]="true"-->
+<!--              (resultSelected)="alert($event.clientid)"></sui-search>-->
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-customer (added)="getItemCount()"></app-add-customer>
+    </div>
+  </div>
+  <table class=" ui very compact teal table unstackable">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllClient" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th class="single line">Actions</th>
+      <th>Customer Name</th>
+      <th>Current Address</th>
+      <th>Contact Person</th>
+      <th>Telephone</th>
+      <th>Email</th>
+      <th>Sales Person</th>
+      <th>Factory Location</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cust of customers; let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="cust.selected" name="{{i}}" (click)="selectClients(cust,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td class="single line">
+<!--        <i class="trash link red icon" (click)="delete(cust.clientid)" ></i>-->
+        <i class="edit link blue icon" *ngIf="editExisting" [routerLink]="['/customers/edit',cust?.clientid]" ></i>
+        <i class="eye link orange icon" (click)="viewDetail(cust?.clientid)"></i>
+      </td>
+      <td>{{cust?.clientname}}</td>
+      <td>{{cust?.currentaddress}}</td>
+      <td>{{cust?.contactperson}}</td>
+      <td>{{cust?.telephone}}</td>
+      <td>{{cust?.email}}</td>
+      <td>{{cust?.salesperson}}</td>
+      <td>{{cust?.factorylocation}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <!--<pagination-controls *ngIf="customers" class="my-pagination" (pageChange)="p = $event"></pagination-controls>-->
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()"  [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+
+</div>

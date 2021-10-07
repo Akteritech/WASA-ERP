@@ -1,0 +1,118 @@
+<!-- <a href="#" (click)="downloadPDF()">Print</a> -->
+<div class="a-container pt-5" id="MyDIv">
+  <!-- Heading section for company information -->
+  <section class="a-row">
+    <div class="col-9">
+      <h2 class="a-font-weight-bold">{{report?.CompanyName}}</h2>
+      <div>{{report?.partner}}</div>
+      <div>{{report?.companyaddress}}</div>
+    </div>
+    <div class="col-3 a-fs a-f-time a-mt">
+      <div class="p">Doc.Code: </div>
+      <div class="p">Effective date: </div>
+    </div>
+  </section>
+  <!-- Heading section for company information end -->
+
+  <h2 class="a-text-center a-mt-50 a-f-time">Master Challan</h2>
+
+  <!-- Customer information section  -->
+
+  <section class="a-border-condition a-row a-font-weight-bold a-pl a-f-time">
+    <div class="col-6">
+      <div class="a-row">
+        <div class="a-col-5">Delivery Vendor Name</div>
+        <div class="col-7">{{report?.DalivaryParty}}</div>
+      </div>
+      <div class="a-row">
+        <div class="a-col-5">Delivery Address</div>
+        <div class="col-7">{{report?.PartyAddress}}</div>
+      </div>
+      <div class="a-row" *ngIf="this.record?.length > 1">
+        <div class="a-col-5">Master Challan No</div>
+        <div class="col-7">{{report?.MasterChallanNo}}</div>
+      </div>
+      <div class="a-row" *ngIf="this.record?.length == 1">
+        <div class="a-col-5"> Pi No</div>
+        <div class="col-7">{{report?.PINo}}</div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="a-row">
+        <div class="col-4">Customer Name</div>
+        <div class="col-8">{{report?.ClientName}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Customer Address</div>
+        <div class="col-8">{{report?.CurrentAddress}} </div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Challan Date</div>
+        <div class="col-8">{{report?.ChallanDate}}</div>
+      </div>
+    </div>
+  </section>
+  <!-- Customer information section end -->
+
+
+  <!-- Table information section  -->
+
+  <table>
+    <thead>
+    <th *ngIf="this.record?.length > 1">Pi No.</th>
+    <th>Our Ref.</th>
+    <th>Vendor PO</th>
+    <th>MC PO</th>
+    <th>MC Style</th>
+    <th>ChallanNo</th>
+    <th>Item Ref.</th>
+    <th>Qty</th>
+    <th>Price USD/1000</th>
+    <th>Total Amount</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let obj of reports">
+      <td *ngIf="this.record?.length > 1">{{obj.PINo}}</td>
+      <td>{{obj.WorkOrderNo}}</td>
+      <td>{{obj.CustomerPONo}}</td>
+      <td>{{obj.ExtraColumn2}}</td>
+      <td>{{obj.ExtraColumn3}}</td>
+      <td>{{obj.ChallanNo}}</td>
+      <td>{{obj.SampleName}}</td>
+      <td>{{obj.Qty}}</td>
+      <td><p class="p a-fl">$</p><p class="p a-fr">{{obj.Rate}}</p></td>
+      <td><p class="p a-fl">$</p><p class="p a-fr">{{obj.Amount}}</p></td>
+    </tr>
+    </tbody>
+    <tfoot class="a-tfoot-td">
+    <tr>
+      <td colspan="3"></td>
+      <td colspan="3" class="a-text-center">Total</td>
+      <td>{{orderTotal}}</td>
+      <td></td>
+      <td><p class="p a-fl">$</p><p class="p a-fr">{{prevChallanTotal}}</p></td>
+    </tr>
+    </tfoot>
+  </table>
+
+  <!-- Table information section end -->
+
+
+
+  <!-- Signature information section -->
+  <section class="a-row a-mt-200">
+    <div class="col-3  a-text-center">
+      <div class=" a-border-sign a-font-weight-bold a-mt">Received By</div>
+    </div>
+    <div class="col-6">
+    </div>
+    <div class="col-3  a-text-center">
+      <div class=" a-border-sign a-font-weight-bold a-mt">Authorized By</div>
+    </div>
+  </section>
+
+  <div class="a-row a-mt-200">
+<!--    <div>Print Date : {{report.date}}, Print Time : {{report.time}}</div>-->
+<!--    <div class="a-ml-auto">Page {{data.page}} of {{data.allpage}}</div>-->
+  </div>
+</div>

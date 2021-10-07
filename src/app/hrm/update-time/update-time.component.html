@@ -1,0 +1,23 @@
+<p>Name: {{data[0].EMP_NAME_ENG}}; Card: {{data[0].EMP_CARD_NO}}</p>
+<table class=" ui very compact unstackable teal table">
+  <thead><tr>
+    <th>Date</th>
+    <th>In Time</th>
+    <th>Out Time</th>
+    <th>Status</th>
+    <th>Update</th>
+  </tr></thead>
+  <tbody><tr *ngFor="let e of data; let i = index">
+    <td>{{e.MonthDate}}</td>
+    <td><input type="time" name="intime{{i}}" [(ngModel)]="e.IN_TIME"></td>
+    <td><input type="time" name="outtime{{i}}" [(ngModel)]="e.OUT_TIME"></td>
+    <td><sui-select class="selection" name="status{{i}}" [(ngModel)]="e.Status">
+      <sui-select-option value="P"></sui-select-option>
+      <sui-select-option value="L"></sui-select-option>
+      <sui-select-option value="OS"></sui-select-option>
+      <sui-select-option value="W"></sui-select-option>
+      <sui-select-option value="H"></sui-select-option>
+    </sui-select></td>
+    <td><button class="ui primary tiny button" (click)="submit(i)">Update</button></td>
+  </tr></tbody>
+</table>

@@ -1,0 +1,33 @@
+<div class="" [ngStyle]="{'background-color':'#71797E'}">
+  <div id="printContent">
+    <h2 class="center aligned vertically">Section Name: {{showstoremaster?.StoreName}}</h2>
+    <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+      <tbody>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center">
+            <strong>Maheen Label Tex Ltd.</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center">
+            <strong>Title: Section</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+      <tbody>
+        <tr>
+          <td style="border-left:1px solid black;border-top:1px solid black;border-bottom:1px solid black;padding:5px">
+            <strong>Department Name: </strong> {{showstoremaster?.StoreName}}
+          </td>
+          <td style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black;padding:5px">
+            <strong>Company Name: </strong> {{showstoremaster?.CompanyName}}
+          </td>
+          <td style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black;padding:5px">
+            <strong>Description: </strong> {{showstoremaster?.Description}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.ImgSize{
+  display:inline-block;
+  width: 160px;
+  height:130px;
+  overflow:hidden;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+.cardmy2 {
+  box-shadow:0 5px 20px 0 #d4d4d5,0 0 0 0 #d4d4d5 !important;
+  /*color: #ffffff !important;*/
+  /*background-image: linear-gradient(to right, rgb(239, 239, 245), rgb(239, 239, 245)) !important;*/
+}
+/*::selection {*/
+/*  background: yellow; !* WebKit/Blink Browsers *!*/
+/*}*/
+/*::-moz-selection {*/
+/*  background: yellow; !* Gecko Browsers *!*/
+/*}*/

@@ -1,0 +1,153 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <form onsubmit="return false;" class="ui small form" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui segment mt-2"[ngStyle]="{'background-color':'#71797E'}">
+          <h4 class="ui teal dividing header">
+            <br>
+            Add Department
+          </h4>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Zone Name</label>
+              <sui-select placeholder="company name" class="selection" name="companyname"
+                [(ngModel)]="department.DIVISION_ID" [options]="divisions" [isSearchable]="true"
+                labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #selectcompanyname>
+                <sui-select-option *ngFor="let op of selectcompanyname.filteredOptions" [value]="op">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Department Name English</label>
+              <sui-select placeholder="Select Department" class="selection" name="department" [options]="departments"
+                [(ngModel)]="department.DeptEngNm" [isSearchable]="true" labelField="DeptEngNm" valueField="DeptEngNm">
+                <sui-select-option *ngFor="let op of departments" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Department Name Bangla</label>
+              <input type="text" placeholder="Section Name Bangla" id="departmentnamebangla" name="departmentnamebangla"
+                maxlength="50" [(ngModel)]="department.DeptBngNm">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Section(bangla)</label>
+              <input type="text" placeholder="Section" id="Section" name="Section" maxlength="50"
+                [(ngModel)]="department.Section">
+            </div>
+            <div class="field">
+              <label>Priority</label>
+              <input type="number" placeholder="DptPos" id="DptPos" name="DptPos" maxlength="50"
+                [(ngModel)]="department.DptPos">
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <sui-select placeholder="status " class="selection" name="status" [(ngModel)]="department.Status"
+                [options]="api.status" [isSearchable]="true" labelField="name" valueField="value" #SelectStatus>
+                <sui-select-option *ngFor="let op of SelectStatus.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+
+          </div>
+          <button *ngIf="!this.editId" class="ui teal tiny button my-1" (click)="patch(form)">Save</button>
+          <button *ngIf="this.editId" class="ui teal tiny button my-1" (click)="updateEmp()">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <table class="ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Actions</th>
+        <th>Department ID</th>
+        <th>Division ID</th>
+        <th>Department Name Bangla</th>
+        <th>Department Name</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of departmenttabledata; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+        <td class="single line pointer">
+          <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/department/',showdata?.DEPARTMENT_ID]"></i>
+        </td>
+        <td>{{showdata?.DEPARTMENT_ID}}</td>
+        <td style="font-family: SutonnyMJ;">{{showdata?.DIVISION_ID}}</td>
+        <td>{{showdata?.DeptBngNm }}</td>
+        <td>{{showdata?.DeptEngNm }}</td>
+        <td>{{showdata?.Status }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment mt-5">
+      <h3 class="ui teal dividing header">
+        Search Department
+      </h3>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Department</label>
+          <input required type="text" id="Department" name="Department" placeholder="Department" [(ngModel)]="Name" />
+        </div>
+        <div class="field required">
+          <label>Department Name</label>
+          <input required type="text" id="DepartmentName" name="DepartmentName" placeholder="Department Name"
+            [(ngModel)]="SerachText" />
+        </div>
+      </div>
+      <button class="ui purple tiny button my-1" (click)="search()">
+        Search
+      </button>
+    </div>
+  </form>
+
+  <table class="ui very compact unstackable teal table" *ngIf="datas">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <!-- <th>Actions</th> -->
+        <th>DEPARTMENT ID</th>
+        <th>DIVISION_ID</th>
+        <th>Dept Eng Name</th>
+        <th>Dept Bng Name</th>
+        <th>Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of datas; let i = index">
+        <td>{{i+1}} </td>
+        <!-- <td class="single line">
+        <i class="edit link blue icon"></i>
+      </td> -->
+        <td>
+          {{data?.DEPARTMENT_ID}}
+        </td>
+        <td>
+          {{data?.DIVISION_ID}}
+        </td>
+        <td>{{data?.DeptEngNm}}</td>
+        <td>{{data?.DeptBngNm}}</td>
+        <td>{{data?.Section}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

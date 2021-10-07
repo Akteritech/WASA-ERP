@@ -1,0 +1,152 @@
+<sui-message class="warning mb-2 pt-5" >
+  <strong>Note : </strong>
+  <li>To add Machine And Operator click On Workorder No. in table</li>
+</sui-message>
+<h4 class="ui teal dividing header mt-1" style="text-align: center;">
+  PFL PRINTING
+</h4>
+<div class="mb-5">
+  <button class="ui tiny orange button" type="button" [routerLink]="['/planning/pfl-dashboard']">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui tiny right floated green dropdown button" [ngClass]="{'teal':!showSearchForm}" (click)="showSearchForm = !showSearchForm;">
+    <i class="search icon"></i>
+    <div class="text mr-1">Search</div>
+    <!--<i class="dropdown icon"></i>-->
+    <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+    <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+  </button>
+  <form #form='ngForm' class="ui small mt-2 inline form" *ngIf="showSearchForm">
+    <h4 class="ui teal dividing header">
+      Search PFL Printing Information
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Work Order Number :</label>
+        <input placeholder="work order no"  type="text" [(ngModel)]="print.proprintingorderid" name="work">
+<!--        <sui-select placeholder=" " class="selection" [options]="workOrders" [(ngModel)]="print.proprintingorderid"-->
+<!--                    (input)="optionsLookupWorkOrder($event.target.value)" name="workorderno" [isSearchable]="true"-->
+<!--                    labelField="workorderno" valueField="workorderno" #selectWorkOrderNo>-->
+<!--          <sui-select-option *ngFor="let op of selectWorkOrderNo.filteredOptions" [value]="op"></sui-select-option>-->
+<!--        </sui-select>-->
+      </div>
+      <div class="field">
+        <label>From Date :</label>
+        <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+          name="fromDate">
+      </div>
+      <div class="field">
+        <label>To Date :</label>
+        <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+      </div>
+    </div>
+    <div class="equal width fields" style="float: right !important;">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" (click)="searchRecord()" class="ui small teal right button">
+          <i class="search left icon"></i>Search</button>
+      </div>
+      <div class="mr-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small purple button right"
+        (click)="form.resetForm();getData()">Reset</button>
+      </div>
+    </div>
+  </form>
+  <div class="ml-1 mt-3">
+    <label>&nbsp;</label>
+  </div>
+</div>
+  <div class="overflow-x-scroll mt-2 mb-2">
+  <table class=" ui very compact  unstackable teal table">
+    <thead style="text-align: center;">
+      <tr>
+        <th>
+          <sui-checkbox class="middle aligned" name="foreign" >
+          </sui-checkbox>
+        </th>
+        <th>S.No</th>
+        <th>Status</th>
+        <th>Work Order No</th>
+        <th>Delivery Date</th>
+        <th>Party Name</th>
+        <th>Item Name</th>
+        <th>Part</th>
+        <th>Color</th>
+        <th>Plan Qty</th>
+        <th>Print Qty</th>
+        <th>Comments</th>
+        <th>Transfer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jc of dataList; let i = index">
+        <td>
+          <sui-checkbox class="mt-2"  [(ngModel)]="jc.selected" name="{{i}}" (click)="selectCards(jc,i)"></sui-checkbox>
+        </td>
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+
+        <td class="text-center single line">
+         <button class="ui tiny red label mr-2 ml-2" type="button" *ngIf="jc?.Pri_Status == 0" (click)="jobReceive()"><strong style="color: black">Job Receive</strong></button>
+          <button  class="ui tiny orange label" *ngIf="jc?.Pri_Status == 7 && !jc.machinestatus?.length"><strong style="color: black">
+            Pending for Printing </strong></button>
+          <button class="ui tiny yellow label" *ngIf="!jc.hides == true"><strong style="color: black">
+            Printing Running </strong></button>
+         | <i class="trash link red icon ml-2 tips"  (click)="deleteRecord(jc.Pri_Id, jc.Pri_Red_Id)">
+           <span class="deletetext">Delete</span>
+         </i>
+          <button class="ui tiny blue label" id="machine1"  [routerLink]="['/planning/pfl-printing-update',jc?.Pri_Id]"><strong style="color: black">
+            Update Production Qty </strong></button>
+     </td>
+<!--     <a class="ui blue tiny label" (click)="viewDetail(jc?.Pri_Id)"><i class="eye link white icon"></i> View </a>-->
+
+      <td *ngIf="jc?.Pri_Status == 7"> <a class="pointer link" [routerLink]="['/planning/pfl-printing-machine',jc?.Pri_Id]"
+      >{{jc?.WorkOrderNo}}</a></td>
+        <td *ngIf="jc?.Pri_Status == 0">{{jc?.WorkOrderNo}}</td>
+<!--        <td> <a class="pointer link" *ngIf="jc?.Pri_Status == 0"-->
+<!--        >{{jc?.WorkOrderNo}}</a></td>-->
+        <td>{{jc?.EstDeliverDate}}</td>
+        <td>{{jc?.ClientName}}</td>
+        <td>{{jc?.SampleName}}</td>
+        <td>{{jc?.PartNo}}</td>
+        <td>{{jc?.SampleColorName}}</td>
+        <td>{{jc?.Pri_Job_Qty}}</td>
+        <td>
+          <div class="ui action input">
+          <input type="text" name="printing-qty" [(ngModel)]="jc.PrintQty" disabled>
+        </div>
+        </td>
+        <td>
+          <div class="ui action input">
+          <input type="text" name="comments">
+        </div>
+        </td> 
+        <td class="ui blue pointer link"> <strong>Transfer</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+                [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+                (pageChange)="pageChange()">
+</sui-pagination>
+
+
+  <!-- <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="getPrintingTableData()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()" [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div> -->
+<!--<div-->
+<!--infiniteScroll-->
+<!--[infiniteScrollDistance]="5"-->
+<!--[infiniteScrollThrottle]="1000"-->
+<!--(scrolled)="onScroll()"-->
+<!--&gt;-->
+
+<!--</div>-->

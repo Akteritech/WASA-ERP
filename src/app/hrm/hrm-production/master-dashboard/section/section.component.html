@@ -1,0 +1,93 @@
+<div class="pt-5">
+<div>
+  <button class="ui tiny orange button" type="button" routerLink="../">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+</div>
+
+<!-- <div [suiCollapse]="collapse">
+  <div class="mt-2">
+    <app-addsection (added)="onSaved($event)"></app-addsection>
+  </div>
+</div> -->
+
+<form onsubmit="return false;" class="ui small form" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+  <div class="ui segment mt-2" [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header">
+      <br>
+      Add Section
+    </h4>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Division</label>
+        <sui-select placeholder="company name" class="selection" name="companyname" [(ngModel)]="section.DIVISION_ID"
+          [options]="companies" [isSearchable]="true" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID"
+          #selectcompanyname>
+          <sui-select-option *ngFor="let op of selectcompanyname.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field ">
+        <label>Department</label>
+        <sui-select placeholder="Select Department" class="selection" name="department"
+          [(ngModel)]="section.DEPARTMENT_ID" [isSearchable]="true" labelField="DeptEngNm" valueField="DEPARTMENT_ID">
+          <sui-select-option *ngFor="let op of departments" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Section Name English</label>
+        <input type="text" placeholder="Section Name Emglish" id="sectionname" name="sectionname" maxlength="50"
+          [(ngModel)]="section.SecEngNm">
+      </div>
+      <div class="field">
+        <label>Section Name Bangla</label>
+        <input type="text" placeholder="Section Name Bangla" id="sectionnamebangla" name="sectionnamebangla"
+          maxlength="50" [(ngModel)]="section.SectBngNm">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Remarks</label>
+        <div class="two fields">
+          <div class="field">
+            <textarea [(ngModel)]="section.Remarks" id="sectionposition" name="sectionposition" placeholder="Remarks"
+              rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="!this.editId" class="ui teal tiny button my-1" (click)="patch(form)">Save</button>
+    <button *ngIf="this.editId" class="ui teal tiny button my-1" (click)="edit()">Update</button>
+  </div>
+</form>
+
+<table class="ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+  <thead>
+    <tr class="bg-teal text-white pr-5">
+      <th>SL</th>
+      <th>Actions</th>
+      <th>Section Name English</th>
+      <th>Section Name Bangla</th>
+      <th>Section Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let showdata of sectionData; let i = index">
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+      <td class="single line pointer">
+        <i class="edit link blue icon" (click)="getSectionEditData(showdata.SECTION_ID)"></i>
+      </td>
+      <td>{{showdata?.SecEngNm}}</td>
+      <td style="font-family: SutonnyMJ;">{{showdata?.SectBngNm}}</td>
+      <td>{{showdata?.Section }}</td>
+    </tr>
+  </tbody>
+</table>
+<sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+  [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+  (pageChange)="pageChange()">
+</sui-pagination>
+</div>

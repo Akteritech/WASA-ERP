@@ -1,0 +1,129 @@
+
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on" (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment">
+      <h3 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')" >
+        Add New Company
+      </h3>
+<!--      <h3 class="ui top blue attached header mt-2 "  (click)="collapse = !collapse;"  >-->
+<!--         Add New Company-->
+<!--      </h3>-->
+      <h3 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+         Edit Company
+      </h3>
+        <sui-message class="warning mb-2 mt-2" *ngIf="!company.companyname && !company.shortname">
+            <li>
+               <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+            </li>
+        </sui-message>
+        <div class="ui two column grid">
+            <div class="fourteen wide column">
+                <div class="equal width fields">
+                    <div class="field required" >
+                        <label>Company Name</label>
+                        <input required type="text" [(ngModel)]="company.companyname"  id="name1" name="name1" placeholder="company name"/>
+                    </div>
+                    <div class="field required" >
+                        <label>Short Name</label>
+                        <input required type="text" [(ngModel)]="company.shortname"  id="shortName" name="shortName" placeholder="short name"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Address</label>
+                    <div class="equal width fields">
+                        <div class="field">
+                            <input  type="text" [(ngModel)]="company.address" id="addressLine1" name="addressLine1" placeholder="address line 1">
+                        </div>
+                        <div class="field">
+                            <input  type="text" [(ngModel)]="company.address2" id="addressLine2" name="addressLine2" placeholder="address line 2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="two wide column pl-1">
+                <div class="fields pl-0 pt-2">
+                    <div class="sixteen wide field pl-0 pointer" title="Click here to add Company Image">
+                      <img *ngIf="!company.imagepath"  src="{{this.api.noImagePath}}" class="ui fluid image " alt=""  (click)="image.click()">
+                      <!--<img *ngIf="addsample.imagePath" [src]="imageSrc" class="ui image" alt="" (click)="image.click()">-->
+                      <img *ngIf="company.imagepath" src="{{ api.baseUrl + this.company?.imagepath }}" class="ui image" alt="" (click)="image.click()">
+                      <input type="file" hidden style="padding: 5px" accept="image/*"  (change)="handleFileInput($event.target.files)" #image name="image" placeholder="image"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="equal width fields">
+            <div class="field">
+                <label>Mobile</label>
+                <input type="text"  min="0" [(ngModel)]="company.mobile" id="mobile" name="mobile" placeholder="mobile">
+            </div>
+            <div class="field">
+                <label>Phone</label>
+                <input type="number" min="0"  [(ngModel)]="company.phone" id="phone" name="phone" placeholder="phone no">
+            </div>
+            <div class="field">
+                <label>Fax</label>
+                <input  type="text" [(ngModel)]="company.fax" id="fax" name="fax" placeholder="fax">
+            </div>
+            <div class="field required">
+                <label>Email</label>
+                <input [(ngModel)]="company.email" id="email" name="email" placeholder="email" required type="email">
+            </div>
+        </div>
+        <div class="four fields">
+            <div class="four wide  field">
+                <label>Web</label>
+                <input type="text" placeholder="web" [(ngModel)]="company.web" id="web" name="web">
+            </div>
+            <div class="four wide field">
+                <label>District</label>
+                <input type="text" placeholder="district" [(ngModel)]="company.district" id="district" name="district">
+            </div>
+            <div class="four wide field">
+                <label>Post Code</label>
+                <input type="text" placeholder="post code" [(ngModel)]="company.postcode" id="pcode" name="pcode">
+            </div>
+            <div class="four wide field">
+                <label>IRC No.</label>
+                <input type="text" placeholder="irc no" [(ngModel)]="company.ircno" id="ircnum" name="ircnum">
+            </div>
+        </div>
+        <div class="four fields">
+            <div class="four wide  field">
+                <label>LCA No.</label>
+                <input type="text" placeholder="lca no" [(ngModel)]="company.lcano" id="lcanum" name="lcanum">
+            </div>
+            <div class="four wide field">
+                <label>Year of Renewal</label>
+                <input type="text" placeholder="yor" [(ngModel)]="company.yearofrenewal" id="yor" name="yor">
+            </div>
+            <div class="four wide field">
+                <label>TIN No.</label>
+                <input type="text" placeholder="tin no" [(ngModel)]="company.tinno" id="tinnum" name="tinnum">
+            </div>
+            <div class="four wide field">
+                <label>Vat Reg. No.</label>
+                <input type="text" placeholder="vat reg. mo" [(ngModel)]="company.vatregno" id="vatregnum" name="vatregnum">
+            </div>
+        </div>
+        <div class="three fields">
+            <div class="equal width field">
+                <label>ERC No.</label>
+                <input type="text" placeholder="erc no" [(ngModel)]="company.ercno" id="ercnum" name="ercnum">
+            </div>
+            <div class="equal width field">
+                <label>Label H.S. Code</label>
+                <input type="text"placeholder="h.s.code" [(ngModel)]="company.hscode" id="hscode" name="hscode">
+            </div>
+            <div class="equal width field">
+                <label>Sector of Industry</label>
+                <input type="text" placeholder="industry" [(ngModel)]="company.sectorofindustry" id="industry" name="industry">
+            </div>
+        </div>
+    </div>
+    <button class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        Save
+    </button>
+    <button class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+        Update
+    </button>
+</form>
+

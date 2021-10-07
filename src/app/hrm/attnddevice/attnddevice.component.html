@@ -1,0 +1,290 @@
+<div class="ui container pt-5" [ngStyle]="{'background-color':'#71797E'}">
+
+
+ 
+
+
+
+  <div class="ui center aligned grid">
+
+    <div class="ten wide column" [ngStyle]="{'background-color':'#71797E'}">
+      <h2 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}">Attendance Device monitoring</h2>
+    </div>
+  </div>  
+  
+  <table class="ui mini very compact stackable teal table" >
+    
+    <thead>
+      <tr>
+        <th >SL</th>
+        <th>Area</th>
+        <th >Device</th>
+        <th>IP</th>
+        <th >SerialNo</th>
+        <th >Terminal</th>
+        <th >Faces</th>
+        <th >Last Activity</th>
+        <th >Push Time</th>
+        <th >States</th>
+        <!-- <th >Out Time </th>
+        <th >Assign Shift</th>
+        <th >Status</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of attendenceReportData; let i = index">
+        <td >{{i+1}} </td>
+        <!-- <td ><a [routerLink]="">Attendance</a></td> -->
+        <td >{{s?.Zone}}</td>
+        <td (click)="machineAttendance(s.Device)"><a>{{s?.Device}}</a></td>
+        <!-- <td (click)="machineAttendance(s.Device)"><span class="clickable">
+          {{s?.Device}}
+        </span></td> -->
+        <!-- <td>{{s?.Section}}</td> -->
+        <td >{{s?.IP}}</td>
+        <!-- <td><img src="assets/employees/{{s?.EMP_CARD_NO}}.jpg"  alt="" height="70px" width="70px" style="border-radius: 50%;border:3px solid rgb(243, 17, 17)" ></td> -->
+        <td >{{s?.SerialNo}}</td>
+        <td >{{s?.Terminal}}</td>
+        <td >{{s?.Faces}} </td>
+        <td >{{s?.last_activity}}</td>
+        <td >{{s?.push_time}}</td>
+        <td >{{s?.States}}</td>
+        <!-- <td >{{s?.AttendStatus}}</td> -->
+      </tr>
+    </tbody>
+  </table>
+  <div class="ui center aligned grid">          
+  <h3 style="margin-top: 1px;" [ngStyle]="{'color':'white'}">Device wise Attendance</h3>
+  </div>
+  <table class="ui very compact stackable teal table">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>Area</th>
+        <!-- <th>Actions</th> -->
+        <th>Device</th>
+        <th>IP Address</th>
+        <th>CardID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of devicedata; let i = index">
+        <!-- <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td> -->
+        <!-- <td class="single line pointer">
+          <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/department/',showdata?.DEPARTMENT_ID]"></i>
+        </td> -->
+        <td>{{showdata?.area_name}}</td>
+        <td>{{showdata?.DeviceNo}}</td>
+        <td>{{showdata?.ip_address}}</td>
+        <td>{{showdata?.CardID}}</td>
+        <td>{{showdata?.Name}}</td>
+        <td>{{showdata?.AttendDate}}</td>
+        <td>{{showdata?.PunchTime}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination> -->
+  <!-- <div class="ui link divided stackable four cards" hidden="true" >
+
+    <a class="card raised cardmy3" [routerLink]="['/hrm/attendance']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Wasa Bhaban </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          
+          <div>{{area}}</div>
+          <div>{{devuser}}</div>
+          <div>Last activity:{{lastactivity}} </div>
+          <div [ngClass]="{'blink_me' : devicestatusActive}">{{devicestatus}}</div>
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/hrm/attnddevice']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Wasa Bhaban</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          <div>{{area1}}</div>
+          <div>{{devuser1}}</div>
+          <div>Last activity:{{lastactivity1}}</div>
+          <div [ngClass]="{'blink_me' : devicestatusActive1}">{{devicestatus1}}</div>
+        </div>
+        
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/calender2']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-2" [ngStyle]="{'color':'darkgrey'}"> SWTP-1 </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+         <div>{{area2}}</div>
+          <div>{{devuser2}}</div>
+          <div>Last activity:{{lastactivity2}} </div>
+          <div [ngClass]="{'blink_me' : devicestatusActive2}">{{devicestatus2}}</div>
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/hrm/employeeshift']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">SWTP-2</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          <div>{{area3}}</div>
+          <div>{{devuser3}}</div>
+          <div>Last activity:{{lastactivity3}} </div>
+          <div [ngClass]="{'blink_me' : devicestatusActive3}">{{devicestatus3}}</div>
+        </div>
+      </div>
+    </a>
+
+    
+    <a class="card raised cardmy3" [routerLink]="['/hrm/employeeshift']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">MTR</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(61, 53, 53, 0.76)">
+         
+          <div>{{area4}}</div>
+          <div>{{devuser4}}</div>
+          <div>Last activity:{{lastactivity4}} </div>
+          <div [ngClass]="{'blink_me' : devicestatusActive4}">{{devicestatus4}}</div>
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy3" [routerLink]="['/hrm/hrmMaster']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Generator </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          <div>Area: AsadGate</div>
+          <div>Total Users: </div>
+          <div>Last activity: </div>
+          <div class="blink_me">Not connected</div> 
+        </div>
+      </div>
+    </a>
+
+       
+    <a class="card raised cardmy3" [routerLink]="['/hrm/employeeshift']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">QCD</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          <div>Area: Lalmatia</div>
+          <div>Total Users: </div>
+          <div>Last activity: </div>
+          <div class="blink_me">Not connected</div>
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/hrm/facerecog']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-1" [ngStyle]="{'color':'darkgrey'}">FMD-2</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          <div>Area: Mirpur</div>
+          <div>Total Users: </div>
+          <div>Last activity: </div>
+          <div class="blink_me">Not connected</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+  <div class="ui center aligned grid">
+  <div class="ten wide column" [ngStyle]="{'background-color':'#71797E'}">
+    <h5 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}"> Intelligent Technology.2021</h5>
+  </div>
+  </div> -->
+  <!-- <div class="ui center message">
+       
+    </div> -->
+ 
+</div>

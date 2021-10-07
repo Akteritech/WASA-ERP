@@ -1,0 +1,371 @@
+<div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <div style="height: 1020px;">
+      <table style="border: 1px solid black; border-collapse: collapse;width: 100%; font-size: 15px;">
+        <tr>
+          <td colspan="2" style="border-top: 1px solid black;border-left: 1px solid black;text-align: center; padding: 5px; ">
+            <div style="font-size: 22px; font-weight: bold;"> {{leaveData.empData.DIVISION_NAME_ENG}} </div>
+          </td>
+          <td style="border-left: 1px solid black; border-right: 1px solid black;text-align: center; padding: 5px;">
+            <strong>Doc. Code: Doc. Code: HR/03/029
+            </strong>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border-left: 1px solid black; border-top: 1px solid black;text-align: center; padding: 5px;">
+            <strong>Title: Leave Application Form </strong> </td>
+          <td style="border-left: 1px solid black;text-align: center; padding: 5px;"><strong>Page 1 of 1</strong> </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;text-align: center; padding: 5px;"><strong>Effective Date: 01/01/2018
+            </strong>
+          </td>
+          <td style="border: 1px solid black;text-align: center; padding: 5px;"><strong>Revision Status: 00</strong> </td>
+          <td style="border: 1px solid black;text-align: center; padding: 5px;"><strong>Issue No: 01</strong> </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse; width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 45%; text-align: left;">
+            <strong> Sub: Leave Application</strong>
+          </td>
+          <td style="width: 45%;text-align: right;">
+            <strong>Date: {{today}} </strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; text-align: center; margin-top: 10px;">
+        <tr>
+          <th style="border: 1px solid black; padding: 3px;">
+            Name
+          </th>
+          <th style="border: 1px solid black;">
+            Designation
+          </th>
+          <th style="border: 1px solid black;">
+            Card No
+          </th>
+          <th style="border: 1px solid black;">
+            Section
+          </th>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black; text-align: center;">
+            {{leaveData.empData.EMP_NAME_ENG}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.empData.DesigNmEng}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.empData.EMP_CARD_NO}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.empData.DeptEngNm}}
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%;  font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 30%; text-align: left;">
+            <strong>Joining Date: </strong>
+          </td>
+          <td style="text-align: left;">
+            <strong>{{leaveData.empData.JOINING_DATE}} </strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 15%; text-align: left;">
+            <strong>Leave from </strong>
+          </td>
+          <td style="width: 20%; text-align: left; border-bottom: 1px solid black;">
+          </td>
+          <td style="width: 10%; text-align: right;">
+            <strong>To</strong>
+          </td>
+          <td style="width: 25%; text-align: left; border-bottom: 1px solid black;">
+          </td>
+          <td style="width: 15%; text-align: right;">
+            <strong>Total </strong>
+          </td>
+          <td style="width: 15%; text-align: left; border-bottom: 1px solid black;">
+          </td>
+          <td style="width: 5%; text-align: left;">
+            <strong>days</strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 100%; text-align: left;">
+            <strong>Type of Leave: Earn Leave/ Medical Leave/ Casual Leave/ Maternity Leave </strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 100%; text-align: left;">
+            <strong>Reason of Leave
+            </strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 85%; text-align: left;">
+            <strong> Address during Leave</strong>
+          </td>
+          <td style="width: 15%;text-align: center;border-top: 1px solid black;">
+            <strong>Signature</strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 100%; text-align: left;">
+            <strong>Contact No
+            </strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 55%; text-align: left;">
+            <strong> Responsible Person </strong>
+          </td>
+          <td style="width: 35%; text-align: left;">
+            <strong> Card No: </strong>
+          </td>
+          <td style="width: 10%;text-align: center; border-top: 1px solid black;">
+            <strong>Signature</strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <th style="border: 1px solid black; padding: 3px;">
+            Description
+          </th>
+          <th style="border: 1px solid black;">
+            Earn Leave
+          </th>
+          <th style="border: 1px solid black;">
+            Medical
+          </th>
+          <th style="border: 1px solid black;">
+            Casual
+          </th>
+          <th style=" border: 1px solid black;">
+            Maternity
+          </th>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;">
+            Eligible
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.allowed.el}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.allowed.sl}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.allowed.cl}}
+          </td>
+          <td style=" border: 1px solid black;">
+
+          </td>
+        <tr>
+          <td style="border: 1px solid black;">
+            Consume
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.spent.el}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.spent.sl}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+            {{leaveData.spent.cl}}
+          </td>
+          <td style=" border: 1px solid black; text-align: center;">
+
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;">
+            Balance
+          </td>
+          <td style="border: 1px solid black; text-align: center;">
+            {{leaveData.remaining.el}}
+          </td>
+          <td style="border: 1px solid black; text-align: center;">
+            {{leaveData.remaining.sl}}
+          </td>
+          <td style="border: 1px solid black; text-align: center;">
+            {{leaveData.remaining.cl}}
+          </td>
+          <td style="border: 1px solid black;">
+
+          </td>
+        </tr>
+      </table>
+
+      <table style="margin-top: 30px; width: 100%;text-align: center; font-size: 15px; margin-top: 25px;">
+        <tr>
+          <td style="width: 23%;border-bottom: 1px solid black;padding: 4px;"></td>
+          <td style="width: 23%;border-bottom: 1px solid black;padding: 4px;"></td>
+          <td style="width: 23%;border-bottom: 1px solid black;padding: 4px;"></td>
+          <td style="width: 23%;border-bottom: 1px solid black;padding: 4px;">HR</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px">In Charge</td>
+          <td>Head of Department</td>
+          <td>Authorization</td>
+          <td>Prepared by</td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 100%;">
+            .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-weight: bold; margin-top: 10px;">
+        <tr>
+          <td style="text-align: center;font-weight: bold;">
+            <div> Applicant's Copy </div>
+            <div> {{leaveData.empData.DIVISION_NAME_ENG}} </div>
+            <div> Khordokhosh para, Mijmiji, sidhirganj, Narayanganj </div>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px;text-align: center; margin-top: 18px;">
+        <tr>
+          <th style="border: 1px solid black; padding: 3px;">
+            Name
+          </th>
+          <th style="border: 1px solid black;">
+            Designation
+          </th>
+          <th style="border: 1px solid black;">
+            Card No
+          </th>
+          <th style="border: 1px solid black;">
+            Section
+          </th>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;">
+            {{leaveData.empData.EMP_NAME_ENG}}
+          </td>
+          <td style="border: 1px solid black;">
+            {{leaveData.empData.DesigNmEng}}
+          </td>
+          <td style="border: 1px solid black;">
+            {{leaveData.empData.EMP_CARD_NO}}
+          </td>
+          <td style="border: 1px solid black;">
+            {{leaveData.empData.DeptEngNm}}
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 18px;">
+        <tr>
+          <td style="width: 15%; text-align: left;">
+            <strong>Leave from </strong>
+          </td>
+          <td style="width: 20%; text-align: left; border-bottom: 1px solid black;">
+          </td>
+          <td style="width: 10%; text-align: right;">
+            <strong>To</strong>
+          </td>
+          <td style="width: 25%; text-align: left; border-bottom: 1px solid black;">
+          </td>
+          <td style="width: 15%; text-align: right;">
+            <strong>Total </strong>
+          </td>
+          <td style="width: 15%; text-align: left; border-bottom: 1px solid black;">
+          </td>
+          <td style="width: 5%; text-align: left;">
+            <strong>days</strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px;text-align: center; margin-top: 18px;">
+        <tr>
+          <td colspan="4" style="font-weight: bold; padding-bottom: 5px;">Balance</td>
+        </tr>
+        <tr>
+          <th style="border: 1px solid black; padding: 3px;">
+            Earn Leave
+          </th>
+          <th style="border: 1px solid black;">
+            Medical
+          </th>
+          <th style="border: 1px solid black;">
+            Casual
+          </th>
+          <th style="border: 1px solid black;">
+            Maternity
+          </th>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;">
+            {{leaveData.remaining.el}}
+          </td>
+          <td style="border: 1px solid black;">
+            {{leaveData.remaining.sl}}
+          </td>
+          <td style="border: 1px solid black;">
+            {{leaveData.remaining.cl}}
+          </td>
+          <td style="border: 1px solid black;">
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 15px; margin-top: 30px;">
+        <tr>
+          <td style="width: 80%; text-align: left;">
+            <strong> </strong>
+          </td>
+          <td style="width: 20%;text-align: center; border-top: 1px solid black;">
+            <strong>Approved by</strong>
+          </td>
+        </tr>
+      </table>
+
+      <table style="border-collapse: collapse;width: 100%; font-size: 8px; margin-top: 18px;">
+        <tr>
+          <td style="width: 75%; text-align: left;">
+          <!-- Printed from ERP Personnel Information Management System -->
+              <!-- , Report Date: 23-05-2020, Time: 1:39:05PM -->
+          </td>
+          <td style="width: 25%;text-align: right;">
+            <!-- <strong>Page 1 of 1</strong> -->
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  <!-- </div> -->
+
+</div>

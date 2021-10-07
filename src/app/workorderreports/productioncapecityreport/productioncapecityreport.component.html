@@ -1,0 +1,171 @@
+<div class="ui segment small inline form mt-2" style="margin-top: 120px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Production Capacity
+    </h4>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="search"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="search"
+            autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="generateExcel()">Order Analyze</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="excelProductionCapacity()">Production Capacity</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="orderAnalize" >
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="generateExcel()">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfOrderAnalize()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="8" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Order Analyze Report</span>
+        </td>
+      </tr>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Department</th>
+        <th>Buyer</th>
+        <th>Month</th>
+        <th>Sample Name</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Color</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let ordersAnalize of orderAnalize; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{ordersAnalize['Dept']}}</td>
+          <td>{{ordersAnalize['Buyer']}}</td>
+          <td>{{ordersAnalize['Month']}}</td>
+          <td>{{ordersAnalize['Sample Name']}}</td>
+          <td>{{ordersAnalize['Qty']}}</td>
+          <td>{{ordersAnalize['Value']}}</td>
+          <td>{{ordersAnalize['Color']}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="productionCapacity">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="excelProductionCapacity()">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfProductionCapacity()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="29" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Production Capacity Report</span>
+        </td>
+      </tr>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Department</th>
+        <th>No of Shift</th>
+        <th>Capacity (PCS)</th>
+        <th>Carried/Forward Qty</th>
+        <th>Carried/Forward Value</th>
+        <th>Challan Qty Without Set</th>
+        <th>Challan Qty With Set</th>
+        <th>Average Rate</th>
+        <th>Value</th>
+        <th>Acheivement Against Capacity %</th>
+        <th>FinishStockQty</th>
+        <th>HMQty</th>
+        <th>HMQtyWithPart</th>
+        <th>HMAmt</th>
+        <th>NexgenQty</th>
+        <th>NexgenAmt</th>
+        <th>BywaysQty</th>
+        <th>BywaysAmt</th>
+        <th>COQty</th>
+        <th>COAmt</th>
+        <th>CRQty</th>
+        <th>CRAmt</th>
+        <th>BCQty</th>
+        <th>BCAmt</th>
+        <th>OthersQty</th>
+        <th>OthersAmt</th>
+        <th>TotalQty</th>
+        <th>TotalAmt</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let productionCapacity of productionCapacity; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{productionCapacity['Dept']}}</td>
+          <td>{{productionCapacity['No of Shift']}}</td>
+          <td>{{productionCapacity['Capacity (PCS)']}}</td>
+          <td>{{productionCapacity['Carried/Forward Qty']}}</td>
+          <td>{{productionCapacity['Carried/Forward Value']}}</td>
+          <td>{{productionCapacity['Challan Qty Without Set']}}</td>
+          <td>{{productionCapacity['Challan Qty With Set']}}</td>
+          <td>{{productionCapacity['Average Rate']}}</td>
+          <td>{{productionCapacity['Value']}}</td>
+          <td>{{productionCapacity['Acheivement Against Capacity %']}}</td>
+          <td>{{productionCapacity['FinishStockQty']}}</td>
+          <td>{{productionCapacity['HMQty']}}</td>
+          <td>{{productionCapacity['HMQtyWithPart']}}</td>
+          <td>{{productionCapacity['HMAmt']}}</td>
+          <td>{{productionCapacity['NexgenQty']}}</td>
+          <td>{{productionCapacity['NexgenAmt']}}</td>
+          <td>{{productionCapacity['BywaysQty']}}</td>
+          <td>{{productionCapacity['BywaysAmt']}}</td>
+          <td>{{productionCapacity['COQty']}}</td>
+          <td>{{productionCapacity['COAmt']}}</td>
+          <td>{{productionCapacity['CRQty']}}</td>
+          <td>{{productionCapacity['CRAmt']}}</td>
+          <td>{{productionCapacity['BCQty']}}</td>
+          <td>{{productionCapacity['BCAmt']}}</td>
+          <td>{{productionCapacity['OthersQty']}}</td>
+          <td>{{productionCapacity['OthersAmt']}}</td>
+          <td>{{productionCapacity['TotalQty']}}</td>
+          <td>{{productionCapacity['TotalAmt']}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+</div>

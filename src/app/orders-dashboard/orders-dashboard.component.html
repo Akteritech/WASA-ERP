@@ -1,0 +1,200 @@
+
+<div class="ui container pt-5">
+  <div class="ui link divided stackable four cards">
+    <a class="card raised cardmy3" [routerLink]="['/workorderforall']" *ngIf="viewList.includes('Work Order')">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Create Work Orders</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/work_order.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and View Work Orders
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/workorderconfirmation']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Work Order Confirmation</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/work_order_confirm.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+         Work Orders send for jobcard
+        </div>
+      </div>
+    </a>
+
+   <a class="card raised cardmy3" [routerLink]="['/ordertracking']">
+     <div class="ui centered my-3">
+       <div class="ui grid w-100">
+         <div class="nine wide column">
+           <h1 class="ml-3">Send for Production</h1>
+         </div>
+         <div class="seven wide column">
+           <div class="ui image">
+             <img src="assets/send_for_production.png" style="height: 88.38px; width: 88.38px; margin-left: 12px;">
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="content">
+       <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+         Work Orders send for production
+       </div>
+     </div>
+   </a>
+
+<!--    <a class="card raised cardmy3" [routerLink]="['/offset']">-->
+<!--      <div class="ui centered my-3">-->
+<!--        <div class="ui grid w-100">-->
+<!--          <div class="nine wide column">-->
+<!--            <h1 class="ml-3">Offset</h1>-->
+<!--          </div>-->
+<!--          <div class="seven wide column">-->
+<!--            <div class="ui image">-->
+<!--              <img src="assets/offset.png" style="height: 88.38px; width: 88.38px">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+<!--          Create and View  Offset Work Orders-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--    <a class="card raised cardmy3" [routerLink]="['/pfl/work-orders']">-->
+<!--      <div class="ui centered my-3">-->
+<!--        <div class="ui grid w-100">-->
+<!--          <div class="nine wide column">-->
+<!--            <h1 class="ml-3">PFL</h1>-->
+<!--          </div>-->
+<!--          <div class="seven wide column">-->
+<!--            <div class="ui image">-->
+<!--              <img src="assets/PFL.png" style="height: 88.38px; width: 88.38px">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+<!--          Create and View  PFL Work Orders-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--    <a class="card raised cardmy3" [routerLink]="['/thermal/work-orders']">-->
+<!--      <div class="ui centered my-3">-->
+<!--        <div class="ui grid w-100">-->
+<!--          <div class="nine wide column">-->
+<!--            <h1 class="ml-3">Thermal</h1>-->
+<!--          </div>-->
+<!--          <div class="seven wide column">-->
+<!--            <div class="ui image">-->
+<!--              <img src="assets/thermal.jpg" style="height: 88.38px; width: 88.38px">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+<!--          Create and View  Thermal Work Orders-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--    <a class="card raised cardmy3" [routerLink]="['/heat-transfer/work-orders']">-->
+<!--      <div class="ui centered my-3">-->
+<!--        <div class="ui grid w-100">-->
+<!--          <div class="nine wide column">-->
+<!--            <h1 class="ml-3">Heat Transfer</h1>-->
+<!--          </div>-->
+<!--          <div class="seven wide column">-->
+<!--            <div class="ui image">-->
+<!--              <img src="assets/heat.png" style="height: 88.38px; width: 88.38px">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+<!--          Create and View  Heat Transfer Work Orders-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </a>-->
+<!-- <a class="card raised cardmy3" [routerLink]="['/screen-print/work-orders']">-->
+<!--      <div class="ui centered my-3">-->
+<!--        <div class="ui grid w-100">-->
+<!--          <div class="nine wide column">-->
+<!--            <h1 class="ml-3">Screen Print</h1>-->
+<!--          </div>-->
+<!--          <div class="seven wide column">-->
+<!--            <div class="ui image">-->
+<!--              <img src="assets/screen.png" style="height: 88.38px; width: 88.38px">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+<!--          Create and View  Screen Print Work Orders-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </a>-->
+
+<!--    <a class="card raised cardmy3" [routerLink]="['/woven/mergeorder']">-->
+<!--      <a class="ui orange tag label">Under Development</a>-->
+<!--      <div class="ui centered my-3">-->
+<!--        <div class="ui grid w-100">-->
+<!--          <div class="nine wide column">-->
+<!--            <h1 class="ml-3">Combined Orders</h1>-->
+<!--          </div>-->
+<!--          <div class="seven wide column">-->
+<!--            <div class="ui image">-->
+<!--              <img src="assets/merge-order.png" style="height: 88.38px; width: 88.38px">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+<!--          Merge Work Orders-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </a>-->
+   <a class="card raised cardmy3" [routerLink]="['/upload-orders']" *ngIf="addList.includes('Work Order')">
+     <!-- <a class="ui orange tag label">Under Development</a> -->
+     <div class="ui centered my-3">
+       <div class="ui grid w-100">
+         <div class="nine wide column">
+           <h1 class="ml-3">Upload Order</h1>
+         </div>
+         <div class="seven wide column">
+           <div class="ui image">
+             <img src="assets/thermal.jpg" style="height: 88.38px; width: 88.38px">
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="content">
+       <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+         Upload Work Orders
+       </div>
+     </div>
+   </a>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<app-submit-code *ngIf="!visible" page="Process" (valid)="visible = true"></app-submit-code>
+<div class="pt-5">
+  <form *ngIf="visible" onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+    <div>
+      <button class="ui tiny orange button" type="button" (click)="backClicked()">
+        <i class="arrow left icon"></i>
+        Back
+      </button>
+      <button class="ui red tiny button my-1" (click)="reset()">
+        <i class="recycle icon"></i> Reset
+      </button>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Month/From Date</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="date" name="fromDateName" autocomplete="off"
+          (ngModelChange)="getData(true)">
+      </div>
+      <div class="field">
+        <label>To Date (For Processing)</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="toDate" [pickerMinDate]="date" name="toDateName"
+          autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Card</label>
+        <input type="text" [(ngModel)]="cardSearch" name="cards" (ngModelChange)="filter()">
+      </div>
+      <div class="field">
+        <label>Department</label>
+        <sui-select placeholder="Select Department" class="selection" name="department" [(ngModel)]="departmentSearch"
+          [isSearchable]="true" (keyup)="searchDepartment($event.target.value)" (ngModelChange)="filter()">
+          <sui-select-option *ngFor="let op of departments" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Zone</label>
+        <sui-select placeholder="Select Company" class="selection" name="company" [(ngModel)]="company" [isDisabled]="hide"
+          (ngModelChange)="filter()">
+          <sui-select-option *ngFor="let op of companies" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label><button type="button" class="ui tiny yellow button" (click)="pdf()">PDF</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label><button type="button" class="ui tiny green button" (click)="excel()">Excel</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button type="button" class="ui tiny olive button" (click)="process()">Process
+          Attendance</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><a type="button" class="ui tiny red button" [routerLink]="['/hrm/editattendance']">Manual
+          Attendance</a>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="visible" style="width: 100%; overflow-x: scroll;" [ngStyle]="{'background-color':'#71797E'}">
+  <table class="ui mini very compact unstackable teal table" style="table-layout:fixed;">
+    <thead>
+      <tr>
+        <th >Sl</th>
+        <th >Area</th>
+        <th >Employee</th>
+        <th Card></th>
+        <th >Department</th>
+        <th *ngFor="let day of dayList">{{day}}</th>
+        <th>Pr</th>
+        <th>WH</th>
+        <th>Abs</th>
+        <th>TotPr</th>
+        <th>Hrs</th>
+        <th>OT</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of data; let i = index">
+        <td>{{(i + 1) + (currentPage - 1) * pageSize}}</td>
+        <td>{{s.Company}}</td>
+        <td [class.manual]=s.Manual (click)="modifyAttendance(i)"><div class="tooltip">{{s.EMP_NAME_ENG}}
+            <span class="tooltiptext" *ngIf="s.Manual">Manual</span>
+        </div></td>
+        <td (click)="jobcardIndivisual(s.EMP_CARD_NO)"><span class="clickable">
+          {{s.EMP_CARD_NO}}
+        </span></td>
+        <td class="clickable">{{s.DeptEngNm}} </td>
+        <td [class.present]="s[day]=='P'" [class.absent]="s[day] == 'A'" *ngFor="let day of dayList">{{s[day]}}</td>
+        <td>{{s.Present}}</td>
+        <td>{{s.WeekendHolidays}}</td>
+        <td>{{s.Absent}}</td>
+        <td>{{s.TotalPresent}}</td>
+        <td>{{s.Hour}}</td>
+        <td>{{s.OT}}</td>
+      </tr>
+    </tbody>
+    <sui-pagination [collectionSize]="dataSize" [pageSize]="pageSize" [hasNavigationLinks]="true"
+      [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="currentPage"
+      (pageChange)="pageChange()">
+    </sui-pagination>
+  </table>
+</div>

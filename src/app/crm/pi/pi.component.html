@@ -1,0 +1,78 @@
+<app-add-pi (added)="get()" [id] = "editId"></app-add-pi>
+<form class="ui form" #form='ngForm' onsubmit="return false;" autocomplete="off">
+  <div class="ui segment pt-5">
+    <h4 class="ui teal dividing header">
+      Search PI
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>PI No</label>
+        <input placeholder="PI No" type="text" [(ngModel)]="pino" id="piNo" name="poNo" autofocus />
+      </div>
+      <div class="field">
+        <label>PI From Date</label>
+        <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+          name="fromDate">
+      </div>
+      <div class="field">
+        <label>PI To Date</label>
+        <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+      </div>
+    </div>
+    <button class="ui teal tiny button" (click)="get()">Search</button>
+    <button class="ui tiny red button" (click)="reset()">Reset</button>
+    <div *ngIf="piData" style="margin-top: 10px;">
+      <table class="ui very compact unstackable teal table">
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Actions</th>
+            <th>PI No</th>
+            <th>PI Date</th>
+            <th>Client Name</th>
+            <th>Sales Person</th>
+            <th>PI Value</th>
+            <th>PI Qty</th>
+            <th>Job No</th>
+            <th>REQ</th>
+            <th>Style No</th>
+            <th>Merchandiser Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pidata of piData; let i =index">
+            <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+            <td class="single line">
+              <i class="edit blue icon" (click)="edit(i)"></i>
+              <i class="eye link orange icon" (click)="viewDetail1(i)"></i>
+            </td>
+            <td>{{pidata?.PINo}}</td>
+            <td>{{pidata?.PIDate.substring(0,10)}}</td>
+            <td>{{pidata['Client Name']}}</td>
+            <td>{{pidata['Sales Person']}}</td>
+            <td>{{pidata['PI Value']}}</td>
+            <td>{{pidata['PI Qty']}}</td>
+            <td>{{pidata['JobNo']}}</td>
+            <td>{{pidata['REQ']}}</td>
+            <td>{{pidata['StyleNo']}}</td>
+            <td>{{pidata['MerchandiserName']}}</td>
+            
+          </tr>
+        </tbody>
+      </table>
+
+      <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+        [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+        (pageChange)="get()">
+      </sui-pagination>
+
+      <div class="ui action input ml-2">
+        <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+        <button (click)="goToPageNo()"
+          [disabled]="!goToPage || goToPage==meta.currentPage || goToPage>meta.totalPageCount || goToPage<1"
+          class="ui button">Go to Page
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

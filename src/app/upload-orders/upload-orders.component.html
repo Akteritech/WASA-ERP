@@ -1,0 +1,85 @@
+<!--  <div class="equal wide fields">-->
+
+
+<!--  </div>-->
+<!--  <div class="field">-->
+<!--    <button class="ui orange button my-4 mt-2" >Check Excel</button>-->
+<!--  </div>-->
+<!--    <div class="field">-->
+<!--    <button class="ui blue button my-4 mt-2" >Upload Excel</button>-->
+<!--  </div>-->
+<!--  </div>-->
+  <div class="ui centered card cardmy3 w-75 mt-5" >
+    <div class="ui raised  segment">
+      <a class="ui red ribbon label">Upload Excel File for Byways and Nexgen Work Orders</a>
+      <form class="ui form mt-4 mb-3 ml-1 mr-1"  #form='ngForm' onsubmit="return false;" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+        <div class="equal wide fields">
+          <div class="field">
+            <label>Choose Excel for Nexgen</label>
+            <input type="file"  accept=".xlsx, .xls, .csv" id="file" (change)="fileChanged($event)">
+          </div>
+          <div class="field">
+            <button class="ui orange  tiny button  my-3 mt-4" (click)="uploadDocument(file, 4)" >Check Excel</button>
+          </div>
+          <div class="field">
+            <button class="ui blue tiny button my-3 mt-4" (click)="submit()">Upload Excel</button>
+          </div>
+        </div>
+        <div class="equal wide fields">
+          <div class="field">
+            <label>Choose Excel for Byways</label>
+            <input type="file"  accept=".xlsx, .xls, .csv" id="file" (change)="fileChanged($event)">
+          </div>
+          <div class="field">
+            <button class="ui orange  tiny button  my-3 mt-4" (click)="uploadDocument(file, 6 )" >Check Excel</button>
+          </div>
+          <div class="field">
+            <button class="ui blue tiny button my-3 mt-4" (click)="submit()">Upload Excel</button>
+          </div>
+        </div>
+        <div class="equal wide fields">
+          <div class="field">
+            <label>Choose Excel for H&M</label>
+            <input type="file"  accept=".xlsx, .xls, .csv" id="file" (change)="fileChanged($event)">
+          </div>
+          <div class="field">
+            <button class="ui orange  tiny button  my-3 mt-4" (click)="uploadHnMDocument(file)" >Check Excel</button>
+          </div>
+          <div class="field">
+            <button class="ui blue tiny button my-3 mt-4" (click)="submit()">Upload Excel</button>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div>
+            <div class="mt-2 overflow-x-scroll" style="height: 310px !important;" >
+              <table class="ui tiny very compact table unstackable">
+                <thead>
+                <th>S. No.</th>
+                <th>BUYER NAME</th>
+                <th>CUSTOMER NAME</th>
+                <th>VENDOR PO</th>
+                </thead>
+                <tbody *ngIf="company===4">
+                <tr *ngFor="let s of excelArray;let i = index " class="" >
+                  <td >{{i+1}}</td>
+                  <td >{{s['BUYER NAME']}}</td>
+                  <td >{{s['CUSTOMER NAME']}}</td>
+                  <td >{{s['VENDOR PO']}}</td>
+                </tr>
+                </tbody>
+                <tbody *ngIf="company===6">
+                  <tr *ngFor="let s of excelArray;let i = index " class="" >
+                    <td >{{i+1}}</td>
+                    <td >{{s['BUYER']}}</td>
+                    <td >{{s['CUSTOMER NAME']}}</td>
+                    <td >{{s['PO NO']}}</td>
+                  </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+

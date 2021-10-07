@@ -1,0 +1,120 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;serchForm()" *ngIf="addList.includes('Work Order')">
+    <span *ngIf="collapse"> <strong><i class="add icon"></i></strong>     Create New Order</span>
+    <span *ngIf="!collapse"><strong><i class="arrow up icon "></i></strong> Done</span>
+  </button>
+  <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')"><i class="refresh icon"></i> Refresh</button>
+  <button class="ui tiny right floated green dropdown button" [ngClass]="{'orange':!showSearchForm}" (click)="showSearchForm = !showSearchForm;" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="search icon"></i>
+    <div class="text mr-1">Search</div>
+    <!--<i class="dropdown icon"></i>-->
+    <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+    <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+  </button>
+</div>
+
+<form onsubmit="return false;" class="ui small mt-2 inline form" #form='ngForm' *ngIf="showSearchForm">
+  <h4 class="ui teal dividing header">
+    Search Work Order
+  </h4>
+  <div class="equal width fields">
+    <div class="field">
+      <label>Work Order No.</label>
+      <input  type="text" [(ngModel)]="workOrderSearch"   id="workorderno" name="workorderno" autofocus placeholder="work order no." />
+    </div>
+    <div class="field">
+      <label>ECOM No</label>
+      <input type="text"  placeholder="ecom no" [(ngModel)]="ecomSearch" id="ecomOrderId" name="ecomOrderId">
+    </div>
+    <div class="field">
+      <label>PO No</label>
+      <input placeholder="PO" type="text" [(ngModel)]="ponoSearch"  id="poNo" name="poNo" autofocus  />
+    </div>
+  </div>
+  <div class="equal width fields">
+    <div class="field">
+      <label>Order From Date</label>
+      <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="fromDate">
+    </div>
+    <div class="field">
+      <label>Order To Date</label>
+      <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+    </div>
+  </div>
+  <button class="ui teal small button" (click)="get()">Search</button>
+  <button class="ui small red button" (click)="reset()">Reset</button>
+
+</form>
+<div [suiCollapse]="collapse">
+  <div class="mt-2">
+    <app-add-create-wo (added)="newWorkOrder($event)"></app-add-create-wo>
+  </div>
+</div>
+<div [suiCollapse]="holdCollapse">
+  <div class="mt-2">
+    <app-hold [holdData]="holdData" (added)="newWorkOrder(0)"></app-hold>
+  </div>
+</div>
+<table class="ui very compact unstackable teal table " id="excel">
+  <thead>
+  <tr>
+    <th>SL</th>
+    <th>Actions</th>
+    <th>Work Order No</th>
+    <th>Work Order Date</th>
+    <th>Sample Name </th>
+    <th>Customer </th>
+    <th>Buyer</th>
+    <th>Product Category</th>
+    <th>PO No</th>
+    <th>Delivery Party</th>
+    <th>Delivery Date</th>
+    <th>Sales Person</th>
+    <th>Ecom No/URN No</th>
+    <th>Hold</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let order of orders; let i =index">
+    <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+    <td class="single line">
+      <i class="edit blue icon" *ngIf="!order.JobCardNo && editPermission" [routerLink]="['/workorderforall/edit/',order.WorkOrderID]"  ></i>
+      <i class="eye link orange icon" (click)="viewDetail(order.WorkOrderID)"></i>
+    </td>
+    <td>{{order?.WorkOrderNo}}</td>
+    <td>{{order?.CreatedDate.substring(0, 10)}}</td>
+    <td>{{order?.SampleName}}</td>
+    <td>{{order?.ClientName}}</td>
+    <td>{{order?.BrandName}}</td>
+    <td>{{order?.ProductCategoryName}} </td>
+    <td>{{order?.CustomerPONo}}</td>
+    <td>{{order?.delivery}}</td>
+    <td>{{order?.EstDeliverDate | date}}</td>
+    <td>{{order?.FirstName}}</td>
+    <td>{{order?.ExtraColumn1}}</td>
+    <td>
+      <span class="linki" (click)="changeHold(order.WorkOrderID, false, order.WorkOrderNo)" *ngIf="order.IsHold">Unhold</span>
+      <span class="linki" (click)="changeHold(order.WorkOrderID, true, order.WorkOrderNo)" *ngIf="!order.IsHold && order.printId == 0">Hold</span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<sui-pagination [collectionSize]="meta.totalItemCount"
+                [pageSize]="meta.itemsPerPage"
+                [hasNavigationLinks]="true"
+                [hasBoundaryLinks]="true"
+                [hasEllipses]="true"
+                [maxSize]="5"
+                [canRotate]="true"
+                [(page)]="meta.currentPage"
+                (pageChange)="get()">
+</sui-pagination>
+<div class="ui action input ml-2">
+  <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+  <button (click)="goToPageNo()"  [disabled]="!goToPage || goToPage==meta.currentPage || goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+  </button>
+</div>

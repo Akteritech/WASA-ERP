@@ -1,0 +1,70 @@
+<form onsubmit="return false;" class="ui tiny form pr-2" #form='ngForm'  enctype="multipart/form-data"autocomplete="off" (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment mt-2">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        Add New Designation
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+        Edit Designation
+    </h4>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!designation.designation && !designation.depId">
+      <li>
+        <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="equal width fields">
+      <div class="field required" >
+        <label>Designation Name</label>
+        <input required type="text" placeholder="Designation Name" [(ngModel)]="designation.designation" id="d_name" name="d_name" >
+      </div>
+      <div class="field required">
+        <label>Department</label>
+        <sui-select placeholder="Select Department"
+                    class="selection"
+                    name="department"
+                    [isDisabled]="!designation.designation"
+                    [(ngModel)]="designation.depId"
+                    [options]="departments"
+                    labelField="deptName"
+                    [isSearchable]="true"
+                    valueField="departmentId"
+                    #selectDepartment required>
+          <sui-select-option *ngFor="let op of selectDepartment.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field ">
+        <label>Designation Name In Bangla</label>
+        <input type="text" placeholder="Designation Name In Bangla" [(ngModel)]="designation.designationnameinbangla" id="designationnameinbangla" name="designationnameinbangla">
+      </div>
+      <div class="field required">
+        <label>Report To</label>
+        <input type="number" min="0" placeholder="Report To" [(ngModel)]="designation.reportto" id="reportto" name="reportto">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Description</label>
+        <textarea type="textare" placeholder="Write Something..." rows="2" [(ngModel)]="designation.description" id="description" name="description"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+    <button class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Update
+    </button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+

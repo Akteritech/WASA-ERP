@@ -1,0 +1,110 @@
+<button class="ui tiny orange button" type="button" *ngIf="this.editId" (click)="this.api.backClicked()">
+  <i class="angle left icon"></i>
+  Back
+</button>
+<form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Employee Experience
+      <br>
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Employee Experience
+      <br>
+    </h4>
+    <sui-message class="warning mb-2 mt-2">
+      <li>
+        <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company Name</label>
+        <input type="text" [(ngModel)]="emp.EX_COMPANY" id="EX_COMPANY" name="EX_COMPANY" placeholder="Company Name" />
+      </div>
+      <div class="field">
+        <label>Designation</label>
+        <input type="text" [(ngModel)]="emp.EX_DESIGNATION" id="EX_DESIGNATION" name="EX_DESIGNATION"
+          placeholder="Designation" />
+      </div>
+      <div class="field">
+        <label>Responsibility</label>
+        <input type="text" [(ngModel)]="emp.EX_RESPONSIBILTY" id="EX_RESPONSIBILTY" name="EX_RESPONSIBILTY"
+          placeholder="Responsibility" />
+      </div>
+    </div>
+    <h5 class="ui teal dividing header">
+      Experience Duration
+      <br>
+    </h5>
+    <div class="equal width fields">
+      <div class="required field">
+        <label>From</label>
+        <input suiDatepicker [(ngModel)]="emp.EX_JOIN_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="EX_JOIN_DATE">
+      </div>
+      <div class="field">
+        <label>To</label>
+        <input suiDatepicker [(ngModel)]="emp.EX_RESIGN_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="EX_RESIGN_DATE">
+      </div>
+      <div class="field">
+        <label>Year</label>
+        <input type="number" [(ngModel)]="emp.EX_YEAR" id="EX_YEAR" name="EX_YEAR" placeholder="Year" />
+      </div>
+      <div class="field">
+        <label>Special Qualification</label>
+        <input type="text" [(ngModel)]="emp.SPECIAL_QUALIFICATION" id="SPECIAL_QUALIFICATION"
+          name="SPECIAL_QUALIFICATION" placeholder="Special Qualification" />
+      </div>
+    </div>
+    <div>
+      <button class="ui teal tiny button my-1" (click)="patch(form)">
+        Save
+      </button>
+      <button class="ui primary tiny button my-1" *ngIf="index >= 0" (click)="updateEmp()">
+        Update
+      </button>
+    </div>
+    <table class=" ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+      <thead>
+        <tr>
+          <th>
+            <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllEmployee"
+              (ngModelChange)="selectAll()"></sui-checkbox>
+          </th>
+          <th>SL</th>
+          <th>Action</th>
+          <th>Name Of Company</th>
+          <th>Designation</th>
+          <th>Responsibility</th>
+          <th>Year Of Experience</th>
+          <th>Joining Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of employees; let i = index">
+          <td>
+            <sui-checkbox class="mt-2" [(ngModel)]="e.selected" name="{{i}}" (click)="selectEmployees(e,i)">
+            </sui-checkbox>
+          </td>
+          <td>{{i+1}} </td>
+
+          <td class="single line">
+            <!--                <i class="trash link red icon" (click)="delete(e.EMP_ID)" ></i>-->
+            <i class="edit icon" (click)="getEmpLoyeess(e,i)" [(ngModel)]="e.selected" name="{{i}}"></i>
+
+            <!--          <i class="eye link orange icon" (click)="viewDetail(e.EMP_CARD_NO)"></i>-->
+          </td>
+          <td>{{e?.EX_COMPANY}}</td>
+          <td>{{e?.EX_DESIGNATION}}</td>
+          <td>{{e?.EX_RESPONSIBILTY}}</td>
+          <td>{{e?.EX_YEAR}}</td>
+          <td>{{e?.EX_JOIN_DATE | date}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</form>

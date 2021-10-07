@@ -1,0 +1,647 @@
+<button class="ui tiny left labeled orange icon button" *ngIf="this.editId" (click)="this.api.backClicked()" >
+  <i class="left arrow icon"></i>
+  Go Back
+</button>
+<sui-message class="warning mb-2 mt-2" >
+  <li>
+    <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+  </li>
+  <li>
+    To check and add technical details select sample
+  </li>
+</sui-message>
+<div class="ui segment cardmy2">
+<div class="" style="height: auto !important;">
+  <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse()">
+    Thermal Sample Material Details
+    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">
+      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>
+      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>
+    </button>
+  </h3>
+
+  <div [suiCollapse]="collapse" >
+    <div class="ui mt-1 ">
+      <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+        <tbody>
+        <tr class="bg-teal text-white">
+          <td> S.No</td>
+          <td class="center aligned"> <i *ngIf="this.editId" class="edit icon"></i></td>
+          <td class="center aligned"> <i class="trash icon"></i></td>
+          <td> Sample No.</td>
+          <td > Material Color</td>
+          <td > Material Name</td>
+          <td> Length(Inch)</td>
+          <td> Width(Inch)</td>
+          <td> Quantity</td>
+          <td> Print Side</td>
+        </tr>
+        <tr *ngFor="let item of sampleMaterial; let i = index">
+          <td> {{ i+1 }}</td>
+          <td><i class="edit icon" (click)="selectMaterial(item,i)" *ngIf="this.editId" [(ngModel)]="item.selected" name="{{i}}"></i></td>
+
+          <td class="pointer center aligned" (click)="deleteYarn(item.id ,i)"> <i class="trash red icon"></i></td>
+          <td> {{item?.sample?.sampleno}}</td>
+          <td> {{item?.color?.samplecolorname}}</td>
+          <td> {{item?.item?.itemcode}}</td>
+       <td> {{item?.fullsheetlength}}</td>
+          <td> {{item?.fullsheetwidth}}</td>
+          <td> {{item?.requiredqty}}</td>
+          <td> {{item?.sideprint}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="ui small form">
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Sample No</label>
+            <ng-template let-option  #samplenoandname>
+              {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+            </ng-template>
+            <!--<input  type="text" [(ngModel)]="sampleid.sampleno" name="sampleno" id="sampleno">-->
+            <sui-select  required class="selection" name="sampleno" placeholder=" "
+                         [(ngModel)]="sampleid"
+                         [options]="samplenodata"
+                         [optionTemplate]="samplenoandname"
+                         (input)="optionslookupSampleNo($event.target.value)"
+                         labelField="sampleno"
+                         valueField="sampleid"
+                         [isSearchable]="true"
+                         #Sampleno>
+              <sui-select-option *ngFor="let option of Sampleno.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+
+          </div>
+          <div class="field required">
+            <label>Material Color</label>
+            <sui-select  class="selection" name="ribcolor" placeholder=" "
+                         [isSearchable]="true"
+                         [options]="colors"
+                         (input)="optionsLookupColor($event.target.value)"
+                         [(ngModel)]="material.colorid"
+                         labelField="samplecolorname"
+                         valueField="samplecolorid"
+                         #multicolor>
+              <sui-select-option *ngFor="let option of multicolor.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>-->
+          </div>
+          <div class="field ">
+            <label>Material Name</label>
+            <sui-select  class="selection" name="item" placeholder=" "
+                         [isSearchable]="true"
+                         [options]="items"
+                         (input)="optionsLookupItem($event.target.value)"
+                         [(ngModel)]="material.itemid"
+                         labelField="itemcode"
+                         valueField="itemid"
+                         #MaterialName>
+              <sui-select-option *ngFor="let option of MaterialName.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+
+        </div>
+        <div class="equal width fields">
+          <div class="field ">
+            <label>Full Sheet Length (Inches)</label>
+            <input type="number" (keydown)="api.numberOnly($event)"  min="0" [(ngModel)]="material.fullsheetlength" placeholder="length"  id="length" name="length">
+          </div>
+          <div class="field ">
+            <label>Full Sheet Width (Inches)</label>
+            <input type="number" (keydown)="api.numberOnly($event)" min="0" [(ngModel)]="material.fullsheetwidth" placeholder="width "  id="width" name="width">
+          </div>
+          <div class="field ">
+            <label>Quantity Per Thousand</label>
+            <input  type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="material.requiredqty" min="0"   id="qty" name="qty" autofocus placeholder="Quantity"/>
+          </div>
+          <div class="field ">
+            <label>Print  </label>
+            <sui-select  class="selection" name="item" placeholder="print "
+                         [isSearchable]="true"
+                         [options]="api.printside"
+                         [(ngModel)]="material.sideprint"
+                         labelField="name"
+                         valueField="name"
+                         #PrintSide>
+              <sui-select-option *ngFor="let option of PrintSide.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field pt-3 mt-2">
+            <button type="button"  class="ui primary tiny right floated button" *ngIf="!this.editId" [disabled]="!this.material.colorid" (click)="patch()"><i class="add icon"></i> Add</button>
+            <button type="button"  class="ui primary tiny right floated button" *ngIf="this.editId" [disabled]="!this.material.colorid" (click)="updateMaterial()"> Update</button>
+            <!--<button type="button"  class="ui red tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+          </div>
+          <!--<div class="field pt-3 mt-2">-->
+          <!--<button type="button" class="ui primary tiny button" (click)="addYarnDetails()"><i class="add icon"></i> Add Yarn</button>-->
+          <!--<br>-->
+          <!--</div>-->
+        </div>
+<!--        <button type="button" class="ui teal tiny button "  (click)="patch()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+<!--          Save-->
+<!--        </button>-->
+<!--        <button type="button" class="ui primary tiny button " (click)="Updatepatch()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--          Update-->
+<!--        </button>-->
+        <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+      </div>
+    </div>
+    <!--<div class="ui mt-1">-->
+    <!--<form onsubmit="return false;" class="ui small form" #form='ngForm'>-->
+    <!--<div class="ui divider"></div>-->
+
+    <!--<div class="equal width fields">-->
+    <!--<div class="field required">-->
+    <!--<label>Sample No</label>-->
+    <!--&lt;!&ndash;<input  type="text" [(ngModel)]="sampleid.sampleno" name="sampleno" id="sampleno">&ndash;&gt;-->
+    <!--<sui-select  required class="selection" name="sampleno" placeholder=" "-->
+    <!--[(ngModel)]="sampleid"-->
+    <!--[options]="samples"-->
+    <!--[isDisabled]="true"-->
+    <!--labelField="sampleno"-->
+    <!--valueField="sampleid"-->
+    <!--[isSearchable]="true"-->
+    <!--#SelectSamples>-->
+    <!--<sui-select-option *ngFor="let option of SelectSamples.filteredOptions"-->
+    <!--[value]="option"></sui-select-option>-->
+    <!--</sui-select>-->
+
+    <!--</div>-->
+    <!--<div class="field required">-->
+    <!--<label>Materials Color</label>-->
+    <!--<sui-select  class="selection" name="ribcolor"-->
+    <!--[isSearchable]="true"-->
+    <!--[options]="colors"-->
+    <!--[(ngModel)]="material.colorid"-->
+    <!--labelField="samplecolorname"-->
+    <!--valueField="samplecolorid"-->
+    <!--#multicolor>-->
+    <!--<sui-select-option *ngFor="let option of multicolor.filteredOptions"-->
+    <!--[value]="option"></sui-select-option>-->
+    <!--</sui-select>-->
+    <!--&lt;!&ndash;<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="field required">-->
+    <!--<label>Materials Name</label>-->
+    <!--<sui-select  class="selection" name="item"-->
+    <!--[isSearchable]="true"-->
+    <!--[options]="items"-->
+    <!--[(ngModel)]="material.itemid"-->
+    <!--labelField="itemcode"-->
+    <!--valueField="itemid"-->
+    <!--#item>-->
+    <!--<sui-select-option *ngFor="let option of item.filteredOptions"-->
+    <!--[value]="option"></sui-select-option>-->
+    <!--</sui-select>-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--<div class="equal width fields">-->
+    <!--<div class="field required">-->
+    <!--<label>Full Sheet Width (Inches)</label>-->
+    <!--<input type="number"  min="0"[(ngModel)]="material.length" placeholder="length"  id="length" name="length">-->
+    <!--</div>-->
+    <!--<div class="field required">-->
+    <!--<label>Full Sheet Width (Inches)</label>-->
+    <!--<input type="number" min="0"[(ngModel)]="material.width" placeholder="width "  id="width" name="width">-->
+    <!--</div>-->
+    <!--<div class="field required">-->
+    <!--<label>Quantity Per Thousand</label>-->
+    <!--<input  type="text" [(ngModel)]="material.requiredqty" min="0"   id="qty" name="qty" autofocus placeholder="Quantity"/>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;<div class="field pt-3 mt-2">&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<button type="button" *ngIf="materialData.length >= 2" class="ui red right floated tiny button" (click)="deleteAllYarn()"> Delete All</button>&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<button type="button" class="ui right floated primary tiny button" (click)="addMaterialDetails()"><i class="add icon"></i> Add Key</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<button class="ui teal tiny button " (click)="patch(form)"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+    <!--Save-->
+    <!--</button>-->
+    <!--<button class="ui primary tiny button " (click)="Updatepatch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+    <!--Update-->
+    <!--</button>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!--</div>-->
+  </div>
+  <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse1()">
+    Thermal Ink Ribbon Details
+    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">
+      <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+    </button>
+  </h3>
+
+  <div [suiCollapse]="collapse1" >
+    <div class="ui mt-1 ">
+      <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+        <tbody>
+        <tr class="bg-teal text-white">
+          <td> S.No</td>
+          <td class="center aligned" > <i class="edit icon" *ngIf="this.editId"></i></td>
+          <td class="center aligned"> <i class="trash icon"></i></td>
+          <td> Sample No.</td>
+          <td > Ink Type</td>
+          <td > Color </td>
+          <td> Ink Side</td>
+          <td> Item Description</td>
+          <td> Required Quantity</td>
+          <td> Supplier</td>
+          <td> Supplier code</td>
+        </tr>
+        <tr *ngFor="let item of sampleInkDetails; let i = index">
+          <td> {{ i+1 }}</td>
+          <td>
+          <i class="edit icon" (click)="selectInk(item,i)" *ngIf="this.editId" [(ngModel)]="item.selected" name="{{i}}"></i></td>
+          <td class="pointer center aligned" (click)="deleteInk(item.inkribbondetaildid ,i)"> <i class="trash red icon"></i></td>
+          <td> {{item?.sample?.sampleno}}</td>
+          <td> {{item?.inktype?.listitem}}</td>
+          <td> {{item?.color?.samplecolorname}}</td>
+          <td> {{item?.inkside?.listitem}}</td>
+          <td> {{item?.item?.itemcode}}</td>
+          <td> {{item?.requiredqty}}</td>
+          <td> {{item?.supplier?.suppliername}}</td>
+          <td> {{item?.suppliermaterialcode}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="ui small form">
+        <div class="equal width fields">
+          <div class="field required">
+            <ng-template let-option  #samplenoandname>
+              {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+            </ng-template>
+            <label>Sample No</label>
+            <sui-select  required class="selection" name="sampleno" placeholder=" "
+                         [(ngModel)]="sampleid"
+                         [options]="samplenodata"
+                         [optionTemplate]="samplenoandname"
+                         (input)="optionslookupSampleNo($event.target.value)"
+                         labelField="sampleno"
+                         valueField="sampleid"
+                         [isSearchable]="true"
+                         #MultiSampleNumber>
+              <sui-select-option *ngFor="let option of MultiSampleNumber.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+
+          </div>
+          <div class="field ">
+            <label>Ink Type </label>
+            <sui-select  class="selection" name="ink" placeholder=" int type "
+                         [isSearchable]="true"
+                         [(ngModel)]="inkDetails.inktype"
+                         [options]="inks"
+                         labelField="listitem"
+                         valueField="id"
+                         #multiInkRibbon>
+              <sui-select-option *ngFor="let option of multiInkRibbon.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>-->
+          </div>
+
+          <div class="field required">
+            <label> Color</label>
+            <sui-select  class="selection" name="ribcolor" placeholder=" "
+                         [isSearchable]="true"
+                         [(ngModel)]="inkDetails.colorid"
+                         [options]="Colordata"
+                         labelField="listitem"
+                         valueField="id"
+                         #SelectColor>
+              <sui-select-option *ngFor="let option of SelectColor.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>-->
+          </div>
+          <div class="field ">
+            <label>Ink Side </label>
+            <sui-select  class="selection" name="item" placeholder=" "
+                         [isSearchable]="true"
+                         [(ngModel)]="inkDetails.inkside"
+                         [options]="inksides"
+                         labelField="listitem"
+                         valueField="id"
+                         #SelectInkSide>
+              <sui-select-option *ngFor="let option of SelectInkSide.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field ">
+            <label>Item Description </label>
+            <sui-select  class="selection" name="item" placeholder=" "
+                         [isSearchable]="true"
+                         [(ngModel)]="inkDetails.itemid"
+                         [options]="items"
+                         labelField="itemcode"
+                         valueField="itemid"
+                         #SelectItemDescription>
+              <sui-select-option *ngFor="let option of SelectItemDescription.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+
+        </div>
+        <div class="equal width fields">
+          <div class="field ">
+            <label>Required Qty</label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="inkDetails.requiredqty" id="Required_Qty" name="Required_Qty" placeholder="required qty"/>
+          </div>
+          <div class="field">
+            <label>Supplier</label>
+            <sui-select class="selection" id="Supplier" name="Supplier" placeholder=" "
+                        [(ngModel)]="inkDetails.supplierid"
+                        [options]="suppliers"
+                        (input)="optionsLookupSupplier($event.target.value)"
+                        labelField="suppliername"
+                        valueField="supplierid"
+                        [isSearchable]="true"
+                        #SelectSupplier>
+              <sui-select-option *ngFor="let option of SelectSupplier.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field ">
+            <label>Supplier Code </label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="inkDetails.suppliermaterialcode" id="suppliercode" name="suppliercode" placeholder="suppliercode "/>
+          </div>
+
+<!--          <div class="field required">-->
+<!--            <label>Full Sheet Length (Inches)</label>-->
+<!--            <input type="number"  min="0" [(ngModel)]="inkDetails.length" placeholder="length"  id="length1" name="length1">-->
+<!--          </div>-->
+
+          <div class="field pt-3 mt-2">
+            <button type="button"  class="ui right floated primary tiny button" *ngIf="!this.editId" [disabled]="!this.inkDetails.colorid" (click)="patchInkDetails()"><i class="add icon"></i> Add</button>
+            <button type="button"  class="ui right floated primary tiny button" *ngIf="this.editId" [disabled]="!this.inkDetails.colorid" (click)="updateInkDetails()"> Update</button>
+            <!--<button type="button"  class="ui red tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+          </div>
+          <!--<div class="field pt-3 mt-2">-->
+          <!--<button type="button" class="ui primary tiny button" (click)="addYarnDetails()"><i class="add icon"></i> Add Yarn</button>-->
+          <!--<br>-->
+          <!--</div>-->
+        </div>
+        <!--        <button type="button" class="ui teal tiny button "  (click)="patch()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+        <!--          Save-->
+        <!--        </button>-->
+        <!--        <button type="button" class="ui primary tiny button " (click)="Updatepatch()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+        <!--          Update-->
+        <!--        </button>-->
+        <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+      </div>
+    </div>
+
+  </div>
+  <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse2()">
+    Thermal Print Machine Details
+    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse3,'red':!collapse3}">
+      <i class="add ml-1 blue small icon" *ngIf="collapse3"></i>
+      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse3"></i>
+    </button>
+  </h3>
+
+  <div [suiCollapse]="collapse3" >
+    <div class="ui mt-1 ">
+      <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+        <tbody>
+        <tr class="bg-teal text-white">
+          <td> S.No</td>
+          <td class="center aligned" > <i class="edit icon" *ngIf="this.editId"></i></td>
+          <td class="center aligned"> <i class="trash icon"></i></td>
+          <td> Sample No.</td>
+          <td > Machine Name</td>
+          <td > Machine DPI </td>
+          <td> Machine Speed</td>
+          <td> Machine Darkness</td>
+          <td> Maximum Print Width</td>
+          <td> Finish Type</td>
+          <td> Curing Time</td>
+          <td> Curing Temperature</td>
+        </tr>
+        <tr *ngFor="let item of printMachineDetails; let i = index">
+          <td> {{ i+1 }}</td>
+          <td>
+            <i class="edit icon" (click)="selectPrintMachine(item,i)" *ngIf="this.editId" [(ngModel)]="item.selected" name="{{i}}"></i></td>
+          <td class="pointer center aligned" (click)="deletePrintMachine(item.printmachinedetailsid ,i)"> <i class="trash red icon"></i></td>
+          <td> {{item?.sample?.sampleno}}</td>
+          <td> {{item?.machine?.machineno}}</td>
+          <td> {{item?.machinedpi}}</td>
+          <td> {{item?.machinespeed}}</td>
+          <td> {{item?.machinedarkness}}</td>
+          <td> {{item?.mpw}}</td>
+          <td> {{item?.finishtype?.listitem}}</td>
+          <td> {{item?.ctm}}</td>
+          <td> {{item?.ct}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="ui small form">
+        <div class="equal width fields">
+          <div class="field required">
+            <ng-template let-option  #samplenoandname>
+              {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+            </ng-template>
+            <label>Sample No</label>
+            <sui-select  required class="selection" name="sampleno" placeholder=" "
+                         [(ngModel)]="sampleid"
+                         [options]="samplenodata"
+                         [optionTemplate]="samplenoandname"
+                         (input)="optionslookupSampleNo($event.target.value)"
+                         labelField="sampleno"
+                         valueField="sampleid"
+                         [isSearchable]="true"
+                         #MultiSampleNumberForMachine>
+              <sui-select-option *ngFor="let option of MultiSampleNumberForMachine.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+
+          </div>
+          <div class="field required ">
+            <label>Machine Name </label>
+            <sui-select  class="selection" name="ink" placeholder="  "
+                         [isSearchable]="true"
+                         [(ngModel)]="pmd.machineid"
+                         [options]="machinenos"
+                         (input)="getMachineName($event.target.value)"
+                         labelField="machineno"
+                         valueField="machineid"
+                         #MachineName>
+              <sui-select-option *ngFor="let option of MachineName.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>-->
+          </div>
+
+          <div class="field required">
+            <label> Finish Type</label>
+            <sui-select  class="selection" name="ribcolor" placeholder=" "
+                         [isSearchable]="true"
+                         [(ngModel)]="pmd.ft"
+                         [options]="finishtype"
+                         labelField="listitem"
+                         valueField="id"
+                         #FinishTypeSelect>
+              <sui-select-option *ngFor="let option of FinishTypeSelect.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>-->
+          </div>
+          <div class="field ">
+            <label>Machine DPI</label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="pmd.machinedpi" id="machinedpi" name="machinedpi" placeholder="machinedpi "/>
+          </div>
+          <div class="field ">
+            <label>Machine Speed</label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="pmd.machinespeed" id="machinespeed" name="machinespeed" placeholder="machinespeed"/>
+          </div>
+        </div>
+        <div class="equal width fields">
+
+          <div class="field ">
+            <label>Machine Darkness </label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="pmd.machinedarkness" id="machinedarkness" name="machinedarkness" placeholder="machinedarkness "/>
+          </div><div class="field ">
+            <label>
+            Max Print Width</label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="pmd.mpw" id="mpw" name="mpw" placeholder="mpw "/>
+          </div>
+          <div class="field ">
+            <label>Curing Time </label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="pmd.ctm" id="ctm" name="ctm" placeholder="ctm "/>
+          </div>
+          <div class="field ">
+            <label>Curing Temperature </label>
+            <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="pmd.ct" id="ct" name="ct" placeholder="ct "/>
+          </div>
+          <div class="field pt-3 mt-2">
+            <button type="button"  class="ui right floated primary tiny button" *ngIf="!this.editId" [disabled]="!this.pmd.machineid" (click)="patchPrintMachineDetails()"><i class="add icon"></i> Add</button>
+            <button type="button"  class="ui right floated primary tiny button" *ngIf="this.editId" [disabled]="!this.pmd.machineid"  (click)="updatePrintMachineDetails()"> Update</button>
+            <!--<button type="button"  class="ui red tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+          </div>
+          <!--<div class="field pt-3 mt-2">-->
+          <!--<button type="button" class="ui primary tiny button" (click)="addYarnDetails()"><i class="add icon"></i> Add Yarn</button>-->
+          <!--<br>-->
+          <!--</div>-->
+        </div>
+        <!--        <button type="button" class="ui teal tiny button "  (click)="patch()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+        <!--          Save-->
+        <!--        </button>-->
+        <!--        <button type="button" class="ui primary tiny button " (click)="Updatepatch()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+        <!--          Update-->
+        <!--        </button>-->
+        <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+      </div>
+    </div>
+
+  </div>
+  <h3 class="ui top blue attached header mt-3 pointer"  (click)="collapse2 = !collapse2;"  >
+     Key Entry Details
+    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">
+      <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>
+      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>
+    </button>
+  </h3>
+<!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="collapse2 = !collapse2;"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--    3.Edit Key Entry Details-->
+<!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">-->
+<!--      <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>-->
+<!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>-->
+<!--    </button>-->
+<!--  </h3>-->
+  <div [suiCollapse]="collapse2">
+    <div class="ui mt-1">
+      <!--<div class="ui divider"></div>-->
+      <table class="ui compact single line table rounded-0 mt-2" style="margin-top: -8px;">
+        <tbody>
+        <tr class="bg-teal text-white" *ngIf="keyEntryFields.length >= 1">
+          <td >S.No</td>
+          <td  class="center aligned"> <i class="trash icon"></i></td>
+          <td> Color </td>
+          <td> Size</td>
+          <td> Style</td>
+          <td> Key 4</td>
+          <td> Key 5</td>
+          <td> Key 6</td>
+          <td> Key 7</td>
+          <td> Key 8</td>
+          <td> Key 9</td>
+          <td> Quantity</td>
+        </tr>
+        <tr *ngFor="let key of keyEntryFields; let i = index">
+          <td> {{ i+1 }}</td>
+          <td class="pointer center aligned" (click)="deleteKeyEntry(key.keyentryid ,i);"> <i class="trash red icon"></i></td>
+          <td>{{key?.keyentry1}}</td>
+          <td>{{key?.keyentry2}}</td>
+          <td>{{key?.keyentry3}}</td>
+          <td>{{key?.keyentry4}}</td>
+          <td>{{key?.keyentry5}}</td>
+          <td>{{key?.keyentry6}}</td>
+          <td>{{key?.keyentry7}}</td>
+          <td>{{key?.keyentry8}}</td>
+          <td>{{key?.keyentry9}}</td>
+          <td>{{key?.keyentry10}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <form class="ui small form"  #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()" >
+        <div class="equal width fields">
+          <div class="field">
+            <label>Color</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry1 " id="keyentry1" name="keyentry1" placeholder="Color"/>
+          </div>
+          <div class="field">
+            <label>Size</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry2" id="keyentry2" name="keyentry2" placeholder="Size "/>
+          </div>
+          <div class="field">
+            <label>Style</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry3" id="keyentry3" name="keyentry3" placeholder="Style No"/>
+          </div>
+          <div class="field">
+            <label>Key 4</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry4" id="keyentry4" name="keyentry4" placeholder=""/>
+          </div>
+          <div class="field">
+            <label>Key 5</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry5" id="keyentry5" name="keyentry5" placeholder=""/>
+          </div>
+          <div class="field">
+            <label>Key 6</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry6" id="keyentry6" name="keyentry6" placeholder=""/>
+          </div>
+          <div class="field">
+            <label>Key 7</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry7" id="keyentry7" name="keyentry7" placeholder=""/>
+          </div>
+          <div class="field">
+            <label>Key 8</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry8" id="keyentry8" name="keyentry8" placeholder=""/>
+          </div>
+          <div class="field">
+            <label>Key 9</label>
+            <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry9" id="keyentry9" name="keyentry9" placeholder=""/>
+          </div>
+          <div class="field">
+            <label>Quantity</label>
+            <input min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="SampleWiseKeyEntryField.keyentry10" id="Quantity" name="Quantity" placeholder="Quantity"/>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <button type="button" *ngIf="keyEntryFields.length >= 2" class="ui red right floated tiny button" (click)="deleteAllKeyEntry()"> Delete All</button>
+            <button type="button" class="ui right floated primary tiny button" [disabled]="!SampleWiseKeyEntryField.keyentry1" (click)="addKeyDetails(form)"><i class="add icon"></i> Add Key</button>
+          </div>
+        </div>
+        <button type="button" class="ui teal tiny button"  (click)="saveKeyEntryFields(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">Save KeyEntry</button>
+        <button type="button" class="ui primary tiny button"  (click)="updateKeyEntryFields()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">Update KeyEntry</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+</div>

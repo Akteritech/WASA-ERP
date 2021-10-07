@@ -1,0 +1,665 @@
+<div class="pt-5">
+  <form class="ui form" #form='ngForm' onsubmit="return false;" autocomplete="off">
+    <div class="ui segment  mt-2">
+      <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        <!--      <button class="ui tiny orange button my-1" type="button"  (click)="back()" >-->
+        <!--        <i class="arrow left icon"></i> Back-->
+        <!--      </button>-->
+        <button class="ui tiny red right floated button my-1" type="button" (click)="resetform(true)">Reset form
+        </button>
+        <br>
+        Add New Work Order
+      </h4>
+      <!--    {{master | json}}-->
+      <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+        <button class="ui tiny orange button my-1" type="button" (click)="back()">
+          <i class="arrow left icon"></i> Back
+        </button>
+        <br>
+        Edit Work Order
+      </h4>
+      <sui-message class="warning mb-2 mt-2" *ngIf="!master.customerserviceid">
+        <li>
+          <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+        </li>
+      </sui-message>
+
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Sample Name </label>
+
+          <strong class="ui text-danger my-1 mb-1" style="font-size: 13px !important;"
+            *ngIf="this.priceRqt === false ">Price not available</strong>
+          <strong class="ui text-danger my-1 mb-1" style="font-size: 13px !important;" *ngIf="this.partRqt === false">
+            ,&nbsp; Part no. is not available </strong>
+          <strong class="ui text-danger my-1 mb-1" style="font-size: 13px !important;"
+            *ngIf="this.colorRqt === false">,&nbsp; Sample Color is not available</strong>
+          <strong class="ui text-danger my-1 mb-1" style="font-size: 13px !important;"
+            *ngIf="this.colorRqt === false || this.partRqt === false || this.priceRqt === false">&nbsp; in this
+            sample.</strong>
+          <sui-select class="selection" placeholder=" " [(ngModel)]="selectSample" name="samplename"
+            (input)="optionsLookupSampleItems($event.target.value)"
+            (ngModelChange)="selectedSampleDate();getFinishTypes();getSampleColor();getCustomeBySampleid()"
+            [options]="items" labelField="samplename" [isSearchable]="true" #selectSampleName>
+            <sui-select-option *ngFor="let o of selectSampleName.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field  required">
+          <label>Order Type</label>
+          <sui-select required placeholder=" " class="selection" [options]="orderTypes" [(ngModel)]="master.ordertype"
+            name="ordertype" [isSearchable]="true" labelField="listitem" valueField="listvalue" #selectordertype>
+
+            <sui-select-option *ngFor="let op of selectordertype.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>Company</label>
+          <sui-select required placeholder=" " class="selection" [options]="DataCompanies"
+            [(ngModel)]="mastercompanyname" (ngModelChange)="companyChanged()" name="companyname" [isSearchable]="true"
+            labelField="companyname" valueField="companyid" #selectDataCOMP>
+
+            <sui-select-option *ngFor="let op of selectDataCOMP.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+          <!--<input placeholder="Company" type="text" [(ngModel)]="selectSample.companyname"  id="companyname" name="companyname"  />-->
+        </div>
+        <div class="field required">
+          <label>Customer Name</label>
+          <sui-select placeholder=" " class="selection" [(ngModel)]="masterclientname" name="client"
+            [options]="customer" (ngModelChange)="deleveryName();getExecutiveBySampleid()" labelField="ClientName"
+            valueField="ClientID" (input)="optionsLookupCustomer($event.target.value)" [isSearchable]="true"
+            #selectCustomers>
+            <sui-select-option *ngFor="let o of selectCustomers.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+
+        <div class="field" *ngIf="selectSample.productcategoryname">
+          <label>Product Category</label>
+          <input disabled placeholder="Product Category" type="text" [(ngModel)]="selectSample.productcategoryname"
+            id="productname" name="productname" />
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field" *ngIf="selectSample.productsubcategoryname">
+          <label>Product Sub Category</label>
+          <input disabled placeholder="Product Sub Category" type="text"
+            [(ngModel)]="selectSample.productsubcategoryname" id="productsubcategoryname"
+            name="productsubcategoryname" />
+        </div>
+        <div class="field">
+          <label>Is FOC</label>
+          <sui-select required placeholder="is foc" class="selection" [(ngModel)]="master.isfoc" name="isfoc"
+            (ngModelChange)="isFOC();" [options]="api.WOoptions" labelField="name" valueField="value" #selectisfoc>
+            <sui-select-option *ngFor="let o of selectisfoc.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field" *ngIf="master.isfoc === 1">
+          <label>FOC Reason</label>
+          <sui-select required placeholder=" FOC Reason" class="selection" [options]="api.FOCreason"
+            [(ngModel)]="master.focreasonid" name="focreasonid" [isSearchable]="true" labelField="name"
+            valueField="value" #selectFOCreason>
+            <sui-select-option *ngFor="let op of selectFOCreason.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <!--      <div class="field" *ngIf="master.isfoc === 1">-->
+        <!--        <label>FOC work order</label>-->
+        <!--        <input placeholder="FOC work order" type="number" (keydown)="api.numberOnly($event)" min="0" [(ngModel)]="master.focworkorderid"  id="focworkorderid" name="focworkorderid"  />-->
+        <!--      </div>-->
+        <div class="field" *ngIf="master.isfoc === 1">
+          <label>Foc WorkOrder No.</label>
+          <sui-select placeholder=" " class="selection" [options]="orders" [isDisabled]="!orders"
+            [(ngModel)]="master.focworkorderid" (input)="optionsLookupWorkOrder($event.target.value)"
+            (ngModelChange)="getWorkOrderMaster(master.focworkorderid);getBreakDownDetails(master.focworkorderid)"
+            name="workorderno" [isSearchable]="true" labelField="workorderno" valueField="workorderid"
+            #selectWorkOrderNo>
+            <sui-select-option *ngFor="let op of selectWorkOrderNo.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>Buyer Name</label>
+          <sui-select placeholder=" " class="selection" [(ngModel)]="master.brandid" name="buyerName"
+            [isDisabled]="true" [options]="brands" labelField="brandname" valueField="brandid" [isSearchable]="true"
+            #selectBuyerName>
+            <div class="header link text-primary pointer" (click)="addnewbuyer()">
+              <i class="add icon"></i>
+              Add New Buyer
+            </div>
+            <sui-select-option *ngFor="let o of selectBuyerName.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Sub Brand Name</label>
+          <input placeholder="sub brand" disabled type="text" [(ngModel)]="subBrand" id="subBrand" name="subBrand" />
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Delivery Party</label>
+          <sui-select placeholder=" " class="selection" [(ngModel)]="master.dalivaryid" name="buyerNamedf"
+            [options]="deleveryParty" (input)="optionsLookupDelivery($event.target.value)" labelField="ClientName"
+            valueField="ClientID" [isSearchable]="true" #selectDelivery>
+            <div class="header link text-primary pointer" (click)="addnewDelivery()">
+              <i class="add icon"></i>
+              Add New Delivery Party
+            </div>
+            <sui-select-option *ngFor="let o of selectDelivery.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>Delivery Date</label>
+          <input placeholder="Delivery Date" readonly suiDatepicker [pickerMinDate]="minDateEst" [pickerMode]="'date'"
+            [(ngModel)]="master.estdeliverdate" (ngModelChange)="partialDeleveryData()" name="deliveryDate">
+        </div>
+        <div class="field required">
+          <label>Partial Del. Date</label>
+          <input placeholder="Partial Del Date" readonly suiDatepicker [pickerMode]="'date'"
+            [pickerMinDate]="minDateEst" [pickerMaxDate]="minDateEstPar" [(ngModel)]="master.partialdeldate"
+            name="partialDate">
+        </div>
+
+        <div class="field required">
+          <label>PO Reference No</label>
+          <input placeholder="ref no" type="text" [(ngModel)]="master.customerpono" id="refNo" name="refNo" />
+        </div>
+        <div class="field">
+          <label>Fabric Composition</label>
+          <sui-select placeholder=" " class="selection" [(ngModel)]="master.fabriccomposition" name="fabriccomps"
+            [options]="FabricCompositions" (input)="optionsFabricComposition($event.target.value)" [isSearchable]="true"
+            labelField="listitem" valueField="id" #selectfabriccomps>
+            <sui-select-option *ngFor="let o of selectfabriccomps.filteredOptions" [value]="o">
+            </sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required" *ngIf="master.isfoc === 1">
+          <label>Complain No</label>
+          <input placeholder="Complain No" type="text" [(ngModel)]="master.complainno" id="Complain_No"
+            name="Complain_No" />
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Merchandiser Name</label>
+          <input placeholder="merchandiser name" type="text" [(ngModel)]="master.merchandisername" id="merchandiser"
+            name="merchandiser" />
+        </div>
+        <div class="field">
+          <label>Sales Executive</label>
+          <sui-select placeholder=" " class="selection" [(ngModel)]="master.salespersonid" name="salespersonid"
+            [options]="executive" labelField="SalesPeron" valueField="Emp_ID"
+            (input)="optionsLookupSalesPerson($event.target.value)" [isSearchable]="true" (ngModelChange)="getPartNos()"
+            #selectsalespersonid>
+            <sui-select-option *ngFor="let o of selectsalespersonid.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+
+        <div class="field" *ngIf="master.brandid !==87">
+          <label>Product Code No</label>
+          <input placeholder="product code no" type="text" [(ngModel)]="master.productcodeno" id="productCodeNo"
+            name="producstCodeNo">
+        </div>
+
+        <div class="field required">
+          <label>Customer Service </label>
+          <sui-select placeholder=" " class="selection" [(ngModel)]="master.customerserviceid" name="customerserviceid"
+            [options]="employees2" (input)="optionsLookupEmployee($event.target.value)" labelField="firstname"
+            valueField="empId" [isSearchable]="true" #selectcustomerserviceid>
+            <sui-select-option *ngFor="let o of selectcustomerserviceid.filteredOptions" [value]="o">
+            </sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field" *ngIf="master.brandid === 1">
+          <label>Speed Order</label>
+          <sui-select required placeholder="Speed Order" class="selection" [(ngModel)]="master.jobcartstatus"
+            name="jobcardstatus" [options]="api.WOoptions" labelField="name" valueField="value" #selectjobcardstatus>
+            <sui-select-option *ngFor="let o of selectjobcardstatus.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label> Narration</label>
+          <textarea placeholder=" " rows="3" [(ngModel)]="master.narration" name="narration"></textarea>
+        </div>
+      </div>
+      <h4 class="ui teal header center aligned">Buyer Extra Information</h4>
+      <div *ngIf="mastercompanyname === 4" class="four wide fields">
+        <div class="field ">
+          <label>ECOM No</label>
+          <input required type="text" placeholder="ecom no" [(ngModel)]="master.extracolumn1" id="ecomOrderId"
+            name="ecomOrderId">
+        </div>
+        <div class="field">
+          <label>MC PO</label>
+          <input placeholder="mc pO" type="text" [(ngModel)]="master.extracolumn2" id="mcPo" name="mcPo" />
+        </div>
+        <div class="field">
+          <label>MC Style</label>
+          <input placeholder="mc style" type="text" [(ngModel)]="master.extracolumn3" id="mcStyle" name="mcStyle">
+        </div>
+      </div>
+      <div *ngIf="master.brandid ===1" class="four wide fields">
+        <div class="field ">
+          <label>Dept No</label>
+          <input required type="text" placeholder="dept no" [(ngModel)]="master.extracolumn4" id="deptno"
+            name="ecomOrderId">
+        </div>
+      </div>
+      <div *ngIf="mastercompanyname === 6" class="four wide fields">
+        <div class="field ">
+          <label>URN No</label>
+          <input required type="text" placeholder="urn no" [(ngModel)]="master.extracolumn1" id="urnno"
+            name="ecomOrderId">
+        </div>
+      </div>
+
+    </div>
+    <!--{{detail | json}}-->
+    <div class="ui segment mt-2">
+      <h4 class="ui teal header center aligned"> Work Order Details</h4>
+      <!--<p *ngIf="!items" style="color: red">Please Select Buyer Name First</p>-->
+      <div>
+        <div disabled="selectSample" class="equal width fields">
+          <div class="field required">
+            <label>Item Name(Sample Name)</label>
+            <input placeholder="Item Name" type="text" [(ngModel)]="item" id="item" name="item" />
+
+
+          </div>
+          <div class="field">
+            <label>Finish Type</label>
+            <sui-select class="selection" [(ngModel)]="detail.finishtype" name="type" [options]="finishTypes"
+              labelField="listitem" valueField="id" [isSearchable]="true" #selectfinishTypes>
+
+              <sui-select-option *ngFor="let o of selectfinishTypes.filteredOptions" [value]="o"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field required">
+            <label>Sample Color</label>
+            <sui-select class="selection" [(ngModel)]="detail.samplecolorid" name="color" [isDisabled]="false"
+              [options]="sampleColors" (ngModelChange)="getPrintColor()" labelField="samplecolorname"
+              valueField="samplecolorid" [isSearchable]="false" #selectsampleColors>
+              <sui-select-option *ngFor="let o of selectsampleColors.filteredOptions" [value]="o"></sui-select-option>
+            </sui-select>
+          </div>
+
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Part No.</label>
+            <sui-select class="selection" id="partnoid" name="partnoid" placeholder="Select part no"
+              [(ngModel)]="PARTSID" [options]="listitems" (ngModelChange)="getPriceByPartNo()" labelField="ListItem"
+              valueField="ID" [isSearchable]="false" #MultiWreavingType>
+              <sui-select-option *ngFor="let option of MultiWreavingType.filteredOptions" [value]="option">
+              </sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Price</label>
+            {{detail.price}}
+          </div>
+          <div class="field">
+            <label>Quantity</label><span *ngIf="detail.orderqty > 0">{{detail.orderqty}}</span>
+          </div>
+          <div class="field">
+            <label>Amount</label><span>{{detail.adjamount.toFixed(2)}}</span>
+          </div>
+        </div>
+        <table class="ui very compact table">
+          <thead>
+            <tr>
+              <th>Length</th>
+              <th>Width</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ detail.length}}</td>
+              <td>{{ selectSample.width}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="four column fields">
+
+      </div>
+      <h4 class="ui teal header center aligned"> Work Order Breakdown Details</h4>
+      <div class="equal wide fields">
+        <div class="field">
+          <input id="file" type='file' (change)="fileChanged($event)" accept=".xlsx, .xls, .csv" />
+        </div>
+        <div class="field">
+          <button type="button" class="ui blue tiny button mb-1" (click)="uploadDocumentForCottonon(false)">
+            Upload Excel for Cotton On
+          </button>
+        </div>
+        <div class="field">
+          <input id="file" type='file' (change)="fileChanged($event)" accept=".xlsx, .xls, .csv" />
+        </div>
+        <div class="field">
+          <button type="button" class="ui blue tiny button mb-1" (click)="uploadDocumentForCottonon(true)">
+            Upload Excel for Carton Sticker
+          </button>
+        </div>
+      </div>
+
+      <table class="ui small teal single line celled table mb-lg-5">
+        <thead>
+          <tr>
+            <th rowspan="2" (click)="collapseTable = !collapseTable;"><span data-inverted=""
+                data-tooltip="Collapse Table" data-position="top left"> <i class="arrow down link red icon"
+                  *ngIf="!collapseTable"></i><i class="arrow up link green icon" *ngIf="collapseTable"></i></span>
+              &nbsp; S.No</th>
+            <th rowspan="2">color</th>
+            <th rowspan="2">size</th>
+            <th rowspan="2">style</th>
+            <th rowspan="2">Destination</th>
+            <th colspan="2" class="center aligned">quantity</th>
+            <th rowspan="2">Action</th>
+          </tr>
+          <tr>
+            <th class="center aligned">quantity (pcs)</th>
+            <th class="center aligned">dozen</th>
+          </tr>
+        </thead>
+        <tbody id="keytable" *ngIf="!collapseTable">
+
+          <tr *ngFor="let item of breakdownDetails; let i = index">
+            <td>{{i+1}} </td>
+            <td>
+              <div class="field"><input type="text" [(ngModel)]="item.keyentry1" name="keyentry1{{i}}" /></div>
+            </td>
+            <td>
+              <div class="field"><input type="text" [(ngModel)]="item.keyentry2" name="keyentry2{{i}}" /></div>
+            </td>
+            <td>
+              <div class="field"><input type="text" [(ngModel)]="item.keyentry3" name="keyentry3{{i}}" /></div>
+            </td>
+            <td>
+              <div class="field"><input type="text" [(ngModel)]="item.keyentry4" name="keyentry4{{i}}" /></div>
+            </td>
+            <td>
+              <div class="field required">
+                <input type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="item.breakdownqty"
+                  (ngModelChange)="updateQuantity(i)" name="qty{{i}}" />
+              </div>
+            </td>
+            <td><span *ngIf="item.breakdownqty">{{(item.breakdownqty / 12).toFixed(2)}}</span></td>
+            <td>
+              <i class=" trash link red icon" (click)="deleteKeys(item.orderbreakdownid ,i)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="equal width fields">
+        <div class="field"><input type="number" [(ngModel)]="newRows" name="newRow" (keydown)="api.numberOnly($event)">
+        </div>
+        <div class="field"><button class="ui teal tiny button my-1" (click)="addBreakdownDetail()">Add</button></div>
+      </div>
+    </div>
+    <button type="button" class="ui teal tiny button my-1" (click)="add(form)"
+      *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+    <button type="button" class="ui orange tiny button my-1" (click)="previewDetails()"
+      *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Preview Details
+    </button>
+    <button type="button" class="ui primary tiny button my-1" (click)="Updatepatchforall(form)"
+      *ngIf="this.currentRoute?.toString()?.includes('edit') && this.master.brandid !== 3">Update</button>
+    <button type="button" class="ui teal tiny button my-1" (click)="UpdatepatchforCotton(form)"
+      *ngIf="this.currentRoute?.toString()?.includes('edit')  && this.master.brandid === 3">
+      Update
+    </button>
+  </form>
+  <div class="ui modal woven" id="woven">
+    <i class="close icon"></i>
+    <div class="header">
+      Preview Details
+    </div>
+    <div class="content">
+
+      <div class="description">
+        <div class="container">
+          <div class="">
+            <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+              <tr>
+                <td colspan="2"
+                  style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center">
+                  <h2><strong>{{this.myComp}}</strong> </h2>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title: Work
+                    Order</strong> </td>
+              </tr>
+            </table>
+
+            <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+              <tr>
+                <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>Sample
+                    Name&nbsp;&nbsp;:</strong> {{selectSample.samplename}} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Company Name&nbsp;&nbsp; :</strong>
+                  {{ this.myComp}} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Customer Name:&nbsp;&nbsp;</strong>
+                  {{this.mycustName}} </td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid black;padding: 5px"><strong>Customer Address:&nbsp;&nbsp;
+                  </strong>{{this.custAdd}} </td>
+                <td style="border: 1px solid black;padding: 5px"> <strong>Order Type :</strong> &nbsp;&nbsp;
+                  <div *ngIf="master?.ordertype == 1" class="ui small green horizontal label">Projection</div>
+                  <div *ngIf="master?.ordertype == 0" class="ui small green horizontal label">Confirm</div>
+                  <div *ngIf="master?.ordertype == 2" class="ui small green horizontal label">Sub Contact</div>
+                  <div *ngIf="master?.ordertype == 3" class="ui small green horizontal label">pp Sample Order</div>
+                </td>
+                <td style="border: 1px solid black;padding: 5px"> <strong>Is FOC :</strong> &nbsp;&nbsp;
+                  <div *ngIf="master?.isfoc == 1" class="ui small green horizontal label">Yes</div>
+                  <div *ngIf="master?.isfoc == 0" class="ui small red horizontal label">No</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid black;padding: 5px"> <strong>FOC Reason :</strong> &nbsp;&nbsp;
+                  <div *ngIf="master?.focreasonid == 1" class="ui small green horizontal label">Excess wastage in
+                    Production</div>
+                  <div *ngIf="master?.focreasonid == 2" class="ui small green horizontal label">FOC requested by
+                    Customer</div>
+                  <div *ngIf="master?.focreasonid == 3" class="ui small green horizontal label">Rejected by Customer
+                  </div>
+                  <div *ngIf="master?.focreasonid == 4" class="ui small green horizontal label">Short QTY claimed by
+                    Customer</div>
+                </td>
+                <!--              <td style="border: 1px solid black;padding: 5px"><strong>NPD Executive &nbsp;:&nbsp;&nbsp; </strong> {{master?.npdexecutiveid}}</td>-->
+                <td style="border: 1px solid black;padding: 5px"><strong>Buyer Name &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong>{{this.buyerName}}</td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Sub Brand Name &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong>{{this.subBrand}}</td>
+
+              </tr>
+              <tr>
+
+                <td style="border: 1px solid black;padding: 5px"><strong>Work Order Date:&nbsp;</strong>
+                  {{master?.orderreceivedate | date}} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Delivery Date &nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> {{master?.estdeliverdate | date}} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Partial Del. Date
+                    &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{master?.partialdeldate | date}} </td>
+
+              </tr>
+              <tr>
+                <td style="border: 1px solid black;padding: 5px"><strong>Product Category &nbsp;:&nbsp;&nbsp;
+                  </strong>{{selectSample?.productCategory?.productcategoryname}} </td>
+
+                <td style="border: 1px solid black;padding: 5px"><strong>PO Reference No&nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> &nbsp;{{master?.customerpono}}</td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Delivery Party&nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> &nbsp;{{this.deleveryPartyName}} </td>
+
+              </tr>
+              <tr>
+                <td style="border: 1px solid black;padding: 5px"><strong>Merchandiser Name &nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> {{master?.merchandisername}}</td>
+
+                <td style="border: 1px solid black;padding: 5px"><strong>Sales Executive&nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> {{this.salesName}} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>FOC work order &nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> {{master?.focworkorderid}}</td>
+
+              </tr>
+              <tr>
+                <td style="border: 1px solid black;padding: 5px"><strong>Fabric Composition &nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> {{MyFabric}} </td>
+
+                <td style="border: 1px solid black;padding: 5px"><strong>Product Code No &nbsp;:&nbsp;&nbsp; </strong>
+                  {{master?.productcodeno}} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Complain No. &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+                  </strong> {{master?.complainno}} </td>
+
+              </tr>
+              <tr>
+
+                <td style="border: 1px solid black;padding: 5px"><strong>Speed Order :</strong>&nbsp;&nbsp;
+                  <div *ngIf="master?.jobcartstatus == 1" class="ui small green horizontal label">Yes</div>
+                  <div *ngIf="master?.jobcartstatus == 0" class="ui small red horizontal label">No</div>
+                </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Customer Service &nbsp;:&nbsp;&nbsp;
+                  </strong>{{this.custService }} </td>
+                <td style="border: 1px solid black;padding: 5px"><strong>Narration &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+                  {{master?.narration}}</td>
+                <!--              <td style="border: 1px solid black;padding: 5px"><strong>Dozen  :</strong>&nbsp;&nbsp;-->
+                <!--                <div  *ngIf="master?.dozen == 1" class="ui small green horizontal label">Yes</div>-->
+                <!--                <div  *ngIf="master?.dozen == 0" class="ui small red horizontal label">No</div>-->
+                <!--              </td>-->
+
+              </tr>
+            </table>
+          </div>
+          <br>
+          <!--Woven Technical Detail-->
+
+          <div>
+            <h2 class="center aligned vertically">Buyers Extra Information</h2>
+            <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+              <tr>
+                <td style="border: 1px solid black;padding: 5px" *ngIf="master.brandid ===4"><strong>URN No. </strong>
+                  &nbsp;&nbsp;{{master?.extracolumn1}}</td>
+                <td style="border: 1px solid black;padding: 5px" *ngIf="master.brandid ===87"><strong>ECOM No. </strong>
+                  &nbsp;&nbsp;{{master?.extracolumn1}}</td>
+                <td style="border: 1px solid black;padding: 5px" *ngIf="master.brandid ===87"><strong>MC PO </strong>
+                  &nbsp;&nbsp;{{master?.extracolumn2}}</td>
+                <td style="border: 1px solid black;padding: 5px" *ngIf="master.brandid ===87"><strong>MC Style </strong>
+                  &nbsp;&nbsp;{{master?.extracolumn3}}</td>
+                <td style="border: 1px solid black;padding: 5px" *ngIf="master.brandid ===1"><strong>Dept No </strong>
+                  &nbsp;&nbsp;{{master?.extracolumn4}}</td>
+              </tr>
+            </table>
+            <br>
+            <br>
+            <div id="yarn">
+              <h2 class="center aligned vertically">Work Order Details</h2>
+              <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+                <tr>
+                  <th style="border: 1px solid black;padding: 5px">Item Name</th>
+                  <th style="border: 1px solid black;padding: 5px">Length</th>
+                  <th style="border: 1px solid black;padding: 5px">Width</th>
+                  <th style="border: 1px solid black;padding: 5px">Finish type</th>
+                  <th style="border: 1px solid black;padding: 5px">Sample Color</th>
+                  <th style="border: 1px solid black;padding: 5px">Price</th>
+                  <th style="border: 1px solid black;padding: 5px">Amount</th>
+                  <th style="border: 1px solid black;padding: 5px">Part No</th>
+                  <th style="border: 1px solid black;padding: 5px">Total Order Qty</th>
+                  <th style="border: 1px solid black;padding: 5px">Total Order Qty (Dozen)</th>
+
+                </tr>
+                <tr>
+                  <td style="border: 1px solid black;padding: 5px">{{item}} </td>
+                  <td style="border: 1px solid black;padding: 5px">{{selectSample?.length}} </td>
+                  <td style="border: 1px solid black;padding: 5px">{{selectSample?.width}} </td>
+                  <td style="border: 1px solid black;padding: 5px">{{myFinishType}} </td>
+                  <td style="border: 1px solid black;padding: 5px">{{this.myColor}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.price}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.adjamount}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{PARTSID}}</td>
+
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.orderqty}} </td>
+                  <td style="border: 1px solid black;padding: 5px"><span *ngIf="detail?.orderqty">
+                      {{detail?.orderqty / 12 | number}} </span> </td>
+                  <!--                <td style="border: 1px solid black;padding: 5px">{{detail?.wastagepercentage}}   </td>-->
+
+                  <!-- <td style="border: 1px solid black;padding: 5px">{{detail?.price}} </td> -->
+                </tr>
+              </table>
+            </div>
+            <br>
+
+            <!--    Woven KeyEntry Detail-->
+
+            <div id="key">
+              <h2 class="center aligned vertically">Work Order KeyEntry Details</h2>
+              <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;"
+                *ngIf="this.master.brandid !== 3">
+                <thead>
+                  <th style="border: 1px solid black;padding: 5px">Color</th>
+                  <th style="border: 1px solid black;padding: 5px">Size</th>
+                  <th style="border: 1px solid black;padding: 5px">Style</th>
+
+                  <th style="border: 1px solid black;padding: 5px">Quantity</th>
+                  <th style="border: 1px solid black;padding: 5px">Dozen</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let detail of breakdownDetails;">
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.color}}</td>
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.size}}</td>
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.style}}</td>
+
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.quantity}}</td>
+                    <td style="border: 1px solid black;padding: 5px"><span> {{detail?.quantity / 12 | number}} </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;"
+                *ngIf="this.master.brandid === 3">
+                <thead>
+                  <th style="border: 1px solid black;padding: 5px">QTY Labels</th>
+                  <th style="border: 1px solid black;padding: 5px">Dozen</th>
+                  <th style="border: 1px solid black;padding: 5px">STYLE COLOUR</th>
+                  <th style="border: 1px solid black;padding: 5px">SIZE</th>
+                  <th style="border: 1px solid black;padding: 5px">Destination</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let detail of breakdownDetails;">
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.color}}</td>
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.size}}</td>
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.style}}</td>
+
+                    <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.quantity">
+                      {{detail?.quantity / 12 | number}}</td>
+                  </tr>
+                  <tr *ngFor="let detail of breakdownDetails2;">
+                    <td style="border: 1px solid black;padding: 5px">{{detail['QTY Labels']}}</td>
+                    <td style="border: 1px solid black;padding: 5px" *ngIf="detail['QTY Labels']">
+                      {{detail['QTY Labels'] / 12 | number}}</td>
+                    <td style="border: 1px solid black;padding: 5px">{{detail['STYLE COLOUR']}}</td>
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.SIZE}}</td>
+
+                    <td style="border: 1px solid black;padding: 5px">{{detail?.Destination}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<form class="ui form" #form='ngForm' onsubmit="return false;" autocomplete="off">
+  <div class="ui segment pt-5">
+    <h4 class="ui teal dividing header">
+      Add Master Challan
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Client</label>
+        <sui-select placeholder=" " class="selection" [(ngModel)]="CustomerID" name="client" [options]="clients"
+          labelField="clientname" valueField="clientid"
+          (input)="getCustomers($event.target.value)" [isSearchable]="true" #selectCustomers>
+          <sui-select-option *ngFor="let o of selectCustomers.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>PI No</label>
+        <input type="text" placeholder="PI No" [(ngModel)]="pino" name="pinoname">
+      </div>
+    </div>
+     <table class="ui very compact table">
+      <thead>
+        <tr>
+          <th>
+            <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllWO" (ngModelChange)="selectAll()"></sui-checkbox>
+          </th>
+          <th>PI No</th>
+          <th>Customer</th>
+          <th>PI Qty</th>
+          <th>Challan Qty</th>
+          <th>PI Value</th>
+        </tr>
+      </thead>
+     <tbody>
+        <tr *ngFor="let data of gridData; let i = index">
+          <td><sui-checkbox  class="mt-2" [(ngModel)]="data.selected" name="{{i}" ></sui-checkbox>
+          </td>
+          <td>{{data?.PINo}}</td>
+          <td>{{data?.ClientName}}</td>
+          <td>{{data?.OrderQty}}</td>
+          <td>{{data?.ChlQty}}</td>
+          <td>{{data?.PIValue}}</td>
+        </tr>
+      </tbody>
+    </table> 
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny facebook button" (click)="getGridData()">Search</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="save(form)">Save</button>
+      </div>
+    </div>
+  </div>
+</form>

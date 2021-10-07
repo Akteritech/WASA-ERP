@@ -1,0 +1,116 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i> Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+  <form onsubmit="return false;" class="ui small form" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment">
+      <h4 class="ui teal dividing header">Activation</h4>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Card No</label>
+          <sui-select placeholder="." class="selection" name="group" [options]="cardnos" [(ngModel)]="card"
+            labelField="EMP_CARD_NO" valueField="EMP_CARD_NO" (keyup)="getCards($event.target.value)"
+            (ngModelChange)="cardSelected()" [isSearchable]="true" #selectCard required>
+            <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Employee Name</label>{{name}}
+        </div>
+      </div>
+      <button class="ui teal tiny button my-1" (click)="search()">
+        Show On/Off Status
+      </button>
+    </div>
+
+    <div class="ui segment" *ngIf="searchDatas">
+      <table class="ui very compact unstackable teal table">
+        <tr>
+          <th>Transaction</th>
+          <th>On/ Off</th>
+          <th>Month Name</th>
+        </tr>
+          <tr *ngFor="let data of searchDatas; let i = index">
+            <td>{{data?.TransName}}</td>
+            <td>{{data?.OnOff}}</td>
+            <td>{{data?.MonthName}}</td>
+          </tr>
+      </table>
+    </div>
+  </form>
+  <form onsubmit="return false;" class="ui small form" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment">
+      <table class="ui very compact unstackable teal table">
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Description</th>
+            <th>Selection</th>
+            <th>Month</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>To turn On/ Off Advance</td>
+            <td><input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="advanceYes" [(ngModel)]="checks[0]"></td>
+            <td><input suiDatepicker pickerMode="date" name="month" [(ngModel)]="date"></td>
+            <td><button class="ui teal tiny button my-1" (click)="patch('Advance', 0)">Update</button></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>To turn On/ Off Rocket</td>
+            <td><input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="rocketYes" id="rocketYes"
+                [(ngModel)]="checks[1]"></td>
+            <td></td>
+            <td><button class="ui teal tiny button my-1" (click)="patch('Rocket', 1)">Update</button></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>To turn On/ Off Bank Account</td>
+            <td><input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="bankNoYes" id="bankNoYes"
+                [(ngModel)]="checks[2]"></td>
+            <td></td>
+            <td><button class="ui teal tiny button my-1" (click)="patch('Bank', 2)">Update</button></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>To turn On/ Off Benefit</td>
+            <td><input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="benefitYes" id="benefitYes"
+                [(ngModel)]="checks[3]"></td>
+            <td></td>
+            <td><button class="ui teal tiny button my-1" (click)="patch('Benefit', 3)">Update</button></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>To turn On/ Off Present Employee</td>
+            <td><input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="presentEmployeeYes" id="presentEmployeeYes"
+                [(ngModel)]="checks[4]"></td>
+            <td></td>
+            <td><button class="ui teal tiny button my-1" (click)="patch('Present', 4)">Update</button></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>To CD On/ Off</td>
+            <td><input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="cdOnOff" id="cdOnOff"
+                [(ngModel)]="checks[5]"></td>
+            <td></td>
+            <td><button class="ui teal tiny button my-1" (click)="patch('CD', 5)">Update</button></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Salary Reduce</td>
+            <td><input type="number" min="0" class="ui mt-1 mr-3 ml-3 big" name="salaryReduce" id="salaryReduce" placeholder="Salary Reduce"
+                [(ngModel)]="Salary"></td>
+            <td></td>
+            <td><button class="ui teal tiny button my-1" (click)="patchReduceSalary()">Update</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>

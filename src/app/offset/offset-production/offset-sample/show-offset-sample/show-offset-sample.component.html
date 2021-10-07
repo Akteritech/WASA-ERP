@@ -1,0 +1,459 @@
+<div class="pt-5">
+  <button class="ui icon blue button" printSectionId="sample" ngxPrint><i class="print icon"></i></button>
+  <div class="">
+    <div id="printContent" #printContent>
+      <div id="sample">
+        <div class="ui grid">
+          <div class="ten wide column">
+            <h2 class="center aligned vertically">Sample No. #{{offsetsample?.sampleno}}</h2>
+          </div>
+          <div class="four wide column">
+            <ngx-barcode [bc-height]="60" [bc-width]="2" [bc-margin-top]="0" [bc-value]="offsetsample?.sampleno"
+              [bc-display-value]="false"></ngx-barcode>
+          </div>
+        </div>
+        <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+          <tr>
+            <td colspan="2"
+              style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center">
+              <strong>{{offsetsample?.company?.companyname}}</strong> </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title: Offset
+                Sample</strong> </td>
+          </tr>
+        </table>
+        <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+          <tr>
+            <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong> Sample
+                Name&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{offsetsample?.samplename}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Company &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.company?.companyname}} </td>
+            <td rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+              <img width="200" height="200" *ngIf="offsetsample?.imagepath"
+                src="{{ api.baseUrl + offsetsample?.imagepath }}" alt="">
+            </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Brand&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong>{{offsetsample?.brand?.brandname}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Sub-Brand&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong>{{offsetsample?.program?.programname}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Category &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.productCategory?.productcategoryname}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Sub-Category &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.productSubCategory?.productsubcategoryname}} </td>
+          </tr>
+          <tr>
+            <td
+              style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;padding: 5px">
+              <strong> Client&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{offsetsample?.client?.clientname}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>NPD Executive&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong>{{executive?.SalesPeron}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Designer&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong>{{designer?.SalesPeron}}-{{designer?.prevempid}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Sales Person &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{sales?.SalesPeron}}-{{sales?.prevempid}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Receive Date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.orderdate | date}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Estimate Date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.estdeliverydate | date}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Length &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.length}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Width &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.width}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Unit &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.unit1?.listitem}}</td>
+            <!--          <td style="border: 1px solid black;padding: 5px" ><strong>Unit &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  <span *ngIf="this.offsetsample?.unit=== 1">Pcs</span> <span *ngIf="this.offsetsample?.unit=== 2">Yard</span> <span *ngIf="this.offsetsample?.unit=== 3">Mtr</span></td>-->
+            <td style="border: 1px solid black;padding: 5px"><strong>Finish Length &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.finishlength}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Expire Date &nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong><span
+                *ngIf="offsetsample?.expireDate !== '1900-01-01T00:00:00.000Z' && offsetsample?.expireDate !== 'null' ">
+                {{offsetsample?.expireDate | date}}</span></td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Delivery Date &nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong><span
+                *ngIf="offsetsample?.deliverydate !== '1900-01-01T00:00:00.000Z' && offsetsample?.deliverydate !== 'null' ">
+                {{offsetsample?.deliverydate | date}}</span></td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Received from production&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong><span
+                *ngIf="offsetsample?.completeDate !== '1900-01-01T00:00:00.000Z' && offsetsample?.completeDate !== 'null' ">
+                {{offsetsample?.completeDate | date}}</span></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Approval Date &nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong><span
+                *ngIf="offsetsample?.approveldate !== '1900-01-01T00:00:00.000Z' && offsetsample?.approveldate !== 'null' ">
+                {{offsetsample?.approveldate | date}}</span></td>
+
+            <td style="border: 1px solid black;padding: 5px"><strong> Status &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.status?.statusdescription}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Total No. Of Color &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.totalnoofcolor}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Paper GSM &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.papergsm}} </td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Submission Date &nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong><span
+                *ngIf="offsetsample?.submissiondate !== '1900-01-01T00:00:00.000Z' && offsetsample?.submissiondate !== 'null' ">
+                {{offsetsample?.submissiondate | date}}</span></td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Submission Comment &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.submissioncomment}} </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Rejection Date &nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong><span
+                *ngIf="offsetsample?.rejectiondate !== '1900-01-01T00:00:00.000Z' && offsetsample?.rejectiondate !== 'null' ">
+                {{offsetsample?.rejectiondate | date}}</span></td>
+            <td style="border: 1px solid black;padding: 5px"><strong>Rejection Comment &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.rejectioncomment}} </td>
+            <td style="border: 1px solid black;padding: 5px" *ngIf="!offsetsample?.isbarcode"><strong>Is Bar Code
+                &nbsp;&nbsp;:&nbsp;&nbsp; </strong>No</td>
+            <td style="border: 1px solid black;padding: 5px" *ngIf="offsetsample?.isbarcode"><strong>Is Bar Code
+                &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Remark &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+              {{offsetsample?.specialinstruction}} </td>
+
+            <td style="border: 1px solid black;padding: 5px"><strong>Uploaded PDF &nbsp;&nbsp;:&nbsp;&nbsp; </strong> <a
+                class="ui Medium purple horizontal label" *ngIf="offsetsample?.artworklocation"
+                href="{{ api.baseUrl + offsetsample?.artworklocation }}" target="_blank"> Show File</a><a
+                class="ui Medium red horizontal label" *ngIf="!offsetsample?.artworklocation"> No File</a> </td>
+            <td style="border: 1px solid black;padding: 5px" (click)="downloadPDF();"><strong>Uploaded Image
+                &nbsp;&nbsp;:&nbsp;&nbsp; </strong><a class="ui Medium purple horizontal label"
+                *ngIf="offsetsample?.filename" href="{{api.baseUrl + offsetsample?.filename }}" target="_blank">Show
+                Image</a> <a class="ui Medium red horizontal label" *ngIf="!offsetsample?.filename"> No Image</a> </td>
+          </tr>
+          <!--        <tr>-->
+          <!--          <td  style="border: 1px solid black;padding: 5px" ><strong>Reason Of Change &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.reasonOfChange}}  </td>-->
+          <!--        </tr>-->
+        </table>
+        <table style="margin: 10px;width: 100%;border-collapse: collapse;">
+          <tr>
+            <td style="border: 1px solid black;padding: 5px"><strong>Reason Of Change &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+              </strong> {{offsetsample?.reasonOfChange}} </td>
+          </tr>
+        </table>
+        <table style="margin: 10px;width: 100%;border-collapse: collapse;">
+          <tr>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">
+              <strong>2nd Submit Date</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.submissioncomment2"><strong>2nd Submit Comment</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate3">
+              <strong>3rd Submit Date</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.submissioncomment3"><strong>3rd Submit Comment</strong></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">
+              {{offsetsample?.submissiondate2 | date}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.submissioncomment2">{{offsetsample?.submissioncomment2}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate3">
+              {{offsetsample?.submissiondate3 | date}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.submissioncomment3">{{offsetsample?.submissioncomment3}}</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate4">
+              <strong>4th Submit Date</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.submissioncomment4"><strong>4th Submit Comment</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate2">
+              <strong>2nd Rejection Date</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.rejectioncomment2"><strong>2nd Rejection Comment</strong></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">
+              {{offsetsample?.submissiondate4 | date}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">
+              {{offsetsample?.submissioncomment4}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate2">
+              {{offsetsample?.rejectiondate2 | date}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.rejectioncomment2">{{offsetsample?.rejectioncomment2}}</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate3">
+              <strong>3rd Rejection Date</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.rejectioncomment3"><strong>3rd Rejection Comment</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate4">
+              <strong>4th Rejection Date</strong></td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.rejectioncomment4"><strong>4th Rejection Comment</strong></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate3">
+              {{offsetsample?.rejectiondate3 | date}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.rejectioncomment3">{{offsetsample?.rejectioncomment3}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate4">
+              {{offsetsample?.rejectiondate4 | date}}</td>
+            <td style="border: 1px solid black;padding: 5px;font-size: 12px"
+              *ngIf="this.offsetsample?.rejectioncomment4">{{offsetsample?.rejectioncomment4}}</td>
+          </tr>
+        </table>
+        <!--      <table style="margin: 10px;width: 100%;border-collapse: collapse;" *ngIf="this.offsetsample?.submissiondate2">-->
+        <!--        <tr>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Submit Date</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Submit Comment</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Submit Date</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Submit Comment</strong></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissiondate2 | date}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissioncomment2}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissiondate3 | date}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissioncomment3}}</td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Submit Date</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Submit Comment</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Rejection Date</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Rejection Comment</strong></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissiondate4 | date}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissioncomment4}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectiondate2 | date}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectioncomment2}}</td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Rejection Date</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Rejection Comment</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Rejection Date</strong></td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Rejection Comment</strong></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectiondate3 | date}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectioncomment3}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectiondate4 | date}}</td>-->
+        <!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectioncomment4}}</td>-->
+        <!--        </tr>-->
+        <!--      </table>-->
+
+        <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;" *ngIf="colordetails">
+          <tr>
+            <th style="border: 1px solid black;padding: 5px">Background Color</th>
+            <th style="border: 1px solid black;padding: 5px">Print Color</th>
+          </tr>
+          <tr *ngFor="let color of colordetails">
+            <td style="border: 1px solid black;padding: 5px">{{color?.samplecolorname}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{color?.printcolor}}</td>
+          </tr>
+        </table>
+
+      </div>
+      <br>
+      <br>
+      <button class="ui icon blue button" printSectionId="technical" ngxPrint><i class="print icon"></i></button>
+      <!--    <div id="technical">-->
+      <!--      <h2 class="center aligned vertically">Offset Sample Technical Details</h2>-->
+      <!--      <h4 class="center aligned vertically">Sample No. #{{offsetsample?.sampleno}}</h4>-->
+      <!--      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">-->
+      <!--        <thead>-->
+      <!--          <th> Screen Print </th>-->
+      <!--          <th> Lamination </th>-->
+      <!--          <th> Thermal </th>-->
+      <!--          <th> Cold/Glue </th>-->
+      <!--          <th> Eyelet </th>-->
+      <!--          <th> String </th>-->
+      <!--          <th> Tag Pin </th>-->
+      <!--          <th> Cutting </th>-->
+      <!--          <th>Embosse</th>-->
+      <!--          <th> Debosse </th>-->
+      <!--          <th> Foiling </th>-->
+      <!--          <th> Board Pasting </th>-->
+      <!--          <th> window </th>-->
+      <!--          <th> WindowWithPet </th>-->
+      <!--          <th> Hanger </th>-->
+      <!--          <th> Hook </th>-->
+      <!--          <th> Hole </th>-->
+      <!--          <th> Perforation </th>-->
+      <!--          <th> Both Side Tape </th>-->
+      <!--          <th> Manget </th>-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.screenprintid === 0"><strong>Screen Print&nbsp; : &nbsp; </strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.screenprintid === 1"> <strong>Screen Print :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.laminationid === 0"> <strong>Lamination :</strong><span>Thermal</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.laminationid === 1"><strong>Lamination :</strong><span>Cold/ Glue</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.eyeletid === 0"> <strong>Eyelet :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.eyeletid === 1"> <strong>Eyelet :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;       &ndash;&gt;-->
+      <!--        </thead>-->
+      <!--        <tbody>-->
+      <!--        <tr *ngFor="let detail of TechnicalDetails">-->
+      <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.description1}}</td>-->
+      <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.color?.samplecolorname}}</td>-->
+      <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.item?.itemcode}}</td>-->
+      <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.fullsheetlength}}</td>-->
+      <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.fullsheetwidth}}</td>-->
+      <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.requiredqty}}</td>-->
+      <!--        </tr>-->
+      <!--        </tbody>-->
+      <!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.stringid === 0"> <strong>String :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.stringid === 1"> <strong>String :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.tagpinid === 0"> <strong>Tag Pin :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.tagpinid === 1"> <strong>Tag Pin :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.cuttingid === 0"> <strong>Cutting :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.cuttingid === 1"> <strong>Cutting :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.embossid === 0"> <strong>Embosse :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.embossid === 1"> <strong>Embosse :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.debossid === 0"> <strong>Debosse :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.debossid === 1"> <strong>Debosse :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.foilingid === 0"> <strong>Foiling :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.foilingid === 1"> <strong>Foiling :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.boardpasting === 0"> <strong>Boarding Pasting :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.boardpasting === 1"> <strong>Boarding Pasting :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.windowid === 0"> <strong>Window :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.windowid === 1"> <strong>Window :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.windowwithpetid === 0"> <strong>Window With Pet :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.windowwithpetid === 1"> <strong>Window With Pet :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.hangerid === 0"> <strong>Hanger :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.hangerid === 1"> <strong>Hanger :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.hookid === 0"> <strong>Hook :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.hookid === 1"> <strong>Hook :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.holeid === 0"> <strong>Hole :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.holeid === 1"> <strong>Hole :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;        <tr>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.perforationid === 0"> <strong>Perforation :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.perforationid === 1"> <strong>Perforation :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.bothsidetapeid === 0"> <strong>Both Side Tape :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.bothsidetapeid === 1"> <strong>Both Side Tape :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.magnetid === 0"> <strong>Magnet :</strong><span>No</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="TechnicalDetails?.magnetid === 1"> <strong>Magnet :</strong><span>Yes</span> </td>&ndash;&gt;-->
+      <!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+      <!--      </table>-->
+      <!--    </div>-->
+      <div id="technical">
+        <h2 class="ui m-0">Offset Sample Technical Details</h2>
+        <div class="ui two column grid ">
+          <div class="row ml-3 mr-3">
+            <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+              <thead>
+                <th style="border: 1px solid black;padding: 5px"> Screen Print </th>
+                <th style="border: 1px solid black;padding: 5px"> Lamination </th>
+                <th style="border: 1px solid black;padding: 5px"> Thermal </th>
+                <th style="border: 1px solid black;padding: 5px"> Cold/Glue </th>
+                <th style="border: 1px solid black;padding: 5px"> Eyelet </th>
+                <th style="border: 1px solid black;padding: 5px"> String </th>
+                <th style="border: 1px solid black;padding: 5px"> Tag Pin </th>
+                <th style="border: 1px solid black;padding: 5px"> Cutting </th>
+                <th style="border: 1px solid black;padding: 5px">Embosse</th>
+                <th style="border: 1px solid black;padding: 5px"> Debosse </th>
+                <th style="border: 1px solid black;padding: 5px"> Foiling </th>
+                <th style="border: 1px solid black;padding: 5px"> Board Pasting </th>
+                <th style="border: 1px solid black;padding: 5px"> window </th>
+                <th style="border: 1px solid black;padding: 5px"> WindowWithPet </th>
+                <th style="border: 1px solid black;padding: 5px"> Hanger </th>
+                <th style="border: 1px solid black;padding: 5px"> Hook </th>
+                <th style="border: 1px solid black;padding: 5px"> Hole </th>
+                <th style="border: 1px solid black;padding: 5px"> Perforation </th>
+                <th style="border: 1px solid black;padding: 5px"> Both Side Tape </th>
+                <th style="border: 1px solid black;padding: 5px"> Manget </th>
+                <th style="border: 1px solid black;padding: 5px"> Sticker Attaching </th>
+                <th style="border: 1px solid black;padding: 5px"> Rfid Attaching </th>
+                <th style="border: 1px solid black;padding: 5px"> Folder Glueing </th>
+                <th style="border: 1px solid black;padding: 5px"> Creezing </th>
+                <th style="border: 1px solid black;padding: 5px"> Uv </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of TechnicalDetails">
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description1}}</td>
+                  <td style="border: 1px solid black;padding: 5px"><span
+                      *ngIf="detail?.laminationid === 1">Hot</span><span
+                      *ngIf="detail?.laminationid === 2">Cold/Glue</span></td>
+                  <td style="border: 1px solid black;padding: 5px"><span *ngIf="detail?.thermal === 1">Gloss</span><span
+                      *ngIf="detail?.thermal === 2">Matt</span></td>
+                  <td style="border: 1px solid black;padding: 5px"><span
+                      *ngIf="detail?.coldglue === 1">Gloss</span><span *ngIf="detail?.coldglue === 2">Matt</span></td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description2}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description3}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description4}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description5}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description6}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description7}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description8}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description9}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description10}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description11}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description12}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description13}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description14}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description15}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description16}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description17}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description18}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description19}}</td>
+                  <td style="border: 1px solid black;padding: 5px"><span
+                      *ngIf="detail?.folderglueingid === 1">Manual</span><span
+                      *ngIf="detail?.folderglueingid === 2">Machine</span></td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description20}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.description21}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <button class="ui icon blue button" printSectionId="material" ngxPrint><i class="print icon"></i></button>
+      <button class="ui tiny green button m-1" (click)="exportCsv()"><strong><i
+            class="file excel icon"></i></strong></button>
+      <div class="ui divider"></div>
+      <div id="material">
+        <h2 class="ui m-0">Offset Sample Material Details</h2>
+        <div class="ui two column grid ">
+          <div class="row ml-3 mr-3">
+            <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+              <thead>
+                <th style="border: 1px solid black;padding: 5px">Sample No</th>
+                <th style="border: 1px solid black;padding: 5px">Material Color</th>
+                <th style="border: 1px solid black;padding: 5px">Material Name</th>
+                <th style="border: 1px solid black;padding: 5px">Full Sheet Length</th>
+                <th style="border: 1px solid black;padding: 5px">Full Sheet Width</th>
+                <th style="border: 1px solid black;padding: 5px">No Of Ups</th>
+                <th style="border: 1px solid black;padding: 5px">Quantity Per Thousand</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of material">
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.sample?.sampleno}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.color?.samplecolorname}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.item?.itemcode}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.fullsheetlength}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.fullsheetwidth}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.noofups}}</td>
+                  <td style="border: 1px solid black;padding: 5px">{{detail?.requiredqty}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

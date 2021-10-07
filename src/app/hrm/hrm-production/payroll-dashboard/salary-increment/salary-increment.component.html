@@ -1,0 +1,171 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+
+  <div>
+    <br>
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment">
+        <h4 class="ui teal dividing header">
+          Employee Salary Increment
+        </h4>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Card No</label>
+            <sui-select placeholder="." class="selection" name="group" [options]="cardnos"
+              [(ngModel)]="increment.EMP_CARD_NO" labelField="EMP_CARD_NO" valueField="EMP_CARD_NO"
+              (keyup)="getCards($event.target.value)" (ngModelChange)="cardSelected()" [isSearchable]="true" #selectCard
+              required>
+              <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Employee Name</label>
+            <span>{{name}}</span>
+          </div>
+          <div class="field">
+            <label>Last Increment Date</label>
+            <input suiDatepicker pickerMode="date" name="incrementDate" [(ngModel)]="increment.LAST_INCR_DATE">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Last Increment Amount</label>
+            <!-- <input type="number" min="0" name="lastIncrementAmount" [(ngModel)]="increment.LAST_INCR_AMOUNT"> -->
+            {{lastincrementAmount}}
+          </div>
+          <div class="field">
+            <label>Increment Amount</label>
+            <input type="number" min="0" name="incrementAmount" [(ngModel)]="increment.NEW_INCR_AMOUNT">
+          </div>
+          <div class="field">
+            <label>Increment Order Ref. No</label>
+            <input type="text" name="incrementOrderRefNo" [(ngModel)]="increment.NEW_INCR_REF_NO">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Increment Order Ref. Date</label>
+            <input suiDatepicker pickerMode="date" name="incrementOrderRefDate" [(ngModel)]="increment.NEW_INCR_REF_DATE">
+          </div>
+          <div class="field">
+            <label>Effective Date</label>
+            <input suiDatepicker pickerMode="date" name="effectiveDate" [(ngModel)]="increment.NEW_INCR_EFF_DATE">
+          </div>
+          <div class="field">
+            <label>Increment Active</label>
+            <input type="checkbox">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Arear Months</label>
+            <input type="number" min="0" name="areaMonths" [(ngModel)]="increment.AREARMONTHS">
+          </div>
+          <div class="field">
+            <label>Arear Amount</label>
+            <input type="number" min="0" name="areaAmount" [(ngModel)]="increment.AREARAMOUNT">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Remarks</label>
+            <div class="two fields">
+              <div class="field">
+                <textarea id="remark" name="remark" placeholder="Remarks" rows="3" [(ngModel)]="increment.REMARKS"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui divider"></div>
+        <button *ngIf="!this.editId" class="ui teal tiny button my-1" (click)="patch(form)">
+          Save
+        </button>
+
+        <button *ngIf="this.editId" class="ui teal tiny button my-1">Update</button>
+        <button *ngIf="this.editId" class="ui red tiny button my-1" (click)="deleteEmployeeIncrement()">Remove</button>
+      </div>
+    </form>
+
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment mt-5">
+        <h3 class="ui teal dividing header">
+          Search Employee Increment
+        </h3>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Card No</label>
+            <input required type="text" id="Grade" name="Grade" placeholder="Card No" [(ngModel)]="cardNo" />
+          </div>
+        </div>
+        <button class="ui purple tiny button my-1" (click)="search()">
+          Search
+        </button>
+      </div>
+    </form>
+
+    <table class="ui very compact unstackable teal table" *ngIf="searchDatas">
+      <thead>
+        <tr>
+          <th>SL</th>
+          <th>Actions</th>
+          <th>Card No</th>
+          <th>Employee ID</th>
+          <th>LAST INCR DATE</th>
+          <th>LAST INCR AMOUNT</th>
+          <th>OLD BASIC</th>
+          <th>NEW BASIC</th>
+          <th>OLD MEDICAL</th>
+          <th>NEW MEDICAL</th>
+          <th>HOUSE RENT</th>
+          <th>OLD GROSS</th>
+          <th>NEW GROSS</th>
+          <th>NEW INCR AMOUNT</th>
+          <th>OLD CONVINCE</th>
+          <th>NEW CONVINCE</th>
+          <th>OLD OTHERS</th>
+          <th>NEW OTHERS</th>
+          <th>NEW INCR EFF DATE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of searchDatas; let i = index">
+          <td>{{i+1}} </td>
+          <td class="single line">
+            <i class="edit link blue icon" (click)="getEmployeeIncrement(data.EMP_ID)"></i>
+            <i class="trash link red icon" (click)="getEmployeedeleteIncrement(data.SERIAL_NO)"></i>
+          </td>
+          <td>
+            {{data?.EMP_CARD_NO}}
+          </td>
+          <td>
+            {{data?.EMP_ID}}
+          </td>
+          <td>{{data?.LAST_INCR_DATE.substring(0, 10)}}</td>
+          <td>{{data?.LAST_INCR_AMOUNT}}</td>
+          <td>{{data?.OLD_BASIC}}</td>
+          <td>{{data?.NEW_BASIC}}</td>
+          <td>{{data?.OLD_MEDICAL}}</td>
+          <td>{{data?.NEW_MEDICAL}}</td>
+          <td>{{data?.OLD_HOUSE_RENT}}</td>
+          <td>{{data?.OLD_GROSS}}</td>
+          <td>{{data?.NEW_GROSS}}</td>
+          <td>{{data?.NEW_INCR_AMOUNT}}</td>
+          <td>{{data?.OLD_CONVINCE}}</td>
+          <td>{{data?.NEW_CONVINCE}}</td>
+          <td>{{data?.OLD_OTHERS}}</td>
+          <td>{{data?.NEW_OTHERS}}</td>
+          <td>{{data?.NEW_INCR_EFF_DATE.substring(0, 10)}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,443 @@
+
+<button class="ui icon blue button" printSectionId="sample" ngxPrint><i class="print icon"></i></button>
+
+<div class="">
+  <div  id="printContent" #printContent>
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+          <h2 class="center aligned vertically">Sample No. #{{sample?.sampleno}}</h2>
+        </div>
+        <div class="four wide column">
+          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="sample?.sampleno" [bc-display-value]="false"></ngx-barcode>
+        </div>
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{sample?.company?.companyname}}</strong> </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title:NPD Sample</strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong> Sample Name&nbsp;&nbsp;:&nbsp;&nbsp;</strong>  {{sample?.samplename}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Company &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.company?.companyname}}  </td>
+          <td  rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+            <img width="200" height="200" *ngIf="sample?.imagepath" src="{{ api.baseUrl + sample?.imagepath }}"  alt="" >
+          </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Brand &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{sample?.brand?.brandname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sub-Brand&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{sample?.program?.programname}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Category &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.productCategory?.productcategoryname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sub Category &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.productSubCategory?.productsubcategoryname}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Client &nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{sample?.client?.clientname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>NPD Executive &nbsp;:&nbsp;&nbsp; </strong> {{sample?.NPDExecutive?.firstname}}</td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Designer &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{ sample?.designer?.firstname}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sales Person &nbsp;:&nbsp;&nbsp; </strong>{{sample?.salesPerson?.firstname}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Rcv Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.orderdate | date}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Est Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.estdeliverydate | date}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Length(MM)&nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{sample?.length}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Width(MM)&nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{sample?.width}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Pcs/Yard &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{sample?.pcsyard}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Status&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.status?.statusdescription}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Approval Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span *ngIf="sample?.approveldate !== '1900-01-01T00:00:00.000Z' && sample?.approveldate !== 'null' ">  {{sample?.approveldate | date}}</span></td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Ground Colour &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{sample?.groundcolor}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Text Color &nbsp;:&nbsp;&nbsp; </strong> {{sample?.textcolor}} </td>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Remark &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.remark1}}  </td>
+          <!--<td style="border: 1px solid black;padding: 5px"><strong>Finish Length&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.psfoldtofold}}</td>-->
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Uploaded PDF  &nbsp;&nbsp;:&nbsp;&nbsp; </strong> <a class="ui Medium purple horizontal label" *ngIf="sample.artworklocation" href="{{ api.baseUrl + sample?.artworklocation }}" target="_blank"> Show File</a><a class="ui Medium red horizontal label" *ngIf="!sample?.artworklocation" > No File</a> </td>
+          <td style="border: 1px solid black;padding: 5px" (click)="downloadPDF();"><strong>Uploaded Image &nbsp;&nbsp;:&nbsp;&nbsp; </strong><a class="ui Medium purple horizontal label" *ngIf="sample.filename"  href="{{api.baseUrl + sample?.filename }}" target="_blank">Show Image</a> <a class="ui Medium red horizontal label" *ngIf="!sample?.filename" > No Image</a> </td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <!--Woven Technical Detail-->
+
+    <!--    <div id="woven">-->
+    <!--      <h2 class="center aligned vertically">Woven Technical and Yarn Details</h2>-->
+    <!--      <h4 class="center aligned vertically">Sample No. #{{sample?.sampleno}}</h4>-->
+    <!--      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">-->
+    <!--        <tr>-->
+    <!--          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong> Sample No&nbsp;&nbsp;:&nbsp;&nbsp;</strong>  {{sample?.samplename}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px ;"><strong>Warp Color  &nbsp;&nbsp;:&nbsp;&nbsp;    </strong>{{wovenDetail?.colorinfo?.listitem}}</td>-->
+    <!--          <td  rowspan="4" style="border-top: 0px solid black;padding-left: 20px">-->
+    <!--            <img width="200" height="200" *ngIf="sample?.imagepath" src="" class="ui fluid image" alt="" >-->
+    <!--          </td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px;"><strong>Weaving Type &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="wovenDetail?.weavingtype === 1">  Satin </span><span  *ngIf="wovenDetail?.weavingtype === 2 ">Taffeta </span></td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>File Name &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.filename}} </td>-->
+    <!--&lt;!&ndash;          <td *ngIf="wovenDetail?.antidying"><strong>Anti Dying &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>&ndash;&gt;-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td  style="border: 1px solid black;padding: 5px"><strong>Anti Dying &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="wovenDetail?.antidying === 1">  Yes </span><span  *ngIf="wovenDetail?.antidying === 2 ">No </span><span  *ngIf="wovenDetail?.antidying === 3 ">Not Applicable </span></td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Pick&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.pick}} </td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Cutter &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{ wovenDetail?.cutter}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Length Cut to Cut &nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.pslengthctoc }} </td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Damask Length&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{wovenDetail?.damasklength }}  </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Finish Length &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.psfoldtofold}}  </td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Width &nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{wovenDetail?.pswidth }} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Hook &nbsp;:&nbsp;&nbsp; </strong>{{wovenDetail?.samplehuk}} </td>-->
+    <!--        </tr>-->
+    <!--          &lt;!&ndash;        <td style="border: 1px solid black;padding: 5px"><strong>Starching Info &nbsp;:&nbsp;&nbsp; </strong>{{wovenDetail?.stracinginfo}} </td>&ndash;&gt;-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Starching Info &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="wovenDetail?.stracinginfo === 1">  Yes </span><span  *ngIf="wovenDetail?.stracinginfo === 2 ">No </span><span  *ngIf="wovenDetail?.stracinginfo === 3 ">Not Applicable </span></td>-->
+    <!--&lt;!&ndash;          <td  style="border: 1px solid black;padding: 5px" *ngIf="wovenDetail?.stracinginfo"><strong>Starching Info &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>&ndash;&gt;-->
+
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Beam Tension&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{wovenDetail?.beamtension}}</td>-->
+    <!--&lt;!&ndash;          <td style="border: 1px solid black;padding: 5px" *ngIf="wovenDetail?.ironicinfo" ><strong>Ironing Info  &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>&ndash;&gt;-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Wrap Denier &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.warpdenier}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px" ><strong>Ironing Info  &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="wovenDetail?.ironicinfo === 1">  Yes </span><span  *ngIf="wovenDetail?.ironicinfo === 2 ">No </span><span  *ngIf="wovenDetail?.ironicinfo === 3 ">Not Applicable </span></td>-->
+    <!--          &lt;!&ndash;        <td style="border: 1px solid black;padding: 5px"><strong>Ironing Info &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.ironicinfo}}</td>&ndash;&gt;-->
+
+    <!--          &lt;!&ndash;        <td style="border: 1px solid black;padding: 5px"><strong>Ultrasonic Cutting&nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp; {{wovenDetail?.ultrasoniccutting}}</td>&ndash;&gt;-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Laser Cutting &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="wovenDetail?.lasercutting === 1">  Yes </span><span  *ngIf="wovenDetail?.lasercutting === 2 ">No </span><span  *ngIf="wovenDetail?.lasercutting === 3 ">Not Applicable </span></td>-->
+
+    <!--          <td style="border: 1px solid black;padding: 5px" ><strong>Ultrasonic Cutting &nbsp;  &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="wovenDetail?.ultrasoniccutting === 1">  Yes </span><span  *ngIf="wovenDetail?.ultrasoniccutting === 2 ">No </span><span  *ngIf="wovenDetail?.ultrasoniccutting === 3 ">Not Applicable </span></td>-->
+    <!--&lt;!&ndash;          <td style="border: 1px solid black;padding: 5px" *ngIf="wovenDetail?.ultrasoniccutting"><strong>Ultrasonic Cutting&nbsp &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>&ndash;&gt;-->
+    <!--          &lt;!&ndash;        <td style="border: 1px solid black;padding: 5px"><strong>Laser Cutting&nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp; {{wovenDetail?.lasercutting}}</td>&ndash;&gt;-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Cut Fold Info&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.cutfold?.listitem}}</td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Production Capacity &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.productioncapacity}}</td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Wash/Starch/Ironing Time&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.washstarcirontime }}</td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Ultrasonic Cut Capacity&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{wovenDetail?.ultrasoniccutcapacity}}</td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Cut Fold Capacity&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{wovenDetail?.cutfoldcapacity}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Finishing Info :</strong>{{wovenDetail?.finishinginfo}} </td>-->
+    <!--        </tr>-->
+
+
+    <!--          &lt;!&ndash;<td style="border: 1px solid black;padding: 5px;"><strong>Weaving Type &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> </td>&ndash;&gt;-->
+    <!--<tr>-->
+
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Pick Wheel :</strong>{{wovenDetail?.pickwheel}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Remark :</strong>{{ wovenDetail?.remarks}}</td>-->
+
+    <!--</tr>-->
+    <!--        <tr>-->
+    <!--          <td style="border: 1px solid black;padding: 5px"><strong>Submited Date :</strong>{{ wovenDetail?.createddate | date}}</td>-->
+
+    <!--        </tr>-->
+    <!--&lt;!&ndash;        <td  style="border: 1px solid black;padding: 5px" *ngIf="wovenDetail?.lasercutting"><strong>Laser Cutting &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>&ndash;&gt;-->
+
+
+
+
+
+
+    <!--      </table>-->
+    <!--      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">-->
+    <!--        <tr>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Colour Description</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Color</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Item</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Required Qty</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Maheen Code</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Denier</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Pick</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Supplier</th>-->
+    <!--          <th style="border: 1px solid black;padding: 5px">Sequence id</th>-->
+    <!--        </tr>-->
+    <!--        <tr *ngFor="let yarn of yarnDetails">-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.colordescription}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.color}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.item?.itemcode}}</td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.requiredqty}}  </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.maheencode}}  </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.denier}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.pick}} </td>-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.supplier?.suppliername}} </td>-->
+    <!--          &lt;!&ndash;<td style="border: 1px solid black;padding: 5px">{{// yarn?.suppliercode}} </td>&ndash;&gt;-->
+    <!--          <td style="border: 1px solid black;padding: 5px">{{yarn?.sequenceid}} </td>-->
+    <!--        </tr>-->
+    <!--      </table>-->
+
+    <!--      &lt;!&ndash;      <div class="row" style="box-sizing: border-box;width: 100%; ">&ndash;&gt;-->
+    <!--&lt;!&ndash;        <div class="column" style="float: left;box-sizing: border-box;width: 75%;  visibility:hidden">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <table style=" border-collapse: collapse;width: 100%; margin-top: 5px;">&ndash;&gt;-->
+    <!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"></th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"> </th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"></th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"> </th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"> </th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"></th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"> </th>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"> </th>&ndash;&gt;-->
+    <!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <tr *ngFor="let yarn of sample?.wovenYarnDetails; let i=index">&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{i+1}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{yarn?.item?.itemcode}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{yarn?.color}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{yarn?.denier}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;"></td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{yarn?.pick}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{yarn?.requiredqty}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;">{{yarn?.denier}}</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+    <!--&lt;!&ndash;          </table>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;        <div class="column" style="float: left;box-sizing: border-box;width: 19%;margin-top: 4px;margin-left: 10px">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <img width="100" height="100" *ngIf="sample?.imagepath" src="" class="ui fluid image" alt="" >&ndash;&gt;-->
+    <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;      </div>&ndash;&gt;-->
+    <!--    </div>-->
+
+    <!--<button type="button" class="ui button mb-2 primary" (click)="print()" id="btnPrint" ><strong>Print PDF</strong> </button>-->
+    <button class="ui icon blue button" printSectionId="woven" ngxPrint style="margin-bottom: 30px"><i class="print icon"></i></button>
+    <br>
+    <br>
+    <div  id="woven">
+      <div class="ui grid">
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+
+        <tr>
+          <td colspan="2" style="border-top: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{sample?.company?.companyname}}</strong> </td>
+          <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Doc. Code: </strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border-left: 1px solid black;padding: 5px;text-align: center"><strong>Title:Label Information Report </strong> </td>
+          <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Page 1 of 1</strong> </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Effective Date:</strong> </td>
+          <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Revision Status:</strong>  </td>
+          <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Issue No: </strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td style=""></td>
+          <td style="padding: 5px;text-align: center"><strong>Label Information Card</strong>  </td>
+          <td style="padding: 5px;text-align: center"><strong></strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Buyer :</strong>{{sample?.brandid}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong> </strong></td>
+        </tr>
+      </table>
+      <table style="width: 100%;text-align: left;margin: 15px;">
+        <tr >
+          <td>Label Name:</td>
+          <td>Code:</td>
+          <td>Color:</td>
+          <td>Type:</td>
+        </tr>
+        <tr >
+          <td>File No:</td>
+          <td>Weaving Type:</td>
+          <td>Pick:</td>
+          <td>Cutter:</td>
+        </tr>
+        <tr >
+          <td>Physical Sample:</td>
+          <td>Length/Cut to Cut:</td>
+          <td>PickFinish Length:</td>
+          <td>Width:</td>
+        </tr>
+      </table>
+      <div style="width:100%;height:280px;border:1px solid #000;"></div>
+      <div class="row" style="box-sizing: border-box;width: 100%; ">
+        <div class="column" style="float: left;box-sizing: border-box;width: 100%;">
+          <h4 class="center aligned vertically">Woven Yarn Details</h4>
+          <table style=" border-collapse: collapse;width: 100%; margin: 5px;">
+            <tr>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">SL</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Yarn Code</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Color</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Weft Denier</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Warp Denier</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Pick</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Qty (Kg)</th>
+              <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Yarn Supplier</th>
+            </tr>
+            <tr *ngFor="let yarn of sample?.wovenYarnDetails; let i=index">
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{i+1}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{yarn?.item?.itemcode}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{yarn?.color}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.denier}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{sample?.wovenCommonDetails?.warpdenier}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.pick}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.requiredqty}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.denier}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <br>
+      <table style="margin-top: 10px;width: 100%">
+        <tr >
+          <td>Starching Information:</td>
+          <td>Ironing Information:</td>
+        </tr>
+        <tr>
+          <td>Ultrasonic Cutting:</td>
+          <td>Laser Cutting:</td>
+        </tr>
+        <tr>
+          <td>
+            Cutting/Folding Information:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Production time:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            a) Per Hour Production Capacity:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            b) Washing/Starching/Ironing time:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            c) Per Hour Ultrasonic Cutting Capacity :
+          </td>
+        </tr>
+        <tr>
+          <td>
+            d) Per Hour Cutting Folding Capacity :
+          </td>
+        </tr>
+        <tr>
+          <td>
+            e) Finishing Information(Rolling/Counting/Packaging) :
+          </td>
+        </tr>
+        <tr>
+          <td>
+            f) Narration :
+          </td>
+        </tr>
+      </table>
+      <table style="margin: 10px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px;font-size: 12px"><strong>1st Submit Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Submit Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Submit Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Approval Date</strong></td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px">df</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px">df</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px">df</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>dfdf</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <!--    Woven Yarn Detail-->
+    <!--    <br>-->
+    <!--    <button class="ui icon blue button" printSectionId="yarn" ngxPrint><i class="print icon"></i></button>-->
+    <!--    <div id="yarn">-->
+
+    <!--      <h2 class="center aligned vertically">Woven Yarn Details</h2>-->
+    <!--      <h4 class="center aligned vertically">Sample No. #{{sample?.sampleno}}</h4>-->
+    <!--    </div>-->
+    <!--    <br>      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">-->
+    <!--    <tr>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Colour Description</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Color</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Item</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Required Qty</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Maheen Code</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Denier</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Pick</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Supplier</th>-->
+    <!--      <th style="border: 1px solid black;padding: 5px">Sequence id</th>-->
+    <!--    </tr>-->
+    <!--    <tr *ngFor="let yarn of yarnDetails">-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.colordescription}} </td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.color}} </td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.item?.itemcode}}</td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.requiredqty}}  </td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.maheencode}}  </td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.denier}} </td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.pick}} </td>-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.supplier?.suppliername}} </td>-->
+    <!--      &lt;!&ndash;<td style="border: 1px solid black;padding: 5px">{{// yarn?.suppliercode}} </td>&ndash;&gt;-->
+    <!--      <td style="border: 1px solid black;padding: 5px">{{yarn?.sequenceid}} </td>-->
+    <!--    </tr>-->
+    <!--  </table>-->
+
+    <!--    <button class="ui icon blue button" printSectionId="key" ngxPrint><i class="print icon"></i></button>-->
+
+    <!--    Woven KeyEntry Detail-->
+
+    <div id="key">
+      <h2 class="center aligned vertically">Woven KeyEntry Details</h2>
+      <h4 class="center aligned vertically">Sample No. #{{sample?.sampleno}}</h4>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <th style="border: 1px solid black;padding: 5px">Color</th>
+          <th style="border: 1px solid black;padding: 5px">Size</th>
+          <th style="border: 1px solid black;padding: 5px">Style</th>
+          <th style="border: 1px solid black;padding: 5px" ></th>
+          <th style="border: 1px solid black;padding: 5px"></th>
+          <th style="border: 1px solid black;padding: 5px"></th>
+          <th style="border: 1px solid black;padding: 5px"></th>
+          <th style="border: 1px solid black;padding: 5px"></th>
+          <th style="border: 1px solid black;padding: 5px">Quantity</th>
+        </tr>
+        <tr *ngFor="let key of entryfield">
+          <td style="border: 1px solid black;padding: 5px">{{key?.keyentry1}}</td>
+          <td style="border: 1px solid black;padding: 5px">{{key?.keyentry2}}</td>
+          <td style="border: 1px solid black;padding: 5px">{{key?.keyentry3}}</td>
+          <td style="border: 1px solid black;padding: 5px" >{{key?.keyentry5}}</td>
+          <td style="border: 1px solid black;padding: 5px" >{{key?.keyentry6}}</td>
+          <td style="border: 1px solid black;padding: 5px" >{{key?.keyentry7}}</td>
+          <td style="border: 1px solid black;padding: 5px" >{{key?.keyentry8}}</td>
+          <td style="border: 1px solid black;padding: 5px" >{{key?.keyentry9}}</td>
+          <td style="border: 1px solid black;padding: 5px">{{key?.keyentry10}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

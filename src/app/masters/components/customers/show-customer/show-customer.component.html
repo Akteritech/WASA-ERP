@@ -1,0 +1,178 @@
+
+
+<!--<div class="field">-->
+<!--  <h4 class="ui header m-0">&nbsp; Customer ID &nbsp; : &nbsp; <span style="color: #f2711c">{{cust?.clientid}}</span></h4>-->
+<!--  <div class="ui divider"></div>-->
+<!--  <div class="ui two column grid ">-->
+<!--    <div class="row">-->
+<!--      <table class="column ">-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--          <td class=""><strong>Customer Name</strong></td><td > : </td><td>&nbsp;&nbsp;{{cust?.clientname}}  </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class=""><strong>Current Address</strong></td><td > : </td><td>&nbsp;&nbsp;{{cust?.currentaddress}} </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class=""><strong>Previous Address</strong></td><td > : </td><td>&nbsp;&nbsp;{{cust?.previousaddress}} </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class=""><strong>Factory Location</strong></td><td > : </td><td> &nbsp;&nbsp;{{cust?.factorylocation}}  </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td><strong>Contact Person</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.contactperson}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Buyer Name</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.buyername}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Telephone</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.telephone}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Fax</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.fax}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Email</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.email}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Major Products</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.majorproducts}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Major Brands</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.majorbrands}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Total Capacity</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.totalcapacity}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Total Employee</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.totalemployee}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Director</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.director}}</td>-->
+<!--        </tr>-->
+
+<!--        </tbody>-->
+<!--      </table>-->
+<!--      <table class="column ">-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--          <td ><strong>Merchandiser</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.merchandiser}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Commercial Person</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.commercialperson}}</td>-->
+<!--        </tr>-->
+
+<!--        <tr>-->
+<!--          <td ><strong>Account Person</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.accountsperson}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Sales Person</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.salesperson}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong> Credit Limit</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.creditlimit}}</td>-->
+<!--        </tr>-->
+
+<!--        <tr>-->
+<!--          <td ><strong>Mode of Payment </strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.modeofpayment}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong> Customer History</strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.clienthistory}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Special Instruction </strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.specialinstruction}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Nominated Price </strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.isunnominated}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--&lt;!&ndash;          <td ><strong>Sub Contract Factory </strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.issubcontractfactory}}</td>&ndash;&gt;-->
+<!--          <td  ><strong> Sub Contract Factory &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong><span  *ngIf="cust?.issubcontractfactory === true">   <i class="ui green check icon"></i> </span><span  *ngIf="cust?.issubcontractfactory === false "> <i class="ui red x icon"></i>  </span></td>-->
+
+<!--        </tr>-->
+<!--        <tr>-->
+<!--&lt;!&ndash;          <td ><strong>Allocated </strong></td><td > : </td><td >&nbsp;&nbsp;{{cust?.hmallocated}}</td>&ndash;&gt;-->
+<!--          <td  ><strong>  Allocated  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong><span  *ngIf="cust?.hmallocated === true">   <i class="ui green check icon"></i> </span><span  *ngIf="cust?.hmallocated === false "> <i class="ui red x icon"></i>  </span></td>-->
+
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
+<div class="">
+  <div  id="printContent" >
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+          <h2 class="center aligned vertically">Customer ID&nbsp; :  #{{cust?.clientid}}</h2>
+        </div>
+        <!--        <div class="four wide column">-->
+        <!--          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="cust?.custanyid" [bc-display-value]="false"></ngx-barcode>-->
+        <!--        </div>-->
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{cust?.clientname}}</strong> </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title:Customer</strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>Customer Name&nbsp;:&nbsp;&nbsp;</strong>  {{cust?.clientname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Current Address &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.currentaddress}}  </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Previous Address&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{cust?.previousaddress}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Factory Location&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{cust?.factorylocation}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Contact Person &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.contactperson}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Buyer Name &nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{cust?.buyername}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Telephone  &nbsp;:&nbsp;&nbsp; </strong> {{cust?.telephone}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Fax&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.fax}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Email &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{cust?.email}} </td>
+
+        </tr>
+        <tr>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Major Products&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.majorproducts}}  </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Major Brands &nbsp;:&nbsp;&nbsp; </strong>{{cust?.majorbrands}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Total Capacity &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.totalcapacity}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Total Employee &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.totalemployee}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Director &nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{cust?.director}}
+          <td style="border: 1px solid black;padding: 5px"><strong>Merchandiser&nbsp;:&nbsp;&nbsp; </strong> {{cust?.merchandiser}}</td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong> Commercial Person&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{cust?.commercialperson}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Mode of Payment&nbsp;:&nbsp;&nbsp; </strong> {{cust?.modeofpayment}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Customer History&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{cust?.clienthistory}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong> Account Person&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{cust?.accountsperson}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Sales Person&nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{cust?.salesperson}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Credit Limit&nbsp;:&nbsp;&nbsp; </strong> {{cust?.creditlimit}} </td>
+        </tr>
+        <tr>
+        <td style="border: 1px solid black;padding: 5px"><strong>Special Instruction&nbsp;:&nbsp;&nbsp; </strong> {{cust?.specialinstruction}}</td>
+        <td style="border: 1px solid black;padding: 5px"><strong> Nominated Price&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{cust?.isunnominated}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Sub Contract Factory &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong><span  *ngIf="cust?.issubcontractfactory === true">   <i class="ui green check icon"></i> </span><span  *ngIf="cust?.issubcontractfactory === false "> <i class="ui red x icon"></i>  </span></td>
+      </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>  Allocated  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong><span  *ngIf="cust?.hmallocated === true">   <i class="ui green check icon"></i> </span><span  *ngIf="cust?.hmallocated === false "> <i class="ui red x icon"></i>  </span></td>
+<!--ggfhn-->
+      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+

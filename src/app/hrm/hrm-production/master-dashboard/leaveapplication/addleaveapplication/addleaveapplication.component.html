@@ -1,0 +1,69 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment pt-5">
+    <h3 class="ui teal dividing header" >Add Leave</h3>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Leave Name</label>
+        <sui-select placeholder=" " class="selection" name="leaves" [options]="leaveTypes" [(ngModel)] = "leave.LEAVE_ID"
+          labelField="LEAVE_NAME" valueField="LEAVE_ID" (ngModelChange)="cardSelected()" #selectLeave required>
+          <sui-select-option *ngFor="let op of selectLeave.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      
+      <div class="field required">
+        <label>Card No</label>
+        <sui-select placeholder="." class="selection" name="group" [options]="cardnos" [(ngModel)] = "leave.EMP_CARD_NO"
+          labelField="EMP_CARD_NO" valueField="EMP_CARD_NO" (keyup)="getCards($event.target.value)" (ngModelChange)="cardSelected()" 
+          [isSearchable]="true" #selectCard required>
+          <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Employee Name</label>{{name}}
+        </div>
+      <div class="field required">
+        <label>From Date</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="leave.FROM_DATE" name="FROM_DATE" (ngModelChange)="calculateDays()">
+      </div>
+      <div class="field required">
+        <label>To Date</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="leave.TO_DATE" name="TO_DATE" (ngModelChange)="calculateDays()">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Contact Address</label>
+        <input required type="text" [(ngModel)]="leave.CONTACT_ADDRESS" id="CONTACT_ADDRESS" name="CONTACT_ADDRESS"
+          placeholder="Contact Address" />
+      </div>
+
+      <div class="field required">
+        <label>Contact No</label>
+        <input required type="text" [(ngModel)]="leave.CONTACT_NO" id="CONTACT_NO" name="CONTACT_NO"
+          placeholder="Contact No" />
+      </div>
+
+      <div class="field required">
+        <label>Person Responsible</label>
+        <input required type="text" [(ngModel)]="leave.RESPONSIBLE" id="RESPONSIBLE" name="RESPONSIBLE"
+          placeholder="Person Responsible" />
+      </div>
+      
+      <div class="field required">
+        <label>Approved Days</label>{{leave.NO_OF_LEAVEDAY}}
+      </div>
+      <div class="field required">
+        <label>Available Leave</label>{{balance}}
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Leave Reason</label>
+        <input required type="text" [(ngModel)]="leave.REMARK" id="description" name="LEAVE_REASON"
+          placeholder="Leave Reason" />
+      </div>
+    </div>
+    <button class="ui teal tiny button my-1" (click)="patch()">Save</button>
+  </div>
+</form>

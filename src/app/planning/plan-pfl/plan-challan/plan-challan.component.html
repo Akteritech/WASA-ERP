@@ -1,0 +1,84 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" [routerLink]="['/planning/pfl-dashboard']">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <form onsubmit="return false;" class="ui small mt-2 inline form">
+    <h4 class="ui teal dividing header">
+      Search PFL Product Status
+    </h4>
+    <div class="equal width fields">      
+      <div class="field">
+        <label>Work Order Number :</label>
+        <input type="text" placeholder="Work Order Number" name="workOrdernumber" [(ngModel)]="workOrdernumber">
+      </div>
+      <div class="field">
+        <label>From Date :</label>
+        <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+        name="fromDate">
+      </div>
+      <div class="field">
+        <label>To Date :</label>
+        <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small teal button">
+          <i class="search left icon" (click)="searchstatus()"></i>Search</button>
+      </div>
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small green button" (click)="excelstatus()">Excel Export</button>
+      </div>
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small blue button" (click)="printstatus()">Print Status Export</button>
+      </div>
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small blue button" (click)="cuttingstatus()">Cutting Status Export</button>
+      </div>
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small blue button" (click)="finishstatus()">Finish Status Export</button>
+      </div>
+    </div>
+
+    <!-- <table class="ui very compact unstackable teal table" *ngIf="history">
+      <tr class="bg-teal text-white pr-5">
+        <th>
+          <input type="checkbox" (click)="allCheck()" [(ngModel)]="masterCheck" name="check">
+        </th>
+        <th>WorkOrder No</th>
+        <th>URN No</th>
+        <th>Work Order Date</th>
+        <th>Customer</th>
+        <th>Buyer</th>
+        <th>Sample Name</th>
+        <th>Order Qty</th>
+        <th>Comments</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let confirmOrder of history; let i = index">
+          <td>
+            <input type="checkbox" class="mt-2" name="checkItem{{i}}" [(ngModel)]="tableCheckBox[i]"
+              (click)="anySelected()">
+          </td>
+          <td>{{confirmOrder?.WorkOrderNo }}</td>
+          <td>{{confirmOrder?.URNNo }}</td>
+          <td>{{confirmOrder?.OrderReceiveDate.substring(0, 10) }}</td>
+          <td>{{confirmOrder?.ClientName }}</td>
+          <td>{{confirmOrder?.BrandName }}</td>
+          <td>{{confirmOrder?.SampleName }}</td>
+          <td>{{confirmOrder?.Qty }}</td>
+          <td><input type="text" name="remark{{i}}" [(ngModel)]="confirmOrder.Remarks"></td>
+        </tr>
+        <tr *ngIf="history.length == 0">
+          <th colspan="9" style="text-align: center; padding: 10px;">No data found</th>
+        </tr>
+      </tbody>
+    </table> -->
+  </form>
+</div>

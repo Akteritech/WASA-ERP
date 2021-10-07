@@ -1,0 +1,129 @@
+<div class="pt-5">
+  <div>
+    <button class="ui tiny orange button" type="button" (click)="backClicked()">
+      <i class="arrow left icon"></i>Back</button>
+    <!-- <button class="ui yellow tiny button" routerLink="add">
+      <i class="add icon"></i>Employee Shift
+    </button> -->
+    <button class="ui red tiny button my-1" (click)="reset()">
+      <i class="recycle icon"></i> Reset
+    </button>
+  </div>
+
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header">
+      Search Employee
+    </h4>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Zone</label>
+        <sui-select placeholder="Company Name" class="selection" name="companyname" [isSearchable]="true"
+          [(ngModel)]="companyname" [options]="companies" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID">
+          <sui-select-option *ngFor="let op of companies" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Department</label>
+        <sui-select placeholder="." class="selection" name="department" [isSearchable]="true" [(ngModel)]="department"
+          [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept
+          (ngModelChange)="filterSection()">
+          <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sections</label>
+        <sui-select placeholder="." class="selection" name="section" [isSearchable]="true" [(ngModel)]="section"
+          [options]="sections" labelField="SecEngNm" valueField="SECTION_ID" #selectSection>
+          <sui-select-option *ngFor="let op of selectSection.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Shift</label>
+        <sui-select placeholder="." class="selection" name="shifts" [isSearchable]="true" [(ngModel)]="shift"
+          [options]="shifts" labelField="SHIFT_NAME_ENG" valueField="SHIFT_ID" #selectEmployeeType>
+          <sui-select-option *ngFor="let op of selectEmployeeType.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Card No</label>
+        <input type="text"  value="0" [(ngModel)]="cardNo" name="cardNo" autocomplete="off">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="mr-1 ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="get()">Search</button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Shift</label>
+        <sui-select placeholder="." class="selection" name="shiftChange" [(ngModel)]="changedShift" [options]="shifts"
+          labelField="SHIFT_NAME_ENG" valueField="SHIFT_ID" #selectShift>
+          <sui-select-option *ngFor="let op of selectShift.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <button type="button" class="ui teal tiny button" (click)="update()">Change Shift</button>
+      </div>
+    </div>
+  </form>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header">
+      Shift Roster Generator
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="fromdate" name="fromDateName" autocomplete="off"
+          >
+      </div>
+      <div class="field">
+        <label>To Date </label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="todate"  name="toDateName"
+          autocomplete="off">
+      </div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <!-- <button type="button"  class="ui primary loading button" >Creating Roster..</button> -->
+        <button type="button" class="ui teal tiny button" (click)="generateRoster()">Create Roster</button>
+        <!-- <button type="button" class="ui teal tiny button" (click)="generateRoster()">Show Roster Sheet</button> -->
+      </div>
+      
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="generateRosterShow()">Show Roster</button>
+        <!-- <button type="button" class="ui teal tiny button" (click)="generateRoster()">Show Roster Sheet</button> -->
+      </div>
+    </div>
+    </form>
+  <table class="ui mini very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr>
+        <th><input type="checkbox" name="allCheck" [(ngModel)]="allCheck" (ngModelChange)="changeAllCheck()"></th>
+        <th>SL</th>
+        <th>Card No</th>
+        <th>Employee Name</th>
+        <th>Shift</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of employees; let i = index">
+        <td><input type="checkbox" name="check{{i}}" [(ngModel)]="checks[i]"></td>
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+        <td>{{s?.EMP_CARD_NO}}</td>
+        <td>{{s?.EMP_NAME_ENG}}</td>
+        <td>{{s?.ShiftName}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="get()">
+  </sui-pagination>
+</div>

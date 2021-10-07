@@ -1,0 +1,312 @@
+
+<div class="pt-5">
+<!--  <sui-dimmer class="page" [(isDimmed)]="!OffsetSamples">-->
+<!--    <h3>-->
+<!--      <div class="ui text loader"> <i class="heart icon"></i>Wait! Form Is Loading 🙂</div></h3>-->
+<!--  </sui-dimmer>-->
+  <div >
+    <!--    <button class="ui tiny red button" type="button"  *ngIf="selectedOffsetSamples.length >= 1" (click)="DeleAllSelectedSample()">-->
+    <!--      Delete Selected Data &nbsp;&nbsp;-->
+    <!--     <strong><i class="trash icon"></i></strong>-->
+    <!--    </button>-->
+
+    <!--    <button class="ui teal tiny button"  routerLink="add">-->
+    <!--      <i class="add icon"></i>-->
+    <!--      Create New Offset Sample-->
+    <!--    </button>-->
+    <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;" *ngIf="editSample">
+      <span *ngIf="collapse"> <i class="add icon"></i>Create Offset Technical Details  </span>
+      <span *ngIf="!collapse"><i class="arrow up icon "></i>Click To Close Form</span>
+
+    </button>
+
+
+    <button class="ui primary tiny button my-1"  (click)="get()">
+      <i class="refresh icon"></i> Refresh
+    </button>
+    <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom">
+      <i class="file excel icon"></i>
+      <div class="text">Download Excel / Csv</div>
+      <i class="dropdown icon"></i>
+    </button>
+    <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom">
+      <i class="file pdf icon"></i>
+      <div class="text">Download PDF</div>
+      <i class="dropdown icon"></i>
+    </button>
+    <button class="ui tiny left labeled orange icon button" (click)="backClicked()" >
+      <i class="left arrow icon"></i>
+      Go Back
+    </button>
+    <button class="ui tiny right floated green dropdown button" [ngClass]="{'orange':!showSearchForm}" (click)="showSearchForm = !showSearchForm;">
+      <i class="search icon"></i>
+      <div class="text mr-1">Search</div>
+      <!--<i class="dropdown icon"></i>-->
+      <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+      <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+    </button>
+
+  </div>
+
+  <ng-template let-popup #popupExcel >
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectedOffsetSamples.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedOffsetSamples.length <=0" (click)="exporttoExcel()"><strong><i class="arrow down icon"></i></strong> Excel Selected Data</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="this.selectedOffsetSamples.length <=0" (click)="exporttoCsv()"><strong><i class="arrow down icon"></i></strong> Csv Selected Data</button>
+
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number"  [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number"  [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoExcel(true)"><strong><i class="arrow down icon"></i></strong> Excel</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)"><strong><i class="arrow down icon"></i></strong> Csv</button>
+
+  </ng-template>
+  <ng-template let-popup #popupPDF >
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectedOffsetSamples.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedOffsetSamples.length <=0"  (click)="exportToPDF()"><strong><i class="arrow down icon"></i></strong>PDF Selected Data</button>
+    <button class="ui tiny blue button m-1"  [disabled]="this.selectedOffsetSamples.length <=0" (click)="openToPrint()"><strong><i class="print icon"></i> </strong>   Print Selected Data</button>
+    <!--<button class="ui tiny teal button m-1" (click)="openPrint()"> <strong><i class="print icon"></i></strong> Direct Print</button>-->
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny red button m-1" [disabled]="!fromPage || !toPage" (click)="exportToPDF(true)"><strong><i class="arrow down icon"></i></strong> PDF</button>
+    <button class="ui tiny blue button m-1" [disabled]="!fromPage || !toPage" (click)="openToPrint(true)"><strong><i class="print icon"></i> </strong> Print</button>
+  </ng-template>
+  <!--{{selectedOffsetSamples | json}}-->
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm' *ngIf="showSearchForm">
+    <h4 class="ui teal dividing header">
+      Search Offset Sample
+    </h4>
+    <div class="equal width fields">
+      <!-- <div class="field">
+        <label>Brand Name</label>
+        <sui-select class="selection" name="brandname" placeholder=" "
+                    id="brandname"
+                    [(ngModel)]="sample.brandid"
+                    [options]="brands"
+                    (input)="optionsLookupBrand($event.target.value)"
+                    labelField="brandname"
+                    valueField="brandid"
+                    [isSearchable]="true"
+                    #SelectBrands>
+          <sui-select-option *ngFor="let option of SelectBrands.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div> -->
+
+      <!--{{sample | json}}-->
+      <!--<div class="field">-->
+      <!--<label>Category</label>-->
+      <!--<sui-select class="selection" name="productcategory" placeholder="Select Product Category"-->
+      <!--[(ngModel)]="sample.productcategoryid"-->
+      <!--[options]="products"-->
+      <!--(ngModelChange)="getProductSubCategories()"-->
+      <!--labelField="productcategoryname"-->
+      <!--valueField="productcategoryid"-->
+      <!--[isSearchable]="true"-->
+      <!--#multiSelectproductcategory>-->
+      <!--<sui-select-option *ngFor="let option of multiSelectproductcategory.filteredOptions"-->
+      <!--[value]="option"></sui-select-option>-->
+      <!--</sui-select>-->
+
+      <!--</div>-->
+      <!-- <div class="field">
+        <label>Sub Category</label>
+        <sui-select class="selection" name="ProductSubCategory" placeholder="Select Sub Category"
+                    [(ngModel)]="sample.productsubcategoryid"
+                    [options]="productSubCategories"
+                    labelField="productsubcategoryname"
+                    valueField="productsubcategoryid"
+                    [isSearchable]="true"
+                    #multiSelectproductsubcategory>
+          <sui-select-option *ngFor="let option of multiSelectproductsubcategory.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div> -->
+      <!-- <div class="field">
+        <label>Client</label>
+        <sui-select class="selection" name="Client" placeholder=" "
+                    [(ngModel)]="sample.clientid"
+                    [options]="clients"
+                    (input)="optionsLookupClient($event.target.value)"
+                    labelField="clientname"
+                    valueField="clientid"
+                    [isSearchable]="true"
+                    #multiSelectClients>
+          <sui-select-option *ngFor="let option of multiSelectClients.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div> -->
+      <!-- <div class="field">
+        <label>Status</label>
+        <sui-select class="selection" name="SampleStatus" placeholder=" "
+                    [(ngModel)]="sample.genspcStatus"
+                    [options]="statuses"
+                    labelField="statusdescription"
+                    valueField="id"
+                    #multiSelectSampleStatus>
+          <sui-select-option *ngFor="let option of multiSelectSampleStatus.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div> -->
+      <div class="field">
+        <label>Sample Name</label>
+        <!--<sui-search [optionsLookup]="optionsSearch" #searchBox-->
+        <!--optionsField="samplename"-->
+        <!--name="samplename"-->
+        <!--icon="fdsfds"-->
+        <!--[(ngModel)]="sample.customersamplename"-->
+        <!--[retainSelectedResult]="true"-->
+        <!--(resultSelected)="alert($event.samplename)"></sui-search>-->
+        <input  type="text" [(ngModel)]="sample.samplename"  id="sample_name" name="sample_name" autofocus placeholder="Sample Name"/>
+      </div>
+      <div class="field">
+        <label>Sample No.</label>
+        <input  type="text" [(ngModel)]="sample.sampleno"   id="sample_no" name="sample_no" autofocus placeholder="Sample No."/>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Order From Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="deliveryDate" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Order To Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="deliveryDate" autocomplete="off">
+      </div>
+      <div class="one wide field mr-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui teal small button "  [disabled]="!fromDate && !toDate&& !sample.brandid && !sample.productsubcategoryid && !sample.clientid && !sample.genspcStatus && !sample.samplename && !sample.sampleno" (click)="get(true);collapse = true;">
+          Search
+        </button>
+      </div>
+      <div class="one wide field ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small red button" (click)="form.resetForm();get()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+  <!--  {{selectedSamples | json}}-->
+  <h3 class="ui blue horizontal divider header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Add Offset Technical Details
+  </h3>
+  <h3 class="ui blue horizontal divider header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+    Update Offset Technical Details
+  </h3>
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-offset-technicals (added)="getItemCount()" ></app-add-offset-technicals>
+    </div>
+  </div>
+  <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom">
+    <i class="file excel icon"></i>
+    <div class="text">Download Excel / Csv</div>
+    <strong> <i class="download icon"></i></strong>
+  </button>
+  <button  class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom">
+    <i class="file pdf icon"></i>
+    <div class="text">Download PDF</div>
+    <strong>  <i class="download icon"></i></strong>
+  </button>
+  <table class="ui mini very compact unstackable blue table">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllSamples" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th>Action</th>
+      <th>Sample No</th>
+      <th>Sample Name</th>
+      <th>Screen Print</th>
+      <!-- <th>Lamination</th> -->
+      <th>Eyelet</th>
+      <th>String</th>
+      <th>Tag Pin</th>
+<!--      <th>Estimate Delivery Date</th>-->
+<!--      <th>Length</th>-->
+<!--      <th>Width</th>-->
+<!--      <th>Status</th>-->
+<!--      <th>Barcode</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of OffsetSamples; let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="s.selected" name="{{i}}" (click)="selectSamples(s,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td class="single line">
+        <!--        <i class="trash link red icon" (click)="delete(s?.sampleid)"></i>-->
+        <a class="ui blue tiny label" *ngIf="editSample" [routerLink]="['/offset-technical-details/edit',s?.sampleid]"><i class="edit white icon"></i> Edit </a>
+        <a class="ui blue tiny label" (click)="viewDetail(s?.sampleid)"><i class="eye link white icon"></i> View </a>
+
+        <!--        <i class="edit link blue icon" [routerLink]="['/offset/samples/edit',s?.sampleid]"></i><strong class="link pointer blue icon"  [routerLink]="['/offset/samples/edit',s?.sampleid]" >Edit</strong>-->
+        <!--        <i class="eye link teal icon" (click)="viewDetail(s?.sampleid)"></i><strong class="link pointer blue icon" (click)="viewDetail(s?.sampleid)" >Preview</strong>-->
+      </td>
+      <td>{{s?.sample?.sampleno}}</td>
+      <td>{{s?.sample?.samplename}}</td>
+      <td>{{s?.description1}}</td>
+      <!-- <td>{{s?.thermal}}</td> -->
+      <td>{{s?.description2}}</td>
+      <td>{{s?.description3}}</td>
+      <td>{{s?.description4}}</td>
+<!--      <td>{{s?.productSubCategory?.productsubcategoryname}}</td>-->
+<!--      <td>{{s?.client?.clientname}}</td>-->
+<!--      <td>{{s?.orderdate | date}}</td>-->
+<!--      <td>{{s?.estdeliverydate | date}}</td>-->
+<!--      <td>{{s?.length}}</td>-->
+<!--      <td>{{s?.width}}</td>-->
+<!--      <td>{{s?.status?.statusdescription}}</td>-->
+<!--      <td>-->
+<!--        <i *ngIf="s.isbarcode" class="ui green check icon"></i>-->
+<!--        <i *ngIf="!s.isbarcode" class="ui red x icon"></i>-->
+<!--      </td>-->
+    </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button type="button" (click)="goToPageNo()"  [disabled]="!goToPage || goToPage==meta.currentPage || goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>
+

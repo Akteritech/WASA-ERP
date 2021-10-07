@@ -1,0 +1,275 @@
+<div class="ui segment">
+  <button class="ui blue label" printSectionId="printContent" ngxPrint><i class="print icon"></i> Print</button>
+  <div id="printContent" #printContent class="font_size_bangla">
+    <div style="font-size: 12px;" *ngFor="let employee of data; let i = index">
+      <table style="width: 100%; padding: 5px; border-collapse: collapse;">
+        <tr style="text-align: center;"><h2>{{employee.Unit}}</h2></tr>
+        <tr style="text-align: center;"><h4>{{employee.UnitAddress}}</h4></tr>
+        <tr>
+          <td style="vertical-align: top;" align="center">Payslip of Officer/ Staff</td>
+        </tr>
+      </table>
+      <table style="width: 100%; padding: 5px; border-collapse: collapse; border: 1px solid #000;">
+        <tr style="border-bottom: 1px solid #000; background-color: #f2f2f2;">
+          <td style="vertical-align: top; padding: 5px; font-weight: bold; font-size: 12px;">
+            <strong> Basic Information </strong>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;" align="center">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="width: 48%; vertical-align: top; padding: 5px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                      <td style="width: 28%; vertical-align: top;">Card No</td>
+                      <td style="width: 28%; vertical-align: top;" align="left">: {{employee.CardNo}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Name</td>
+                      <td style="width: 38%; vertical-align: top;" align="left">: {{employee.EmployeeName}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Designation</td>
+                      <td style="vertical-align: top;" align="left">: {{employee.Designation}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Gross Salary</td>
+                      <td style="vertical-align: top;" align="left">: {{employee.PresentSalary}}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 48%; vertical-align: top; padding: 5px;" align="right">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                      <td style="width: 28%; vertical-align: top;">Pay Month</td>
+                      <td style="width: 28%; vertical-align: top;" align="left">: {{employee.Designation}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Department</td>
+                      <td style="vertical-align: top;" align="left">: {{employee.Department}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Joining Date</td>
+                      <td style="vertical-align: top;" align="left">: {{employee.Joining}}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="border: 1px solid #000; background-color: #f2f2f2; font-size: 12px;">
+          <td style="vertical-align: top; padding: 5px; font-weight: bold;">
+            Worked Days of the Month
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;" align="center">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="width: 25%; vertical-align: top; padding: 5px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                      <td style="width: 28%; vertical-align: top;">Days in Month</td>
+                      <td style="width: 28%; vertical-align: top;" align="left">: {{employee.DAYS_OF_MONTH}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Present</td>
+                      <td style="width: 38%; vertical-align: top;" align="left">: {{employee.Present}}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 25%; vertical-align: top; padding: 5px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                      <td style="width: 28%; vertical-align: top;">No of Weekends</td>
+                      <td style="width: 28%; vertical-align: top;" align="left">: {{employee.WEEKEND_DAYS}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Absent</td>
+                      <td style="vertical-align: top;" align="left">: {{employee.ABSENT_DAYS}}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 25%; vertical-align: top; padding: 5px;" align="right">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                      <td style="width: 28%; vertical-align: top;">No of Holidays</td>
+                      <td style="width: 28%; vertical-align: top;" align="left">: {{employee.HOLIDAY_DAYS}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Leave with Pay</td>
+                      <td style="vertical-align: top;" align="left">: 0</td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 25%; vertical-align: top; padding: 5px;" align="right">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr>
+                      <td style="width: 28%; vertical-align: top; font-weight: bold;">Working Days</td>
+                      <td style="width: 28%; vertical-align: top;" align="left">: {{employee.WorkDays}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Leave without Pay</td>
+                      <td style="vertical-align: top;" align="left">: {{employee.LEAVE_WITHOUT_PAY_DAYS}}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="border: 1px solid #000; background-color: #f2f2f2; font-size: 12px;">
+          <td style="vertical-align: top; padding: 5px; font-weight: bold;">Salary Information</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;" align="center">
+            <table style="width: 100%; border-collapse: collapse; font-size: 12px; font-size: 12px;">
+              <tr>
+                <td style="width: 48%; vertical-align: top; padding: 5px; border-right: 1px solid black;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr style="margin-bottom: 5px;background-color: #f2f2f2; font-weight: bold;">
+                      <td style="width: 58%; vertical-align: top; font-size: 12px;">Gross Salary and Allowances</td>
+                      <td style="width:2%;" align="right">:</td>
+                      <td style="width: 18%; vertical-align: top;" align="right">Amount(Tk.)</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Salary Earned as per Attend</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.PresentSalary}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Misc. Allow</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee['Allow-Incr-Arear']}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Festival Bonous</td>
+                      <td style="width:2%;" align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.FestivalBonus}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Performance Bonous</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.PerformanceBonus}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Overtime</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.OTAmount}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Total Gross Earning</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.totalGrossEarning}}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 48%; vertical-align: top; padding: 5px;" align="right">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <tr style="margin-bottom: 5px; background-color: #f2f2f2; font-weight: bold;">
+                      <td style="width: 58%; vertical-align: top;">Deductions</td>
+                      <td style="width:2%;" align="right">:</td>
+                      <td style="width: 18%; vertical-align: top; font-size: 12px;" align="right">Amount(Tk.)</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">ITDS</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.TaxAmount}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">PF</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.CDAmountDeposit}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Advance/Loan/PFLoan/EIPS</td><td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.AdvanceAmount}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Absent and LWP</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.AbsentAmount}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Others</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.adjustmentAmount}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Total Deduction</td>
+                      <td align="right">:</td>
+                      <td style="vertical-align: top;" align="right">{{employee.totalDeduction}}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="border: 1px solid #000; background-color: #f2f2f2; font-size: 12px;">
+          <td style="vertical-align: top; padding: 5px; font-weight: bold;">Net Payable Salary Information</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="width: 100%; vertical-align: top; padding: 5px;" align="center">
+                  <table style="width: 40%; border-collapse: collapse; font-size: 12px; font-weight: bold;">
+                    <tr>
+                      <td style="width: 48%; vertical-align: top;">Total Gross Earning</td>
+                      <td style="width: 2%;">:</td>
+                      <td style="width: 48%; vertical-align: top; text-align: right;">{{employee.totalGrossEarning}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top;">Total Deduction</td>
+                      <td>:</td>
+                      <td style="vertical-align: top; text-align: right;">{{employee.totalDeduction}}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="width: 100%; vertical-align: top; padding: 5px;" align="center">
+                  <table style="width: 40%; border-collapse: collapse; font-size: 12px; font-weight: bold;">
+                    <tr>
+                      <td style="width: 48%; vertical-align: top;">Net Payable Amount</td>
+                      <td style="width: 2%;">:</td>
+                      <td style="width: 48%; vertical-align: top; text-align: right;">{{employee.NetSalary}}</td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: top; font-weight: bold;" colspan="3">
+                        Taka in Words : {{employee.InWords}}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="border: 1px solid #000;">
+          <td style="vertical-align: top; padding: 5px; font-weight: bold;">
+            <table style="margin-top: 150px;padding: 8px;width: 100%;text-align: center; font-size: 12px;">
+              <tr>
+                <td style="border-bottom: 1px solid black;padding: 8px;"></td>
+                <td style="border-bottom: 1px solid black;padding: 8px"></td>
+                <td style="border-bottom: 1px solid black;padding: 8px"></td>
+              </tr>
+              <tr>
+                <td style="padding: 8px">Paid by</td><td>Authorized by</td><td>Received by</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

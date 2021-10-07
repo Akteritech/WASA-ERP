@@ -1,0 +1,165 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="api.backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <sui-tabset>
+    <div class="ui top attached tabular menu">
+      <a class="item" suiTabHeader="1">Designer Entry</a>
+      <a class="item" suiTabHeader="2">Upload Old Designer Entry Track</a>
+    </div>
+    <div class="ui bottom attached segment" suiTabContent="1">
+      <form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+        (keydown.enter)="$event.preventDefault()">
+        <div class="ui segment mt-2">
+          <h4 class="ui teal dividing header">
+            <br>
+            Add Designer Entry
+          </h4>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>ERP No.</label>
+              <input type="text" placeholder="ErpNo" id="ErpNo" name="ErpNo" maxlength="50" [(ngModel)]="design.ERPNo">
+            </div>
+            <div class="field ">
+              <label>Party</label>
+              <sui-select class="selection" name="brandname" placeholder=" " id="brandname" [(ngModel)]="design.Party"
+                [options]="brands" (input)="optionsLookupBrand($event.target.value)" labelField="brandname"
+                valueField="brandname" [isSearchable]="true" #SelectBrands>
+                <sui-select-option *ngFor="let option of SelectBrands.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Label Name(Sample Name)</label>
+              <input type="text" placeholder="samplename" id="samplename" name="samplename" maxlength="50"
+                [(ngModel)]="design.LableName">
+            </div>
+            <div class="field">
+              <label>Recieve Date</label>
+              <input suiDatepicker [(ngModel)]="design.RecieveDate" [pickerUseNativeOnMobile]="true" pickerMode="date"
+                name="RecieveDate">
+            </div>
+            <div class="field">
+              <label>Delivery Date</label>
+              <input suiDatepicker [(ngModel)]="design.DeliveryDate" [pickerUseNativeOnMobile]="true" pickerMode="date"
+                name="DeliveryDate">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Receive From</label>
+              <input type="text" placeholder="receivefrom" id="receivefrom" name="receivefrom" maxlength="50"
+                [(ngModel)]="design.RecieveFrom">
+            </div>
+            <div class="field ">
+              <ng-template let-option #designer>
+                {{option?.SalesPeron}} <strong>-{{option?.prevempid}}</strong>
+              </ng-template>
+              <label>Designer</label>
+              <sui-select placeholder=" " class="selection" [options]="designers" [optionTemplate]="designer"
+                [(ngModel)]="design.Designer" name="designer" [isSearchable]="true" labelField="SalesPeron"
+                valueField="SalesPeron" #selectDesignerName>
+                <sui-select-option *ngFor="let op of selectDesignerName.filteredOptions" [value]="op!==null?op:'N/A'">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Remarks</label>
+              <div class="two fields">
+                <div class="field">
+                  <textarea [(ngModel)]="design.Remark" id="remark" name="remark" placeholder="Remarks"
+                    rows="2"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="ui teal tiny button my-1" (click)="patch(form)">Save</button>
+        </div>
+      </form>
+
+    </div>
+    <div class="ui bottom attached segment" suiTabContent="2">
+      <div class="ui centered card cardmy3 w-75 mt-5">
+        <div class="ui raised  segment">
+          <a class="ui red ribbon label">Upload Designer Track</a>
+          <form class="ui form mt-4 mb-3 ml-1 mr-1" #form='ngForm' onsubmit="return false;" autocomplete="off"
+            (keydown.enter)="$event.preventDefault()">
+            <div class="equal wide fields">
+              <div class="field">
+                <label>Choose Excel for Designer Track</label>
+                <input type="file" accept=".xlsx, .xls, .csv" id="file" (change)="onFileChange($event)">
+              </div>
+              <div class="field">
+                <button class="ui blue tiny button my-3 mt-4" (click)="upload()">Upload</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </sui-tabset>
+  <form onsubmit="return false;" class="ui small form" #form='ngForm'>
+    <div class="equal width fields">
+      <div class="field">
+        <label> From Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+          name="deliveryDate" autocomplete="off">
+      </div>
+      <div class="field">
+        <label> To Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate"
+          name="deliveryDate" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Sample Name</label>
+        <input type="text" [(ngModel)]="customersamplename" id="customersamplename" name="customersamplename" autofocus
+          placeholder="Sample Name" />
+      </div>
+      <div class="field required">
+        <button class="ui button blue mt-4" (click)="getDataByDate()"> Search</button>
+      </div>
+      <div class="field required">
+        <button class="ui button green mt-4" (click)="generateExcelOfSearchedData()"> Download Excel</button>
+      </div>
+      <div class="field required">
+        <button class="ui button red mt-4" (click)="pdf1()"> Download Pdf</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="ui very compact unstackable teal table" id="tabledata">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Actions</th>
+        <th>ERP No.</th>
+        <th>Party Name</th>
+        <th>Label Name</th>
+        <th>Receive Date</th>
+        <th>Delivery Date</th>
+        <th>Receive From </th>
+        <th>Designer </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of designerentry; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+        <td class="single line pointer">
+          <i class="edit link blue icon" [routerLink]="['/designer-entry/edit',showdata?.DesignTrackID]"></i>
+        </td>
+        <td>{{showdata?.ERPNo}}</td>
+        <td>{{showdata?.Party}}</td>
+        <td>{{showdata?.LableName }}</td>
+        <td>{{showdata?.RecieveDate}}</td>
+        <td>{{showdata?.DeliveryDate}}</td>
+        <td>{{showdata?.RecieveFrom }}</td>
+        <td>{{showdata?.Designer }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+</div>

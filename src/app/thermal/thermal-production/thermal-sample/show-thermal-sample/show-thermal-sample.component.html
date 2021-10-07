@@ -1,0 +1,346 @@
+<button class="ui icon blue button" printSectionId="sample" ngxPrint><i class="print icon"></i></button>
+<div class="">
+  <div  id="printContent" #printContent>
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+          <h2 class="center aligned vertically">Sample No. #{{offsetsample?.sampleno}}</h2>
+        </div>
+        <div class="four wide column">
+          <ngx-barcode [bc-height]="60" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="offsetsample?.sampleno" [bc-display-value]="false"></ngx-barcode>
+        </div>
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{offsetsample?.company?.companyname}}</strong> </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title:Thermal  Sample</strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong> Sample Name&nbsp;&nbsp;:&nbsp;&nbsp;</strong>  {{offsetsample?.samplename}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Company &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.company?.companyname}}  </td>
+          <td  rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+            <img width="200" height="200" *ngIf="offsetsample?.imagepath" src="{{ api.baseUrl + offsetsample?.imagepath }}"  alt="" >
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Brand&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{offsetsample?.brand?.brandname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sub-Brand&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{offsetsample?.program?.programname}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Category &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.productCategory?.productcategoryname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sub-Category &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.productSubCategory?.productsubcategoryname}} </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;padding: 5px"><strong> Client&nbsp;&nbsp;:&nbsp;&nbsp;</strong>  {{offsetsample?.client?.clientname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>NPD Executive&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{executive?.SalesPeron}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Designer&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{designer?.SalesPeron}}-{{designer?.PrevEmpID}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sales Person &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sales?.SalesPeron}}-{{sales?.PrevEmpID}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Receive Date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.orderdate | date}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Estimate Date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.estdeliverydate | date}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Length &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.length}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Width &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.width}} </td>
+          <td style="border: 1px solid black;padding: 5px" ><strong>Unit &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.unit1?.listitem}}</td>
+<!--          <td style="border: 1px solid black;padding: 5px" ><strong>Unit &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  <span *ngIf="this.offsetsample?.unit=== 1">Pcs</span> <span *ngIf="this.offsetsample?.unit=== 2">Yard</span> <span *ngIf="this.offsetsample?.unit=== 3">Mtr</span></td>-->
+          <td style="border: 1px solid black;padding: 5px"><strong>Finish Length(MM)&nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{offsetsample?.finishlength}}</td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Expire Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span class="ui Medium red horizontal label" *ngIf="offsetsample?.expireDate !== '1900-01-01T00:00:00.000Z' && offsetsample?.expireDate !== 'null'">  {{offsetsample?.expireDate | date}}</span></td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Delivery Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span *ngIf="offsetsample?.deliverydate !== '1900-01-01T00:00:00.000Z' && offsetsample?.deliverydate !== 'null' ">  {{offsetsample?.deliverydate | date}}</span></td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Received from production &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span *ngIf="offsetsample?.completeDate !== '1900-01-01T00:00:00.000Z' && offsetsample?.completeDate !== 'null' ">  {{offsetsample?.completeDate | date}}</span></td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Approval Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span *ngIf="offsetsample?.approveldate !== '1900-01-01T00:00:00.000Z' && offsetsample?.approveldate !== 'null' ">  {{offsetsample?.approveldate | date}}</span></td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Status &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.status?.statusdescription}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Total No. Of Color &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.totalnoofcolor}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Paper GSM &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.papergsm}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Submission Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span *ngIf="offsetsample?.submissiondate !== '1900-01-01T00:00:00.000Z' && offsetsample?.submissiondate !== 'null' ">  {{offsetsample?.submissiondate | date}}</span></td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Submission Comment &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.submissioncomment}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Rejection Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span *ngIf="offsetsample?.rejectiondate !== '1900-01-01T00:00:00.000Z' && offsetsample?.rejectiondate !== 'null' ">  {{offsetsample?.rejectiondate | date}}</span></td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Rejection Comment &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.rejectioncomment}} </td>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Remark &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.specialinstruction}}  </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="!offsetsample?.isbarcode"><strong>Is Bar Code &nbsp;&nbsp;:&nbsp;&nbsp; </strong>No</td>
+          <td  style="border: 1px solid black;padding: 5px" *ngIf="offsetsample?.isbarcode"><strong>Is Bar Code &nbsp;&nbsp;:&nbsp;&nbsp; </strong>Yes </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Uploaded PDF  &nbsp;&nbsp;:&nbsp;&nbsp; </strong> <a class="ui Medium purple horizontal label" *ngIf="offsetsample?.artworklocation" href="{{ api.baseUrl + offsetsample?.artworklocation }}" target="_blank"> Show File</a><a class="ui Medium red horizontal label" *ngIf="!offsetsample?.artworklocation" > No File</a> </td>
+          <td style="border: 1px solid black;padding: 5px" (click)="downloadPDF();"><strong>Uploaded Image &nbsp;&nbsp;:&nbsp;&nbsp; </strong><a class="ui Medium purple horizontal label" *ngIf="offsetsample?.filename"  href="{{api.baseUrl + offsetsample?.filename }}" target="_blank">Show Image</a> <a class="ui Medium red horizontal label" *ngIf="!offsetsample?.filename" > No Image</a> </td>
+        </tr>
+
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px"><strong>Reason of change &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{offsetsample?.reasonOfChange}}</td>-->
+
+<!--        </tr>-->
+
+
+      </table>
+      <table style="margin: 10px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Reason Of Change &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{offsetsample?.reasonOfChange}}  </td>
+        </tr>
+      </table>
+      <table style="margin: 10px;width: 100%;border-collapse: collapse;" >
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2"><strong>2nd Submit Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissioncomment2"><strong>2nd Submit Comment</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate3"><strong>3rd Submit Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissioncomment3"><strong>3rd Submit Comment</strong></td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">{{offsetsample?.submissiondate2 | date}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissioncomment2">{{offsetsample?.submissioncomment2}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate3">{{offsetsample?.submissiondate3 | date}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissioncomment3">{{offsetsample?.submissioncomment3}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate4"><strong>4th Submit Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissioncomment4"><strong>4th Submit Comment</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate2"><strong>2nd Rejection Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectioncomment2"><strong>2nd Rejection Comment</strong></td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">{{offsetsample?.submissiondate4 | date}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.submissiondate2">{{offsetsample?.submissioncomment4}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate2">{{offsetsample?.rejectiondate2 | date}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectioncomment2">{{offsetsample?.rejectioncomment2}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate3"><strong>3rd Rejection Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectioncomment3"><strong>3rd Rejection Comment</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate4"><strong>4th Rejection Date</strong></td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectioncomment4"><strong>4th Rejection Comment</strong></td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate3">{{offsetsample?.rejectiondate3 | date}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectioncomment3">{{offsetsample?.rejectioncomment3}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectiondate4">{{offsetsample?.rejectiondate4 | date}}</td>
+          <td style="border: 1px solid black;padding: 5px;font-size: 12px" *ngIf="this.offsetsample?.rejectioncomment4">{{offsetsample?.rejectioncomment4}}</td>
+        </tr>
+      </table>
+<!--      <table style="margin: 10px;width: 100%;border-collapse: collapse;" *ngIf="this.offsetsample?.submissiondate2">-->
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Submit Date</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Submit Comment</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Submit Date</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Submit Comment</strong></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissiondate2 | date}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissioncomment2}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissiondate3 | date}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissioncomment3}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Submit Date</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Submit Comment</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Rejection Date</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>2nd Rejection Comment</strong></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissiondate4 | date}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.submissioncomment4}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectiondate2 | date}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectioncomment2}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Rejection Date</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>3rd Rejection Comment</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Rejection Date</strong></td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>4th Rejection Comment</strong></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectiondate3 | date}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectioncomment3}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectiondate4 | date}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px;font-size: 12px">{{offsetsample?.rejectioncomment4}}</td>-->
+<!--        </tr>-->
+<!--      </table>-->
+
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;" *ngIf="colordetails">
+        <tr>
+          <th style="border: 1px solid black;padding: 5px">Background Color</th>
+          <th style="border: 1px solid black;padding: 5px">Print Color</th>
+        </tr>
+        <tr *ngFor="let color of colordetails">
+          <td style="border: 1px solid black;padding: 5px">{{color?.samplecolorname}}</td>
+          <td style="border: 1px solid black;padding: 5px">{{color?.printcolor}}</td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;" *ngIf="SampleParts">
+        <tr>
+          <th style="border: 1px solid black;padding: 5px">Part No.</th>
+          <th style="border: 1px solid black;padding: 5px">Length</th>
+          <th style="border: 1px solid black;padding: 5px">Width</th>
+        </tr>
+        <tr *ngFor="let p of SampleParts">
+          <td style="border: 1px solid black;padding: 5px">{{p?.lov?.listitem}} </td>
+          <td style="border: 1px solid black;padding: 5px">{{p?.length}}</td>
+          <td style="border: 1px solid black;padding: 5px">{{p?.width}}  </td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <!--    Wovem Sample Color Details-->
+<!--    <button class="ui icon blue button" printSectionId="color" ngxPrint><i class="print icon"></i></button>-->
+
+
+<!--    <div id="color">-->
+<!--      <h2 class="center aligned vertically">Thermal Sample Color Details</h2>-->
+<!--      <h4 class="center aligned vertically">Sample No. #{{offsetsample?.sampleno}}</h4>-->
+<!--      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">-->
+<!--        <tr>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Backgroud Color</th>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Print Color</th>-->
+<!--        </tr>-->
+<!--        <tr *ngFor="let color of colordetails">-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{color?.samplecolorname}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{color?.printcolor}}</td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <button class="ui icon blue button" printSectionId="woven" ngxPrint><i class="print icon"></i></button>-->
+<!--    <div id="woven">-->
+<!--      <h2 class="center aligned vertically">Thermal Part Wise Sample Details</h2>-->
+<!--      <h4 class="center aligned vertically">Sample No. #{{offsetsample?.sampleno}}</h4>-->
+<!--      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">-->
+<!--        <tr>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Sample No.</th>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Sample Name</th>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Part No.</th>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Length</th>-->
+<!--          <th style="border: 1px solid black;padding: 5px">Width</th>-->
+<!--        </tr>-->
+<!--        <tr *ngFor="let p of SampleParts">-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{p?.sample?.sampleno}} </td>-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{p?.sample?.samplename}} </td>-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{p?.lov?.listitem}} </td>-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{p?.length}}</td>-->
+<!--          <td style="border: 1px solid black;padding: 5px">{{p?.width}}  </td>-->
+<!--        </tr>-->
+<!--      </table>-->
+
+<!--    </div>-->
+    <button class="ui icon blue button" printSectionId="yarn" ngxPrint><i class="print icon"></i></button>
+    <br>
+    <div id="yarn">
+    <div class="ui divider"></div>
+    <h2 class="ui m-0" style="color: #1a69a4">Thermal  Sample Material Details</h2>
+    <div class="ui divider"></div>
+    <div class="ui two column grid ">
+      <div class="row ml-3 mr-3">
+        <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+          <thead>
+          <th style="border: 1px solid black;padding: 5px">Sample No</th>
+          <th style="border: 1px solid black;padding: 5px">Material Color</th>
+          <th style="border: 1px solid black;padding: 5px">Material Name</th>
+          <th style="border: 1px solid black;padding: 5px">Length(Inch)</th>
+          <th style="border: 1px solid black;padding: 5px">Width(Inch)</th>
+          <th style="border: 1px solid black;padding: 5px">Quantity Per Thousand</th>
+          <th style="border: 1px solid black;padding: 5px">Print</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let detail of material">
+            <td style="border: 1px solid black;padding: 5px">{{detail?.sample?.sampleno}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{detail?.color?.samplecolorname}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{detail?.item?.itemcode}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{detail?.sample?.length}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{detail?.sample?.width}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{detail?.requiredqty}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{detail?.sideprint}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    <br>
+    <button class="ui icon blue button" printSectionId="ink" ngxPrint><i class="print icon"></i></button>
+    <br>
+    <div id="ink">
+    <div class="ui divider"></div>
+    <h2 class="ui m-0" style="color: #1a69a4">Thermal  Ink Ribbon  Details</h2>
+    <div class="ui divider"></div>
+    <div class="ui two column grid ">
+      <div class="row ml-3 mr-3">
+        <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+          <thead>
+          <th style="border: 1px solid black;padding: 5px">Sample No</th>
+          <th style="border: 1px solid black;padding: 5px">Ink Type </th>
+          <th style="border: 1px solid black;padding: 5px">Color</th>
+          <th style="border: 1px solid black;padding: 5px">Ink Side</th>
+          <th style="border: 1px solid black;padding: 5px">Item Description</th>
+          <th style="border: 1px solid black;padding: 5px">Required Quantity</th>
+          <th style="border: 1px solid black;padding: 5px">Supplier</th>
+          <th style="border: 1px solid black;padding: 5px">Supplier Code</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let ink of sampleInkDetails">
+            <td style="border: 1px solid black;padding: 5px">{{ink?.sample?.sampleno}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.inktype?.listitem}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.color?.samplecolorname}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.inkside?.listitem}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.itemid}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.requiredqty}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.supplier?.suppliername}}</td>
+            <td style="border: 1px solid black;padding: 5px">{{ink?.suppliermaterialcode}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    <button class="ui icon blue button" printSectionId="PrintMachine" ngxPrint><i class="print icon"></i></button>
+    <br>
+    <div id="PrintMachine">
+      <div class="ui divider"></div>
+      <h2 class="ui m-0" style="color: #1a69a4">Thermal Print Machine  Details</h2>
+      <div class="ui divider"></div>
+      <div class="ui two column grid ">
+        <div class="row ml-3 mr-3">
+          <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+            <thead>
+            <th style="border: 1px solid black;padding: 5px">Sample No</th>
+            <th style="border: 1px solid black;padding: 5px">Machine Name </th>
+            <th style="border: 1px solid black;padding: 5px">Finish Type</th>
+            <th style="border: 1px solid black;padding: 5px">Machine DPI</th>
+            <th style="border: 1px solid black;padding: 5px">Machine Speed</th>
+            <th style="border: 1px solid black;padding: 5px">Machine Darkness</th>
+            <th style="border: 1px solid black;padding: 5px">Max Print Width</th>
+            <th style="border: 1px solid black;padding: 5px">Curing Time</th>
+            <th style="border: 1px solid black;padding: 5px">Curing Temperature</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ink of printMachineDetails">
+              <td style="border: 1px solid black;padding: 5px">{{ink?.sample?.sampleno}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.machine?.machineno}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.finishtype?.listitem}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.machinedpi}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.machinespeed}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.machinedarkness}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.mpw}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.ctm}}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ink?.ct}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

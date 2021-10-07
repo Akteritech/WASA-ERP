@@ -1,0 +1,350 @@
+<div class="ui segment">
+  <!-- <button class="ui red label my-2" (click)="pdf()"> <i class="download icon"></i>Download Pdf</button> -->
+  <button class="ui blue label" printSectionId="printContent" ngxPrint><i class="print icon"></i> Print</button>
+  <div id="printContent" #printContent class="font_size_bangla">
+    <div *ngFor="let data of workerPayslipDetails">
+      <table style="border-bottom: 1px dotted #000; border-collapse: collapse;width: 100%; padding: 5px;">
+        <tr>
+          <td style="width: 48%; border-right: 1px dotted #000; vertical-align: top;">
+            <table style="width: 98%; border-collapse: collapse; padding: 5px; text-align: center; font-size: 13px;">
+              <tr>
+                <td>
+                  <div>মাহিন লেবেল টেক্স লিমিটেড</div>
+                  <div>খোর্দ্দঘোষ পাড়া, মিজমিজি, সিদ্ধিরগঞ্জ, নারায়ণগঞ্জ</div>
+                </td>
+              </tr>
+            </table>
+            <table style="width: 100%; padding: 5px; margin: 5px 0px; border-collapse: collapse; font-size: 13px;">
+              <tr>
+                <td style="width: 55%; text-align: right;">
+                  <span
+                    style="width: 30%; padding: 3px; border: 1px solid black; background-color: #f2f2f2; text-align: center;">মজুরি
+                    রশিদ</span>
+                </td>
+                <td style="width: 45%; text-align: right;">
+                  <span style="margin-right: 5px;"> অফিস কপি </span>
+                </td>
+              </tr>
+            </table>
+            <table
+              style="width: 98%; padding: 5px; border-collapse: collapse; border:1px solid black; font-size: 13px;">
+              <tr>
+                <td style="width: 50%; padding: 5px;">
+                  <div>পরিশোধের তাং : <span style="font-family: SutonnyMJ; font-size: 15px;">{{data.PROCESSING_DATE.substring(0, 10)}}</span></div>
+                  <div>কার্ড নং : <span style="font-family: SutonnyMJ; font-size: 15px;">{{data.EMP_CARD_NO}}</span> </div>
+                  <div style="font-family: SutonnyMJ; font-size: 15px;">নাম :{{data.EMP_NAME_ENG}}</div>
+                </td>
+                <td style="width: 50%; padding: 5px;">
+                  <div>যোগদানের তারিখ : <span style="font-family: SutonnyMJ; font-size: 15px;">{{data.JOINING_DATE.substring(0, 10)}}</span></div>
+                  <div style="font-family: SutonnyMJ; font-size: 15px;">বিভাগ : {{data.DeptEngNm}} </div>
+                  <div style="font-family: SutonnyMJ; font-size: 15px;">পদবি : {{data.DesigNmEng}}</div>
+                </td>
+              </tr>
+            </table>
+            <table style="width: 98%; padding: 5px; border-collapse: collapse; font-size: 13px;">
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  মূল বেতন
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.BasicAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  বাড়ি ভাড়া
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.HousdeRent}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  চিকিৎসা ভাতা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.MedicalAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  খাদ্য ভাতা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.LaunchAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  যাতায়াত ভাতা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.Conveyance}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  মোট বেতন
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.PRESENT_SALARY}}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  উপস্থিত দিন
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.PRESENT_DAYS}}
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: center; font-family: SutonnyMJ; font-size: 15px;">
+                  বেতন (উপস্থিতি হিসেবে)
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.PresentAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  হাজিরা বোনাস
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right;">
+                  {{data.ATTENDANCE_BONOUS}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  মোট প্রাপ্য টাকা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.TotalRecvded}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  কর্তনকৃত টাকা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.ADVANCE_AMOUNT}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  প্রাপ্ত টাকা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.GrandTotal}}
+                </td>
+              </tr>
+            </table>
+            <table
+              style="width: 98%; height: 70px; margin-bottom: 5px; padding: 5px; border-collapse: collapse; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; font-size: 13px;">
+              <tr>
+                <td style="width: 50%; padding: 5px; text-align: left; vertical-align: bottom; margin-left: 5px;">
+                  শ্রমিকের স্বাক্ষর
+                </td>
+                <td style="width: 50%; padding: 5px; vertical-align: bottom; text-align: right; margin-right: 5px;">
+                  এইচ.আর বিভাগ
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 48%; vertical-align: top;" align="right">
+            <table style="width: 98%; border-collapse: collapse; padding: 5px; text-align: center; font-size: 13px;">
+              <tr>
+                <td>
+                  <div>মাহিন লেবেল টেক্স লিমিটেড</div>
+                  <div>খোর্দ্দঘোষ পাড়া, মিজমিজি, সিদ্ধিরগঞ্জ, নারায়ণগঞ্জ</div>
+                </td>
+              </tr>
+            </table>
+            <table style="width: 100%; padding: 5px; margin: 5px 0px; border-collapse: collapse; font-size: 13px;">
+              <tr>
+                <td style="width: 55%; text-align: right;">
+                  <span
+                    style="width: 30%; padding: 3px; border: 1px solid black; background-color: #f2f2f2; text-align: center;">মজুরি
+                    রশিদ</span>
+                </td>
+                <td style="width: 45%; text-align: right;">
+                  <span style="margin-right: 5px;"> শ্রমিকের কপি </span>
+                </td>
+              </tr>
+            </table>
+            <table
+              style="width: 98%; padding: 5px; border-collapse: collapse; border:1px solid black; font-size: 13px;">
+              <tr>
+                <td style="width: 50%; padding: 5px;">
+                  <div>পরিশোধের তাং : <span style="font-family: SutonnyMJ; font-size: 15px;"> {{data.PROCESSING_DATE.substring(0, 10)}}</span></div>
+                  <div>কার্ড নং : <span style="font-family: SutonnyMJ; font-size: 15px;"> {{data.EMP_CARD_NO}}</span> </div>
+                  <div style="font-family: SutonnyMJ; font-size: 15px;">নাম : {{data.EMP_NAME_ENG}}</div>
+                </td>
+                <td style="width: 50%; padding: 5px;">
+                  <div>যোগদানের তারিখ :  <span style="font-family: SutonnyMJ; font-size: 15px;">{{data.JOINING_DATE.substring(0,10)}}</span></div>
+                  <div style="font-family: SutonnyMJ; font-size: 15px;">বিভাগ : {{data.DeptEngNm}} </div>
+                  <div style="font-family: SutonnyMJ; font-size: 15px;">পদবি : {{data.DesigNmEng}}</div>
+                </td>
+              </tr>
+            </table>
+            <table style="width: 98%; padding: 5px; border-collapse: collapse; font-size: 13px;">
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  মূল বেতন
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.BasicAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  বাড়ি ভাড়া
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.HousdeRent}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  চিকিৎসা ভাতা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.MedicalAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  খাদ্য ভাতা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.LaunchAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  যাতায়াত ভাতা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.Conveyance}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  মোট বেতন
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.PRESENT_SALARY}}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  উপস্থিত দিন
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.PRESENT_DAYS}}
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: center;">
+                  বেতন (উপস্থিতি হিসেবে)
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.PresentAmount}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  হাজিরা বোনাস
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.ATTENDANCE_BONOUS}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  মোট প্রাপ্য টাকা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.TotalRecvded}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  কর্তনকৃত টাকা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.ADVANCE_AMOUNT}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000;">
+                  প্রাপ্ত টাকা
+                </td>
+                <td
+                  style="padding: 5px; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; text-align: right; font-family: SutonnyMJ; font-size: 15px;">
+                  {{data.GrandTotal}}
+                </td>
+              </tr>
+            </table>
+            <table
+              style="width: 98%; height: 70px; margin-bottom: 5px; padding: 5px; border-collapse: collapse; border-bottom: 1px solid #000; border-left: 1px solid #000;border-right: 1px solid #000; font-size: 13px;">
+              <tr>
+                <td style="width: 50%; padding: 5px; text-align: left; vertical-align: bottom; margin-left: 5px;">
+                  শ্রমিকের স্বাক্ষর
+                </td>
+                <td style="width: 50%; padding: 5px; vertical-align: bottom; text-align: right; margin-right: 5px;">
+                  এইচ.আর বিভাগ
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+   
+  </div>
+</div>

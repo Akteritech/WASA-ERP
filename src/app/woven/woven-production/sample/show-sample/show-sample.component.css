@@ -1,0 +1,20 @@
+.ImgSize{
+  display:inline-block;
+  height: 100%;
+  width: 100%;
+  max-height: 50%;
+  max-width: 50%;
+  overflow:hidden;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+#hide {
+height: 70px;
+width: 60px;
+  position: relative;
+  padding-bottom: 80px;
+}
+p{
+  text-align:center;
+  font-size:15px !important;
+}

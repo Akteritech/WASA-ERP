@@ -1,0 +1,178 @@
+
+<div class="">
+  <div  id="printContent" #printContent>
+    <div class="ui grid">
+      <div class="twelve wide column">
+        <h2 class="center aligned vertically">Woven Job Card #{{jobCardReport?.jobcardno}}</h2>
+      </div>
+      <div class="two wide column">
+        <ngx-barcode [bc-height]="50" [bc-width]="1" [bc-margin-top]="1" [bc-value]="workorder?.workorderno" [bc-display-value]="false"></ngx-barcode>
+      <div style="font-size: 20px">{{jobCardSize}}</div>
+      </div>
+    </div>
+    <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+
+      <tr>
+        <td colspan="2" style="border-top: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{workorder?.company?.companyname}}</strong> </td>
+        <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Doc. Code: </strong>NPD/03/021</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="border-left: 2px solid black;padding: 5px;text-align: center"><strong>Woven Job card</strong> </td>
+        <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Page 1 of 1</strong> </td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Effective Date:</strong> 15/12/2014 </td>
+        <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Revision Status:</strong>00  </td>
+        <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Issue No: </strong>01 </td>
+      </tr>
+    </table>
+    <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+      <tr>
+        <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px;font-size: 12px"><strong>Party Name   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong>{{showpagedata?.PartyName}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Rec. Date  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong> {{showpagedata?.OrderReceiveDate }}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Delivery Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.EstDeliverDate }}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Mrk. Exec.   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.EmployeeName}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Job No. &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; </strong> {{showpagedata?.JobCardNo}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Plan Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.PlanDate | date}}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Priority   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.Priority}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Item Length&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.Length}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.Width}}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Base Color  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.SampleColorName}} </td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Lettering Color&nbsp;:&nbsp;&nbsp; </strong>{{showpagedata?.PrintColor}}   </td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>File Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{showpagedata?.FileName}}  </td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Finish Length  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{showpagedata?.PSFoldToFold}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Fold Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.CutFoldInfo}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Damask Length&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.DamaskLength}} </td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Beam Color  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.WarpColor}} </td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px" ><strong>Quality&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{showpagedata?.WeavingType}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Pick Wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.PickWheel}}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Beam Tension &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.BeamTension}}</td>
+        <td style="border-left: 1px solid black;border-bottom: 1px solid black;padding: 5px;font-size: 12px"><strong>Machine Type&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.MachineTypeName}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>PO NO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.CustomerPONo}}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;text-align: left;font-size: 12px"><strong>RPM   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong> {{showpagedata?.RPM}} </td>
+        <td style="border: 1px solid black;padding: 5px;text-align: left;font-size: 12px"><strong>Hour &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>{{this.hour | number : '1.2-2'}} </td>
+        <td style="border: 1px solid black;padding: 5px;text-align: left;font-size: 12px"><strong>Speed &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong>  {{showpagedata?.Speed}}</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Pick  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.Pick}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Cutter  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong> {{showpagedata?.Cutter}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Machine Width &nbsp;&nbsp;: </strong> {{showpagedata?.MachineWidth}}</td>
+        <!--        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Cutter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{sample?.wovenCommonDetails?.cutter}}</td>-->
+        <!--        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Machine Width&nbsp;:&nbsp;&nbsp; </strong> {{Machine_details[0]?.machine?.width}}</td>-->
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>RPT  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{this.rpt}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Anti Dying  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.AntiDyeing}}</td>
+        <td style="border: 1px solid black;padding: 5px;font-size: 12px"><strong>Starching  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{showpagedata?.StracingInfo}}</td>
+
+      </tr>
+    </table>
+    <table  style=" border-collapse: collapse;width: 100%;">
+      <tr >
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">SL</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Work Order No</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Item Name</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Color</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Size</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">File</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Machine No</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Order Qty</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Plan Qty</th>
+        <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Production Qty</th>
+      </tr>
+      <tr *ngFor="let wo of showpagedatafortable; let i=index">
+        <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{i+1}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.WorkOrderNo}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.SampleName}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.Column1Value}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.Column2Value}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.Column3Value}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.MachineNo}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.OrderQty}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.PlanQTY}}</td>
+        <td  style="border: 1px solid black; padding: 5px;font-size: 12px">{{wo?.ProductionQty}}</td>
+      </tr>
+      <tr>
+        <td colspan="6"></td>
+        <td>Total</td>
+        <td>{{orderTotal}}</td>
+        <td>{{planTotal}}
+        <td>{{productionTotal}}</td>
+      </tr>
+    </table>
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <td>{{orderTotal}}s</td>-->
+<!--        <td>dsfjfs</td>-->
+<!--        <td>{{planTotal}}s</td>-->
+<!--        <td>{{productionTotal}}s</td>-->
+<!--      </tr>-->
+<!--    </table>-->
+    <div class="row" style="box-sizing: border-box;width: 100%; ">
+      <div class="column" style="float: left;box-sizing: border-box;width: 75%;">
+        <table style=" border-collapse: collapse;width: 100%; margin-top: 5px;">
+          <tr>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">SL</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Yarn Code</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Color</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Weft Denier</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Warp Denier</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Pick</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Qty (Kg)</th>
+            <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Yarn Supplier</th>
+          </tr>
+          <tr *ngFor="let yarn of showpagedatamaterial; let i=index">
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{i+1}}</td>
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{yarn?.ItemDescription}}</td>
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">{{yarn?.Color}}</td>
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.Denier}}</td>
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.WarpDenier}}</td>
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.Pick}}</td>
+              <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.RequiredQty}}</td>
+            <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{yarn?.SupplierName}}</td>
+          </tr>
+          <tr>
+
+          </tr>
+        </table>
+      </div>
+      <div class="column" style="float: left;box-sizing: border-box;width: 19%;margin-top: 4px;margin-left: 10px">
+        <img *ngIf="sample?.imagepath" src="{{ api.baseUrl + sample?.imagepath }}" class="ui fluid image" alt="" >
+      </div>
+    </div>
+
+    <table style="margin-top: 2px;padding: 5px;width: 100%;text-align: center">
+      <tr >
+        <th style="padding-bottom: 5px;text-align: left;font-size: 12px    "><strong>Remarks : </strong></th></tr>
+      <tr>
+        <td style="border-bottom: 2px solid black;padding: 4px;;font-size: 12px">{{showpagedata?.WOCreatedBy}}</td>
+        <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+        <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+        <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+        <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+      </tr>
+      <tr >
+        <td style="padding: 5px">PREPARED BY</td>
+        <td>COLOR CHECKER</td>
+        <td>DESIGNER</td>
+        <td>PRODUCTION INCHARGE</td>
+        <td>QC INCHARGE</td></tr>
+    </table>
+  </div>
+</div>
+<br>
+<br>

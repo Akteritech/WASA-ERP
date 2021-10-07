@@ -1,0 +1,11 @@
+@media print {
+    :not(.printMe) {
+        visibility: hidden;
+    }
+}
+
+@media print {
+    .printMe {
+        visibility: visible
+    }
+}

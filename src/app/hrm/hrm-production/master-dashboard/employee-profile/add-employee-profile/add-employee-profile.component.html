@@ -1,0 +1,370 @@
+<button class="ui tiny orange button" type="button" *ngIf="this.editId" (click)="this.api.backClicked()">
+  <i class="angle left icon"></i>
+  Back
+</button>
+<form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment cardmy2" [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Employee Profile
+      <br>
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Employee Profile
+      <br>
+    </h4>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!emp.prevempId && !emp.firstname ">
+      <li>
+        <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <!--    {{emp | json}}-->
+    <div class="ui fluid container" style="margin-top: 30px;" *ngIf="employeesrecord">
+      <h4 style="color: blue;" *ngIf="employeesrecord.length">Similar Card No.</h4>
+      <ul>
+        <li *ngFor="let sample of employeesrecord">{{sample}}</li>
+      </ul>
+      <p *ngIf="!employeesrecord.length" style="color: green">Card No. is Available</p>
+    </div>
+    <div class="ui two column grid">
+      <div class="fourteen wide column">
+        <div class="equal width fields">
+          <!--          <div class="required field">-->
+          <!--            <label>Employee ID</label>-->
+          <!--            <div class="ui labeled input">-->
+          <!--              <input required type="text" [(ngModel)]="emp.EMP_ID" name="EMP_ID" placeholder="no" />-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <div class="field">
+            <label>Employee Type</label>
+            <sui-select name="emptype" class="selection" [(ngModel)]="emp.EMP_TYPE" [options]="api.EmployeeType"
+              [isSearchable]="true" labelField="name" valueField="value" #EmployeeType>
+              <sui-select-option *ngFor="let option of EmployeeType.filteredOptions" [value]="option">
+              </sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Benefit</label>
+            <sui-checkbox class="mt-2" [(ngModel)]="emp.Benifit" name="Benifit">
+            </sui-checkbox>
+          </div>
+          <div class="required field">
+            <label>Name</label>
+            <input required type="text" [(ngModel)]="emp.EMP_NAME_ENG" id="EMP_NAME_ENG" name="EMP_NAME_ENG"
+              placeholder="First Name" />
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Full Name In Bangla</label>
+            <input type="text" [(ngModel)]="emp.EMP_NAME_BNG" name="EMP_NAME_BNG" placeholder="Full Name In Bangla" style="font-family: SutonnyMJ;" />
+          </div>
+          <div class="field required">
+            <label>Zone</label>
+            <sui-select name="DIVISION_ID" class="selection" [(ngModel)]="emp.DIVISION_ID" [options]="unit"
+                 labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #SelectUnit>
+              <sui-select-option *ngFor="let option of SelectUnit.filteredOptions" [value]="option">
+              </sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+      </div>
+<!--      <div id="generatedImage"></div>-->
+      <div class="two wide column pl-1">
+        <div class="fields required pl-0">
+          <div class="sixteen wide field p-2 pointer ImgSize" title="Click here to add Image" >
+              <img *ngIf="this.isImageLoading == true && this.editId" style="height: 125px; width: 125px" [src]="this.imageToShow" class="ui image" alt="" (click)="image.click()">
+<!--              <img *ngIf="this.isImageLoading == true && !this.editId" src="{{ api.baseUrl + this.emp.DSG }}" class="ui image" alt="" (click)="image.click()">-->
+              <img *ngIf="this.isImageLoading == true" src="{{ api.baseUrl + this.imageToShow}}"  class="ui image" alt="" (click)="image.click()">
+              <img *ngIf="this.isImageLoading == false" src="{{this.api.noImagePath}}"  class="ui image" alt="" (click)="image.click()">
+              <input type="file" hidden style="padding: 5px" accept="image/*"  (change)="handleFileInput($event.target.files)" #image name="image" placeholder="image"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="equal width fields ">
+      <div class="field required">
+        <label>Department</label>
+        <sui-select name="DEPARTMENT_ID" class="selection" [(ngModel)]="emp.DEPARTMENT_ID" [options]="departments" (ngModelChange)="getInChangeCardNo()"
+          [isSearchable]="true" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #SelectDepartment>
+          <sui-select-option *ngFor="let option of SelectDepartment.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Section</label>
+        <sui-select placeholder="." class="selection" [(ngModel)]="emp.SECTION_ID" name="SECTION_ID"
+          [isSearchable]="true" [options]="sections" labelField="SecEngNm" valueField="SECTION_ID" #selectSection>
+          <sui-select-option *ngFor="let op of selectSection.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Employee Status</label>
+        <sui-select name="EMP_STATUS" class="selection" [(ngModel)]="emp.EMP_STATUS" [options]="api.EmployeeStatus"
+          [isSearchable]="true" labelField="name" valueField="value" #SelectEmployeeStatus>
+          <sui-select-option *ngFor="let option of SelectEmployeeStatus.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label> Group</label>
+        <sui-select name="GROUP_ID" class="selection" [(ngModel)]="emp.GROUP_ID" [options]="groups"
+          [isSearchable]="true" labelField="GROUP_NAME_ENG" valueField="GROUP_ID" #SelectGroups>
+          <sui-select-option *ngFor="let option of SelectGroups.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Designation</label>
+        <sui-select required name="DESIGNATION_ID" class="selection" id="DESIGNATION_ID"
+          [(ngModel)]="emp.DESIGNATION_ID" [options]="designations" labelField="DesigNmEng" valueField="DesigID"
+          [isSearchable]="true" #SelectDesignantion>
+          <sui-select-option *ngFor="let option of SelectDesignantion.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Last Card No</label>
+        <input required type="text" [(ngModel)]="emp.LINE_ID" id="LINE_ID" name="LINE_ID"
+          placeholder="Identification Type" />
+      </div>
+      <div class="field required">
+        <label>Employee Card No</label>
+        <input required type="text" [(ngModel)]="emp.EMP_CARD_NO" (ngModelChange)="searchRecord()" id="EMP_CARD_NO"
+          name="EMP_CARD_NO" placeholder="Identification Type" />
+      </div>
+      <div class="field required">
+        <label>Attend Device Card No</label>
+        <input required type="text" [(ngModel)]="emp.ATTEND_DEVICE_NO" id="ATTEND_DEVICE_NO" name="ATTEND_DEVICE_NO"
+          placeholder="Identification Type" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field" >
+        <label>InCharge Card No</label>
+        <sui-select required name="Inchagre no" class="selection" id="Inchagre"
+          [(ngModel)]="emp.InCahrgeCardNo" [options]="inchargecardno" labelField="EMP_CARD_NO" valueField="EMP_CARD_NO"
+          [isSearchable]="true" #Selectincharge>
+          <sui-select-option *ngFor="let option of Selectincharge.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <!-- <div class="field" *ngIf="this.editId">
+        <label>InCharge Card No</label>
+        <input required type="text" [(ngModel)]="emp.InCahrgeCardNo" id="InCahrgeCardNo" name="InCahrgeCardNo" placeholder=" " />
+      </div> -->
+      <div class="field ">
+        <label>Lunch Start(mm)</label>
+        <input required type="number" [(ngModel)]="emp.LUNCH_TIME_START" id="LUNCH_TIME_START" name="LUNCH_TIME_START"
+          placeholder="Identification Type" />
+      </div>
+      <div class="field ">
+        <label>Lunch End(mm)</label>
+        <input required type="number" [(ngModel)]="emp.LUNCH_TIME_END" id="LUNCH_TIME_END" name="LUNCH_TIME_END"
+          placeholder="Identification Type" />
+      </div>
+      <div class="field required">
+        <label>Employee Shift</label>
+        <sui-select class="selection" name="SHIFT_ID" placeholder="Select Religion" [(ngModel)]="emp.SHIFT_ID"
+          [options]="shifts" labelField="SHIFT_NAME_ENG" valueField="SHIFT_ID" [isSearchable]="true" #SelectSHift>
+          <sui-select-option *ngFor="let option of SelectSHift.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Date Of Birth</label>
+        <input suiDatepicker [(ngModel)]="emp.SHIFT_START_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="SHIFT_START_DATE">
+      </div>
+      <div class="field required">
+        <label>Joining Date</label>
+        <input suiDatepicker [(ngModel)]="emp.JOINING_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="JOINING_DATE">
+      </div>
+      <div class="field required">
+        <label>Grade</label>
+        <sui-select class="selection" name="GRADE_ID" placeholder="Select Nationality" [(ngModel)]="emp.GRADE_ID"
+          [options]="grades" labelField="GradeName" valueField="GradeId" [isSearchable]="true" #SelectGrades>
+          <sui-select-option *ngFor="let option of SelectGrades.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Joining Salary</label>
+        <input required type="number" (ngModelChange)="getPresentSalary()" [(ngModel)]="emp.JOINING_SALARY"
+          id="JOINING_SALARY" name="JOINING_SALARY" placeholder="Identification Type" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Present Salary</label>
+        <input required type="number" disabled [(ngModel)]="emp.PRESENT_SALARY" id="PRESENT_SALARY"
+          name="PRESENT_SALARY" placeholder="National ID No." />
+      </div>
+      <div class="field ">
+        <label>Holiday Allowance</label>
+        <input required type="text" [(ngModel)]="emp.HOLLYDAY_AMOUNT" id="HOLLYDAY_AMOUNT" name="HOLLYDAY_AMOUNT"
+          placeholder="Identification Mark" />
+      </div>
+      <div class="field ">
+        <label>Lunch Deduction</label>
+        <input required type="text" [(ngModel)]="emp.TIFFIN_AMOUNT" id="TIFFIN_AMOUNT" name="TIFFIN_AMOUNT"
+          placeholder="Identification Mark" />
+      </div>
+      <div class="field ">
+        <label>Special Allowance</label>
+        <input required type="text" [(ngModel)]="emp.NIGHT_AMOUNT" id="NIGHT_AMOUNT" name="NIGHT_AMOUNT"
+          placeholder="Identification Mark" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Earned Leave</label>
+        <input required type="text" [(ngModel)]="emp.EARNED_LEAVE" id="EARNED_LEAVE" name="EARNED_LEAVE"
+          placeholder="Identification Mark" />
+      </div>
+      <div class="field ">
+        <label>EL Start Date</label>
+        <input suiDatepicker [(ngModel)]="emp.EL_START_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="EL_START_DATE">
+      </div>
+      <div class="field ">
+        <label>Buyer/Present Salary</label>
+        <input required type="text" [(ngModel)]="emp.BUYER_SALARY" id="BUYER_SALARY" name="BUYER_SALARY"
+          placeholder="Identification Mark" />
+      </div>
+      <div class="field required">
+        <label>Buyer Joining Date</label>
+        <input suiDatepicker [(ngModel)]="emp.BUYER_JOINING" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="BUYER_JOINING">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Last Pramotion /Demotion</label>
+        <input required type="number" [(ngModel)]="emp.LAST_PROMOTION_DEMOTION" id="LAST_PROMOTION_DEMOTION"
+          name="LAST_PROMOTION_DEMOTION" placeholder="Identification Type" />
+      </div>
+      <div class="field">
+        <label>Last Increment</label>
+        <input required type="number" [(ngModel)]="emp.LAST_INCREMENT_AMOUNT" id="LAST_INCREMENT_AMOUNT"
+          name="LAST_INCREMENT_AMOUNT" placeholder="Identification Type" />
+      </div>
+      <div class="field">
+        <label>Shift Change</label>
+        <sui-select class="selection" name="SHIFT_STATUS" placeholder="Select Nationality"
+          [(ngModel)]="emp.SHIFT_STATUS" [options]="api.ShiftChange" labelField="name" valueField="value"
+          [isSearchable]="true" #SelectSHiftChange>
+          <sui-select-option *ngFor="let option of SelectSHiftChange.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>OT Limit(Hrs.)</label>
+        <input required type="number" [(ngModel)]="emp.Workdays" id="Workdays" name="Workdays"
+          placeholder="Identification Type" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Pay Category</label>
+        <sui-select class="selection" name="pay" placeholder="Select " [(ngModel)]="emp.PAY_CATEGORY"
+          [options]="api.payCategory" labelField="name" valueField="value" [isSearchable]="true" #SelectPayCategory>
+          <sui-select-option *ngFor="let option of SelectPayCategory.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Percentage/fixed Amount</label>
+        <input required type="text" [(ngModel)]="emp.PERCENTAGE" id="Amount" name="Amount" placeholder=" " />
+      </div>
+      <div class="field">
+        <label>PF Member</label>
+        <sui-checkbox class="mt-2" [(ngModel)]="emp.PF_MEMBER" name="PF_MEMBER">
+        </sui-checkbox>
+      </div>
+      <div class="field">
+        <label>CD/PF Amount</label>
+        <input required type="text" [(ngModel)]="emp.PF_AMOUNT" id="PF_AMOUNT" name="PF_AMOUNT" placeholder=" " />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Shift Started</label>
+        <input suiDatepicker [(ngModel)]="emp.PF_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="PF_DATE">
+      </div>
+      <div class="field">
+        <label>ITDS</label>
+        <input required type="text" [(ngModel)]="emp.ITDS" id="ITDS" name="ITDS" placeholder=" " />
+      </div>
+      <div class="field">
+        <label>Salary Cash Amount</label>
+        <input required type="number" [(ngModel)]="emp.CashAmount" id="CashAmount" name="CashAmount" placeholder=" " />
+      </div>
+      <div class="field">
+        <label>Rocket Acc No.</label>
+        <input required type="text" [(ngModel)]="emp.RocketAC" id="RocketAC" name="RocketAC" placeholder=" " />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Active</label>
+        <sui-checkbox class="mt-2" [(ngModel)]="emp.EMP_ACTIVITY" name="EMP_ACTIVITY">
+        </sui-checkbox>
+      </div>
+      <div class="field">
+        <label>OT</label>
+        <sui-checkbox class="mt-2" [(ngModel)]="emp.EMP_OT_ACTIVITY" name="EMP_OT_ACTIVITY">
+        </sui-checkbox>
+      </div>
+      <div class="field">
+        <label>Buyer Mode</label>
+        <sui-checkbox class="mt-2" [(ngModel)]="emp.BuyerMode" name="BuyerMode">
+        </sui-checkbox>
+      </div>
+    </div>
+
+    <div>
+      <button class="ui teal tiny button my-1" (click)="patch(form)" *ngIf="!this.editId">
+        Save
+      </button>
+      <button class="ui red tiny button my-1" (click)="form.resetForm()">
+        Reset
+      </button>
+      <!--      <button class="ui primary tiny button my-1" (click)="PrintIDCard()"-->
+      <!--              >-->
+      <!--        ID Card Print-->
+      <!--      </button>-->
+      <button class="ui green tiny button my-1" (click)="updateEmp()" *ngIf="this.editId">
+        Update
+      </button>
+
+      <button class="ui primary tiny button my-1" [routerLink]="['/hrm/hrmMaster/employee-personal', this.editId]"
+        *ngIf="this.editId">
+        Personal
+      </button>
+      <button class="ui primary tiny button my-1" [routerLink]="['/hrm/hrmMaster/employee-contact', this.editId]"
+        *ngIf="this.editId">
+        Contact
+      </button>
+      <button class="ui primary tiny button my-1" [routerLink]="['/hrm/hrmMaster/employee-education', this.editId]"
+        *ngIf="this.editId">
+        Education
+      </button>
+      <button class="ui primary tiny button my-1" [routerLink]="['/hrm/hrmMaster/employee-experience', this.editId]"
+        *ngIf="this.editId">
+        Experience
+      </button>
+      <!--      <button class="ui primary tiny button my-1"  [routerLink]="['/hrm/hrmMaster/employee-history', this.editId]"  *ngIf="this.editId"-->
+      <!--      >-->
+      <!--        Employee History-->
+      <!--      </button>-->
+    </div>
+  </div>
+</form>

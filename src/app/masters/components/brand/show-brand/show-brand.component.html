@@ -1,0 +1,35 @@
+<div class="field">
+  <h4 class="ui header m-0">&nbsp; Brand ID &nbsp; : &nbsp; <span style="color: #f2711c">{{brand?.brandId}}</span></h4>
+  <div class="ui divider"></div>
+  <div class="ui one column grid ">
+    <div class="row">
+      <table class="column">
+        <tr>
+          <td class=""><strong>Brand Name</strong></td><td > : </td><td>&nbsp;&nbsp;{{brand?.brandname}}  </td>
+        </tr>
+        <tr>
+          <td class=""><strong>Contact Person</strong></td><td > : </td><td>&nbsp;&nbsp;{{brand?.contactperson}} </td>
+        </tr>
+        <tr>
+          <td class=""><strong>Telephone</strong></td><td > : </td><td>&nbsp;&nbsp;{{brand?.telephone}} </td>
+        </tr>
+        <tr>
+        <td class=""><strong>Fax</strong></td><td > : </td><td>&nbsp;{{brand?.fax}}  </td>
+        </tr>
+        <tr>
+        <td><strong>Email</strong></td><td > : </td><td >&nbsp;{{brand?.email}}</td>
+        </tr>
+        <tr>
+          <td><strong>Nexgen Buyer  &nbsp;&nbsp;:&nbsp;&nbsp; </strong></td><td > : </td><td *ngIf="brand.isnexzenbuyer=== 1">&nbsp;&nbsp;Yes </td><td *ngIf="brand.isnexzenbuyer=== 2">&nbsp;&nbsp;No </td>
+          <!--<td><strong>Nexgen Buyer  &nbsp;&nbsp;:&nbsp;&nbsp; </strong><span  *ngIf="brand.isnexzenbuyer=== 1">  Yes </span><span  *ngIf="brand.isnexzenbuyer=== 2 ">No </span><span  *ngIf="brand.isnexzenbuyer=== 3 ">Not Applicable </span></td>-->
+        </tr>
+      </table>
+      <table class="column ">
+        <tbody>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>Back</button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+  <div>
+    <div class="mt-2" [ngStyle]="{'background-color':'#71797E'}">
+      <form onsubmit="return false;" class="ui small form" #form='ngForm'>
+        <div class="ui segment mt-2" [ngStyle]="{'background-color':'#71797E'}">
+          <h4 class="ui teal dividing header"><br>Add Role</h4>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Role Name</label>
+              <sui-select placeholder="Roles" class="selection" name="roles" [options]="roles" [isSearchable]="true"
+                labelField="RoleName" valueField="RoleID" #selectrole>
+                <sui-select-option *ngFor="let op of selectrole.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Page Name</label>
+              <sui-select placeholder="." class="selection" name="pageName" [isSearchable]="true"
+                (input)="pageSearch($event.target.value)">
+                <sui-select-option *ngFor="let op of pages" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <div class="equal width fields">
+                <div class="field">
+                  <label>Add</label>
+                  <input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="add">
+                </div>
+                <div class="field">
+                  <label>Modify</label>
+                  <input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="modify">
+                </div>
+                <div class="field">
+                  <label>Delete</label>
+                  <input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="delete">
+                </div>
+                <div class="field">
+                  <label>View</label>
+                  <input type="checkbox" class="ui mt-1 mr-3 ml-3 big" name="view">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="ui teal tiny button my-1">Save</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <table class="ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Actions</th>
+        <th>Role Name</th>
+        <th>Page Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td class="single line">
+          <i class="delete link orange icon"></i>
+        </td>
+        <td> Supper Admin </td>
+        <td> HRM Master </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

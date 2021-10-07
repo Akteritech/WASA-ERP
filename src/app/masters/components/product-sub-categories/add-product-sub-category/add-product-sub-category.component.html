@@ -1,0 +1,56 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment mt-2">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+
+      <br>
+     Add New Sub Product Category
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+
+      <br>
+     Edit Sub Product Category
+    </h4>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!prod.productcategoryid && !prod.productsubcategoryname">
+      <li>
+        <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="equal width fields">
+      <div  class="field required" required [ngClass]="{'text-success':prod.productcategoryid === 'Woven'}">
+        <label>Product Category </label>
+        <sui-select class="selection" name="productcategory" required
+                    [(ngModel)]="prod.productcategoryid"
+                    placeholder="select product category"
+                    [options]="prods"
+                    labelField="productcategoryname"
+                    valueField="productcategoryid"
+                    [isSearchable]="true"
+                    #SelectCategoryTypes>
+          <sui-select-option *ngFor="let option of SelectCategoryTypes.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+        <!--<input type="text" placeholder="Product type" [(ngModel)]="prod.hmproducttype" id="type" name="type">-->
+      </div>
+
+      <div class="field required">
+        <label>Sub Category Name</label>
+        <input type="text" placeholder="Product Sub Category Name" [(ngModel)]="prod.productsubcategoryname" id="name" name="name">
+      </div>
+
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Description</label>
+        <textarea type="text" placeholder="write something..!" rows="3" [(ngModel)]="prod.description" id="desc" name="desc"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+    <button class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Update
+    </button>
+
+</form>

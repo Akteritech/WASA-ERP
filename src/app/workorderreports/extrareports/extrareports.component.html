@@ -1,0 +1,119 @@
+<div class="ui segment small inline form mt-2" style="min-height: 600px; margin-top: 100px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Reports
+    </h4>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="Select Company" class="selection" [options]="companies" name="company"
+          [(ngModel)]="companyname" [isSearchable]="true" labelField="companyname" valueField="companyid"
+          #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="searchFromName"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="searchToName"
+            autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="excelPaymentStatus()">Payment Status</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="excelLcStatus()">LC Status</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="excelMonthWiseSales()">Month wise Sales</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="excelDayWiseSales()">Day wise Payment Status</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="excelPaymentStatus()">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfPaymentStatus()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="16" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Payment Status Report</span>
+        </td>
+      </tr>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Client Name</th>
+        <th>Work Order No</th>
+        <th>Order Receive Date</th>
+        <th>Order Value</th>
+        <th>Normal PI NO</th>
+        <th>PI Date</th>
+        <th>Master PI NO</th>
+        <th>Master Date</th>
+        <th>LC</th>
+        <th>Cash</th>
+        <th>Cheque</th>
+        <th>TT</th>
+        <th>PIValue</th>
+        <th>Total Partial</th>
+        <th>PartialRemaining</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let payment of paymentStatus; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{payment['ClientName']}}</td>
+          <td>{{payment['WorkOrderNo']}}</td>
+          <td>{{payment['OrderReceiveDate'].substring(0,10)}}</td>
+          <td>{{payment['OrderValue']}}</td>
+          <td>{{payment['NormalPINO']}}</td>
+          <td>{{payment['PI Date']}}</td>
+          <td>{{payment['MasterPINO']}}</td>
+          <td>{{payment['Master Date']}}</td>
+          <td>{{payment['LC']}}</td>
+          <td>{{payment['Cash']}}</td>
+          <td>{{payment['Cheque']}}</td>
+          <td>{{payment['TT']}}</td>
+          <td>{{payment['PIValue']}}</td>
+          <td>{{payment['TotalPartial']}}</td>
+          <td>{{payment['PartialRemaining']}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+</div>

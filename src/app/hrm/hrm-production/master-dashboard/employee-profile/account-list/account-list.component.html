@@ -1,0 +1,71 @@
+<button class="ui tiny orange button" type="button" (click)="this.api.backClicked()">
+  <i class="angle left icon"></i>
+  Back
+</button>
+<button class="ui red label" (click)="pdf()"><i class="print icon"></i> Pdf</button>
+<button class="ui green label" (click)="excel()"><i class="print icon"></i> Excel</button>
+<div id="accountlist">
+  <table style="margin-top:20px;width: 100%;border-collapse: collapse; font-size: 12px;" [ngStyle]="{'background-color':'#71797E'}">
+    <tbody [ngStyle]="{'background-color':'#71797E'}">
+
+    <tr>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center"> SNo.</td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        Unit
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        Department
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        Employee Type
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        IDNo
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        Employee Name
+      </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      Designation
+    </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      Present Salary
+    </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      Rocket Account
+    </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        Bank Account
+      </td>
+    </tr>
+    <tr *ngFor="let data of accountlist; let i=index">
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">{{i+1}}</td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        <div style="font-size: 15px;">{{data?.Unit}}</div>
+
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        <div style="font-size: 15px;">{{data?.Dept}}</div>
+
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        <div style="font-size: 15px;">{{data?.EmpType}}</div>
+
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        <div style="font-size: 15px;">{{data?.IDNo}}</div>
+
+      </td>
+      <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+        <div style="font-size: 15px;">{{data?.EmpName}}</div>
+      </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      <div style="font-size: 15px;">{{data?.Designation}}</div>
+    </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      <div style="font-size: 15px;">{{data?.PresentSalary}}</div>
+    </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      <div style="font-size: 15px;">{{data?.RocketAC}}</div>
+    </td> <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+      <div style="font-size: 15px;">{{data?.BankAccount}}</div>
+    </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,156 @@
+<div class="mb-2 pt-5">
+<button class="ui tiny orange button " type="button" (click)="backClicked()">
+  <strong><i class="angle left icon"></i></strong>
+  Back
+</button>
+</div>
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h3 class="ui teal dividing header">Search Leave Application</h3>
+    <div class="equal width fields">
+
+      <div class="field required">
+        <label>Card No</label>
+        <sui-select placeholder="." class="selection" name="group" [options]="cardnos" [(ngModel)]="empId"
+          labelField="EMP_CARD_NO" valueField="EMP_ID" (keyup)="getCards($event.target.value)"
+          (ngModelChange)="cardSelected()" [isSearchable]="true" #selectCard required>
+          <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+        
+      </div>
+      <div class="field">
+        <label>Employee Name</label>{{name}}
+      </div>
+      <div class="field">
+        <label>Leave Year</label><input type="number" min="2004" max="2050" name="leaveYear" [(ngModel)]="leaveYear">
+      </div>
+    </div>
+    <button class="ui purple tiny button my-1" (click)="getLeaveApplicationEnglish()" >Leave Application English</button>
+    <button class="ui olive tiny button my-1" (click)="getLeaveApplicationBangla()" >Leave Application Bangla</button>
+    <button class="ui orange tiny button my-1" (click)="leaveRegisterPdf()">Leave Register</button>
+<!--    <button class="ui orange tiny button my-1" (click)="getLeaveRegister()">Leave Register</button>-->
+  </div>
+</form>
+<div class="ui modal basic">
+  <div class="ui segment">
+    <button class="ui blue label" printSectionId="printContent" ngxPrint><i class="print icon"></i> Print</button>
+    <div id="printContent" #printContent>
+      <table style="border-collapse: collapse;width: 100%; padding: 5px;">
+        <tr>
+          <td style="text-align: center;">
+            <div style="font-size: 16px; font-weight: bold; padding: 5px;"> Maheen Label Tex Ltd. </div>
+            <div style="padding: 5px;"> Employee Leave Register for the year of 2018 </div>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; padding: 5px; border: 1px solid black;">
+        <tr style="text-align: center; border: 1px solid black;">
+          <td style="border: 1px solid black;">Emp. Card no</td>
+          <td style="border: 1px solid black;">Emp. Name</td>
+          <td style="border: 1px solid black;">Designaton </td>
+          <td style="border: 1px solid black;">Joining Date</td>
+          <td style="border: 1px solid black;">EL Eligible </td>
+          <td style="border: 1px solid black;" colspan="3">Earn Leave</td>
+          <td style="border: 1px solid black;" colspan="3">Casual  Leave</td>
+          <td style="border: 1px solid black;" colspan="3">Sick Leave </td>
+          <td style="border: 1px solid black;" colspan="3">Balance</td>
+        </tr>
+        <tr style="text-align: center; border: 1px solid black;">
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;">Days</td>
+          <td style="border: 1px solid black;">From</td>
+          <td style="border: 1px solid black;">To</td>
+          <td style="border: 1px solid black;">Days </td>
+          <td style="border: 1px solid black;">From</td>
+          <td style="border: 1px solid black;">To</td>
+          <td style="border: 1px solid black;">Days </td>
+          <td style="border: 1px solid black;">From</td>
+          <td style="border: 1px solid black;">To</td>
+          <td style="border: 1px solid black;">EL </td>
+          <td style="border: 1px solid black;">CL</td>
+          <td style="border: 1px solid black;">SL</td>
+        </tr>
+        <tr style="text-align: center; border: 1px solid black;">
+          <td style="border: 1px solid black;" colspan="2">INFORMATION & TECHNOLOGY</td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"> </td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"> </td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"> </td>
+          <td style="border: 1px solid black;"></td>
+          <td style="border: 1px solid black;"></td>
+        </tr>
+<!--        CL_BALANCE: 8-->
+<!--        CL_DAYS: 2-->
+<!--        CL_FROM: "2020-02-01T00:00:00.000Z"-->
+<!--        CL_TO: "2020-02-02T00:00:00.000Z"-->
+<!--        Designation: "Sr. Programmer"-->
+<!--        EL_BALANCE: 0-->
+<!--        EL_DAYS: 0-->
+<!--        EL_FROM: null-->
+<!--        EL_TO: null-->
+<!--        EMP_CARD_NO: "0000001027"-->
+<!--        Eligible: 10-->
+<!--        EmpName: "Md Mahtab Hossain"-->
+<!--        Joining: "2016-06-01T00:00:00.000Z"-->
+<!--        SL_BALANCE: 0-->
+<!--        SL_DAYS: 0-->
+<!--        SL_FROM: null-->
+<!--        SL_NO: 183-->
+<!--        SL_TO: null-->
+       <div *ngFor="let data of leaverecords; let i = index">
+         <tr style="text-align: center; border: 1px solid black;"  >
+           <td style="border: 1px solid black;">{{data?.EMP_CARD_NO}}</td>
+           <td style="border: 1px solid black;"> {{data?.EmpName}} </td>
+           <td style="border: 1px solid black;">{{data?.Designation}}</td>
+           <td style="border: 1px solid black;">{{data?.Joining | date}}</td>
+           <td style="border: 1px solid black;">{{data?.Eligible}}</td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+         </tr>
+         <tr style="text-align: center; border: 1px solid black;" >
+           <td style="border: 1px solid black;" colspan="2"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;">EL_DAYS</td>
+           <td style="border: 1px solid black;">EL_TO</td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;">EL_TO</td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;">12</td>
+           <td style="border: 1px solid black;">{{data?.CL_FROM}}</td>
+           <td style="border: 1px solid black;">{{data?.CL_TO}}</td>
+           <td style="border: 1px solid black;">0</td>
+           <td style="border: 1px solid black;"></td>
+           <td style="border: 1px solid black;"></td>
+         </tr>
+       </div>
+      </table>
+    </div>
+  </div>
+</div>

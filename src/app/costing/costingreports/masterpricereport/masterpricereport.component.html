@@ -1,0 +1,135 @@
+
+<sui-message class="warning mb-2 pt-5" >
+  <strong>Note : </strong>
+  <li>You will Export Latest Price by SampleName or by Date </li>
+<!--  <li>History Log data  is by Date</li>-->
+  <li>By entering data in fields click on search button first to get Excel</li>
+  <li> if you want  some other searching wise report you can suggest me by mail</li>
+</sui-message><div class="ui segment small inline form mt-2">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Price
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Brand</label>
+        <sui-select placeholder=" " class="selection" [options]="npdBrands" name="brand" (input)="optionsLookupBrands($event)"
+          [(ngModel)]="brandname" [isSearchable]="true" labelField="brandname" valueField="brandid"
+          #selectBrand>
+          <sui-select-option *ngFor="let op of selectBrand.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Customer</label>
+        <sui-select class="selection" placeholder=" " name="customername" [isSearchable]="true" [options]="customers" (input)="optionsLookupCustomers($event.target.value)"
+          [(ngModel)]="customer" labelField="clientname" valueField="clientid" #selectCustomer>
+          <sui-select-option *ngFor="let option of selectCustomer.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sample</label>
+        <sui-select placeholder=" " class="selection" [options]="samples" name="sample" (input)="optionsLookupSamples($event.target.value)"
+          [(ngModel)]="samplename" [isSearchable]="true" labelField="samplename" valueField="sampleid" #selectSample>
+          <sui-select-option *ngFor="let op of selectSample.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="deliveryDate" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="deliveryDate" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="getMasterPrice()">Search</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+      <div class="ml-1">
+<!--        <button type="button" class="ui tiny primary button" (click)="getTop2LatestPrice1()">latest Price </button>-->
+        <button type="button" class="ui tiny green button" (click)="getTop1LatestPrice()">latest Price Export</button>
+        <button type="button" class="ui tiny primary button" (click)="generateExcelOfSearchedData()">History Log of Sample Price</button>
+<!--        <button type="button" class="ui tiny primary button" (click)="getTop2LatestPrice()">Top 2 Price </button>-->
+        <button type="button" class="ui tiny green button" (click)="getTop2LatestPrice()">Top 2 Price Export</button>
+      </div>
+      <div class="ml-1">
+<!--        <button type="button" class="ui tiny red button" (click)="pdfReport()">Pdf</button>-->
+        <button type="button" class="ui tiny  green button" (click)="generateExcelOfSearchedData()">Excel</button>
+      </div>
+    </div>
+  </form>
+  <div id="price"></div>
+  <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;">
+    <table class="ui very compact unstackable teal table striped" id="pdfdata">
+      <!-- <tr>
+        <td colspan="16" style="text-align: center; ">
+          <span style="font-size: 14px;">For the period of </span>
+          <strong> {{searchFrom}} </strong> 
+          <span style="font-size: 14px;"> to </span>
+          <strong> {{searchTo}} </strong>
+        </td>
+      </tr> -->
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Party Name</th>
+        <th>Length(mm)</th>
+        <th>Width(mm)</th>
+        <th>Finish Type</th>
+        <th>Price in(USD/K)</th>
+        <th>Buyer</th>
+        <th>Rebate in %</th>
+        <th>Rebate in(USD/K)</th>
+        <th>B Com.in % </th>
+        <th>B Com.in(USD/K)</th>
+        <th>M.Com . in %</th>
+        <th>M Com. in (USD/K)</th>
+        <th>Ex. Rebate in %</th>
+        <th>Ex. Rebate in (USD/K)</th>
+        <th>Entry Date</th>
+        <th>User</th>
+        <th>Remarks</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let masterprices of masterpriceData; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{masterprices['ClientName']}}</td>
+          <td>{{masterprices['SampleLength']}}</td>
+          <td>{{masterprices['Width']}}</td>
+          <td>{{masterprices['FinishType']}}</td>
+          <td>{{masterprices['Price']}}</td>
+          <td>{{masterprices['Brand']}}</td>
+          <td>{{masterprices['RebatePercent']}}</td>
+          <td>{{masterprices['Rebate']}}</td>
+          <td>{{masterprices['CommissionPercent']}}</td>
+          <td>{{masterprices['Commission']}}</td>
+          <td>{{masterprices['MerchandiserCommPercent']}}</td>
+          <td>{{masterprices['MerchandiserCommission']}}</td>
+          <td>{{masterprices['ExtraRebatePercent']}}</td>
+          <td>{{masterprices['ExtraRebate']}}</td>
+          <td>{{masterprices['StockRateDate'] | date}}</td>
+          <td>{{masterprices['EntryBy']}}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,1090 @@
+<div class="ui segment mt-2" style="width: 90%; margin: 0 auto;" [ngStyle]="{'background-color':'#71797E'}">
+  <button class="ui blue label" (click)="pdf()"><i class="print icon"></i> Print</button>
+  <div id="printSection">
+    <div class="JobApplicationForm " style="height: 1020px;">
+      <table style="width: 100%;border-collapse: collapse;">
+        <tbody>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center; font-size: 15px; color: #141180;">
+              <img [src]="this.api.logo" alt="" style="height: 35px; width: 400px">
+            </td>
+            <td rowspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; border-right:1px solid black;padding:5px; text-align: center;">
+              <strong>Doc. Code: HR/03/006 </strong><br>
+              Page 1 of 1
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center">
+              <strong>Title: Job Application Form </strong>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Effective Date: 01/01/2018</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Revision Status: 00</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black;padding:5px; text-align: center">
+              <strong>Issue No: 01</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="width: 95%;margin: 0 auto;font-size: 15px;">
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 80%; text-align: left; vertical-align: top;">
+              <div style="font-size: 12px; margin-top: 15px; margin-bottom: 4px;">বরাবর </div>
+              <div style="font-size: 12px;">ব্যবস্থাপনা পরিচালক</div>
+              <div style="font-family: SutonnyMJ; font-size: 16px;">{{employeehistory?.Company}}</div>
+              <div style="font-size: 12px;">খোর্দ্দঘোষ পাড়া, মিজমিজি, সিদ্দিরগঞ্জ, নারায়ণগঞ্জ ।</div>
+              <div style="font-size: 12px;">বিষয়: চাকুরির জন্য আবেদন । </div>
+            </td>
+            <td style="width: 15%; text-align: left; vertical-align: top;">
+              <div class="ui image" style="margin-top: 10px;">
+                <img [src]="this.api.imageToShow" alt="" style="height: 120px; width: 126px">
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top;">
+              <div style="font-size: 12px;">জনাব, </div>
+              <div style="font-size: 12px;">যথাবিহীত সম্মান প্রদর্শন পূর্বক বিনীত নিবেদন এই যে, আমি আপনার রপ্তানীমুখী
+                লেবেল
+                শিল্প প্রতিষ্ঠানে <span
+                  style="text-decoration: underline; font-size: 15px;">{{employeehistory?.DesigNmEng}} </span> পদে
+                চাকুরি করিতে ইচ্ছুক । এই মর্মে নিম্নে আমার জীবন বৃত্তান্ত সহ প্রয়োজনীয়
+                তথ্যাদি
+                পেশ করিলাম ।
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">১. নাম </span>:
+                <span style="text-decoration: underline;">{{employeehistory?.EMP_NAME_ENG}}</span> </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 50%; text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">২. পিতা/ স্বামীর নাম</span> :
+                <span style="text-decoration: underline;">
+                  {{employeehistory?.FATHER_NAME_ENG}}
+                </span> </div>
+            </td>
+            <td style="width: 50%; text-align: left; vertical-align: top;">
+              <div><span style="font-size: 12px;">মাতার নাম</span>: <span
+                  style="text-decoration: underline;">{{employeehistory?.MOTHER_NAME_ENG}}</span> </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top; ">
+              <div><span style="font-size: 12px;">৩. জাতীয় পরিচয় পত্র নং</span> :
+                <span style="text-decoration: underline;">
+                  {{employeehistory?.NATIONAL_ID_NO}}</span> </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">৪. স্থায়ী ঠিকানা</span> : <span
+                  style="text-decoration: underline;">{{employeehistory?.PER_ADD_ENG}}</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">৫. বর্তমান ঠিকানা</span> :
+                <span style="text-decoration: underline;">{{employeehistory?.PRESENT_ADD_ENG}}</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 50%; text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">৬. ধর্ম</span> :
+                <span style="text-decoration: underline;">
+                  {{employeehistory?.RELIGION_ENG}} </span> </div>
+            </td>
+            <td style="width: 50%; text-align: left; vertical-align: top;">
+              <div><span style="font-size: 12px;">জাতীয়তা</span>:
+                <span style="text-decoration: underline;">
+                  {{employeehistory?.NATIONALITY}}</span> </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 50%; text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;"> ৭. জন্ম তারিখ/ বয়স </span>:
+                <span style="font-family: SutonnyMJ; font-size: 15px;">
+                  {{employeehistory?.BIRTH_DATE.substring(0, 10)}} <span style="font-size: 12px;"> ইং</span>
+                </span>
+              </div>
+            </td>
+            <td style="width: 50%; text-align: left; vertical-align: top;">
+              <div><span style="font-size: 12px;">বৈবাহিক অবস্থা</span>:
+                <span style="text-decoration: underline;">
+                  {{employeehistory?.MERITAL_STATUS_ENG}}
+                </span> </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 50%; text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">৮. শিক্ষাগত যোগ্যতা</span>:
+                <span style="text-decoration: underline;">
+                  {{employeehistory?.LAST_EDUCATION}}</span> </div>
+            </td>
+            <td style="width: 50%; text-align: left; vertical-align: top;">
+              <div><span style="font-size: 12px;">অভিজ্ঞতা</span>: <span
+                  style="text-decoration: underline;">{{employeehistory?.TOTAL_EXPERIENCE}} </span> <span
+                  style=" font-size: 12px;"> বছর / মাস </span> </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <div><span style="font-size: 12px;">৯. ঢাকায় পরিচিত নিকট আত্মীয়ের নাম, সম্পর্ক, ফোন নং ও ঠিকানা</span> :
+                <span style="text-decoration: underline;">
+                </span>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top;">
+              <div><span style="font-size: 12px;">অতএব, বিনীত প্রার্থনা, উপরোল্লিখিত বিষয়াবলী বিবেচনা পূর্বক আমাকে উক্ত
+                  পদে নিয়োগ দানে বাধিত করতে আপনার মর্জি হয় ।</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 75%; text-align: left; vertical-align: top;">
+              <div style="font-size: 12px;"> তাং
+                <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE}}</span>
+                ইং </div>
+              <div>
+                <div style="height: 45px; width: 50%; float: left; width: 200px; border: 1px solid black;"></div>
+                <div style="width: 50%; float: left; font-size: 12px; padding-left: 8px;">টিপ সই</div>
+              </div>
+            </td>
+            <td style="width: 25%; text-align: left; vertical-align: top;">
+              <div style="font-size: 12px;"> নিবেদক/নিবেদিকা </div>
+              <div>
+                <span style="font-size: 12px;">নাম : </span>
+                <span style="text-decoration: underline;">{{employeehistory?.EMP_NAME_ENG}}</span>
+              </div>
+              <div><span style="font-size: 12px;">স্বাক্ষর : </span></div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="padding: 5px;text-align: center; vertical-align: middle;">
+              <div>
+                <span style="font-size: 15px; text-decoration: underline;">শর্তাবলী :- </span> </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <span style="font-size: 12px;"> ১. কারখানায় চাকুরি করা অবস্থায় যাবতীয় নিয়মশৃঙ্খলা মানিয়া চলিতে হইবে
+                ।</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <span style="font-size: 12px;"> ২. কারখানায় কাজ করিবার সময় কোন প্রকার পানাহার, ধুমপান করা চলিবে না
+                ।</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <span style="font-size: 12px;"> ৩. স্ব- ইচ্ছায় চাকুরি হইতে অব্যাহতি চাইলে, কারখানার নিয়ম অনুযায়ী এক মাস
+                (শ্রমিক), স্টাফ (দুই মাস) পূর্বে
+                কর্তৃপক্ষকে দরখাস্তের মাধ্যমে জানাইতে হইবে । </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <span style="font-size: 12px;"> ৪. কারখানার নিয়ম অনুযায়ী অব্যাহতি পত্র প্রদান করার একমাস পর নিয়ম অনুসারে
+                নির্দিষ্ট সময় কর্মরত থাকতে হবে
+                এবং
+                কর্তৃপক্ষের অনুমোদনের পরে পাওনাদি (বেতন ও ওভার টাইম দেওয়ার সময়) নিয়মানুযায়ী যখন যাহা দেওয়া হয়, সে</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <span style="font-size: 12px;"> ৫. প্রতিষ্ঠানের অন্যান্য নির্দেশনামা মানিয়া চলিতে বাধ্য থাকিতে হইবে ।
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-bottom: 2px;">
+              <span style="font-size: 12px;"> ৬. জাতীয় পরিচয় পত্র, জীবন বৃত্তান্ত, শিক্ষাগত যোগ্যতার সত্যায়িত সনদপত্রের
+                কপি, চেয়ারম্যান সার্টিফিকেট,
+                অভিজ্ঞতার সনদপত্র (যদি থাকে) আবেদন
+                পত্রের
+                সাথে দাখিল করতে হবে । </span>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top; padding-top: 20px;">
+              <span style="font-size: 12px;"> আমি উপরোল্লিখিত শর্তাবলী নিজে পড়িয়া বা অন্যকে দিয়া পড়াইয়া এবং নিজে শুনিয়া
+                ও বুঝিয়া অঙ্গীকার করিতেছি যে,
+                উক্ত নিয়মাবলী মানিয়া চলিব । </span>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%; margin-top: 40px;">
+          <tr>
+            <td style="width:70%;padding: 5px;text-align: left; vertical-align: top;">
+
+            </td>
+            <td style="width:30%;padding: 5px;text-align: center; vertical-align: top; border-top: 1px solid black;">
+              <span style="font-size: 12px;"> আবেদনকারীর স্বাক্ষর</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="Age&FitnessVerificationForm" style="height: 1020px;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; vertical-align: top;">
+        <tbody>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center; font-size: 15px; color: #141180;">
+              <img [src]="this.api.logo" alt="" style="height: 35px; width: 400px">
+            </td>
+            <td rowspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; border-right:1px solid black;padding:5px; text-align: center;">
+              <strong>Doc. Code: HR/03/007 </strong><br>
+              Page 1 of 1
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center">
+              <strong>Title: Age & Fitness Verification Form </strong>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Effective Date: 01/01/2018</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Revision Status: 00</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black;padding:5px; text-align: center">
+              <strong>Issue No: 01</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="width: 95%;margin: 0 auto;font-size: 15px;">
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 80%; text-align: left; vertical-align: top;">
+              <div style="margin-bottom: 6px;; margin-top: 6px;">Designation
+                <span style="font-size: 12px;">(পদবী)</span>: <span
+                  style="text-decoration: underline; font-size: 15px;">{{employeehistory?.DesigNmEng}}</span>
+              </div>
+              <div style="margin-bottom: 6px;">Section <span style="font-size: 12px;">(শাখা)</span>: <span
+                  style="text-decoration: underline; font-size: 15px;">{{employeehistory?.DeptEngNm}}</span></div>
+              <div style="margin-bottom: 6px;">Card No <span style="font-size: 12px;">(কার্ড নং)</span> : <span
+                  style="text-decoration: underline; font-size: 15px;">{{employeehistory?.ATTEND_DEVICE_NO}}</span>
+              </div>
+              <div style="margin-bottom: 6px;">Identification <span style="font-size: 12px;">(পরিচয়)</span> :<span
+                  style="text-decoration: underline; font-size: 15px;">
+                  {{employeehistory?.NATIONAL_ID_NO}}</span></div>
+              <div style="margin-bottom: 6px;">Name <span style="font-size: 12px;">(নাম) </span>: <span
+                  style="text-decoration: underline; font-size: 15px;">{{employeehistory?.EMP_NAME_ENG}}
+                </span></div>
+            </td>
+            <td style="width: 15%; text-align: left; vertical-align: top;">
+              <div class="ui image">
+                <img [src]="this.api.imageToShow" alt="" style="height: 120px; width: 126px">
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top;">
+              <div style="margin-bottom: 6px;">Father’s/Husband’s/Guardian
+                <span style="font-size: 12px;">(পিতা/স্বামী/অভিভাবক)</span> :
+                <span style="text-decoration: underline; font-size: 15px;">{{employeehistory?.FATHER_NAME_ENG}}</span>
+              </div>
+              <div style="margin-bottom: 6px;">Mother’s Name <span style="font-size: 12px;">(মাতার নাম)</span> :
+                <span style="text-decoration: underline; font-size: 15px;">{{employeehistory?.MOTHER_NAME_ENG}}</span>
+              </div>
+              <div style="margin-bottom: 6px;">Consent Of Employee/Workers <span
+                  style="font-size: 12px;">(কর্মচারী/শ্রমিকের সম্মতি)</span>: </div>
+              <div style="margin-bottom: 6px;">I am hereby giving consent with full knowledge and condciousness for
+                medical examination to the
+                concerned physician to estimate my age and physical fitness<span style="font-size: 12px;">(আমি এ মর্মে
+                  সম্পুর্ণ সুস্থ্য ও স্বজ্ঞানে
+                  মেডিকেল পরীক্ষার মাধ্যমে আমার বয়স ও শারীরিক স্বক্ষমতা নিরুপনের জন্য সংশ্লিষ্ট চিকিৎসককে সম্মতি প্রদান
+                  করলাম)</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="width: 80%; text-align: left; vertical-align: top;">
+              <div style="margin-bottom: 6px;"> Signature or thumb impression of workers<span
+                  style="font-size: 12px;">(শ্রমিকের স্বাক্ষর অথবা
+                  বৃদ্ধাঙ্গল ) </span></div>
+              <div style="margin-bottom: 6px; margin-top: 10px;">Date <span style="font-size: 12px;">(তারিখ)</span> :
+                <span style="font-family: SutonnyMJ; font-size: 15px;"> {{employeehistory?.JOINING_DATE}} <span
+                    style="font-size: 12px;">ইং</span></span>
+              </div>
+            </td>
+            <td style="width: 20%; text-align: left; vertical-align: top;">
+              <div style="width: 80%;height: 45px; width: 200px; border: 1px solid black; float: left;"></div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%;">
+          <tr>
+            <td style="text-align: left; vertical-align: top;">
+              <div style="margin-bottom: 6px; text-decoration: underline;">Medical Examination (Done in good day light
+                and privacy <span style="font-size: 12px;"> [ডাক্তারী পরীক্ষা
+                  (পূর্ণ দিবালোকে ও গোপনীয়তার
+                  সাথে সম্পাদিত)]</span> </div>
+              <div style="margin-bottom: 6px;">1. Height <span style="font-size: 12px;">(উচ্চতা) :
+                  <span style="font-size: 15px; text-decoration: underline;"> {{employeehistory?.HEIGHT}}</span> </span>
+                2.
+                weight<span style="font-size: 12px;">(ওজন) : <span
+                    style="font-size: 15px; text-decoration: underline;">{{employeehistory?.WEIGHT}}</span></span> 3.
+                Blood Group :
+                <span style="font-size: 15px; text-decoration: underline;">{{employeehistory?.BLOOD_GROUP_ENG}}</span>
+              </div>
+              <div style="margin-bottom: 6px;">4. Formation & Growth of teeth (8/7=30 at the age of 18 or above &7/7=28
+                at the age of below 18)
+                <span style="font-size: 12px;"> [দাঁতের গঠন ও বৃদ্ধি (১৮ বছর বা তদোর্দ্ধ বয়সে ৮/৭ ও ৮/৭=৩০ এবং ১৮ বছরের
+                  নীচে ৭/৭ ও ৭/৭=২৮)]</span> </div>
+              <div style="margin-bottom: 6px;">5. Growth Of Breast (In case of female) well developed (at the age 18 or
+                above ) not well
+                developed(at the age of 18) <span style="font-size: 12px;">[স্তন বৃদ্ধিজনিত বিবরন, (শুধু মাত্র মহিলাদের
+                  ক্ষেত্রে ) পূর্ণ বৃদ্ধি (১৮ বছর
+                  বা তদোর্দ্ধ বয়সে) পূর্ণ বৃদ্ধি নহে (১৮ বৎসেরর কম বয়সে)]</span>
+              </div>
+              <div style="margin-bottom: 6px;">6. Menstrual History (In case female)
+                <span style="font-size: 12px;">[মাসিকের বিবরণ( শুধুমাত্র মহিলাদের
+                  ক্ষেত্রে )]</span> </div>
+              <div style="margin-bottom: 6px;">Date of Menarche:
+                <span style="font-size: 12px;">(মাসিকের শুরু হওয়ার তারিখ)</span></div>
+              <div style="margin-bottom: 6px;">7. Growth of hair chin and upper lips (in case of male) </div>
+              <div style="margin-bottom: 6px;"> Fully grown (at the age of 18 or above not
+                fully grown (at the age of below 18) </div>
+              <div style="margin-bottom: 6px;"> <span style="font-size: 12px;"> [দাঁড়ি ও গোঁফ বৃদ্ধিজনিত বিবরণ
+                  (শুধুমাত্র পুরুষদের ক্ষেত্রে) পূর্ণ
+                  বৃদ্ধি (১৮ বছর বা তদোর্ধ বয়সে পুর্ণ বৃদ্ধি নহে (১৮ বছরের কম বয়সে)]</span> </div>
+              <div style="margin-bottom: 6px; text-decoration: underline;">Doctors Comment</div>
+              <div style="margin-bottom: 6px;">Based on above finding estimated age of this factory worker
+                is...............year and he/she is
+                physicallyfit for performing assign worker<span style="font-size: 12px;"> [উপরোক্ত তথ্যাদির আলোকে উক্ত
+                  কারখানা শ্রমিকটির বয়স
+                  নিরুপিত.......................বছর এবং সে তার নির্ধাারিত কাজ করার জন্য শারীরিকভাবে স্বক্ষম।]</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table style="border-collapse: collapse;width: 100%; margin-top: 22px;">
+          <tr>
+            <td style="width:60%;text-align: left; vertical-align: top;">
+
+            </td>
+            <td style="width:40%;padding: 5px;text-align: center; vertical-align: top;">
+              <div> Name & Signature of Doctor’s(with seal) </div>
+              <div style="font-size: 12px;">[চিকিৎসকের নামও স্বাক্ষর (সীলসহ)]</div>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="AppointmentLetter" style="height: 1020px;">
+      <table style="width: 100%;border-collapse: collapse; font-size: 12px; vertical-align: top;">
+        <tbody>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center; font-size: 15px; color: #141180;">
+              <img [src]="this.api.logo" alt="" style="height: 35px; width: 400px">
+            </td>
+            <td rowspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; border-right:1px solid black;padding:5px; text-align: center;">
+              <strong>Doc. Code: HR/03/008 </strong><br>
+              Page 1 of 1
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center">
+              <strong>Title: Appointment Letter </strong>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Effective Date: 01/01/2018</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Revision Status: 00</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black;padding:5px; text-align: center">
+              <strong>Issue No: 01</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> শ্রমিক কপি </span>
+          </td>
+          <td style="width:30%;text-align: right; vertical-align: top;">
+            <span style="font-size: 12px;">তারিখ </span>:
+            <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE.substring(0, 10)}}
+              <span style="font-size: 12px;">ইং</span></span>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> কার্ড নং </span> -
+            <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.ATTEND_DEVICE_NO}}</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;">শ্রমিকের নাম বাংলায়</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : <span style="font-family: SutonnyMJ; font-size: 15px;"> {{employeehistory?.EMP_NAME_BNG}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;">শ্রমিকের নাম ইংরেজীতে</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : {{employeehistory?.EMP_NAME_ENG}}
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> পিতা/স্বামীর নাম বাংলায় </span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : <span style="font-family: SutonnyMJ;"> {{employeehistory?.FATHER_NAME_BNG}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> পিতা/স্বামীর নাম ইংরেজীতে </span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : {{employeehistory?.FATHER_NAME_ENG}}
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> মাতার নাম বাংলায় </span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : <span style="font-family: SutonnyMJ;"> {{employeehistory?.MOTHER_NAME_BNG}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> মাতার নাম ইংরেজীতে</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : {{employeehistory?.MOTHER_NAME_ENG}}
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> বর্তমান ঠিকানা বাংলায়</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : <span style="font-family: SutonnyMJ;">{{employeehistory?.PRESENT_ADD_BNG}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> বর্তমান ঠিকানা ইংরেজীতে</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : {{employeehistory?.PRESENT_ADD_ENG}}
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> স্থায়ী ঠিকানা বাংলায়</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : <span style="font-family: SutonnyMJ;"> {{employeehistory?.PER_ADD_BNG}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> স্থায়ী ঠিকানা ইংরেজীতে</span>
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            : {{employeehistory?.PER_ADD_ENG}}
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; margin-top: 10px;">
+        <tr>
+          <td style="text-align: left; vertical-align: top; font-size: 12px;">
+            জনাব, আপনার <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE }} ইং
+            </span>
+            তারিখের আবেদন ও পরবর্তিতে আপনার স্বাক্ষাৎকার ও পরিক্ষার ভিত্তিতে কর্তৃপক্ষ আপনাকে
+            নিম্নলিখিত শর্ত স্বাপেক্ষে <span style="font-size: 15px;">{{employeehistory?.DesigNmEng}} </span>পদে
+            <span style="font-size: 15px;">{{employeehistory?.GradeName}} </span>গ্রেডে
+            <span style="font-size: 15px;">{{employeehistory?.DeptEngNm}} </span>বিভাগে
+            <span style="font-size: 15px;">{{employeehistory?.SHIFT_NAME_ENG}} </span>শিফটে
+            <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE }} </span> ইং তারিখ
+            পরবর্তি ৩ মাসের জন্য শিক্ষানবিশ হিসেবে নিয়োগ প্রদান করিলেন এবং দক্ষ শ্রমিকের
+            ক্ষেত্রে ৩ মাসে সন্তুষ্ট না হলে পরর্তিতে আরো ৩ মাস বর্ধিত করা হয়। এবং প্রতি সপ্তাহে শিফট পরিবতন হয়। চাকরী
+            স্থায়ী করণের পর প্রতিষ্ঠানের নীতিমালা ও শ্রম আইন ২০০৬ এবং সংশোধনী ২০১৫ অনুযায়ী আপনাকে যাবতীয় সুযোগ সুবিধা
+            প্রদান করা হইবে।
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; margin-top: 10px;">
+        <tr>
+          <td style="text-align: left; vertical-align: top; font-size: 12px;">
+            ১. আপনি নিম্নোক্ত হারে প্রতি মাসে <span style="font-family: SutonnyMJ; font-size: 15px; font-weight: bold;">
+              {{employeehistory?.PRESENT_SALARY}}
+            </span> টাকা মোট বেতন ভাতা পাইবেন।
+          </td>
+        </tr>
+      </table>
+      <table align="right" style="border-collapse: collapse;width: 60%; margin-top: 10px; margin-bottom: 10px;">
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> মূল বেতন</span> :
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-family: SutonnyMJ;">{{employeehistory?.BASIC_AMOUNT}}</span> <span
+              style="font-size: 12px;"> টাকা মাত্র</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top;">
+            <span style="font-size: 12px;"> বাড়ি ভাড়া</span> :
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-family: SutonnyMJ;"> {{employeehistory?.HousdeRent}}</span> <span
+              style="font-size: 12px;"> টাকা মাত্র</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top; font-size: 12px;">
+            চিকিৎসা ভাতা :
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-family: SutonnyMJ;"> {{employeehistory?.MedicalAmount}}</span> <span
+              style="font-size: 12px;"> টাকা মাত্র</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top; font-size: 12px;">
+            খাদ্য ভাতা :
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-family: SutonnyMJ;"> {{employeehistory?.LaunchAmount}} </span> <span
+              style="font-size: 12px;"> টাকা মাত্র</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:30%;text-align: left; vertical-align: top; font-size: 12px;">
+            যাতায়াত ভাতা :
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-family: SutonnyMJ;"> {{employeehistory?.Conveyance}} </span> <span
+              style="font-size: 12px;"> টাকা মাত্র</span>
+          </td>
+        </tr>
+        <tr style="border-top: 1px solid black;">
+          <td style="width:70%;text-align: left; vertical-align: top; font-size: 12px;">
+            মোট :
+          </td>
+          <td style="width:70%;text-align: left; vertical-align: top;">
+            <span style="font-family: SutonnyMJ;"> {{employeehistory?.PRESENT_SALARY}} </span> <span
+              style="font-size: 12px;">টাকা মাত্র</span>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">২. আপনি প্রতি বছর নিম্নলিখিত হারে ছুটি ভোগ করিতে পারিবেন। </div>
+            <div style="font-size: 12px; margin-bottom: 5px;"> নৈমিত্তিক ছুটি = ১০ দিন, অসুস্থতার ছুটি = ১৪ দিন . উৎসব ছুটি = ১২ দিন
+              (পর্বকালিন সময়ে), বাৎসরিক ছুটি =
+              প্রতি আঠার (১৮) কর্মদিসের জন্য এক (১) দিন। মাতৃত্বকালিন ছুটি : সন্তান প্রসবের সম্ভাব্য তারিখের পূর্ববর্তী
+              আট সপ্তাহ এবং প্রসবের দিন হইতে পরবর্তী আট সপ্তাহ (এই ছুটি তাদের জন্য প্রযোয্য যেসব মহিলা শ্রমিক তার কাজের
+              বয়স ছয় (৬) মাস অতিক্রম করেছেন। যেসব মহিলা শ্রমিকদের সন্তান প্রসবের সময় দুই বা ততোধিক সন্তান জীবিত থাকে
+              তারা এই সুবিধা থেকে বঞ্চিত হইবেন তবে যদি কোন ছুটি পাওনা থাকেন সেগুলোর টাকা পাবেন) কেবলমাত্র মেডিকেল ছুটি
+              ব্যতীত অন্য যে কোন ছুটি ভোগ করিতে হইলে কর্তৃপক্ষের পূর্বানুমতি লইতে </div>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">৩. দুই ঈদে দুটি বোনাস যা মূল বেতনের ১০০% হিসেবে প্রদান করা হয়। চাকুরীর মেয়াদ ৬
+              মাস পূর্ন হলে এই সুবিধা
+              পাবেন।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">৪. আপনার কাজের মান ও দক্ষতার উপরে পরবর্তী বেতন বৃদ্ধি বা উর্দ্বতন পদোন্নতি
+              নির্ভর করিবে।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">৫. চাকরীর শর্ত হিসেব নূন্যতম ১৮ বছর পূর্ন হতে হবে এবং অক্ষর জ্ঞান সম্পন্ন হতে
+              হবে।</div>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="AppointmentLetter1" style="height: 1020px;">
+      <table style="width: 100%;border-collapse: collapse; font-size: 12px; vertical-align: top;">
+        <tbody>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center; font-size: 15px; color: #141180;">
+              <img [src]="this.api.logo" alt="" style="height: 35px; width: 400px">
+            </td>
+            <td rowspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; border-right:1px solid black;padding:5px; text-align: center;">
+              <strong>Doc. Code: HR/03/009 </strong><br>
+              Page 1 of 1
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center">
+              <strong>Title: Appointment Letter </strong>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Effective Date: 01/01/2018</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Revision Status: 00</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black;padding:5px; text-align: center">
+              <strong>Issue No: 01</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="margin-top:20px; border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="text-align: left; vertical-align: top; ">
+            <div style="font-size: 12px; margin-bottom: 5px;">৬. আপনি চাকরী হইতে ইস্তফা দিতে চাইলে ২মাস (৬০দিন)পূর্বে নোটিশ আকারে
+              কর্তৃপক্ষকে অবহিত করিতে হবে। অথবা
+              নোটিশের পরিবর্তে ঐ পরিমান অর্থ প্রদান করিতে হবে। কর্তৃপক্ষ যদি আপনাকে চাকুরী হইতে অব্যাহতি দিতে চান
+              সেক্ষেত্রে কর্তৃপক্ষ আপনাকে ১২০ দিনের নোটিশ অথবা নোটিশের পরিবর্তে ঐ পরিমান অর্থ প্রদান করবেন। </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">৭. আপনি প্রতি সপ্তাহে ১ দিন সাপ্তাহিক ছুটি ভোগ করিতে পারিবেন। দৈনিক ০৮ (আট)
+              ঘন্টা করে কাজ করবেন এবং
+              প্রতি সপ্তাহে আপনার শিফট পরিবর্তন হবে। প্রথম শিফট সকাল ৬:৩০ টা থেকে দুপুর ২:৩০ টা, দ্বিতীয় শিফট দুপুর ২:৩০
+              টা থেকে রাত ১০:৩০ টা, তৃতীয় শিফট রাত ১০:৩০ টা থেকে সকাল ৬:৩০ টা।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">৮.কর্তৃপক্ষ আপনাকে যে কোন সময় যে কোন শিফটে যে কোন সেকশনে স্থানান্তর করতে
+              পারবেন।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">৯ .চাকুরী হওয়ার পর নিয়োগ পত্র, পরিচয় পত্র ও শ্রমিক সহায়ীকা বই প্রদান করা হয়।
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">১০. দৈনিক ৮ ঘন্টার অধিক কাজ করিলে তা ওভারটাইম হিসেবে গন্য করা হইবে। ওভারটাইম
+              মূল বেতনের দ্বিগুন হারে
+              প্রদান করা হইবে। ওভারটাইম হিসাবঃ মূল বেতন / ২০৮*২ = প্রতি ঘন্টার ওভারটাইম রেট।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">১১. অন্যান্য সুবিধাদি বাংলাদেশ শ্রম আইন ২০০৬ এবং সংশোধনী ২০১৫ এর নিয়মানুযায়ী
+              প্রদান করা হইবে।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px; margin-bottom: 5px;">১২. বাৎসরিক বেতন বৃদ্ধি হবে আপনার নিয়োগের দিন থেকে ১ বৎসর পূর্ণ হলে, এবং বেতন
+              বৃদ্ধির পরিমান হবে মূল
+              বেতনের নূন্যতম ৫% হারে।</div>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; margin-top: 50px;">
+        <tr>
+          <td style="width:80%;padding: 5px;text-align: left; vertical-align: top;">
+
+          </td>
+          <td
+            style="width:20%;padding: 5px;text-align: center; vertical-align: top; border-top: 1px solid black; font-size: 12px;">
+            কর্তৃপক্ষের স্বাক্ষর
+          </td>
+        </tr>
+      </table>
+      <table style="margin-top:20px; border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">আমি <span
+                style="text-decoration: none; font-size: 15px;">{{employeehistory?.EMP_NAME_ENG}}</span> এই নিয়োগ পত্রের
+              সকল শর্ত পাঠ
+              করিয়া এবং উল্লেখিত
+              শর্তাবলিতে সম্মত হইয়া অত্র পত্রের
+              একটি অনুলিপি বুঝিয়া পাইয়া স্বজ্ঞানে সুস্থ মস্তিস্কে স্বাক্ষর করিলাম।</div>
+          </td>
+        </tr>
+      </table>
+      <table style="margin-top:40px; border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="width:60%;padding: 5px;text-align: left; vertical-align: top;">
+          </td>
+          <td style="width:40%;padding: 5px;text-align: right; vertical-align: top; font-size: 12px;">
+            শ্রমিকের স্বাক্ষর ...............................
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="AcknowledgementForm" style="height: 1020px;">
+      <table style="width: 100%;border-collapse: collapse; font-size: 12px; vertical-align: top;">
+        <tbody>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center; font-size: 15px; color: #141180;">
+              <img [src]="this.api.logo" alt="" style="height: 35px; width: 400px">
+            </td>
+            <td rowspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; border-right:1px solid black;padding:5px; text-align: center;">
+              <strong>Doc. Code: HR/03/010 </strong><br>
+              Page 1 of 1
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"
+              style="border-left:1px solid black;border-top:1px solid black; padding:5px; text-align: center">
+              <strong>Title: Acknowledgement Form </strong>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Effective Date: 01/01/2018</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; padding:5px; text-align: center">
+              <strong>Revision Status: 00</strong>
+            </td>
+            <td
+              style="border-left:1px solid black;border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black;padding:5px; text-align: center">
+              <strong>Issue No: 01</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="margin-top:20px; border-collapse: collapse;width: 100%; margin-top: 20px;">
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">বিষয় অঙ্গীকার নামা ।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">আমি অদ্য
+              <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE }}
+              </span> তাং রোজ <span style="font-size: 15px;">{{employeehistory?.joinday }}</span> হইতে আপনার
+              <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE }} </span> তাং এর
+              নিয়োগ পত্রের শর্ত অনুযায়ী কারখানার
+              নিয়ম-রীতি মানিয়া চলার শর্তে কাজে যোগদান করিলাম। শর্ত অমান্য করিলে ব্যবস্থাপনা কর্তৃপক্ষের আইনানুগ যে কোন
+              শাস্তি মানিয়া নিতে বাধ্য থাকিব</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">০১। কারখানায় বিনা অনুমতিতে অনুপস্থিত থাকিলে শ্রম আইনের বিধান মোতাবেক ব্যবস্থা
+              গ্রহন করিতে পারিবেন ।
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">০২। কারখানার নিয়ম কানুন এবং শৃঙখলার সহিত নিজ দায়িত্ব পালন করিতে বাধ্য থাকিব।
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;"> ০৩। উৎপাদন কাজের স্বার্থে সুপারভাইজার ও সেকশন প্রদানের যুক্তিসঙ্গত আদেশ মান্য
+              করিব না । </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">০৪। কারখানার উৎপাদন কাজে শৃঙখলার পরিপন্থী কোন কাজ করিব না ।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;"> ০৫। অসৎ উদ্দেশ্য সাধনের জন্য নিজে অন্যদের সহিত সংঘবদ্ধ ভাবে মিলিত হইয়া
+              কোম্পানীর স্বার্থের পরিপন্থী
+              কোন কাজ করিব না । </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">০৬। কর্তৃপক্ষের বিনা অনুমতিতে চাকুরি পরিত্যাগ করে চলিয়া গেলে শ্রম আইনের বিধান
+              মোতাবেক ব্যবস্থা গ্রহন করব।
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">০৭। উৎপাদনের স্বার্থে অতিরিক্ত কাজের প্রয়োজন হইলে, আমার ব্যাক্তিগত অসুবিধা না
+              থাকিলে শ্রম আইনের কাজ
+              করিতে আমার আপত্তি থাকিবে না ।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">০৮। দেশের ও আন্তর্জাতিক সকল আইনের প্রতি শ্রদ্ধাশীল থাকিব ।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">উপরে উল্লেখিত শর্তাবলী আমি পড়িয়া / শুনিয়া স্ব-জ্ঞানে স্ব-ইচ্ছায় কাজে যোগদান
+              করিলাম ।</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">তারিখ :<span
+                style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE }} <span
+                  style="font-size: 12px;">ইং</span>
+              </span></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">ব্যক্তিগত শাখা পূরণ করিবে :</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">স্বাক্ষর :..................................</div>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="width:50%;text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">নাম :<span style="font-size: 15px;">{{employeehistory?.EMP_NAME_ENG}}</span>
+            </div>
+            <div style="font-size: 12px; margin-top: 10px;">পদের নাম :<span
+                style="font-size: 15px;">{{employeehistory?.DesigNmEng}}
+              </span></div>
+            <div style="font-size: 12px; margin-top: 10px;">শাখা :
+              <span style="font-size: 15px;">
+                {{employeehistory?.DeptEngNm}}</span>
+            </div>
+          </td>
+          <td style="width:50%;vertical-align: top;">
+            <div style="font-size: 12px;">কার্ড/পরিচয় পত্র নং :<span
+                style="font-size: 15px;">{{employeehistory?.ATTEND_DEVICE_NO}}</span></div>
+            <div style="font-size: 12px; margin-top: 10px;">বর্তমান ঠিকানা :
+              <span style="font-size: 15px;">
+                {{employeehistory?.PRESENT_ADD_ENG}} </span></div>
+            <div style="font-size: 12px; margin-top: 10px;">স্থায়ী ঠিকানা :
+              <span style="font-size: 15px;">
+                {{employeehistory?.PER_ADD_ENG}} </span></div>
+          </td>
+        </tr>
+      </table>
+      <table style="margin-top:20px; border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="text-align: left; vertical-align: top;">
+            <div style="font-size: 12px;">গ্রেড : <span style="font-size: 15px;">{{employeehistory?.GradeName}}</span>
+            </div>
+            <div style="font-size: 12px;">প্রদানকারী :
+              .....................................................................</div>
+            <div style="font-size: 12px;"> তারিখ :
+              <span style="font-family: SutonnyMJ; font-size: 15px;">{{employeehistory?.JOINING_DATE }} </span>
+            </div>
+            <div style="font-size: 12px;">রেফারেন্স :</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="IncrementHistory" style="height: 900px;">
+      <table style="width: 100%;border-collapse: collapse; font-size: 12px; vertical-align: top;">
+        <tbody>
+          <tr>
+            <td colspan="2"
+              style="border:1px solid black; padding:5px; text-align: center; font-size: 15px; color: #141180;">
+              <img [src]="this.api.logo" alt="" style="height: 35px; width: 400px">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              <strong>Title: Increment History </strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="margin-top:20px;width: 100%;border-collapse: collapse; font-size: 12px;">
+        <tbody>
+          <tr>
+            <td colspan="2" style="padding:5px; text-align: left">
+              <div>Name Of Employee: <span style="font-size: 15px;">{{employeehistory?.EMP_NAME_ENG}}</span> </div>
+            </td>
+            <td colspan="2" style="padding:5px; text-align: left">
+              <div>ID NO.: <span style="font-size: 15px;">{{employeehistory?.ATTEND_DEVICE_NO}}</span> </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:5px; text-align: left">
+              <div>Designation: <span style="font-size: 15px;">{{employeehistory?.DesigNmEng}}</span> </div>
+            </td>
+            <td colspan="2" style="padding:5px; text-align: left">
+              <div>Date Of Joining: <span style="font-size: 15px;">{{employeehistory?.JOINING_DATE }}</span>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="margin-top:20px;width: 100%;border-collapse: collapse; font-size: 12px;">
+        <tbody>
+          <tr>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              Effective Date
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              Amount
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              Increase Amount
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              Salary After Increment
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              Remarks
+            </td>
+          </tr>
+          <tr *ngFor="let data of employeeincrement; let i=index">
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              <span></span> {{data?.NEW_INCR_EFF_DATE | date}}
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              <span></span>
+              <div style="font-size: 15px;">{{data?.OLD_GROSS}}</div>
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              <span></span>
+              <div style="font-size: 15px;">{{data?.NEW_INCR_AMOUNT}}</div>
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              <span></span>
+              <div style="font-size: 15px;">{{data?.NEW_GROSS}}</div>
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+              <span style="font-size: 15px;">{{data?.d}}</span>
+            </td>
+          </tr>
+
+          <tr *ngIf="employeeincrement.length==0">
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center; height: 25px;">
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+
+            </td>
+            <td colspan="2" style="border:1px solid black; padding:5px; text-align: center">
+
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

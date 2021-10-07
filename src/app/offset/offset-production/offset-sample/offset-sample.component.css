@@ -1,0 +1,13 @@
+/*::selection {*/
+/*    background: #ffb7b7; !* WebKit/Blink Browsers *!*/
+/*}*/
+/*::-moz-selection {*/
+/*    background: #ffb7b7; !* Gecko Browsers *!*/
+/*}*/
+td:hover {
+    color: #009E30;
+}
+p{
+    text-align:center;
+    font-size:20px;
+}

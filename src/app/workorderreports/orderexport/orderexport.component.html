@@ -1,0 +1,183 @@
+<div class="ui segment small inline form mt-2" style="margin-top: 50px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Work Order
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="Select Company" class="selection" [options]="companies" name="company"
+          [(ngModel)]="companyname" [isSearchable]="true" labelField="companyname" valueField="companyid"
+          #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <sui-select class="selection" name="Product_Category" [isSearchable]="true" [options]="productcategories"
+          [(ngModel)]="productcategory" (ngModelChange)="getSample()" labelField="productcategoryname"
+          valueField="productcategoryid" #selectProductCategoryName>
+          <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sample</label>
+        <sui-select placeholder="Select Sample" class="selection" [options]="samples" name="sample"
+          [(ngModel)]="samplename" [isSearchable]="true" labelField="SampleName" valueField="SampleID" #selectSample>
+          <sui-select-option *ngFor="let op of selectSample.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="deliveryDate" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="deliveryDate" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <!-- (click)="getWOData()" -->
+        <button type="button" class="ui tiny blue button" (click)="generateExcel()">Export Orders</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="excelChallan()">Export Challan</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="excelTotalChallan()">Export Total Challan</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny black button" (click)="excelAllCategoryChallan()">Export All Catagory
+          Challan</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny facebook button" (click)="excelAllCatagoryChallanMonthlySummary()">Export
+          All Catagory Challan Monthly Summary</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny google button" (click)="excelEntryStatus()">Entry Status</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny twitter button" (click)="pdfSalesReport()">PDF Sales Report</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny vk button" (click)="excelOrderWithJobQty()">Export Order With Job Qty</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny youtube button" (click)="excelCustomerList()">Customer List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny green button" (click)="excelBuyerList()">Buyer List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny teal button" (click)="excelItemList()">Item List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="excelSalesPersonWiseCustomer()">Sales Person Wise Customer List</button>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="excelBuyerWiseCustomer()">Buyer Wise Customer List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny violet button" (click)="excelWorkOrderDetails()">Work Order Details</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny pink button" (click)="excelExportChallanWithJobQty()">Export Challan With Job Qty</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny brown button" (click)="excelExecutiveWiseSalesWithParty()">Executive Wise Sales With Party</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny yellow button" (click)="excelExportShortOrderWithJobQty()">Export Short Order With Job Qty</button>
+      </div>
+    </div>
+  </form>
+  <!-- <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;">
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="16" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Work Order Report </span>
+        </td>
+      </tr>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Order No</th>
+        <th>Order Date</th>
+        <th>Party Name</th>
+        <th>PO No</th>
+        <th>URN No</th>
+        <th>MC Style</th>
+        <th>Buyer Name</th>
+        <th>CS</th>
+        <th>Item Name</th>
+        <th>Color</th>
+        <th>Style</th>
+        <th>Total Qty</th>
+        <th>Rate/ 1000</th>
+        <th>Total Amount</th>
+        <th>Category Name</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let workorder of workorderData; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{workorder['Order No']}}</td>
+          <td>{{workorder['Order Date']}}</td>
+          <td>{{workorder['Party Name']}}</td>
+          <td>{{workorder['PO No']}}</td>
+          <td>{{workorder['URN No']}}</td>
+          <td>{{workorder['MC Style']}}</td>
+          <td>{{workorder['Buyer Name']}}</td>
+          <td>{{workorder['CS']}}</td>
+          <td>{{workorder['Item Name']}}</td>
+          <td>{{workorder['Style']}}</td>
+          <td>{{workorder['Color']}}</td>
+          <td>{{workorder['Total Qty']}}</td>
+          <td>{{workorder['Rate/1000']}}</td>
+          <td>{{workorder['Total Amount']}}</td>
+          <td>{{workorder['ProductCategoryName']}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+</div>

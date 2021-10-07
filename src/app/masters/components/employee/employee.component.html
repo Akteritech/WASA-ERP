@@ -1,0 +1,145 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="angle left icon"></i>
+    Back
+  </button>
+  <button class="ui tiny button" [ngClass]="{ 'teal': collapse , 'red': !collapse }" type="button"
+    (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <span *ngIf="collapse"><i class="add icon"></i> Create Employee</span>
+    <span *ngIf="!collapse"><i class="arrow up icon"></i> Done</span>
+  </button>
+  <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+  <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick"
+    popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="file excel icon"></i>
+    <div class="text">Download Excel / Csv</div>
+    <i class="dropdown icon"></i>
+  </button>
+  <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick"
+    popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="file pdf icon"></i>
+    <div class="text">Download PDF</div>
+    <i class="dropdown icon"></i>
+  </button>
+  <ng-template let-popup #popupExcel>
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectedEmployees.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedEmployees.length <=0"
+      (click)="exporttoExcel()"><strong><i class="arrow down icon"></i></strong>Excel Selected Data</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="this.selectedEmployees.length <=0"
+      (click)="exporttoCsv()"><strong><i class="arrow down icon"></i></strong>Csv Selected Data</button>
+
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoExcel(true)"><strong><i
+          class="arrow down icon"></i></strong>Excel</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage"
+      (click)="exporttoCsv(true)"><strong><i class="arrow down icon"></i></strong>Csv</button>
+
+  </ng-template>
+  <ng-template let-popup #popupPDF>
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectedEmployees.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedEmployees.length <=0"
+      (click)="exportToPDF()"><strong><i class="download icon"></i></strong>PDF Selected Data</button>
+    <button class="ui tiny blue button m-1" [disabled]="this.selectedEmployees.length <=0"
+      (click)="printOpen()"><strong><i class="print icon"></i> </strong> Print Selected Data</button>
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny red button m-1" [disabled]="!fromPage || !toPage" (click)="exportToPDF(true)"><strong><i
+          class="arrow down icon"></i></strong> PDF</button>
+    <button class="ui tiny blue button m-1" [disabled]="!fromPage || !toPage" (click)="printOpen(true)"><strong><i
+          class="print icon"></i> </strong> Print</button>
+  </ng-template>
+
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-employee (added)="getItemCount()"></app-add-employee>
+    </div>
+  </div>
+  <table class=" ui very compact unstackable teal table">
+    <thead>
+      <tr>
+        <th>
+          <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllEmployee"
+            (ngModelChange)="selectAll()"></sui-checkbox>
+        </th>
+        <th>SL</th>
+        <th>Action</th>
+        <th>Emp No.</th>
+        <th>Full Name</th>
+        <th>Name In Bangla</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Marital Status</th>
+        <th>Nationality</th>
+        <th>Religion</th>
+        <th>National Id No.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of employees; let i = index">
+        <td>
+          <sui-checkbox class="mt-2" [(ngModel)]="e.selected" name="{{i}}" (click)="selectEmployees(e,i)">
+          </sui-checkbox>
+        </td>
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+
+        <td class="single line">
+          <!--        <i class="trash link red icon" (click)="delete(e.empId)" ></i>-->
+          <i class="edit link blue icon" [routerLink]="['/employees/edit',e?.empId]"></i>
+          <i class="eye link orange icon" (click)="viewDetail(e.empId)"></i>
+        </td>
+        <td>{{e?.prevempId}}</td>
+        <td>{{e?.firstname}} {{e?.middlename}} {{e?.lastname}} </td>
+        <td>{{e?.empfullnameinbangla}}</td>
+        <td>{{e?.dob.substring(0, 10)}}</td>
+        <td>{{e?.sex2?.listitem}}</td>
+        <td>{{e?.maritalstatus1?.listitem}}</td>
+        <td>{{e?.nationality1?.listitem}}</td>
+        <td>{{e?.ReligionDetails?.listitem}}</td>
+        <td>{{e?.idno}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="get()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()" [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

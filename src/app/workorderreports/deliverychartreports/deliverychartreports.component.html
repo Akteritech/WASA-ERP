@@ -1,0 +1,70 @@
+<div class="ui segment small inline form mt-2" style="min-height: 600px;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Delivery Chart
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Category</label>
+        <sui-select class="selection" name="Product_Category" [isSearchable]="true" [options]="productcategories"
+          [(ngModel)]="productcategory" labelField="productcategoryname" valueField="productcategoryid"
+          #selectProductCategoryName>
+          <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Report Type</label>
+        <sui-select placeholder="Select Report Type" class="selection" name="ReportType" [(ngModel)]="reportType"
+          [isSearchable]="true">
+          <sui-select-option value="Day wise Delivery Chart Report"></sui-select-option>
+          <sui-select-option value="Month wise Delivery Chart Report"></sui-select-option>
+          <sui-select-option value="Year wise Delivery Chart Report"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="searchFromname" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="SearchToname" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <sui-checkbox class="middle aligned" name="confirmordername" [(ngModel)]="confirmorder" >Confirm Order</sui-checkbox>
+      </div>
+      <div class="ml-1">
+        <sui-checkbox class="middle aligned" name="wastagename">Wastage</sui-checkbox>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button">Preview</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>

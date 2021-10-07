@@ -1,0 +1,118 @@
+<div class="pt-5">
+  <h4 class="ui teal dividing header mt-1" style="text-align: center;">
+    PFL Cutting PRODUCTION UPDATE - MACHINE AND OPERATOR WISE
+  </h4>
+  <div class="mb-5">
+    <button class="ui tiny orange button" type="button" (click)="this.api.backClicked()">
+      <i class="arrow left icon"></i>
+      Back
+    </button>
+    <!-- <button class="ui tiny green button ml-3 mr-3" type="button">
+      Update Production QTY
+    </button> -->
+    <!--    <button class="ui tiny blue button ml-3" type="button" (click)="completeData()">-->
+    <!--      Start Machine-->
+    <!--    </button>-->
+    <button class="ui tiny blue button ml-3" type="button" (click)="updateRecord()">
+      Update Production Qty
+    </button>
+
+    <div class="overflow-x-scroll mt-2 mb-2">
+      <table class=" ui very compact unstackable teal table">
+        <thead style="text-align: center;">
+          <tr>
+            <th>
+              <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllCard"
+                (ngModelChange)="selectAll()">
+              </sui-checkbox>
+
+              <!-- <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllCard" (ngModelChange)="selectAll()">
+            </sui-checkbox> -->
+            </th>
+            <th>S.No</th>
+            <th>WorkOrder No</th>
+            <th>SampleName</th>
+            <th>Delivery Date</th>
+            <th>Part</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Style No</th>
+            <th>UPC No</th>
+            <th>Order Qty</th>
+            <th>Job Card Qty</th>
+            <th>Balance Qty</th>
+            <th>Machine No</th>
+            <th>M/c Status</th>
+            <th>Operator Name</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor=" let item of breakdownDetails; let i= index">
+            <td>
+              <sui-checkbox class="mt-2" [(ngModel)]="item.selected" name="{{i}}" (click)="selectCards(item,i)">
+              </sui-checkbox>
+            </td>
+            <td>{{i+1}}</td>
+            <td>{{item?.WorkOrderNo}}</td>
+            <td>{{item?.SampleName}}</td>
+            <td>{{item?.EstDeliveryDate}}</td>
+            <td>{{item?.PartID}}</td>
+            <td>{{item?.KeyEntry1}}</td>
+            <td>{{item?.KeyEntry2}}</td>
+            <td>{{item?.KeyEntry3}}</td>
+            <td>{{item?.KeyEntry4}}</td>
+            <td>{{item?.PlanQTY}}</td>
+            <td>{{item?.ProductionQty}}</td>
+            <td>
+              <div class="ui action input">
+                <input type="text" name="balance" [(ngModel)]="item.ProductionQty" />
+              </div>
+            </td>
+            <td>
+              <div class="field">
+                <label>Machine Name :</label>
+                <sui-select placeholder=" " class="selection" [options]="machines" [(ngModel)]="item.MachingId"
+                  name="machine" [isSearchable]="true" (ngModelChange)="selectAllMachine()" labelField="MachineNo"
+                  valueField="MachineID" #selectMachineName>
+                  <sui-select-option *ngFor="let op of selectMachineName.filteredOptions" [value]="op">
+                  </sui-select-option>
+                </sui-select>
+              </div>
+            </td>
+            <td>
+              <!--            <a href="#" class="link" >Idle</a>-->
+              <a href="#" class="link" *ngIf="this.editId">M/C Stop</a>
+
+              <!--              <a href="#" class="link"  *ngIf="item?.Pri_Status == 8">M/C Stop</a>-->
+            </td>
+            <td>
+              <div class="field">
+                <label>Operator Name :</label>
+                <sui-select placeholder=" " class="selection" [options]="operatores" [(ngModel)]="item.OperatorID"
+                  name="operator" [isSearchable]="true" (ngModelChange)="selectAllOperator()" labelField="EmpName"
+                  valueField="Emp_ID" #selectOperator>
+                  <sui-select-option *ngFor="let op of selectOperator.filteredOptions" [value]="op"></sui-select-option>
+                </sui-select>
+              </div>
+            </td>
+            <td>
+              <div class="ui action input">
+                <input type="text" [(ngModel)]="item.comment" name="comment" (ngModelChange)="selectAllComment()" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center single line mt-5" style="display:inline-flex">
+      <div style="width: 300px; float: left;">
+        <label>Before Comment :</label>
+        <div class="ui action input">
+          <input type="text" name="beforecomment" disabled placeholder="Before Comment" />
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

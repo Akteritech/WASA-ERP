@@ -1,0 +1,74 @@
+<div class="ui segment small inline form mt-2" style="margin-top: 50px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      OUTSTANDING REPORT
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="Select Company" class="selection" [options]="companies" name="company"
+          [(ngModel)]="company" [isSearchable]="true" labelField="companyname" valueField="companyid"
+          #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Client</label>
+        <sui-select placeholder=" " class="selection" [(ngModel)]="client" name="client" [options]="clients"
+           labelField="clientname" valueField="clientid"
+          (input)="getClients($event.target.value)" [isSearchable]="true" #selectCustomers>
+          <sui-select-option *ngFor="let o of selectCustomers.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sales Executive</label>
+        <sui-select placeholder=" " class="selection" [(ngModel)]="salesperson" name="salespersonid"
+          [options]="salesPeople" labelField="SalesPeron" valueField="Emp_ID"
+          (input)="getSalesPeople($event.target.value)" [isSearchable]="true"
+          #selectsalespersonid>
+          <sui-select-option *ngFor="let o of selectsalespersonid.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="fromDate" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="toDate" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>Detail</label>
+        <sui-checkbox class="mt-2" name="detail">
+        </sui-checkbox>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="maturityInHandExcel()">Maturity In Hand Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny teal button" (click)="bOESubmitToPartyExcel()">BOE Submit To Party</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny yellow button" (click)="LCPendingAgainstIssuedPIExcel()">LC PENDING AGAINST ISSUED PI</button>
+      </div>
+    </div>
+
+  </form>
+</div>

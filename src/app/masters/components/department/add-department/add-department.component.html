@@ -1,0 +1,39 @@
+
+  <form class="ui small form" #form='ngForm' onsubmit="return false;" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Department
+    </h4><h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Department
+    </h4>
+      <sui-message class="warning mb-2 mt-2" *ngIf="!department.deptName && !department.deptShortName">
+        <li>
+          <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+        </li>
+      </sui-message>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Department Name</label>
+            <input required type="text" [(ngModel)]="department.deptName"  id="name" name="name"  placeholder="name" />
+          </div>
+          <div class="field required" >
+            <label>Department Short Name</label>
+            <input required  type="text" [(ngModel)]="department.deptShortName"  id="shortname" name="shortname"  placeholder="short name"/>
+          </div>
+        <div class="field">
+          <label>Description</label>
+              <input  type="text" [(ngModel)]="department.description" id="description" name="description" placeholder="description">
+            </div>
+          <div class="field">
+          <label>Department Position</label>
+              <input  type="number" min="0" [(ngModel)]="department.deptPosition" id="deptPosition" name="deptPosition" placeholder="department position">
+            </div>
+        </div>
+    </div>
+    <button type="button" class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+    <button type="button" class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Update
+    </button>
+  </form>

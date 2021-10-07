@@ -1,0 +1,607 @@
+<div class="pt-5">
+  <button class="ui tiny left labeled orange icon button" *ngIf="this.editId" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <div class="" style="height: auto !important;">
+    <div class="ui segment cardmy2">
+      <sui-message class="warning mb-2 mt-2" *ngIf="!this.sampleid || !offsettechnicaldata.noofups">
+        <li>
+          <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+        </li>
+      </sui-message>
+      <!--  <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse()" >-->
+      <!--    Offset Technical Details-->
+      <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">-->
+      <!--      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+      <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+      <!--    </button>-->
+      <!--  </h3>-->
+      <div>
+        <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+          <tbody>
+            <tr class="bg-teal text-white">
+              <td> S.No</td>
+              <td class="center aligned"> <i *ngIf="this.editId" class="edit icon"></i></td>
+              <td class="center aligned"> <i class="trash icon"></i></td>
+              <!--        <td> No of Ups </td>-->
+              <td> Screen Print </td>
+              <td> Lamination </td>
+              <td> Hot </td>
+              <td> Cold/Glue </td>
+              <td> Eyelet </td>
+              <td> String </td>
+              <td> Tag Pin </td>
+              <td> Cutting </td>
+              <td> Embosse</td>
+              <td> Debosse </td>
+              <td> Foiling </td>
+              <td> Board Pasting </td>
+              <td> Window </td>
+              <td> WindowWithPet </td>
+              <td> Hanger </td>
+              <td> Hook </td>
+              <td> Hole </td>
+              <td> Perforation </td>
+              <td> Both side tape </td>
+              <td> Mangnet </td>
+              <td> Sticker Attaching </td>
+              <td> Rfid Attaching </td>
+              <td> Folder Glueing </td>
+              <td> Creezing </td>
+              <td> Uv </td>
+            </tr>
+            <!--      <p class="ui center aligned " *ngIf="!OffsetTechnicalDetails"> Multiple Offset Technical Data will be Shown Here</p>-->
+            <tr *ngFor="let TechnicalDetails of OffsetTechnicalDetails; let i = index">
+              <td> {{ i+1 }}</td>
+              <td><i class="edit icon" *ngIf="this.editId" (click)="selectTechnical(TechnicalDetails,i)"
+                  [(ngModel)]="TechnicalDetails.selected" name="{{i}}"></i></td>
+              <td class="pointer center aligned" (click)="deleteTechnical(TechnicalDetails.offsettechnicalid ,i)"> <i
+                  class="trash red icon"></i></td>
+              <!--        <td> {{TechnicalDetails?.noofups}}</td>-->
+              <td> {{TechnicalDetails?.description1}}</td>
+              <td *ngIf="TechnicalDetails.laminationid === 1">Hot </td>
+              <td *ngIf="TechnicalDetails.laminationid === 2"> Cold/Glue</td>
+              <td *ngIf="TechnicalDetails.thermal === 1">Gloss </td>
+              <td *ngIf="TechnicalDetails.thermal === 2"> Matt</td>
+              <td *ngIf="TechnicalDetails.thermal > 2"> </td>
+              <td *ngIf="TechnicalDetails.coldglue === 1">Gloss </td>
+              <td *ngIf="TechnicalDetails.coldglue === 2"> Matt</td>
+              <td *ngIf="TechnicalDetails.coldglue > 2"> </td>
+              <td> {{TechnicalDetails?.description2}}</td>
+              <td> {{TechnicalDetails?.description3}}</td>
+              <td> {{TechnicalDetails?.description4}}</td>
+              <td> {{TechnicalDetails?.description5}}</td>
+              <td> {{TechnicalDetails?.description6}}</td>
+              <td> {{TechnicalDetails?.description7}}</td>
+              <td> {{TechnicalDetails?.description8}}</td>
+              <td> {{TechnicalDetails?.description9}}</td>
+              <td> {{TechnicalDetails?.description10}}</td>
+              <td> {{TechnicalDetails?.description11}}</td>
+              <td> {{TechnicalDetails?.description12}}</td>
+              <td> {{TechnicalDetails?.description13}}</td>
+              <td> {{TechnicalDetails?.description14}}</td>
+              <td> {{TechnicalDetails?.description15}}</td>
+              <td> {{TechnicalDetails?.description16}}</td>
+              <td> {{TechnicalDetails?.description17}}</td>
+              <td> {{TechnicalDetails?.description18}}</td>
+              <td> {{TechnicalDetails?.description19}}</td>
+              <td> {{TechnicalDetails?.description20}}</td>
+              <td> {{TechnicalDetails?.description21}}</td>
+              <!--        <td> {{TechnicalDetails?.}}</td>-->
+              <!--        <td> {{TechnicalDetails?.}}</td>-->
+              <!--        <td> {{TechnicalDetails?.}}</td>-->
+              <!--        <td> {{TechnicalDetails?.}}</td>-->
+              <!--        <td> {{TechnicalDetails?.}}</td>-->
+              <!--        <td> {{TechnicalDetails?.}}</td>-->
+              <!--        <td *ngIf="TechnicalDetails.hookid === 0"> No</td>-->
+              <!--        <td *ngIf="TechnicalDetails.hookid === 1"> Yes</td>-->
+              <!--        <td *ngIf="TechnicalDetails.holeid === 0"> No</td>-->
+              <!--        <td *ngIf="TechnicalDetails.holeid === 1"> Yes</td>-->
+              <!--        <td *ngIf="TechnicalDetails.perforationid === 0"> No</td>-->
+              <!--        <td *ngIf="TechnicalDetails.perforationid === 1"> Yes</td>-->
+              <!--        <td *ngIf="TechnicalDetails.bothsidetapeid === 0"> No</td>-->
+              <!--        <td *ngIf="TechnicalDetails.bothsidetapeid === 1"> Yes</td>-->
+              <!--        <td *ngIf="TechnicalDetails.magnetid === 0"> No</td>-->
+              <!--        <td *ngIf="TechnicalDetails.magnetid === 1"> Yes</td>-->
+
+            </tr>
+          </tbody>
+        </table>
+        <form class="ui small form" #form='ngForm'>
+          <div class="equal width fields">
+            <div class="field required">
+              <!--          <ng-template let-option  #samplenoandname>-->
+              <!--            {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>-->
+              <!--          </ng-template>-->
+              <label>Sample No</label>
+              <sui-select required class="selection" name="sampleno" placeholder=" " [(ngModel)]="sampleid"
+                [options]="samplenodata" (input)="optionslookupSampleNo($event.target.value)" labelField="sampleno"
+                valueField="sampleid" [isSearchable]="true" #SelectSampleNoAndNameForOffset>
+                <sui-select-option *ngFor="let option of SelectSampleNoAndNameForOffset.filteredOptions"
+                  [value]="option"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required">
+              <!--          <ng-template let-option  #samplenoandname>-->
+              <!--            {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>-->
+              <!--          </ng-template>-->
+              <label>Sample Name</label>
+              <sui-select required class="selection" name="sampleno" placeholder=" " [(ngModel)]="sampleid"
+                [options]="samplenodata" (input)="optionslookupSampleName($event.target.value)" labelField="samplename"
+                valueField="sampleid" [isSearchable]="true" #SelectSampleName>
+                <sui-select-option *ngFor="let option of SelectSampleName.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Screen Print</label>
+              <sui-select required placeholder="Screen Print" class="selection"
+                [(ngModel)]="offsettechnicaldata.screenprintid" name="screenprint" [options]="api.WOoptions"
+                labelField="name" valueField="value" #selectScreenPrint>
+                <sui-select-option *ngFor="let o of selectScreenPrint.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.screenprintid === 1">
+              <label>Screen Print Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description1" placeholder="description1"
+                id="description1" name="description1" row="2">
+            </div>
+            <div class="field ">
+              <label>Lamination</label>
+              <sui-select required placeholder="Lamination" class="selection"
+                [(ngModel)]="offsettechnicaldata.laminationid" name="lamination" [options]="api.lamination"
+                labelField="name" valueField="value" #selectLamination>
+                <sui-select-option *ngFor="let o of selectLamination.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <!--        {{offsettechnicaldata.thermal | json}}-->
+            <div class="field required" *ngIf="offsettechnicaldata.laminationid === 1">
+              <label>Hot</label>
+              <sui-select required placeholder="hot" class="selection" [(ngModel)]="offsettechnicaldata.thermal"
+                name="thermal" [options]="api.thermal" labelField="name" valueField="value" #selectThermal>
+                <sui-select-option *ngFor="let o of selectThermal.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.laminationid === 2">
+              <label>Cold/Glue</label>
+              <sui-select required placeholder="cold/glue" class="selection" [(ngModel)]="offsettechnicaldata.coldglue"
+                name="coldglue" [options]="api.thermal" labelField="name" valueField="value" #selectColdGlue>
+                <sui-select-option *ngFor="let o of selectColdGlue.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Eyelet</label>
+              <sui-select required placeholder="Eyelet" class="selection" [(ngModel)]="offsettechnicaldata.eyeletid"
+                name="eyelet" [options]="api.WOoptions" labelField="name" valueField="value" #Selecteyelet>
+                <sui-select-option *ngFor="let o of Selecteyelet.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.eyeletid === 1">
+              <label>Eyelet Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description2" placeholder="description2"
+                id="description" name="description2" row="2">
+            </div>
+            <div class="field ">
+              <label>String</label>
+              <sui-select required placeholder="String" class="selection" [(ngModel)]="offsettechnicaldata.stringid"
+                name="string1" [options]="api.WOoptions" labelField="name" valueField="value" #Selectstring1>
+                <sui-select-option *ngFor="let o of Selectstring1.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.stringid === 1">
+              <label>String Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description3" placeholder="description"
+                id="description23" name="description3" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Tag Pin</label>
+              <sui-select required placeholder="Tag Pin" class="selection" [(ngModel)]="offsettechnicaldata.tagpinid"
+                name="tagpin" [options]="api.WOoptions" labelField="name" valueField="value" #Selecttagpin>
+                <sui-select-option *ngFor="let o of Selecttagpin.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.tagpinid === 1">
+              <label>Tag Pin Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description4" placeholder="description"
+                id="description13" name="description4" row="2">
+            </div>
+            <div class="field ">
+              <label>Cutting</label>
+              <sui-select required placeholder="Cutting" class="selection" [(ngModel)]="offsettechnicaldata.cuttingid"
+                name="cutting" [options]="api.cutting" labelField="name" valueField="value" #Selectcutting>
+                <sui-select-option *ngFor="let o of Selectcutting.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.cuttingid === 1">
+              <label>Cutting Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description5" placeholder="description"
+                id="description24" name="description5" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Emboss</label>
+              <sui-select required placeholder="Emboss" class="selection" [(ngModel)]="offsettechnicaldata.embossid"
+                name="emboss" [options]="api.WOoptions" labelField="name" valueField="value" #Selectemboss>
+                <sui-select-option *ngFor="let o of Selectemboss.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.embossid === 1">
+              <label>Emboss Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description6" placeholder="description"
+                id="description41" name="description6" row="2">
+            </div>
+            <div class="field ">
+              <label>Debosse</label>
+              <sui-select required placeholder="Debosse" class="selection" [(ngModel)]="offsettechnicaldata.debossid"
+                name="debosse" [options]="api.WOoptions" labelField="name" valueField="value" #Selectdebosse>
+                <sui-select-option *ngFor="let o of Selectdebosse.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.debossid === 1">
+              <label>Deboss Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description7" placeholder="description"
+                id="description2" name="description7" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Foiling</label>
+              <sui-select required placeholder="Foiling" class="selection" [(ngModel)]="offsettechnicaldata.foilingid"
+                name="foiling" [options]="api.WOoptions" labelField="name" valueField="value" #Selectfoiling>
+                <sui-select-option *ngFor="let o of Selectfoiling.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.foilingid === 1">
+              <label>Foiling Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description8" placeholder="description"
+                id="description15" name="description8" row="2">
+            </div>
+            <div class="field ">
+              <label>Board Pasting</label>
+              <sui-select required placeholder="Board Pasting" class="selection"
+                [(ngModel)]="offsettechnicaldata.boardpasting" name="boardpasting" [options]="api.WOoptions"
+                labelField="name" valueField="value" #Selectboardpasting>
+                <sui-select-option *ngFor="let o of Selectboardpasting.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <!--        <div class="field required"  *ngIf="offsettechnicaldata.boardpasting === 1">-->
+            <!--          <label>Pasting Type</label>-->
+            <!--          <sui-select required placeholder="Folder Glueing"-->
+            <!--                      class="selection"-->
+            <!--                      [(ngModel)]="offsettechnicaldata.folderglueingid"-->
+            <!--                      name="folderglueing"-->
+            <!--                      [options]="api.glueing"-->
+            <!--                      labelField="name"-->
+            <!--                      valueField="value"-->
+            <!--                      #Selectfolderglueing>-->
+            <!--            <sui-select-option *ngFor="let o of Selectfolderglueing.filteredOptions" [value]="o"></sui-select-option>-->
+            <!--          </sui-select>-->
+            <!--        </div>-->
+            <div class="field required" *ngIf="offsettechnicaldata.boardpasting === 1">
+              <label>Board Pasting Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description9" placeholder="description"
+                id="description26" name="description9" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Window</label>
+              <sui-select required placeholder="Window" class="selection" [(ngModel)]="offsettechnicaldata.windowid"
+                name="window" [options]="api.WOoptions" labelField="name" valueField="value" #Selectwindow>
+                <sui-select-option *ngFor="let o of Selectwindow.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.windowid === 1">
+              <label>Window Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description10" placeholder="description"
+                id="description16" name="description10" row="2">
+            </div>
+            <div class="field ">
+              <label>Window with Pet</label>
+              <sui-select required placeholder="Window with Pet" class="selection"
+                [(ngModel)]="offsettechnicaldata.windowwithpetid" name="windowwithpet" [options]="api.WOoptions"
+                labelField="name" valueField="value" #Selectwindowwithpet>
+                <sui-select-option *ngFor="let o of Selectwindowwithpet.filteredOptions" [value]="o">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.windowwithpetid === 1">
+              <label>Window with Pet Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description11" placeholder="description"
+                id="description27" name="description11" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Hanger</label>
+              <sui-select required placeholder="Hanger" class="selection" [(ngModel)]="offsettechnicaldata.hangerid"
+                name="hanger" [options]="api.WOoptions" labelField="name" valueField="value" #Selecthanger>
+                <sui-select-option *ngFor="let o of Selecthanger.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.hangerid === 1">
+              <label>Hanger Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description12" placeholder="description"
+                id="description18" name="description12" row="2">
+            </div>
+            <div class="field ">
+              <label>Hook</label>
+              <sui-select required placeholder="Hook" class="selection" [(ngModel)]="offsettechnicaldata.hookid"
+                name="hook" [options]="api.WOoptions" labelField="name" valueField="value" #Selecthook>
+                <sui-select-option *ngFor="let o of Selecthook.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.hookid === 1">
+              <label> Hook Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description13" placeholder="description"
+                id="description28" name="description13" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Hole</label>
+              <sui-select required placeholder="Hole" class="selection" [(ngModel)]="offsettechnicaldata.holeid"
+                name="hole" [options]="api.WOoptions" labelField="name" valueField="value" #Selecthole>
+                <sui-select-option *ngFor="let o of Selecthole.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.holeid === 1">
+              <label> Hole Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description14" placeholder="description"
+                id="description19" name="description14" row="2">
+            </div>
+            <div class="field ">
+              <label>Perforation</label>
+              <sui-select required placeholder="Perforation" class="selection"
+                [(ngModel)]="offsettechnicaldata.perforationid" name="perforation" [options]="api.WOoptions"
+                labelField="name" valueField="value" #Selectperforation>
+                <sui-select-option *ngFor="let o of Selectperforation.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.perforationid === 1">
+              <label>Perforation Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description15" placeholder="description"
+                id="description29" name="description15" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Both side tape</label>
+              <sui-select required placeholder="Both side tape" class="selection"
+                [(ngModel)]="offsettechnicaldata.bothsidetapeid" name="bothsidetape" [options]="api.WOoptions"
+                labelField="name" valueField="value" #Selectbothsidetape>
+                <sui-select-option *ngFor="let o of Selectbothsidetape.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.bothsidetapeid === 1">
+              <label>Both side tape Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description16" placeholder="description"
+                id="description20" name="description16" row="2">
+            </div>
+            <div class="field ">
+              <label>Magnet</label>
+              <sui-select required placeholder="Magnet" class="selection" [(ngModel)]="offsettechnicaldata.magnetid"
+                name="magnet" [options]="api.WOoptions" labelField="name" valueField="value" #Selectmagnet>
+                <sui-select-option *ngFor="let o of Selectmagnet.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.magnetid === 1">
+              <label>Magnet Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description17" placeholder="description"
+                id="description30" name="description17" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Sticker Attaching</label>
+              <sui-select required placeholder="Sticker Attaching" class="selection"
+                [(ngModel)]="offsettechnicaldata.stickerattachingid" name="stickerattaching" [options]="api.WOoptions"
+                labelField="name" valueField="value" #Selectstickerattaching>
+                <sui-select-option *ngFor="let o of Selectstickerattaching.filteredOptions" [value]="o">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.stickerattachingid === 1">
+              <label>Sticker Attaching Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description18" placeholder="description"
+                id="description31" name="description18" row="2">
+            </div>
+            <div class="field ">
+              <label>RFID Attaching</label>
+              <sui-select required placeholder="RFID attaching" class="selection"
+                [(ngModel)]="offsettechnicaldata.rfidattachingid" name="rfidattaching" [options]="api.WOoptions"
+                labelField="name" valueField="value" #Selectrfidattaching>
+                <sui-select-option *ngFor="let o of Selectrfidattaching.filteredOptions" [value]="o">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.rfidattachingid === 1">
+              <label> RFID Attaching Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description19" placeholder="description"
+                id="description32" name="description19" row="2">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Folder Glueing</label>
+              <sui-select required placeholder="Folder Glueing" class="selection"
+                [(ngModel)]="offsettechnicaldata.folderglueingid" name="folderglueing" [options]="api.glueing"
+                labelField="name" valueField="value" #Selectfolderglueing>
+                <sui-select-option *ngFor="let o of Selectfolderglueing.filteredOptions" [value]="o">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Creezing </label>
+              <sui-select required placeholder="creezing" class="selection" [(ngModel)]="offsettechnicaldata.creezing"
+                name="creezing" [options]="api.WOoptions" labelField="name" valueField="value" #SelectCreezing>
+                <sui-select-option *ngFor="let o of SelectCreezing.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.creezing === 1">
+              <label> Creezing Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description20" placeholder="description"
+                id="description35" name="description20" row="2">
+            </div>
+            <div class="field ">
+              <label>UV </label>
+              <sui-select required placeholder="uv" class="selection" [(ngModel)]="offsettechnicaldata.uv" name="uv"
+                [options]="api.WOoptions" labelField="name" valueField="value" #SelectUV>
+                <sui-select-option *ngFor="let o of SelectUV.filteredOptions" [value]="o"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="offsettechnicaldata.uv === 1">
+              <label> UV Description</label>
+              <input type="text" [(ngModel)]="offsettechnicaldata.description21" placeholder="description"
+                id="description3" name="description21" row="2">
+            </div>
+            <div class="field">
+              <button type="button" class="ui primary tiny button mt-4" *ngIf="!this.editId" [disabled]="!this.sampleid"
+                (click)="patchTechnicalData(form)"> Add</button>
+              <button type="button" class="ui primary tiny button mt-4" *ngIf="this.editId" [disabled]="!this.sampleid "
+                (click)="updateTechnicalData(form)"> Update</button>
+            </div>
+            <!--        <div class="field">-->
+            <!--          <button type="button"  class="ui primary tiny button mt-4" *ngIf="this.editId" (click)="updateTechnicalData()"> Update</button>-->
+            <!--        </div>-->
+          </div>
+        </form>
+      </div>
+
+      <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse1()">
+        Offset Sample Material Details
+        <button type="button" class="ui mini icon right floated button text-dark bg-transparent "
+          [ngClass]="{'teal':collapse1,'red':!collapse1}">
+          <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+          <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+        </button>
+      </h3>
+      <div>
+        <div class="ui mt-1 ">
+
+          <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+            <tbody>
+              <tr class="bg-teal text-white">
+                <td> S.No</td>
+                <td class="center aligned"> <i class="edit icon"></i></td>
+                <td class="center aligned"> <i class="trash icon"></i></td>
+                <td> Sample No.</td>
+                <td> Material Color</td>
+                <td> Material Name</td>
+                <td> Full Sheet Length(Inch)</td>
+                <td>Full Sheet Width(Inch)</td>
+                <td>No Of Ups</td>
+                <td> Quantity Per Thousand</td>
+              </tr>
+              <tr *ngFor="let item of sampleMaterial; let i = index">
+                <td> {{ i+1 }}</td>
+                <td><i class="edit icon" (click)="selectMaterial(item,i)" [(ngModel)]="item.selected" name="{{i}}"></i>
+                </td>
+                <!--         <td> <i class="edit icon" (click)="selectMaterial(item,i)" *ngIf="this.editId" [(ngModel)]="item.selected" name="{{i}}"></i></td>-->
+                <td class="pointer center aligned" (click)="deleteMaterial(item.id ,i)"> <i class="trash red icon"></i>
+                </td>
+                <td> {{item?.sample?.sampleno}}</td>
+                <td> {{item?.color?.samplecolorname}}</td>
+                <td> {{item?.item?.itemcode}}</td>
+                <td> {{item?.fullsheetlength}}</td>
+                <td> {{item?.fullsheetwidth}}</td>
+                <td> {{item?.noofups}}</td>
+                <td> {{item?.requiredqty}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ui small form">
+            <div class="equal width fields">
+              <div class="field required">
+                <ng-template let-option #samplenoandname>
+                  {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+                </ng-template>
+                <label>Sample No/Sample Name</label>
+                <sui-select required class="selection" name="sampleno" placeholder=" " [(ngModel)]="sampleid"
+                  [options]="samplenodata" (input)="optionslookupSampleNo($event.target.value)"
+                  (ngModelChange)="optionsLookupColor()" [optionTemplate]="samplenoandname" labelField="sampleno"
+                  valueField="sampleid" [isSearchable]="true" #SelectSampleNoAndName>
+                  <sui-select-option *ngFor="let option of SelectSampleNoAndName.filteredOptions" [value]="option">
+                  </sui-select-option>
+                </sui-select>
+
+              </div>
+              <!--        <div class="field required">-->
+              <!--          <label>Sample No</label>-->
+              <!--          &lt;!&ndash;<input  type="text" [(ngModel)]="sampleid.sampleno" name="sampleno" id="sampleno">&ndash;&gt;-->
+              <!--          <sui-select  required class="selection" name="sampleno" placeholder=" "-->
+              <!--                       [(ngModel)]="sampleid"-->
+              <!--                       [options]="samples"-->
+              <!--                       labelField="sampleno"-->
+              <!--                       valueField="sampleid"-->
+              <!--                       [isSearchable]="true"-->
+              <!--                       #SelectSamples>-->
+              <!--            <sui-select-option *ngFor="let option of SelectSamples.filteredOptions"-->
+              <!--                               [value]="option"></sui-select-option>-->
+              <!--          </sui-select>-->
+
+              <!--        </div>-->
+              <div class="field required">
+                <label>Material Color</label>
+                <sui-select class="selection" name="ribcolor" placeholder=" " [isSearchable]="true" [options]="colors"
+                  [(ngModel)]="material.colorid" labelField="samplecolorname" valueField="samplecolorid" #multicolor>
+                  <sui-select-option *ngFor="let option of multicolor.filteredOptions" [value]="option">
+                  </sui-select-option>
+                </sui-select>
+                <!--<input  type="text"   [(ngModel)]="material.colorid" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>-->
+              </div>
+              <div class="field required">
+                <label>Material Name</label>
+                <sui-select class="selection" name="item" placeholder=" " [isSearchable]="true" [options]="items"
+                  (input)="optionsLookupItem($event.target.value)" [(ngModel)]="material.itemid" labelField="itemcode"
+                  valueField="itemid" #item>
+                  <sui-select-option *ngFor="let option of item.filteredOptions" [value]="option"></sui-select-option>
+                </sui-select>
+              </div>
+
+            </div>
+            <div class="equal width fields">
+              <div class="field required">
+                <label>Full Sheet Length (Inches)</label>
+                <input type="number" (keydown)="api.numberOnly($event)" min="0" [(ngModel)]="material.fullsheetlength"
+                  placeholder="length" id="length" name="length">
+              </div>
+              <div class="field required">
+                <label>Full Sheet Width (Inches)</label>
+                <input type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="material.fullsheetwidth"
+                  placeholder="width " id="width" name="width">
+              </div>
+              <div class="field required ">
+                <label>No. of Ups</label>
+                <input type="number" (keydown)="api.numberOnly($event)" [value]="" min="0" placeholder="No of ups"
+                  [(ngModel)]="material.noofups" id="noofupss" name="noofups">
+              </div>
+              <div class="field required">
+                <label>Quantity Per Thousand</label>
+                <input type="number" (keydown)="api.numberOnly($event)" [value]="1000/this.material.noofups"
+                  [(ngModel)]="material.requiredqty" min="0" id="qty" name="qty" autofocus placeholder="Quantity" />
+              </div>
+              <div class="field pt-3 mt-2">
+                <button type="button" class="ui primary tiny button" [disabled]="index >=0" (click)="patch()"><i
+                    class="add icon"></i> Add</button>
+                <button type="button" class="ui primary tiny button"
+                  [disabled]="!this.sampleid || !this.material.colorid || !this.material.itemid || !this.material.fullsheetlength || !this.material.fullsheetwidth || !this.material.noofups"
+                  *ngIf=" this.index>=0" (click)="updateMaterial()">Update</button>
+                <!--<button type="button"  class="ui red tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

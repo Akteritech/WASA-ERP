@@ -1,0 +1,146 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;">
+    <span *ngIf="collapse"> <i class="add icon"></i>Create Section</span>
+    <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+  </button>
+
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <form onsubmit="return false;" class="ui small form" #form='ngForm'>
+        <div class="ui segment mt-2" [ngStyle]="{'background-color':'#71797E'}">
+          <h4 class="ui teal dividing header">
+            <br>
+            Add Zone
+          </h4>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Zone Name English</label>
+              <input type="text" placeholder="Unit Name Emglish" id="divisionname" name="divisionname" maxlength="50"
+                [(ngModel)]="division.DIVISION_NAME_ENG">
+            </div>
+            <div class="field">
+              <label>Zone Name Bangla</label>
+              <input type="text" placeholder="Unit Name Bangla" id="divisionnamebangla" name="divisionnamebangla"
+                maxlength="50" [(ngModel)]="division.DIVISION_NAME_BNG">
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <sui-select placeholder="status " class="selection" name="status" [(ngModel)]="division.Status"
+                [options]="api.status" [isSearchable]="true" labelField="name" valueField="value" #SelectStatus>
+                <sui-select-option *ngFor="let op of SelectStatus.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+
+            <div class="field">
+              <label>Weekend</label>
+              <input type="text" placeholder="Weekend" id="Weekend" name="Weekend" maxlength="50"
+                [(ngModel)]="division.Weekend">
+            </div>
+
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Remarks</label>
+              <textarea [(ngModel)]="division.Remarks" id="Remarks" name="Remarks" placeholder="Remarks"
+                rows="3"></textarea>
+            </div>
+          </div>
+          <button *ngIf="!this.editId" class="ui teal tiny button my-1" (click)="patch(form)">Save</button>
+          <button *ngIf="this.editId" class="ui teal tiny button my-1" (click)="updateEmp()">Update</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <table class="ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Actions</th>
+        <th>Division ID</th>
+        <th>Unit Name Bangla</th>
+        <th>Unit Name</th>
+        <th>Weekend</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of divisiontabledata; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+        <td class="single line pointer">
+          <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/division/',showdata?.DIVISION_ID]"></i>
+        </td>
+        <td>{{showdata?.DIVISION_ID}}</td>
+        <td style="font-family: SutonnyMJ;">{{showdata?.DIVISION_NAME_BNG}}</td>
+        <td>{{showdata?.DIVISION_NAME_ENG }}</td>
+        <td>{{showdata?.Weekend }}</td>
+        <td>{{showdata?.Status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment mt-5" [ngStyle]="{'background-color':'#71797E'}">
+      <h3 class="ui teal dividing header">
+        Search Unit
+      </h3>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Unit</label>
+          <input required type="text" id="Unit" name="Unit" placeholder="Unit" [(ngModel)]="Name" />
+        </div>
+        <div class="field required">
+          <label>Unit Name</label>
+          <input required type="text" id="UnitName" name="UnitName" placeholder="Unit Name" [(ngModel)]="SerachText" />
+        </div>
+      </div>
+      <button class="ui purple tiny button my-1" (click)="search()">
+        Search
+      </button>
+    </div>
+  </form>
+
+  <table class="ui very compact unstackable teal table" *ngIf="datas" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <!-- <th>Actions</th> -->
+        <th>Unit Name</th>
+        <th>Unit Name Bangla</th>
+        <th>Weekend</th>
+        <th>Divission Address</th>
+        <th>Divission Address Bangla</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of datas; let i = index">
+        <td>{{i+1}} </td>
+        <!-- <td class="single line">
+        <i class="edit link blue icon"></i>
+      </td> -->
+        <td>
+          {{data?.DIVISION_NAME_ENG}}
+        </td>
+        <td>
+          {{data?.DIVISION_NAME_BNG}}
+        </td>
+        <td>{{data?.Weekend}}</td>
+        <td>{{data?.DivissionAddress}}</td>
+        <td>{{data?.DivissionAddressBangla}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

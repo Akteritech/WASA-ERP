@@ -1,0 +1,538 @@
+<button class="ui tiny left labeled orange icon button" *ngIf="this.editId" (click)="this.api.backClicked()" >
+  <i class="left arrow icon"></i>
+  Go Back
+</button>
+<sui-message class="warning mb-2 mt-2" >
+  <li>
+    <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+  </li>
+  <li>
+    To check and add technical details select sample
+  </li>
+</sui-message>
+<div class="ui segment cardmy2">
+  <div class="" style="height: auto !important;">
+    <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse()">
+       Screen Print Technical details
+      <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">
+        <i class="add ml-1 blue small icon" *ngIf="collapse"></i>
+        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>
+      </button>
+    </h3>
+    <!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+    <!--    2. Edit Screen Print Technical details-->
+    <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">-->
+    <!--      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+    <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+    <!--    </button>-->
+    <!--  </h3>-->
+
+    <div [suiCollapse]="collapse">
+      <div class="ui mt-1 ">
+        <!--      <table class="ui compact single line  table mt-2" style="margin-top: -8px;">-->
+        <!--        <tbody>-->
+        <!--        <tr class="bg-teal text-white">-->
+        <!--          <td> S.No</td>-->
+        <!--          <td class="center aligned"> <i class="trash icon"></i></td>-->
+        <!--          <td>Sample No.</td>-->
+        <!--          <td> Cut Fold Info</td>-->
+        <!--          <td>Finish Length </td>-->
+        <!--        </tr>-->
+        <!--        <tr *ngFor="let item of sampleTechnicalData; let i = index">-->
+        <!--          <td> {{ i+1 }}</td>-->
+        <!--          <td class="pointer center aligned" (click)="deleteTechnicalData(item.wovencommondetailsid , i)"> <i class="trash red icon"></i></td>-->
+        <!--          <td> {{item?.sample?.sampleno}} </td>-->
+        <!--          <td> {{item?.cutfold?.listitem}} </td>-->
+        <!--          <td> {{item?.sample?.finishlength}} </td>-->
+        <!--        </tr>-->
+        <!--        </tbody>-->
+        <!--      </table>-->
+        <div class="ui small form">
+          <div class="equal width fields">
+            <div class="field required">
+              <label>Sample Image</label>
+              <div class="fields pl-2 pt-2" disabled="true">
+                <div class="sixteen wide field p-2 pointer ImgSize" title="Click here to add Image" >
+                  <img *ngIf="!addsample.imagepath"   src="{{this.api.imageNotFound}}" class="ui fluid image " alt=""  (click)="image.click()">
+                  <!--                    <img *ngIf="!addsample.imagepath && this.currentRoute?.toString()?.includes('edit')"   src="{{this.api.noImagePath}}" class="ui fluid image " alt=""  (click)="image.click()">-->
+                  <!--<img *ngIf="addsample.imagePath" [src]="imageSrc" class="ui image" alt="" (click)="image.click()">-->
+                  <img *ngIf="addsample.imagepath" src="{{ api.baseUrl + this.addsample?.imagepath }}" class="ui image" alt="" (click)="image.click()">
+                  <input type="file" hidden style="padding: 5px" accept="image/*" disabled  #image name="image" placeholder="image"/>
+                </div>
+              </div>
+            </div>
+            <div class="field required">
+              <ng-template let-option  #samplenoandname>
+                {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+              </ng-template>
+              <label>Sample No</label>
+              <sui-select  required class="selection" name="sampleno" placeholder=" "
+                           [(ngModel)]="sampleid"
+                           [options]="samplenodata"
+                           [optionTemplate]="samplenoandname"
+                           (input)="optionslookupSampleNo($event.target.value)"
+                           (ngModelChange)="getLength();getColor();getSamplepartWise(this.sampleid);getSamplecolor(this.sampleid)"
+                           labelField="sampleno"
+                           valueField="sampleid"
+                           [isSearchable]="true"
+                           #SelectSamplesTechnical>
+                <sui-select-option *ngFor="let option of SelectSamplesTechnical.filteredOptions"
+                                   [value]="option"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required">
+              <label>Cut Fold Info</label>
+              <sui-select class="selection" id="Cut_Fold_Info" name="Cut_Fold_Info" placeholder="cut fold info"
+                          [(ngModel)]="wovenDetail.cutfoldinfo"
+                          [options]="cutfoldinfos"
+                          labelField="listitem"
+                          valueField="id"
+                          [isSearchable]="true"
+                          #Cut_Fold_Info>
+                <sui-select-option *ngFor="let option of Cut_Fold_Info.filteredOptions"
+                                   [value]="option"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required">
+              <label>Length(MM):</label>
+              <input type="number" (keydown)="api.numberOnly($event)"  disabled min="0" placeholder="length should not be negative" [(ngModel)]="addsample.length"  name="length">
+            </div>
+            <div class="field required">
+              <label>Width(MM):</label>
+              <input type="number" min="0"  (keydown)="api.numberOnly($event)" disabled placeholder="width should not be negative" [(ngModel)]="addsample.width" id="width" name="width">
+            </div>
+            <div class="field ">
+              <label>Finish Length</label>
+              <input  type="number" (keydown)="api.numberOnly($event)" disabled [(ngModel)]="addsample.finishlength"  name="Finish_Length " placeholder="Finish Length "/>
+            </div>
+            <div class="field pt-3 mt-2">
+              <button type="button" class="ui right floated primary tiny button" *ngIf="!this.editId" [disabled]="!this.wovenDetail.cutfoldinfo" (click)="saveSampleTechnical()"> Save</button>
+              <button type="button" class="ui right floated primary tiny button" *ngIf="this.editId" [disabled]="!this.wovenDetail.cutfoldinfo" (click)="updateSampleTechnical()"> Update</button>
+            </div>
+          </div>
+
+          <!--      <button type="button" class="ui teal tiny button " (click)="saveSampleColor()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+          <!--        Save-->
+          <!--      </button>-->
+          <!--      <button type="button" class="ui primary tiny button " (click)="updateYarn()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+          <!--      Update-->
+          <!--      </button>-->
+          <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+        </div>
+      </div>
+    </div>
+    <!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()">-->
+    <!--    3.Add New Screen Print Sample Color-->
+    <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">-->
+    <!--      <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>-->
+    <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>-->
+    <!--    </button>-->
+    <!--  </h3>-->
+    <!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+    <!--    3. Edit Screen Print Sample Color-->
+    <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">-->
+    <!--      <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>-->
+    <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>-->
+    <!--    </button>-->
+    <!--  </h3>-->
+
+    <!--  <div [suiCollapse]="collapse1">-->
+    <!--    <div class="ui mt-1 ">-->
+    <!--      <table class="ui compact single line  table mt-2" style="margin-top: -8px;">-->
+    <!--        <tbody>-->
+    <!--        <tr class="bg-teal text-white">-->
+    <!--          <td> S.No</td>-->
+    <!--          <td class="center aligned"> <i class="trash icon"></i></td>-->
+    <!--          <td>Sample No.</td>-->
+    <!--          <td> Color</td>-->
+    <!--          <td>Print Color</td>-->
+    <!--        </tr>-->
+    <!--        <tr *ngFor="let item of sampleColorData; let i = index">-->
+    <!--          <td> {{ i+1 }}</td>-->
+    <!--          <td class="pointer center aligned" (click)="deleteColorData(item.samplecolorid , i)"> <i class="trash red icon"></i></td>-->
+    <!--          <td> {{item?.sample?.sampleno}} </td>-->
+    <!--          <td> {{item?.samplecolorname}} </td>-->
+    <!--          <td> {{item?.printcolor}}</td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--      </table>-->
+    <!--      <div class="ui small form">-->
+    <!--        <div class="equal width fields">-->
+    <!--          <div class="field">-->
+    <!--            <label>Sample No</label>-->
+    <!--            <sui-select  required class="selection" name="sampleno" placeholder=" "-->
+    <!--                         [(ngModel)]="sampleid"-->
+    <!--                         [options]="samples"-->
+    <!--                         [isDisabled]="true"-->
+    <!--                         labelField="sampleno"-->
+    <!--                         valueField="sampleid"-->
+    <!--                         [isSearchable]="true"-->
+    <!--                         #SelectSamples>-->
+    <!--              <sui-select-option *ngFor="let option of SelectSamples.filteredOptions"-->
+    <!--                                 [value]="option"></sui-select-option>-->
+    <!--            </sui-select>-->
+    <!--          </div>-->
+    <!--          <div class="field required">-->
+    <!--            <label>Sample Color </label>-->
+    <!--            <input  type="text" [(ngModel)]="color.samplecolorname " name="samplecolorname "placeholder="Color Name"/>-->
+    <!--          </div>-->
+
+    <!--          <div class="field required">-->
+    <!--            <label>Print Color</label>-->
+    <!--            <input  type="text" [(ngModel)]="color.printcolor"  name="printcolor "placeholder="Print Color"/>-->
+    <!--          </div>-->
+    <!--          <div class="field pt-3 mt-2">-->
+    <!--            <button type="button" class="ui right floated primary tiny button" (click)="saveSampleColor()"><i class="add icon"></i> Add</button>-->
+    <!--          </div>-->
+    <!--        </div>-->
+
+    <!--        &lt;!&ndash;      <button type="button" class="ui teal tiny button " (click)="saveSampleColor()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">&ndash;&gt;-->
+    <!--        &lt;!&ndash;        Save&ndash;&gt;-->
+    <!--        &lt;!&ndash;      </button>&ndash;&gt;-->
+    <!--        &lt;!&ndash;      <button type="button" class="ui primary tiny button " (click)="updateYarn()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">&ndash;&gt;-->
+    <!--        &lt;!&ndash;      Update&ndash;&gt;-->
+    <!--        &lt;!&ndash;      </button>&ndash;&gt;-->
+    <!--        &lt;!&ndash;<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>&ndash;&gt;-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <div *ngIf="this.SamplePartWiseData">
+      <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse2()" >
+        Screen Print Sample Wise Part
+        <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">
+          <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>
+          <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>
+        </button>
+      </h3>
+      <!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse2()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+      <!--    4. Edit Screen Print Sample Wise Part-->
+      <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">-->
+      <!--      <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>-->
+      <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>-->
+      <!--    </button>-->
+      <!--  </h3>-->
+      <div [suiCollapse]="collapse2">
+        <div class="ui mt-1 ">
+          <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+            <tbody>
+            <tr class="bg-teal text-white">
+              <td> S.No</td>
+              <!--          <td class="center aligned" > <i class="trash icon"></i></td>-->
+              <td>Sample</td>
+              <td>Part No.</td>
+              <td>Length</td>
+              <td>Width</td>
+            </tr>
+            <tr *ngFor="let item of SamplePartWiseData; let i = index">
+              <td> {{ i+1 }}</td>
+              <!--          <td class="pointer center aligned" (click)="deletePartData(item.partsid , i)"> <i class="trash red icon" ></i></td>-->
+              <td > {{item?.sample?.sampleno}} </td>
+              <td> {{item?.lov?.listitem}}</td>
+              <td> {{item?.length}} </td>
+              <td> {{item?.width}} </td>
+            </tr>
+            </tbody>
+          </table>
+          <!-- <div class="ui small form" *ngIf="!this.editId">
+            <div class="equal width fields">
+              <div class="field">
+                <label>Sample No</label>
+                <sui-select required class="selection" name="partSample" placeholder=" "
+                            [(ngModel)]="sampleid"
+                            [isDisabled]="true"
+                            [options]="samples"
+                            (ngModelChange)="Mylength()"
+                            labelField="sampleno"
+                            valueField="sampleid"
+                            [isSearchable]="true"
+                            #SamplePARTwise>
+                  <sui-select-option *ngFor="let option of SamplePARTwise.filteredOptions"
+                                     [value]="option"></sui-select-option>
+                </sui-select>
+              </div>
+              <div class="field">
+                <label>Part No.</label>
+                <sui-select class="selection" id="partnoid" name="partnoid"  placeholder="Select part no"
+                            [(ngModel)]="part.partnoid"
+                            [isDisabled]="true"
+                            [options]="partsNo"
+                            labelField="listitem"
+                            valueField="id"
+                            [isSearchable]="true"
+                            #selectPartNo>
+                  <sui-select-option *ngFor="let option of selectPartNo.filteredOptions"
+                                     [value]="option"></sui-select-option>
+                </sui-select>
+              </div>
+              <div class="field required">
+                <label>length </label>
+                <input  type="number" disabled (keydown)="api.numberOnly($event)" [(ngModel)]="part.length" id="partlength" name="length" placeholder="length"/>
+              </div>
+
+              <div class="field ">
+                <label>Width</label>
+                <input  type="number" disabled (keydown)="api.numberOnly($event)" [(ngModel)]="part.width"  name="width" placeholder="width"/>
+              </div>
+             <div class="field pt-3 mt-2">-->
+          <!--            <button type="button" class="ui right floated primary tiny button" (click)="saveSamplePArtWise()" ><i class="add icon"></i> Add</button>-->
+          <!--          </div>-->
+          <!-- </div> -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+    <div  *ngIf="this.sampleColorData">
+      <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" >
+         Screen Print Sample Color
+        <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">
+          <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+          <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+        </button>
+      </h3>
+      <table class="ui compact single line  table mt-2" style="margin-top: -8px;">
+        <tbody>
+        <tr class="bg-teal text-white">
+          <td> S.No</td>
+          <!-- <td class="center aligned" > <i class="edit icon" *ngIf="this.editId"></i></td> -->
+
+          <!-- <td class="center aligned"> <i class="trash icon"></i></td> -->
+          <td>Sample No.</td>
+          <td>Background Color</td>
+          <td>Print Color</td>
+        </tr>
+        <tr *ngFor="let item of sampleColorData; let i = index">
+          <td> {{ i+1 }}</td>
+          <!--                                    <td *ngIf="this.editId"><sui-checkbox  class="mt-2" [(ngModel)]="item.selected"  name="{{i}}"   (click)="selectColor(item,i)"></sui-checkbox></td>-->
+          <!-- <td>   <i class="edit icon" (click)="selectColor(item,i)" *ngIf="this.editId" [(ngModel)]="item.selected" name="{{i}}"></i></td> -->
+
+          <!-- <td class="pointer center aligned" (click)="deleteColorData(item.samplecolorid , i)"> <i class="trash red icon"></i></td> -->
+          <td> {{item?.sample?.sampleno}} </td>
+          <td> {{item?.samplecolorname}} </td>
+          <td> {{item?.printcolor}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse3()" >
+      Add Screen Print Sample Material Details
+      <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse3,'red':!collapse3}">
+        <i class="add ml-1 blue small icon" *ngIf="collapse3"></i>
+        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse3"></i>
+      </button>
+    </h3>
+    <!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse3()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+    <!--    5. Edit Screen Print Sample Material Details-->
+    <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse3,'red':!collapse3}">-->
+    <!--      <i class="add ml-1 blue small icon" *ngIf="collapse3"></i>-->
+    <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse3"></i>-->
+    <!--    </button>-->
+    <!--  </h3>-->
+    <div [suiCollapse]="collapse3">
+      <div class="ui mt-1 ">
+        <!--      <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">-->
+        <!--        <tbody>-->
+        <!--        <tr class="bg-teal text-white">-->
+        <!--          <td> S.No</td>-->
+        <!--          <td class="center aligned" > <i class="trash icon"></i></td>-->
+        <!--          <td> Sample No.</td>-->
+        <!--          <td > Material Color</td>-->
+        <!--          <td > Material Name</td>-->
+        <!--          <td> Quantity</td>-->
+        <!--        </tr>-->
+        <!--        <tr *ngFor="let item of sampleMaterial; let i = index">-->
+        <!--          <td> {{ i+1 }}</td>-->
+        <!--          <td class="pointer center aligned" (click)="deleteMaterialData(item.id , i)"> <i class="trash red icon"></i></td>-->
+        <!--          <td> {{item?.sample?.sampleno}} </td>-->
+        <!--          <td> {{item?.color?.samplecolorname}} </td>-->
+        <!--          <td> {{item?.item?.itemcode}} </td>-->
+        <!--          <td > {{item?.requiredqty}}</td>-->
+        <!--        </tr>-->
+        <!--        </tbody>-->
+        <!--      </table>-->
+        <div class="ui small form">
+          <div class="equal width fields">
+            <div class="field required">
+              <label>Sample No</label>
+              <ng-template let-option  #samplenoname>
+                {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+              </ng-template>
+              <!--<input  type="text" [(ngModel)]="sampleid.sampleno" name="sampleno" id="sampleno">-->
+              <sui-select  required class="selection" name="sampleno" placeholder=" "
+                           [(ngModel)]="sampleid"
+                           [options]="samplenodata"
+                           [optionTemplate]="samplenoandname"
+                           (input)="optionslookupSampleNo($event.target.value)"
+                           labelField="sampleno"
+                           valueField="sampleid"
+                           [isSearchable]="true"
+                           #SelectMySamples>
+                <sui-select-option *ngFor="let option of SelectMySamples.filteredOptions"
+                                   [value]="option"></sui-select-option>
+              </sui-select>
+
+            </div>
+            <div class="field required">
+              <label>Material Color</label>
+<!--                          <sui-select  class="selection" name="ribcolor" placeholder=" "-->
+<!--                                       [isSearchable]="true"-->
+<!--                                       [(ngModel)]="material.colorid"-->
+<!--                                       [isDisabled]="true"-->
+<!--                                       labelField="samplecolorname"-->
+<!--                                       valueField="samplecolorid"-->
+<!--                                       #multicolor>-->
+<!--                            <sui-select-option *ngFor="let option of multicolor.filteredOptions"-->
+<!--                                               [value]="option"></sui-select-option>-->
+<!--                          </sui-select>-->
+              <input  type="text" disabled  [(ngModel)]="samplecolor" id="ribcolor" name="ribcolor" autofocus placeholder="RIB Color"/>
+            </div>
+
+
+          </div>
+          <div class="equal width fields">
+            <div class="field required">
+              <label>Material Name</label>
+              <sui-select  class="selection" name="item" placeholder=" "
+                           [isSearchable]="true"
+                           [options]="items"
+                           (input)="optionsLookupItem($event.target.value)"
+                           [(ngModel)]="material.itemid"
+                           labelField="itemcode"
+                           valueField="itemid"
+                           #item>
+                <sui-select-option *ngFor="let option of item.filteredOptions"
+                                   [value]="option"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Quantity </label>
+              <input  type="number" disabled [(ngModel)]="material.requiredqty"  (keydown)="api.numberOnly($event)" min="0"   id="qty" name="qty" autofocus placeholder="Quantity"/>
+            </div>
+            <div class="field pt-3 mt-2">
+              <button type="button"  class="ui primary tiny button" *ngIf="!this.editId" [disabled]="!this.material.itemid" (click)="saveSampleMAterial()">Save</button>
+              <button type="button"  class="ui primary tiny button" *ngIf="this.editId" [disabled]="!this.material.itemid" (click)="updateSampleMaterial()">Update</button>
+              <!--<button type="button"  class="ui red tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+            </div>
+            <!--<div class="field pt-3 mt-2">-->
+            <!--<button type="button" class="ui primary tiny button" (click)="addYarnDetails()"><i class="add icon"></i> Add Yarn</button>-->
+            <!--<br>-->
+            <!--</div>-->
+          </div>
+          <!--      <button type="button" class="ui teal tiny button "  (click)="saveSampleMAterial()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+          <!--        Save-->
+          <!--      </button>-->
+          <!--      <button type="button" class="ui primary tiny button " (click)="Updatepatch()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+          <!--      Update-->
+          <!--      </button>-->
+
+        </div>
+      </div>
+    </div>
+
+    <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse4()" >
+       Key Entry Details
+      <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse4,'red':!collapse4}">
+        <i class="add ml-1 blue small icon" *ngIf="collapse4"></i>
+        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse4"></i>
+      </button>
+    </h3>
+
+    <!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse4()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+    <!--    6. Edit Key Entry Details-->
+    <!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse4,'red':!collapse4}">-->
+    <!--      <i class="add ml-1 blue small icon" *ngIf="collapse4"></i>-->
+    <!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse4"></i>-->
+    <!--    </button>-->
+    <!--  </h3>-->
+    <div [suiCollapse]="collapse4">
+      <div class="ui mt-1">
+        <!--<div class="ui divider"></div>-->
+        <table class="ui compact single line table rounded-0 mt-2" style="margin-top: -8px;">
+          <tbody>
+          <tr class="bg-teal text-white" >
+            <td >S.No</td>
+            <td  class="center aligned"> <i class="trash icon"></i></td>
+            <td> Color </td>
+            <td> Size</td>
+            <td> Style</td>
+            <td> Key 4</td>
+            <td> Key 5</td>
+            <td> Key 6</td>
+            <td> Key 7</td>
+            <td> Key 8</td>
+            <td> Key 9</td>
+            <td> Quantity</td>
+          </tr>
+          <tr *ngFor="let key of keyEntryFields; let i = index">
+            <td> {{ i+1 }}</td>
+            <td class="pointer center aligned" (click)="deleteKeyEntry(key.keyentryid ,i);"> <i class="trash red icon"></i></td>
+            <td>{{key?.keyentry1}}</td>
+            <td>{{key?.keyentry2}}</td>
+            <td>{{key?.keyentry3}}</td>
+            <td>{{key?.keyentry4}}</td>
+            <td>{{key?.keyentry5}}</td>
+            <td>{{key?.keyentry6}}</td>
+            <td>{{key?.keyentry7}}</td>
+            <td>{{key?.keyentry8}}</td>
+            <td>{{key?.keyentry9}}</td>
+            <td>{{key?.keyentry10}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="ui small form">
+          <div class="equal width fields">
+            <div class="field">
+              <label>Color</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry1 " id="keyentry1" name="keyentry1" placeholder="Color"/>
+            </div>
+            <div class="field">
+              <label>Size</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry2" id="keyentry2" name="keyentry2" placeholder="Size "/>
+            </div>
+            <div class="field">
+              <label>Style</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry3" id="keyentry3" name="keyentry3" placeholder="Style No"/>
+            </div>
+            <div class="field">
+              <label>Key 4</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry4" id="keyentry4" name="keyentry4" placeholder=""/>
+            </div>
+            <div class="field">
+              <label>Key 5</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry5" id="keyentry5" name="keyentry5" placeholder=""/>
+            </div>
+            <div class="field">
+              <label>Key 6</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry6" id="keyentry6" name="keyentry6" placeholder=""/>
+            </div>
+            <div class="field">
+              <label>Key 7</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry7" id="keyentry7" name="keyentry7" placeholder=""/>
+            </div>
+            <div class="field">
+              <label>Key 8</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry8" id="keyentry8" name="keyentry8" placeholder=""/>
+            </div>
+            <div class="field">
+              <label>Key 9</label>
+              <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry9" id="keyentry9" name="keyentry9" placeholder=""/>
+            </div>
+            <div class="field">
+              <label>Quantity</label>
+              <input min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="SampleWiseKeyEntryField.keyentry10" id="Quantity" name="Quantity" placeholder="Quantity"/>
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <button type="button" *ngIf="keyEntryFields.length >= 2" class="ui red right floated tiny button" (click)="deleteAllKeyEntry()"> Delete All</button>
+              <button type="button" class="ui right floated primary tiny button" [disabled]="!this.sampleid || !this.SampleWiseKeyEntryField.keyentry1" (click)="saveKeyEntryFields(form)"><i class="add icon"></i> Add Key</button>
+            </div>
+          </div>
+          <!--      <button type="button" class="ui teal tiny button" (click)="saveKeyEntryFields(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">Save</button>-->
+          <!--      <button type="button" class="ui primary tiny button" (click)="updateKeyEntryFields()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">Update</button>-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

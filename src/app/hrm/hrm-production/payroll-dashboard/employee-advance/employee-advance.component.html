@@ -1,0 +1,192 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+  <button class="ui tiny orange button" *ngIf="!showCollapse" (click)="showCollapse=true">
+    <i class="arrow up icon"></i>Close
+  </button>
+  <div>
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment">
+        <h4 class="ui teal dividing header">
+          Employee Advance
+        </h4>
+        
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Advance Type</label>
+            <sui-select placeholder="." class="selection" name="typeoftran" [options]="typeoftran"
+              [(ngModel)]="advance.TYPE_OF_TRAN" labelField="TypeName" valueField="TypeID"
+               [isSearchable]="true" #selectAdvType
+              required>
+              <sui-select-option *ngFor="let op of selectAdvType.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field required">
+            <label>Card No</label>
+            <sui-select placeholder="." class="selection" name="group" [options]="cardnos"
+              [(ngModel)]="advance.EMP_CARD_NO" labelField="EMP_CARD_NO" valueField="EMP_CARD_NO"
+              (keyup)="getCards($event.target.value)" (ngModelChange)="cardSelected()" [isSearchable]="true" #selectCard
+              required>
+              <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Employee Name</label>
+            <span>{{name}}</span>
+          </div>
+          <div class="field">
+            <label>Entry Date</label>
+            <input suiDatepicker pickerMode="date" name="entryDate" [(ngModel)]="advance.ENTRY_DATE">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Advance Amount</label>
+            <input type="number" min="0" name="advanceAmount" [(ngModel)]="advance.ADVANCE_AMOUNT">
+          </div>
+          <div class="field">
+            <label>Rate of Interest %</label>
+            <input type="number" min="0" name="advanceRate" [(ngModel)]="advance.INTEREST_RATE"> 
+          </div>
+          <div class="field">
+            <label>No of Installment</label>
+            <input type="number" min="0" name="noOfInstallment" [(ngModel)]="advance.NO_OF_INSTALLMENT"
+              (keyup)="getInstallmentPayment()">
+          </div>
+          <div class="field">
+            <label>Installment Payment</label>
+            <input type="number" min="0" name="installmentPayment" [(ngModel)]="advance.MONTH_ADVANCE_AMOUNT"
+              (keyup)="getNoOfInstallment()">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Start Month</label>
+            <input suiDatepicker pickerMode="date" name="startMonth" [(ngModel)]="advance.ADVANCE_START_MONTH"
+              (ngModelChange)="getTotalMonth()">
+          </div>
+         
+          <div class="field">
+            <label>Advance Active</label>
+            <input type="checkbox" [(ngModel)]="advance.ON_OFF" checked="true">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Remarks</label>
+            <div class="two fields">
+              <div class="field">
+                <textarea id="remark" name="remark" placeholder="Remarks" rows="3"
+                  [(ngModel)]="advance.REMARK"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui divider"></div>
+        <table class="ui very compact teal table unstackable">
+          <thead>
+            <tr>
+              <th>Month Name</th>
+              <th>Installment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of datas; let i = index">
+              <td>{{data[0]}}</td>
+              <td>{{data[1]}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="ui teal tiny button my-1" (click)="patch(form)">
+          Save
+        </button>
+        
+      </div>
+    </form>
+   
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment mt-5">
+        <h3 class="ui teal dividing header">
+          Search Employee Advance
+        </h3>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Card No</label>
+            <input required type="text" id="Grade" name="Grade" placeholder="Card No" [(ngModel)]="cardNo" />
+          </div>
+        </div>
+        <button class="ui purple tiny button my-1" (click)="search()">
+          Search
+        </button>
+      </div>
+    </form>
+
+    <div [suiCollapse]="showCollapse">
+      <div class="mt-2">
+        <table class="ui very compact teal table unstackable">
+          <thead>
+            <tr>
+              <th>Month Name</th>
+              <th>Installment Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of showDetails; let i = index">
+              <td>{{data['MONTH_NAME']}}</td>
+              <td>{{data['INSTALLMENT_AMOUNT']}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <table class="ui very compact unstackable teal table" *ngIf="searchDatas">
+      <thead>
+        <tr>
+          <th>SL</th>
+          <th>Actions</th>
+          <th>Card No</th>
+          <th>Employee ID</th>
+          <th>ADVANCE AMOUNT</th>
+          <th>ADVANCE START MONTH</th>
+          <th>ADVANCE START DATE</th>
+          <th>ENTRY DATE</th>
+          <th>NO OF INSTALLMENT</th>
+          <th>MONTH ADVANCE AMOUNT</th>
+          <th>CREATE DATE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of searchDatas; let i = index">
+          <td>{{i+1}} </td>
+          <td class="single line">
+            <!-- (click)="edit(i)" -->
+            <i class="edit link blue icon"  [routerLink]="['/hrm/payroll/employeeAdvance/',data?.ADVANCE_KEY]"></i>
+            <i class="eye link blue icon" (click)="viewDetail(i);"></i>
+            <i class="eye link orange icon" (click)="salaryAdvanceHisory(i)"></i>
+          </td>
+          <td>
+            {{data?.EMP_CARD_NO}}
+          </td>
+          <td>
+            {{data?.EMP_ID}}
+          </td>
+          <td>{{data?.ADVANCE_AMOUNT}}</td>
+          <td>{{data?.ADVANCE_START_MONTH}}</td>
+          <td>{{data?.ADVANCE_START_DATE.substring(0, 10)}}</td>
+          <td>{{data?.ENTRY_DATE.substring(0, 10)}}</td>
+          <td>{{data?.NO_OF_INSTALLMENT}}</td>
+          <td>{{data?.MONTH_ADVANCE_AMOUNT}}</td>
+          <td>{{data?.CREATE_DATE.substring(0, 10)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

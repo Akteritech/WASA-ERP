@@ -1,0 +1,45 @@
+<div class="ui segment pt-5">
+<form class="ui small form ml-2" #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()" >
+  <div class="">
+    <h4 class="ui teal dividing header" *ngIf="!includes('edit')">
+
+      Add New Fabric Composition
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="includes('edit')"  >
+
+      Edit  Fabric Composition
+    </h4>
+    <div class="equal width fields">
+      <!--        <div class="field">-->
+      <!--          <label>Fabric Composition</label>-->
+      <!--          <sui-select placeholder=" " class="selection"-->
+      <!--                      [(ngModel)]="master.fabriccomposition"-->
+      <!--                      name="fabriccomps"-->
+      <!--                      [options]="FabricCompositions"-->
+      <!--                      (input)="optionsFabricComposition($event.target.value)"-->
+      <!--                      [isSearchable]="true"-->
+      <!--                      labelField="listitem"-->
+      <!--                      valueField="id"-->
+      <!--                      #selectfabriccomps>-->
+      <!--            <sui-select-option *ngFor="let o of selectfabriccomps.filteredOptions" [value]="o">-->
+      <!--            </sui-select-option>-->
+      <!--          </sui-select>-->
+      <!--        </div>-->
+      <div class="field required">
+        <label > Fabric Compositon </label>
+        <input  type="text" [(ngModel)]="newlovtype.listitem" id="Fabric" name="lovFabrictype" placeholder="New fabric composition">
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <button class="ui teal right floated tiny button my-1" (click)="AddFabric()" *ngIf="!includes('edit')">
+            Save
+          </button>
+          <button class="ui primary  tiny button my-1" (click)="updateData()" *ngIf="includes('edit')">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</div>

@@ -1,0 +1,334 @@
+<div class="ui container mt-2 pt-5">
+  <div class="ui link divided stackable four cards">
+    <a class="card raised cardmy2" [routerLink]="['/masters']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Masters</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image small">
+              <img src="assets/cahrt.png">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content ">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Companies | Customers | Departments | Employees |...
+        </div>
+      </div>
+    </a>
+    <!-- [routerLink]="['/inventory']" -->
+    <!-- <a class="card raised cardmy" (click)="getInventoryRoute()" >
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Inventory/ SCM</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image small">
+              <img src="assets/inventory.png">
+            </div>
+          </div>
+        </div>
+      </div> -->
+    <!--<div class="ui image tiny centered my-3">-->
+    <!--<img src="assets/inventory.png" class="bg-white">-->
+    <!--</div>-->
+    <!-- <div class="content">
+        <div class="center aligned description" style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Items |
+          Opening Inventories | Receiving |
+          Issues
+        </div>
+      </div>
+    </a> -->
+    <a class="card raised cardmy3" [routerLink]="['/NPD-samples']" >
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">NPD Sample</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets//icon.svg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Samples Woven | Offset | PFL | Thermal ....
+        </div>
+      </div>
+    </a>
+    <!--<a class="card raised cardmy3" [routerLink]="['/pfl/samples']">-->
+    <!--<div class="ui centered my-3">-->
+    <!--<div class="ui grid w-100">-->
+    <!--<div class="nine wide column">-->
+    <!--<h1 class="ml-3">PFL NPD Sample</h1>-->
+    <!--</div>-->
+    <!--<div class="seven wide column">-->
+    <!--<div class="ui image">-->
+    <!--<img src="assets/woven.png" style="height: 88.38px; width: 88.38px" >-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="content">-->
+    <!--<div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+    <!--PFL  NPD Samples-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</a>-->
+    <a class="card raised cardmy3" [routerLink]="['/orders']" >
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Work Order</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/work-order.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Work Orders Woven | Offset | PFL | Thermal ....
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="ui link divided stackable four cards">
+    <a class="card raised cardmy3" [routerLink]="['/costing']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Costing</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/930448-200 (2).png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Master Price Entry
+        </div>
+      </div>
+    </a>
+
+    <!--&lt;!&ndash; <a class="card raised cardmy3" [routerLink]="['/woven']">-->
+    <!--<div class="ui centered my-3">-->
+    <!--<div class="ui grid w-100">-->
+    <!--<div class="nine wide column">-->
+    <!--<h1 class="ml-3">Woven</h1>-->
+    <!--</div>-->
+    <!--<div class="seven wide column">-->
+    <!--<div class="ui image">-->
+    <!--<img src="assets/woven.png" style="height: 88.38px; width: 88.38px" >-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="content">-->
+    <!--<div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">-->
+    <!--NPD Samples  | Work Orders | Job Cards | Delivery Challans-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</a>-->
+
+    <a class="card raised cardmy3" [routerLink]="['/job-cards']" >
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Job Cards</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/Job.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Job Cards Woven | Offset | PFL | Thermal ....
+        </div>
+      </div>
+    </a>
+    <!-- <a class="card raised cardmy3" href="http://117.58.243.13:5000/">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-2">Production Planning </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/streamline-the-complete.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Planning | Design | Prof Reading | Cutting ....
+        </div>
+      </div>
+    </a> -->
+
+    <a class="card raised cardmy3" [routerLink]="['/crm']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="eight wide column">
+            <h1 class="ml-3">CRM</h1>
+          </div>
+          <div class="eight wide column">
+            <div class="ui image">
+              <img src="assets/crm.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and view PI
+        </div>
+      </div>
+    </a>
+
+  </div>
+  <div class="ui link divided stackable four cards">
+    <!-- [routerLink]="['/inventory/indent']" -->
+    <a class="card raised cardmy3" (click)="getIndentRoute()">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Indent</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/indent.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and view indent
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['/challan']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3"> Challan</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/screen.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and View
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/commercial']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="eight wide column">
+            <h1 class="ml-3">Comme<br>rcial</h1>
+          </div>
+          <div class="eight wide column">
+            <div class="ui image">
+              <img src="assets/commercial1.png" style="height: 80.38px; width: 80.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and view Master Challan
+        </div>
+      </div>
+    </a>
+
+
+
+  </div>
+
+  <div class="ui link divided stackable four cards">
+  
+    <a class="card raised cardmy3" [routerLink]="['/hrm']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="eight wide column">
+            <h1 class="ml-3">HRM</h1>
+          </div>
+          <div class="eight wide column">
+            <div class="ui image">
+              <img src="assets/hrm.jpg" style="height: 80.38px; width: 80.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and view appraisal, attendence
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy2" [routerLink]="['/planning']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Planning</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image small">
+              <img src="assets/plan.png">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="content ">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          PFL Design | PFL Planning | PFL Production Status...
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy3" [routerLink]="['/WOReports']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Reports</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/thermal.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          View Report
+        </div>
+      </div>
+    </a>
+    <!-- Plan Section End -->
+  </div>
+</div>

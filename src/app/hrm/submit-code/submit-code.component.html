@@ -1,0 +1,15 @@
+<div class="ui center aligned grid pt-5">
+  <div class="twelve wide column">
+    <form class="ui form">
+      <div class="ui stacked secondary segment">    
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="code" placeholder="Access Code" [(ngModel)]="code" (keyup)="onKey($event.keyCode)">
+            <div class="ui fluid small submit button" (click)="checkCode()">Submit</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,305 @@
+
+<app-submit-code *ngIf="!visible" page="Master" (valid)="visible = true"></app-submit-code>
+
+<div class="ui container pt-5" [ngStyle]="{'background-color':'#71797E'}">
+
+  <div class="ui center aligned grid">
+    <div class="ten wide column" [ngStyle]="{'background-color':'#71797E'}">
+      <h2 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}">Configuration</h2>
+    </div>
+  </div>                         
+
+  <div class="ui link divided stackable four cards">
+
+    <a class="card raised cardmy2" [routerLink]="['section']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Section</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/section.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Section and View Section
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['holidaysetup']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Holiday Setup</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/holidaysetup.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Holiday and View Holiday
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['weekendsetup']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Weekend Setup</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/weekend.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Weekend and View Weekend
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['leaveapplication']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Leave Application</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/leaveapplication.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Leave Application and View Leave Application
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="ui link divided stackable four cards">
+    <a class="card raised cardmy2" [routerLink]="['shift']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Shift</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/shift.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Shift and View Shift
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['employee']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Employee</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/employee_profile.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee and View Employee
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['employee-profile']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Employee Profile</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/employee.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee and View Employee
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['employee_transfer']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3"[ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Employee Transfer</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/emp_transfer.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee Transfer and View Employee Transfer
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="ui link divided stackable four cards">
+    <a class="card raised cardmy2" [routerLink]="['letterDraft']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3"[ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Letter Draft</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/letter_draft.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Letter and View Letter
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['grade']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3"[ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Grade</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/grade.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Grade and View Grade
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['designation']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3"[ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Designation</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/designation.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Designation and View Designation
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['department']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Department</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/department.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Department and View Department
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['division']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Division</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/division.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Division and View Division
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['photogallery']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Photo Gallery</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/photo_gallery.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          View and Search Photo Of Employees
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy2" [routerLink]="['pagepermission']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Page Permission</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/page_permission.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          add and view page permission
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>

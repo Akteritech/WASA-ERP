@@ -1,0 +1,280 @@
+<div class="pt-5">
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse">
+    <span *ngIf="collapse"> <i class="add icon"></i>New</span>
+    <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+
+  </button>
+  <button class="ui primary tiny button" (click)="get()">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+  <br>
+  <div [suiCollapse]="collapse">
+    <sui-modal [isClosable]="false" *ngIf="collapseCompany" #modal>
+      <div class="header">Add Company</div>
+      <div class="content">
+        <app-add-company></app-add-company>
+      </div>
+      <div class="actions">
+        <small class="text-muted left aligned">- Closing will not save data</small>
+        <button class="ui red button" (click)="toggleCompanyCollapse()" type="button">Close</button>
+      </div>
+    </sui-modal>
+    <br>
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment">
+        <h4 class="ui teal dividing header">
+          <button class="ui teal tiny button my-1" (click)="patch(form)">
+            Save
+          </button>
+          <br>
+          Salary Structure
+        </h4>
+        <div class="equal width fields">
+          <div class="required field">
+            <div class="field">
+              <label>Name</label>
+              <input required type="text" name="no" placeholder="Name" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Payroll Frequency</label>
+            <sui-select class="selection" name="Payroll_Frequency" placeholder="status" [options]="api.payrollFreq"
+              labelField="name" valueField="name" [isSearchable]="true" #rtpStatusPayFreq>
+              <sui-select-option *ngFor="let option of rtpStatusPayFreq.filteredOptions" [value]="option">
+              </sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Company</label>
+            <sui-select class="selection" name="company" placeholder="Select Company" [options]="companies"
+              labelField="name" valueField="id" [isSearchable]="true" #multiSelectcompany>
+              <sui-select-option *ngFor="let option of multiSelectcompany.filteredOptions" [value]="option">
+              </sui-select-option>
+              <div class="link text-primary item" (click)="toggleCompanyCollapse()">Create Company</div>
+            </sui-select>
+            <!--<input required type="text" [(ngModel)]="emp.companyId"  id="Company_ID" title="Company_ID" autofocus placeholder="Company ID"/>-->
+          </div>
+          <div class="field">
+            <label>Letter Head</label>
+            <input required type="text" name="no" placeholder="Letter Head" />
+          </div>
+        </div>
+
+
+        <div class="ui divider"></div>
+        <label>Select employees for current Salary Structure
+        </label>
+
+        <table class="ui small green table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Employee</th>
+              <th>From Date</th>
+              <th>Base</th>
+              <th>Variable</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of sStructures; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item?.employee}}</td>
+              <td>{{item?.hours}}</td>
+              <td>{{item?.grade}}</td>
+              <td>{{item?.comments}}</td>
+              <td> <i class="trash link red icon" (click)="sStructures.splice(i, 1);"></i></td>
+
+            </tr>
+            <tr>
+              <td>{{sStructures.length+1}} </td>
+              <td>
+                <div class="field">
+                  <sui-select class="selection" name="selectEmp" placeholder="Select Employee" [options]="employees"
+                    labelField="firstName" [isSearchable]="true" #empSelect>
+                    <sui-select-option *ngFor="let option of empSelect.filteredOptions" [value]="option">
+                    </sui-select-option>
+                  </sui-select>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="number" placeholder="1" name="itemComponentQuantity">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Grade" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Comments" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <button class="ui teal tiny button my-1" [disabled]="!selectedItem || !bomItem.quantity"
+                  (click)="addBomItem()">
+                  Add
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ui divider"></div>
+        <label>EARNING
+        </label>
+        <table class="ui small green table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Component</th>
+              <th>Abbreviation</th>
+              <th>Statistical Component
+              </th>
+              <th>Formula</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of sStructures; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item?.Component}}</td>
+              <td>{{item?.Abbreviation}}</td>
+              <td>{{item?.StatisticalComponent}}</td>
+              <td>{{item?.Formula}}</td>
+              <td>{{item?.Amount}}</td>
+              <td> <i class="trash link red icon" (click)="sStructures.splice(i, 1);"></i></td>
+
+            </tr>
+            <tr>
+              <td>{{sStructures.length+1}} </td>
+              <td>
+                <div class="field">
+                  <sui-select class="selection" name="selectEmp" placeholder="Component" [options]="employees"
+                    labelField="firstName" [isSearchable]="true" #empSelect>
+                    <sui-select-option *ngFor="let option of empSelect.filteredOptions" [value]="option">
+                    </sui-select-option>
+                  </sui-select>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="number" placeholder="Abbreviation" name="itemComponentQuantity">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Statistical Component" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Formula" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Amount" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <button class="ui teal tiny button my-1" [disabled]="!selectedItem || !bomItem.quantity"
+                  (click)="addBomItem()">
+                  Add
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ui divider"></div>
+        <label>DEDUCTION
+        </label>
+        <table class="ui small green table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Component</th>
+              <th>Abbreviation</th>
+              <th>Statistical Component
+              </th>
+              <th>Formula</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of sStructures; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item?.Component}}</td>
+              <td>{{item?.Abbreviation}}</td>
+              <td>{{item?.StatisticalComponent}}</td>
+              <td>{{item?.Formula}}</td>
+              <td>{{item?.Amount}}</td>
+              <td> <i class="trash link red icon" (click)="sStructures.splice(i, 1);"></i></td>
+
+            </tr>
+            <tr>
+              <td>{{sStructures.length+1}} </td>
+              <td>
+                <div class="field">
+                  <sui-select class="selection" name="selectEmp" placeholder="Component" [options]="employees"
+                    labelField="firstName" [isSearchable]="true" #empSelect>
+                    <sui-select-option *ngFor="let option of empSelect.filteredOptions" [value]="option">
+                    </sui-select-option>
+                  </sui-select>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="number" placeholder="Abbreviation" name="itemComponentQuantity">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Statistical Component" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Formula" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <input type="text" placeholder="Amount" name="itemComponentCostPrice">
+                </div>
+              </td>
+              <td>
+                <button class="ui teal tiny button my-1" [disabled]="!selectedItem || !bomItem.quantity"
+                  (click)="addBomItem()">
+                  Add
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ui divider"></div>
+
+        <label class="text-info mb-2"> ACCOUNT</label>
+        <div class="equal width fields">
+          <div class="field">
+            <label>
+              Mode of Payment
+            </label>
+            <input type="text" placeholder="Amount" name="itemComponentCostPrice">
+          </div>
+          <div class="field">
+            <label>Payment Account
+            </label>
+            <input type="text" placeholder="Amount" name="itemComponentCostPrice">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

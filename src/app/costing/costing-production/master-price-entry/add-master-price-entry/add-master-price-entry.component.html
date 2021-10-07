@@ -1,0 +1,308 @@
+<div class="pt-5">
+  <button class="ui tiny left orange labeled icon button" (click)="backClicked()" *ngIf="this.editId">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui tiny form pr-2 " #form='ngForm' autocomplete="off"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment mt-2 cardmy2">
+      <sui-message class="warning mb-2 mt-2">
+        <li> Fields marked with asterisk <strong>(*) </strong> are mandatory
+        </li>
+        <li>You can not enter price if sample, part , sales executive and customer are same</li>
+        <li>By default H&M Customers has loaded if you want all customers check all button</li>
+      </sui-message>
+      <!--    <sui-message class="attached warning" *ngIf="this.selectedSample">-->
+      <!--      <li *ngIf="!section">No Any Section On this Sample </li>-->
+      <!--      <li *ngIf="!this.masterPrice.partnoid">No Any Part No. On this Sample </li>-->
+      <!--      <li *ngIf="!buyer">No Any Buyer On this Sample </li>-->
+      <!--      <li *ngIf="!subbuyer">No Any Subbuyer On this Sample </li>-->
+      <!--    </sui-message>-->
+      <!--    {{masterPrice | json}} {{selectedSample | json}}-->
+      <div class="ui grid">
+        <div class="twelve wide column">
+          <div class="equal width fields">
+            <div class="field required" *ngIf="this.editId">
+              <label>Sample Name</label>
+              <sui-select placeholder=" " class="selection" name="Sample_name" [isDisabled]="true"
+                [(ngModel)]="selectedSample" [options]="samples" labelField="samplename" [isSearchable]="true"
+                #selectSampleName required>
+                <sui-select-option *ngFor="let op of selectSampleName.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="!this.editId">
+              <label>Sample Name</label>
+              <sui-select placeholder=" " class="selection" name="Sample_name" [(ngModel)]="selectedSample"
+                [options]="samples"
+                (ngModelChange)="getPartBySample();getDataFromSample();getWovenYarnDetails();getOffsetMaterialDetails();getSalesExecutive();"
+                (input)="optionsLookupSampleItems($event.target.value)" labelField="samplename" [isSearchable]="true"
+                #selectSampleName required>
+                <sui-select-option *ngFor="let op of selectSampleName.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required">
+              <label>Section </label>
+              <input type="text" disabled placeholder=" " [(ngModel)]="section" id="section" name="section">
+            </div>
+            <div class="field required" *ngIf="!this.editId">
+              <label>Part No.</label>
+              <sui-select class="selection" id="partnoid" name="partnoid" placeholder="Select part no"
+                [(ngModel)]="masterPrice.partnoid" [options]="listitems" (ngModelChange)="getLengthWidth()"
+                labelField="ListItem" valueField="ID" [isSearchable]="true" #MultiWreavingType>
+                <sui-select-option *ngFor="let option of MultiWreavingType.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required" *ngIf="this.editId">
+              <label>Part No.</label>
+              <sui-select class="selection" id="partnoid1" name="partnoid" placeholder="Select part no"
+                [(ngModel)]="masterPrice.partnoid" [options]="partno" [isDisabled]="true" labelField="listitem"
+                valueField="id" [isSearchable]="true" #MultiWreavingType>
+                <sui-select-option *ngFor="let option of MultiWreavingType.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required ">
+              <label>Buyer</label>
+              <input type="text" disabled placeholder=" " [(ngModel)]="buyer" id="buyer" name="buyer">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field  ">
+              <label>Sub Buyer</label>
+              <input type="text" disabled placeholder=" " [(ngModel)]="subbuyer" id="subbuyer" name="subbuyer">
+            </div>
+            <div class="field required">
+              <label>Sales Executive</label>
+              <sui-select placeholder="sales person" class="selection" name="salespersonname"
+                [isDisabled]="allSalesExecutive" [options]="salespersons" [(ngModel)]="masterPrice.salespersonid"
+                [isSearchable]="true" labelField="SalesPeron" valueField="Emp_ID" #SalesExecutiveName>
+                <sui-select-option *ngFor="let op of SalesExecutiveName.filteredOptions" [value]="op!==null?op:'N/A'">
+                </sui-select-option>
+              </sui-select>
+
+            </div>
+            <div class="field">
+              <label>&nbsp;&nbsp;</label>
+              <button class="ui tiny button" type="button" style="background-color: whitesmoke !important;">
+                <sui-checkbox [(ngModel)]="allSalesExecutive" (click)="clearSalesPerson()" name="allSalesExecutive">
+                  &nbsp;&nbsp;All Executives</sui-checkbox>
+              </button>
+            </div>
+            <div class="field ">
+              <label>Length</label>
+              <input type="number" min="0" disabled (keydown)="api.numberOnly($event)" placeholder="Length"
+                [(ngModel)]="masterPrice.length" id="length" name="length">
+            </div>
+            <div class="field ">
+              <label>Width</label>
+              <input type="number" min="0" disabled (keydown)="api.numberOnly($event)" placeholder=""
+                [(ngModel)]="masterPrice.width" id="width" name="width">
+            </div>
+            <div class="field ">
+              <label>Per Quantity</label>
+              <input type="number" (keydown)="api.numberOnly($event)" placeholder="per qty"
+                [(ngModel)]="masterPrice.perquantity" id="perquantity" name="perquantity">
+            </div>
+
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Finish Type</label>
+              <sui-select placeholder="Select finish type" class="selection" name="finishtype"
+                [(ngModel)]="masterPrice.finishtype" [options]="finishtypes" labelField="listitem" [isSearchable]="true"
+                valueField="id" #selectFinishType required>
+                <sui-select-option *ngFor="let op of selectFinishType.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Cost($)</label>
+              <input type="number" (keydown)="api.numberOnly($event)" placeholder="cost" [(ngModel)]="masterPrice.cost"
+                id="cost" name="cost">
+            </div>
+            <div class="field required">
+              <label>Sale Price($)</label>
+              <input type="number" (keydown)="api.numberOnly($event)" min="0" placeholder=""
+                [(ngModel)]="masterPrice.price" id="price" name="price">
+            </div>
+            <div class="field ">
+              <label>Min Order Qty.</label>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder=""
+                [(ngModel)]="masterPrice.minorderqty" id="minorderqty" name="minorderqty">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field mt-3">
+              <label>Min Order Value($)</label>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder="min order value"
+                [(ngModel)]="masterPrice.minordervalue"
+                [value]="(this.masterPrice.minorderqty/this.masterPrice.perquantity)*this.masterPrice.price"
+                id="minordervalue" name="minordervalue">
+            </div>
+            <div class="field ">
+              <label>Rebate </label>
+              <sui-checkbox [(ngModel)]="masterPrice.rebatepercent" class="ui" id="rebatepercent" name="rebatepercent">
+                Rebate(%)</sui-checkbox>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder=""
+                [(ngModel)]="masterPrice.rebate" id="rebate" name="rebate">
+            </div>
+
+            <div class="field ">
+              <label>Buyer Comm($) </label>
+              <sui-checkbox [(ngModel)]="masterPrice.commissionpercent" class="ui" id="commissionpercent"
+                name="commissionpercent">
+                Buyer Comm(%)
+              </sui-checkbox>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder=""
+                [(ngModel)]="masterPrice.commission" id="commission" name="commission">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+
+              <label>Merchandiser Comm </label>
+              <sui-checkbox [(ngModel)]="masterPrice.merchandisercommpercent" class="ui " id="merchandisercommpercent"
+                name="merchandisercommpercent">Merch. Comm(%)
+              </sui-checkbox>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder=""
+                [(ngModel)]="masterPrice.merchandisercommission" id="merchandisercommission"
+                name="merchandisercommission">
+            </div>
+            <div class="field ">
+              <label>Extra Rebate($) </label>
+              <sui-checkbox [(ngModel)]="masterPrice.extrarebatepercent" class="ui" id="extrarebatepercent"
+                name="extrarebatepercent">
+                Extra Rebate(%)
+              </sui-checkbox>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder=""
+                [(ngModel)]="masterPrice.extrarebate" id="extrarebate" name="extrarebate">
+            </div>
+            <div class="field  ">
+              <div class="fields mt-3 ">
+                <div class="eight wide field ">
+                  <label>Size-Wise Quantity</label>
+                  <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder="size wise quantity"
+                    [(ngModel)]="masterPrice.sizewiseqty" id="sizewiseqty" name="sizewiseqty">
+                </div>
+                <div class="eight wide field">
+                  <label>Size-Wise Value($)</label>
+                  <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder="size wise value"
+                    [(ngModel)]="masterPrice.sizewisevalue"
+                    [value]="(this.masterPrice.sizewiseqty*this.masterPrice.price)/this.masterPrice.perquantity"
+                    id="sizewisevalue" name="sizewisevalue">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="overflow-x-scroll mt-2 mb-2" *ngIf="yarnDetails?.length > 0">
+            <table class="ui mini very compact blue unstackable table">
+              <thead>
+                <label for=""> Yarn Details</label>
+                <tr>
+                  <th>Material Name</th>
+                  <th>Color </th>
+                  <th>Qty </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let yarn of yarnDetails ; let i = index">
+                  <td>{{yarn?.item?.itemcode}}</td>
+                  <td>{{yarn?.color}}</td>
+                  <td>{{yarn?.requiredqty}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="overflow-x-scroll mt-2 mb-2" *ngIf="offsetmaterialdetails?.length > 0">
+            <table class="ui mini very compact blue unstackable table">
+              <thead>
+                <label for=""> Material Details</label>
+                <tr>
+                  <th>Material Name</th>
+                  <th>Color </th>
+                  <th>Qty </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let material of offsetmaterialdetails ; let i = index">
+                  <td>{{material?.item?.itemcode}}</td>
+                  <td>{{material?.color?.samplecolorname}}</td>
+                  <td>{{material?.requiredqty}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="ui teal small button my-1"
+            [disabled]="!this.selectedSample || !this.section || !this.masterPrice.partnoid || !this.buyer || !this.masterPrice.price"
+            (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+            Save
+          </button>
+          <button class="ui primary small button my-1" (click)="update(form)"
+            *ngIf="this.currentRoute?.toString()?.includes('edit')">
+            Update
+          </button>
+        </div>
+        <div class="four wide column">
+          <div class="equal width fields">
+            <div class="field required">
+              <label for=""> Customer</label>
+              <label><span class="mr-3">All </span> <span class="mr-3 ml-3">H&M</span> </label>
+              <input type="radio" class="ui mt-1 mr-3 ml-3 big" name="customer" id="allcustomers"
+                (change)="optionsLookupClient()">
+              <input type="radio" class="ui mt-1 mr-3 ml-3 big" name="customer" (change)="HMclients()" checked>
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div>
+              <div class="field required">
+                <label><span *ngIf="this.clients.length < 50 && !this.currentRoute?.toString()?.includes('edit')">H&M
+                    Customers</span> <span
+                    *ngIf="this.clients.length > 50 && !this.currentRoute?.toString()?.includes('edit')">All
+                    Customers</span> <span *ngIf="this.currentRoute?.toString()?.includes('edit')">Customer</span>
+                  &nbsp; </label>
+              </div>
+              <div class="field" style="color: white;background-color: #1d2124"
+                *ngIf="this.editId && this.masterPrice?.customerid !== -1">
+                <strong>{{masterPrice?.customer?.clientname}}</strong></div>
+              <div class="field" style="color: white;background-color: #1d2124"
+                *ngIf="this.editId && this.masterPrice?.customerid === -1"> <strong>All</strong></div>
+              <div class="mt-2 overflow-x-scroll" style="height: 310px !important;">
+                <table class="ui tiny very compact table unstackable">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllClients"
+                          (ngModelChange)="selectAll()"></sui-checkbox>
+                      </td>
+                      <td>
+                        <div class="ui grid">
+                          <div class="six wide column">
+                            <strong style="color: #0d71bb">Check All </strong>
+                          </div>
+                          <div class="ten wide column">
+                            <div class="ui mini icon input">
+                              <i class="search icon"></i>
+                              <input type="text" placeholder="Search By Customer Name" [(ngModel)]="searching"
+                                (ngModelChange)="getSearchedClient()" id="search" name="search">
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr *ngFor="let s of clients; let i = index " class="">
+                      <td>
+                        <sui-checkbox class="mt-2" [(ngModel)]="s.selected" name="{{i}}" (click)="selectClients(s,i)">
+                        </sui-checkbox>
+                      </td>
+                      <td>{{s?.clientname}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

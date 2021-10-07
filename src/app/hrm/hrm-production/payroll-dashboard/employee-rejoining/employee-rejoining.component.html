@@ -1,0 +1,127 @@
+<div class="pt-5">
+  <button class="ui primary tiny button">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment">
+      <h4 class="ui teal dividing header">
+        Employee Rejoin
+      </h4>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Department</label>
+          <sui-select placeholder="." class="selection" name="department" [(ngModel)]="rejoinEmployee.DeptID"
+            [isSearchable]="true" [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+            <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Card</label>
+          <input type="text" name="cards" [(ngModel)]="rejoinEmployee.IDNo">
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny green button"
+            (click)="cardListDeptWise()">Show</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny red button" (click)="resetData()">Reset</button>
+        </div>
+      </div>
+      <table class="ui very compact teal table unstackable">
+        <thead>
+          <tr>
+            <th><input type="checkbox" name="allChecl" [(ngModel)]="allCheck" (ngModelChange)="checkAll()"></th>
+            <th>SL</th>
+            <th>Unit</th>
+            <th>Department</th>
+            <th>Card No</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Joining</th>
+            <th>Present Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of employerDetails; let i = index">
+            <td><input type="checkbox" name="checks{{i}}" [(ngModel)]="checks[i]"></td>
+            <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+            <td>{{data?.Unit}}</td>
+            <td>{{data?.Deptment}}</td>
+            <td>{{data?.CadrNo}}</td>
+            <td>{{data?.Name}}</td>
+            <td>{{data?.Designation}}</td>
+            <td>{{data?.Joining.substring(0,10)}}</td>
+            <td>{{data?.PresentSalary}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+        [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+        (pageChange)="pageChange()">
+      </sui-pagination>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Rejoin Date</label>
+          <input suiDatepicker pickerMode="date" name="startMonth" [(ngModel)]="this.rejoinEmployee.RejoinDate">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Remarks</label>
+          <div class="two fields">
+            <div class="field">
+              <textarea id="remark" name="remark" [(ngModel)]="this.rejoinEmployee.Remarks" placeholder="Remarks"
+                rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny teal button" (click)="save()">Save</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny purple button"
+            (click)="searchEmpRejoiningList()">Search</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+        </div>
+        <!-- <div class="ml-1 mr-1">
+        <label>&nbsp;</label> <button type="button" class="ui red tiny button my-1" (click)="reset()">Reset</button>
+      </div> -->
+      </div>
+
+      <table class="ui very compact teal table unstackable">
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Department</th>
+            <th>Card No</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Rejoining Date</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataList; let i = index">
+            <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+            <td>{{data?.Department}}</td>
+            <td>{{data?.IDNo}}</td>
+            <td>{{data?.EmpName}}</td>
+            <td>{{data?.Designation}}</td>
+            <td>{{data?.RejoiningDate.substring(0,10)}}</td>
+            <td>{{data?.REMARKS}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <sui-pagination [collectionSize]="meta1.totalItemCount" [pageSize]="meta1.itemsPerPage"
+        [hasNavigationLinks]="true" [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true"
+        [(page)]="meta1.currentPage" (pageChange)="pageChangeInactive()">
+      </sui-pagination>
+    </div>
+  </form>
+</div>

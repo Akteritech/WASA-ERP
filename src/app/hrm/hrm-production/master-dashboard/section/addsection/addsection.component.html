@@ -1,0 +1,47 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+  <div class="ui segment mt-2">
+    <h4 class="ui teal dividing header">
+      <br>
+      Add Section
+    </h4>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Division</label>
+        <sui-select placeholder="company name" class="selection" name="companyname" [(ngModel)]="section.DIVISION_ID"
+          [options]="companies" [isSearchable]="true" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID"
+          #selectcompanyname>
+          <sui-select-option *ngFor="let op of selectcompanyname.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field ">
+        <label>Department</label>
+        <sui-select placeholder="Select Department" class="selection" name="department"
+          [(ngModel)]="section.DEPARTMENT_ID" [isSearchable]="true" labelField="DeptEngNm" valueField="DEPARTMENT_ID">
+          <sui-select-option *ngFor="let op of departments" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Section Name English</label>
+        <input type="text" placeholder="Section Name Emglish" id="sectionname" name="sectionname" maxlength="50"
+          [(ngModel)]="section.SecEngNm">
+      </div>
+      <div class="field">
+        <label>Section Name Bangla</label>
+        <input type="text" placeholder="Section Name Bangla" id="sectionnamebangla" name="sectionnamebangla"
+          maxlength="50" [(ngModel)]="section.SectBngNm">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Remarks</label>
+        <div class="two fields">
+          <div class="field">
+            <textarea [(ngModel)]="section.Remarks" id="sectionposition" name="sectionposition" placeholder="Remarks"
+              rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="!id" class="ui teal tiny button my-1" (click)="patch(form)">Save</button>
+  </div>
+</form>

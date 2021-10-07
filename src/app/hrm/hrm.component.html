@@ -1,0 +1,199 @@
+<div class="ui container pt-3" [ngStyle]="{'background-color':'#71797E'}">
+
+  <div class="ui center aligned grid">
+    <div class="ten wide column" [ngStyle]="{'background-color':'#71797E'}">
+      <h2 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}">Attendance</h2>
+    </div>
+  </div>               
+  <div class="ui link divided stackable 3 cards" style="padding: 110px;">
+
+    <a class="card raised cardmy3" [routerLink]="['/hrm/attendance']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Reports </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/reportpn.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+         Attendence related all reports
+        </div>
+      </div>
+    </a>
+    <!-- <a class="card raised cardmy3" [routerLink]="['/calender2']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-2" [ngStyle]="{'color':'darkgrey'}"> Dashboard </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/timecal.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Duty sheet, Time card, Process
+        </div>
+      </div>
+    </a> -->
+
+    <!-- <a class="card raised cardmy3" [routerLink]="['/hrm/payroll']">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Payroll  </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/payroll.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Create and View Payroll
+        </div>
+      </div>
+    </a> -->
+
+    <a class="card raised cardmy3" [routerLink]="['/hrm/hrmMaster']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Config. </h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/config.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add and View master and Leave
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy3" [routerLink]="['/hrm/employeeshift']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Shifting</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/roster.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Shift changing, Roster
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/hrm/attnddevice']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Device</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/device.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          <div class="blink_me">{{devicestatus}}</div>
+        </div>
+        
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/hrm/userlevel']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">User</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/erpuser.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          ERP user manage.
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['/hrm/employeeshift']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="eight wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Today</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <h1 class="ml-3" [ngStyle]="{'color':'yellow'}" >{{todayattend}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          {{sumattend}}
+        </div>
+      </div>
+    </a>
+    <!-- <a class="card raised cardmy3" [routerLink]="['/hrm/facerecog']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-1" [ngStyle]="{'color':'darkgrey'}">Recogn.</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/recog.jpg" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Face Recognition and map Location of attendees.
+        </div>
+      </div>
+    </a> -->
+    
+  </div>
+
+
+
+  <div class="ui center aligned grid">
+  <div class="ten wide column" [ngStyle]="{'background-color':'#71797E'}">
+    <h5 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}"> Intelligent Technology.2021</h5>
+  </div>
+  </div>
+  <!-- <div class="ui center message">
+       
+    </div> -->
+ 
+</div>

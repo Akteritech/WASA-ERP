@@ -1,0 +1,499 @@
+<div class="ui header" *ngIf="linkId">
+  <div class="header">
+    Work Order Details
+    <button class="ui red label my-2"  (click)="pdf()" > <i class="download icon"></i>Download Pdf</button>
+    <button class="ui blue label" printSectionId="printContent" ngxPrint><i class="print icon"></i> Print</button>
+  </div>
+</div>
+
+
+<div id="printContent" #printContent>
+
+  <table style="border-collapse: collapse;width: 100%;">
+
+    <tr>
+
+      <td style="text-align: center;">
+
+        <h3 class="ui teal header aligned center">
+
+          <strong>{{CreateWorkData?.sample?.productCategory?.productcategoryname}} Work Order Details </strong>
+
+        </h3>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+  <div id="sample">
+
+    <div class="ui grid">
+
+      <table style="margin-bottom: 8px; border-collapse: collapse;width: 100%">
+
+        <tr>
+
+          <td style="padding-left: 8px;">
+
+            <h3 style="margin-left: 8px;">Work Order No. &nbsp; : #{{CreateWorkData?.workorderno}}</h3>
+
+          </td>
+
+          <td style="text-align: right;">
+
+            <span style="margin-right: 5px;">
+
+              <ngx-barcode [bc-height]="50" [bc-width]="1" [bc-margin-top]="1" [bc-value]="CreateWorkData?.workorderno"
+
+                           [bc-display-value]="false"></ngx-barcode>
+
+            </span>
+
+          </td>
+
+        </tr>
+
+      </table>
+
+      <!-- <div class="ten wide column">
+
+          <h2 class="center aligned vertically">Work Order No. &nbsp; : #{{CreateWorkData?.workorderno}}</h2>
+
+        </div>
+
+        <div class="four wide column">
+
+          <ngx-barcode [bc-height]="50" [bc-width]="1"  [bc-margin-top]="1" [bc-value]="CreateWorkData?.workorderno" [bc-display-value]="false"></ngx-barcode>
+
+        </div> -->
+
+    </div>
+
+    <table style="border-collapse: collapse;width: 100%;font-size: 10px;">
+
+      <tr>
+
+        <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center">
+
+          <strong>{{CreateWorkData?.company?.companyname}}</strong> </td>
+
+      </tr>
+
+      <tr>
+
+        <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title: Work
+
+          Order</strong> </td>
+
+      </tr>
+
+    </table>
+
+    <table style="width: 100%;border-collapse: collapse; font-size: 10px;">
+
+      <tr>
+
+        <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>Sample
+
+          Name&nbsp;&nbsp;:</strong> {{sampleName}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Company Name&nbsp;&nbsp; :</strong>
+
+          {{CreateWorkData?.company?.companyname}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Customer Name:&nbsp;&nbsp;</strong>
+
+          {{CreateWorkData?.customer?.clientname}} </td>
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Is FOC:&nbsp;&nbsp; </strong>
+
+          <div *ngIf="CreateWorkData?.isfoc ===  true" class="ui small green horizontal label">YES</div>
+
+          <div *ngIf="CreateWorkData?.isfoc ===  false" class="ui small red horizontal label">NO</div>
+
+        </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Customer Address:&nbsp;&nbsp;
+
+        </strong>{{CreateWorkData?.customer?.currentaddress}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"> <strong>Order Type :</strong> &nbsp;&nbsp;
+
+          <div *ngIf="CreateWorkData?.ordertype == 1" class="ui small green horizontal label">Projection</div>
+
+          <div *ngIf="CreateWorkData?.ordertype == 0" class="ui small green horizontal label">Confirm</div>
+
+          <div *ngIf="CreateWorkData?.ordertype == 2" class="ui small green horizontal label">Sub Contact</div>
+
+          <div *ngIf="CreateWorkData?.ordertype == 3" class="ui small green horizontal label">pp Sample Order</div>
+
+        </td>
+
+
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"> <strong>FOC Reason :</strong> &nbsp;&nbsp;
+
+          <div *ngIf="CreateWorkData?.focreasonid == 1" class="ui small green horizontal label">Excess wastage in
+
+            Production</div>
+
+          <div *ngIf="CreateWorkData?.focreasonid == 2" class="ui small green horizontal label">FOC requested by
+
+            Customer</div>
+
+          <div *ngIf="CreateWorkData?.focreasonid == 3" class="ui small green horizontal label">Rejected by Customer
+
+          </div>
+
+          <div *ngIf="CreateWorkData?.focreasonid == 4" class="ui small green horizontal label">Short QTY claimed by
+
+            Customer</div>
+
+        </td>
+
+        <!--          <td style="border: 1px solid black;padding: 5px"><strong>NPD Executive &nbsp;:&nbsp;&nbsp; </strong> {{CreateWorkData?.NPDExecutive?.firstname}}</td>-->
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Buyer Name &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+
+        </strong>{{CreateWorkData?.brand?.brandname}}</td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Sub Brand Name &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+
+        </strong>{{CreateWorkData?.sample?.program?.programname}}</td>
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Product Category &nbsp;:&nbsp;&nbsp;
+
+        </strong>{{CreateWorkData?.sample?.productCategory?.productcategoryname}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Delivery Date &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.estdeliverdate | date}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Work Order Date:&nbsp;</strong>
+
+          {{CreateWorkData?.orderreceivedate | date}} </td>
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>PO Reference No&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          &nbsp;{{CreateWorkData?.customerpono}}</td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Delivery Party&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          &nbsp;{{CreateWorkData?.deliveryParty?.clientname}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Partial Del. Date &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+
+        </strong>{{CreateWorkData?.partialdeldate | date}} </td>
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Sales Executive&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.salesExecutive?.firstname}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>FOC work order &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.focCreateWorkDataorderid}}</td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Fabric Composition &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.Fabric_Composition?.listitem}} </td>
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Merchandiser Name &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.merchandisername}}</td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Product Code No &nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.productcodeno}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Complain No. &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.complainno}} </td>
+
+      </tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Customer Service &nbsp;:&nbsp;&nbsp;
+
+        </strong>{{CreateWorkData?.customerService?.firstname }} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Speed Order :</strong>&nbsp;&nbsp;
+
+          <div *ngIf="CreateWorkData?.jobcartstatus ===  true" class="ui small green horizontal label">YES</div>
+
+          <div *ngIf="CreateWorkData?.jobcartstatus ===  false" class="ui small red horizontal label">NO</div>
+
+        </td>
+
+        <td style="border: 1px solid black;padding: 5px"><strong>Narration &nbsp;&nbsp;:&nbsp;&nbsp; </strong>
+
+          {{CreateWorkData?.narration}}</td>
+
+
+
+        <!--          <td style="border: 1px solid black;padding: 5px"><strong>Dozen  :</strong>&nbsp;&nbsp;-->
+
+        <!--            <div  *ngIf="CreateWorkData?.dozen ===  true" class="ui small green horizontal label">YES</div>-->
+
+        <!--            <div  *ngIf="CreateWorkData?.dozen ===  false" class="ui small red horizontal label">NO</div>-->
+
+        <!--          </td>-->
+
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!--Woven Technical Detail-->
+
+  <div id="woven" *ngIf="CreateWorkData?.brandid ===4 || CreateWorkData?.brandid ===87 || CreateWorkData?.brandid ===1">
+
+    <h3 class="center aligned vertically">Buyers Extra Information</h3>
+
+    <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse; font-size: 10px;">
+
+      <tr>
+
+      <tr>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="CreateWorkData?.brandid ===4"><strong>URN No. </strong>
+
+          &nbsp;&nbsp;{{CreateWorkData?.extracolumn1}}</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="CreateWorkData?.brandid ===87"><strong>ECOM No.
+
+        </strong> &nbsp;&nbsp;{{CreateWorkData?.extracolumn1}}</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="CreateWorkData?.brandid ===87"><strong>MC PO </strong>
+
+          &nbsp;&nbsp;{{CreateWorkData?.extracolumn2}}</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="CreateWorkData?.brandid ===87"><strong>MC Style
+
+        </strong> &nbsp;&nbsp;{{CreateWorkData?.extracolumn3}}</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="CreateWorkData?.brandid ===1"><strong>Dept No .</strong>
+
+          &nbsp;&nbsp;{{CreateWorkData?.extracolumn4}}</td>
+
+      </tr>
+
+    </table>
+
+  </div> <br/>
+
+  <div id="yarn">
+
+    <h3 class="center aligned vertically"> Work Order Details</h3>
+
+    <table style="width: 100%;border-collapse: collapse; font-size: 10px;">
+
+      <tr>
+
+        <th style="border: 1px solid black;padding: 5px">Item Name</th>
+
+        <th style="border: 1px solid black;padding: 5px">Length</th>
+
+        <th style="border: 1px solid black;padding: 5px">Width</th>
+
+        <th style="border: 1px solid black;padding: 5px">Finish type</th>
+
+        <th style="border: 1px solid black;padding: 5px">Sample Color</th>
+
+        <th style="border: 1px solid black;padding: 5px">Part No</th>
+
+        <th style="border: 1px solid black;padding: 5px">Total Order Qty (Pcs)</th>
+
+        <th style="border: 1px solid black;padding: 5px">Total Order Qty (Dozen)</th>
+
+      </tr>
+
+      <tr *ngFor="let detail of CreateWorkData?.details">
+
+        <td style="border: 1px solid black;padding: 5px">{{CreateWorkData?.sample?.samplename}} </td>
+
+        <td style="border: 1px solid black;padding: 5px">{{detail?.length}} </td>
+
+        <td style="border: 1px solid black;padding: 5px">{{detail?.width}} </td>
+
+        <td style="border: 1px solid black;padding: 5px">{{detail?.finish_type?.listitem}} </td>
+
+        <td style="border: 1px solid black;padding: 5px">{{detail?.sampleColor?.samplecolorname}}</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1216">1</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1217">0.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1218">1.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1219">2</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1220">2.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1221">3</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1222">3.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1223">4</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1224">4.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1225">5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1226">5.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1227">6</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1228">6.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1229">7</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1230">7.5</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="detail?.partNo?.partnoid === 1231">8</td>
+
+        <td style="border: 1px solid black;padding: 5px" *ngIf="!detail?.partNo"></td>
+
+        <td style="border: 1px solid black;padding: 5px">{{detail?.orderqty}} </td>
+
+        <td style="border: 1px solid black;padding: 5px"><span *ngIf="detail?.orderqty">
+
+            {{detail?.orderqty / 12 | number}} </span></td>
+
+        <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.price}}  </td>-->
+
+        <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.adjamount}}  </td>-->
+
+        <!--          <td style="border: 1px solid black;padding: 5px">{{detail?.wastagepercentage}}   </td>-->
+
+
+
+        <!-- <td style="border: 1px solid black;padding: 5px">{{detail?.price}} </td> -->
+
+      </tr>
+
+    </table>
+
+  </div>
+
+  <!--    Woven KeyEntry Detail-->
+
+  <div id="key">
+
+    <h3 class="center aligned vertically">Work Order Breakdown Details</h3>
+
+    <!-- <h4 class="center aligned vertically">Work Order No. &nbsp; : #{{CreateWorkData?.workorderno}}</h4> -->
+
+    <table style="width: 100%;border-collapse: collapse; font-size: 10px;">
+
+      <thead *ngIf="this.CreateWorkData.brandid !== 3">
+
+      <!--        <th style="border: 1px solid black;padding: 5px">WorkOrder No.</th>-->
+
+      <th style="border: 1px solid black;padding: 5px">Color</th>
+
+      <th style="border: 1px solid black;padding: 5px">Size</th>
+
+      <th style="border: 1px solid black;padding: 5px">Style</th>
+
+      <th style="border: 1px solid black;padding: 5px">Destination</th>
+      <th style="border: 1px solid black;padding: 5px">Keyentry5</th>
+      <th style="border: 1px solid black;padding: 5px">Keyentry6</th>
+      <th style="border: 1px solid black;padding: 5px">Keyentry7</th>
+      <th style="border: 1px solid black;padding: 5px">Quantity</th>
+
+      <th style="border: 1px solid black;padding: 5px">Dozen</th>
+
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let detail of CreateWorkData?.breakdownDetails;">
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry1}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry2}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry3}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry4}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry5}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry6}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.keyentry7}}</td>
+        <td style="border: 1px solid black;padding: 5px">{{detail?.breakdownqty}}</td>
+
+        <td style="border: 1px solid black;padding: 5px"><span *ngIf="detail?.breakdownqty">
+
+              {{detail?.breakdownqty / 12 | number}} </span></td>
+
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td>Total</td><td>{{totalPc}}</td><td>{{(totalPc / 12).toFixed(2)}}</td>
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <table style="margin-top: 30px;padding: 5px;width: 100%;text-align: center">
+
+    <tr>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;;font-size: 12px; width: 20%">
+
+        <span>{{users}}</span><br />
+
+        <span>{{CreateWorkData?.createddate.substring(0, 10)}}</span>
+
+      </td>
+
+      <td style="padding: 4px;font-size: 12px; width: 60%"></td>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px; width: 20%"></td>
+
+    </tr>
+
+    <tr>
+
+      <td style="padding: 5px; width: 20%">Prepared By</td>
+
+      <!-- <td></td>
+
+        <td></td> -->
+
+      <td style="width: 60%"></td>
+
+      <td style="padding: 5px; width: 20%">Checked By</td>
+
+    </tr>
+
+  </table>
+
+</div>
+
+<span style="font-size: 10px;">{{lastLine}}</span>

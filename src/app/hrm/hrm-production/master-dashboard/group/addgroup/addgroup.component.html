@@ -1,0 +1,31 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment">
+    <h3 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add Holiday
+    </h3>
+    <h3 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Holiday
+    </h3>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Holiday Date</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="holiday.HOLIDAY_DATE" name="holidayDate" >
+      </div>
+      <div class="field required">
+        <label>Description</label>
+        <input required type="text" [(ngModel)]="holiday.DESCRIPTION" id="description" name="description"
+          placeholder="Description" />
+      </div>
+    </div>
+    <!-- *ngIf="!this.currentRoute?.toString()?.includes('edit')" -->
+  <button class="ui teal tiny button my-1" (click)="patch(form)">
+    Save
+  </button>
+  <button class="ui primary tiny button my-1" (click)="patch(form)"
+    *ngIf="this.currentRoute?.toString()?.includes('edit')">
+    Update
+  </button>
+  </div>
+  
+</form>

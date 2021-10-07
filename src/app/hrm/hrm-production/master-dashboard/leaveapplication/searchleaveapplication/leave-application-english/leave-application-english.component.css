@@ -1,0 +1,14 @@
+
+  @media print {
+    #PrintOnly {
+      display: block !important;
+    }
+
+    img {
+      -webkit-print-color-adjust: exact;
+    }
+
+    .print_margin{
+        margin: 40px 0px !important;
+    }
+  }

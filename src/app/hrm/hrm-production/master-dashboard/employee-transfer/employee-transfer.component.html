@@ -1,0 +1,190 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1">
+    <i class="recycle icon"></i> Reset
+  </button>
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+      <h4 class="ui teal dividing header">
+        Employee Transfer
+      </h4>
+      <!--    {{emptransfer | json}}-->
+      <div class="equal width fields" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="field required">
+          <label>Zone</label>
+          <sui-select name="DIVISION_ID" class="selection" [(ngModel)]="emptransfer.CURRENT_DIV_ID" [options]="unit"
+            [isSearchable]="true" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #SelectUnit>
+            <sui-select-option *ngFor="let option of SelectUnit.filteredOptions" [value]="option">
+            </sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>Department</label>
+          <sui-select placeholder="." class="selection" name="department" [(ngModel)]="emptransfer.CURRENT_DEPT_ID"
+            [isSearchable]="true" [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+            <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Card</label>
+          <input type="text" name="cards" [(ngModel)]="emptransfer.EMP_CARD_NO">
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny green button" (click)="searchData()">Search</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny green button"
+            (click)="form.resetForm()">Reset</button>
+        </div>
+      </div>
+      <table class="ui very compact teal table unstackable" [ngStyle]="{'background-color':'#71797E'}">
+        <thead>
+          <tr>
+            <th>
+              <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllEmployee"
+                (ngModelChange)="selectAll()"></sui-checkbox>
+            <th>SL</th>
+            <th>Department</th>
+            <th>Card No</th>
+            <th>Name</th>
+            <th>Designation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of employerDetails; let i = index">
+            <td>
+              <sui-checkbox class="mt-2" [(ngModel)]="data.selected" name="{{i}}" (click)="selectEmployees(data,i)">
+              </sui-checkbox>
+            </td>
+            <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+            <td>{{data?.Deptment}}</td>
+            <td>{{data?.CadrNo}}</td>
+            <td>{{data?.Name}}</td>
+            <td>{{data?.Designation}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+        [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+        (pageChange)="pageChange()">
+      </sui-pagination>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>To Zone</label>
+          <sui-select name="DIVISION_ID" class="selection" [(ngModel)]="this.emptransfer.CURRENT_DIV_ID"
+            [options]="unit" [isSearchable]="true" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #SelectUnit>
+            <sui-select-option *ngFor="let option of SelectUnit.filteredOptions" [value]="option">
+            </sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>To Department</label>
+          <sui-select placeholder="." class="selection" name="department" [(ngModel)]="this.emptransfer.CURRENT_DEPT_ID"
+            [isSearchable]="true" [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+            <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field ">
+          <label>Designation</label>
+          <sui-select required name="DESIGNATION_ID" class="selection" [(ngModel)]="this.emptransfer.CURRENT_DESIG_ID"
+            id="DESIGNATION_ID" [options]="designations" labelField="DesigNmEng" valueField="DesigID"
+            [isSearchable]="true" #SelectDesignantion>
+            <sui-select-option *ngFor="let option of SelectDesignantion.filteredOptions" [value]="option">
+            </sui-select-option>
+          </sui-select>
+        </div>
+      </div>
+
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Trans Order Ref No.</label>
+          <input type="text" name="no" [(ngModel)]="this.emptransfer.TRANS_ORDER_REF_NO">
+        </div>
+        <div class="field required">
+          <label>Trans Order Ref Date</label>
+          <input suiDatepicker pickerMode="date" name="startMonth" [(ngModel)]="this.emptransfer.TRANS_ORDER_REF_DATE">
+        </div>
+        <div class="field required">
+          <label>Effective Date</label>
+          <input suiDatepicker pickerMode="date" name="startMonth" [(ngModel)]="this.emptransfer.EFFECTIVE_DATE">
+        </div>
+        <!--      <div class="field required">-->
+        <!--        <label>In-Active Status</label>-->
+        <!--        <sui-select placeholder="." class="selection" name="inactiveStatus" [(ngModel)]="this.emptransfer.piSeparationTypeValue" [options]="inActiveStatus" labelField="type"-->
+        <!--                    valueField="value" #selectinactivestatus>-->
+        <!--          <sui-select-option *ngFor="let op of selectinactivestatus.filteredOptions" [value]="op"></sui-select-option>-->
+        <!--        </sui-select>-->
+        <!--      </div>-->
+      </div>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Remarks</label>
+          <div class="two fields">
+            <div class="field">
+              <textarea id="remark" name="remark" [(ngModel)]="emptransfer.REMARK" placeholder="Remarks"
+                rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny teal button" (click)="save()">Transfer</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny purple button" (click)="tableData()">Search</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny red button"
+            (click)="form.resetForm()">Reset</button>
+        </div>
+        <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny green button" (click)="update()">Update</button>
+        </div>
+      </div>
+
+      <table class="ui very compact teal table unstackable">
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Action</th>
+            <th>Zone</th>
+            <th>Department</th>
+            <th>Card No</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Joining</th>
+            <th>Present Salary</th>
+            <th>Transfer Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of alltablesdata; let i = index">
+            <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+            <td class="single line">
+              <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/employee_transfer',data?.CadrNo]"></i>
+              <!--          <i class="eye link orange icon" (click)="viewDetail(e.EMP_CARD_NO)"></i>-->
+            </td>
+            <td>{{data?.Unit}}</td>
+            <td>{{data?.Deptment}}</td>
+            <td>{{data?.CadrNo}}</td>
+            <td>{{data?.Name}}</td>
+            <td>{{data?.Designation}}</td>
+            <td>{{data?.Joining.substring(0,10)}}</td>
+            <td>{{data?.PresentSalary}}</td>
+            <td>{{data?.TrasferDate | date}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <sui-pagination [collectionSize]="meta1.totalItemCount" [pageSize]="meta1.itemsPerPage"
+        [hasNavigationLinks]="true" [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true"
+        [(page)]="meta1.currentPage" (pageChange)="pageChangeInactive()">
+      </sui-pagination>
+    </div>
+  </form>
+</div>

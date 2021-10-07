@@ -1,0 +1,355 @@
+<div class="ui segment small inline form mt-2" style="min-height: 600px; margin-top: 100px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Month wise Sales
+    </h4>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="Select Company" class="selection" [options]="companies" name="company"
+          [(ngModel)]="companyname" [isSearchable]="true" labelField="companyname" valueField="companyid"
+          #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFromCompany" name="deliveryDate"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchToCompany" name="deliveryDate"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny blue button" (click)="excelSalesReportByCompany()">Search</button>
+        </div>
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny red button" (click)="resetCompany()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Buyer Name</label>
+        <sui-select placeholder="Select Brand" class="selection" [options]="npdBrands" name="brand"
+          [(ngModel)]="brandname" [isSearchable]="true" labelField="BrandName" valueField="BrandID" #selectBrand>
+          <sui-select-option *ngFor="let op of selectBrand.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFromBuyer" name="searchbuyer"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchToBuyer" name="searchbuyer" autocomplete="off">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny blue button" (click)="getSalesReportByBuyer()">Search</button>
+        </div>
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny red button" (click)="resetBuyer()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Client Name</label>
+        <sui-select class="selection" name="customername" [isSearchable]="true" [options]="customers"
+          [(ngModel)]="customer" labelField="clientname" valueField="clientid" #selectCustomer>
+          <sui-select-option *ngFor="let option of selectCustomer.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFromClient" name="searchclient"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchToClient" name="searchclient"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny blue button" (click)="getSalesReportByClient()">Search</button>
+        </div>
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny red button" (click)="resetClient()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Sales Executive</label>
+        <sui-select class="selection" name="executivename" [isSearchable]="true" [options]="executives"
+          [(ngModel)]="executive" labelField="SalesPeron" valueField="Emp_ID" #selectExecutive>
+          <sui-select-option *ngFor="let option of selectExecutive.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFromExecutive" name="searchclient"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchToExecutive" name="searchclient"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny blue button" (click)="getSalesReportByExecutive()">Search</button>
+        </div>
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny red button" (click)="resetExecutive()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Product Category</label>
+        <sui-select class="selection" name="Product_Category" [isSearchable]="true" [options]="productcategories"
+          [(ngModel)]="productcategory" labelField="productcategoryname" valueField="productcategoryid"
+          #selectProductCategoryName>
+          <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFromCategory" name="searchCategory"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchToCategory" name="searchclient"
+            autocomplete="off">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny blue button" (click)="getSalesReportByCategory()">Search</button>
+        </div>
+        <div class="ml-1">
+          <label>&nbsp;</label>
+          <button type="button" class="ui tiny red button" (click)="resetCategory()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="salesbyCompany">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfReportCompany()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Company wise Monthly Sales Report</span>
+        </td>
+      </tr>
+      <tr class="pr-5" *ngFor="let column of salesbyCompany | keyvalue">
+        <th>
+          <div>{{column.key}}</div>
+          <div>{{column.value}}</div>
+        </th>
+      </tr>
+      <tr class="bg-teal text-white pr-5">
+        <th>
+          <div>Company</div>
+          <div>Maheen</div>
+        </th>
+      </tr>
+      
+      <!-- <tbody>
+        <tr *ngFor="let column of salesbyCompany | keyvalue">
+          <td>
+            {{column.value}}
+          </td>
+      </tbody> -->
+    </table>
+  </div>
+
+  <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="salesbyClient">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfReportClient()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="2" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Client wise Monthly Sales Report</span>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td colspan="2" style="text-align: center; ">
+          <span style="font-size: 14px;">For the period of </span>
+          <strong> {{searchFromClient}} </strong>
+          <span style="font-size: 14px;"> to </span>
+          <strong>{{searchToClient}}</strong>
+        </td>
+      </tr> -->
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Company Name</th>
+        <th>Month</th>
+      </tr>
+      <tbody>
+        <!-- <tr *ngFor="let salesReportCom of salesbyCompany; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{salesReportCom['CompanyName']}}</td>
+          <td>{{salesReportCom['Jan' 20']}}</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+
+  <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="salesbyExecutive">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfReportExecutive()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="2" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Executive wise Monthly Sales Report</span>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td colspan="2" style="text-align: center; ">
+          <span style="font-size: 14px;">For the period of </span>
+          <strong> {{searchFromExecutive}} </strong>
+          <span style="font-size: 14px;"> to </span>
+          <strong>{{searchToExecutive}}</strong>
+        </td>
+      </tr> -->
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Company Name</th>
+        <th>Month</th>
+      </tr>
+      <tbody>
+        <!-- <tr *ngFor="let salesReportCom of salesbyCompany; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{salesReportCom['CompanyName']}}</td>
+          <td>{{salesReportCom['Jan' 20']}}</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+
+  <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="salesbyCategory">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfReportCategory()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="2" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Product Category wise Monthly Sales Report</span>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td colspan="2" style="text-align: center; ">
+          <span style="font-size: 14px;">For the period of </span>
+          <strong> {{searchFromExecutive}} </strong>
+          <span style="font-size: 14px;"> to </span>
+          <strong>{{searchToExecutive}}</strong>
+        </td>
+      </tr> -->
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Company Name</th>
+        <th>Month</th>
+      </tr>
+      <tbody>
+        <!-- <tr *ngFor="let salesReportCom of salesbyCompany; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{salesReportCom['CompanyName']}}</td>
+          <td>{{salesReportCom['Jan' 20']}}</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+
+</div>

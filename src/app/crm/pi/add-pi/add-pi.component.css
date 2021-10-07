@@ -1,0 +1,14 @@
+ul{
+    list-style: none;
+}
+li{
+    margin-right: 15px;
+}
+
+
+.plus {
+    color:green; 
+    font-weight: bold; 
+    font-size: 18px;
+}
+      

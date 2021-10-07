@@ -1,0 +1,204 @@
+<!-- <a href="#" (click)="downloadPDF()">Print</a> -->
+<div class="a-container pt-5" id="MyDIv">
+
+  <!-- Head Section -->
+  <section class="a-row">
+    <div class="col-2">
+      <img class="a-img" [src]="mylogo" alt="logo">
+    </div>
+    <div class="col-9">
+      <h2 class="">MAHEEN DIZAYN ETIKET (BD) LTD.</h2>
+      <div>{{data.Address}}</div>
+      <div>Fax:{{data.Fax}},Phone:{{data.Phone}},Mobile:{{data.Mobile}}</div>
+      <div>Email: <a href="{{data.email}}.com">{{data.Email}}</a> Web-{{data.Web}}</div>
+    </div>
+  </section>
+  <!-- Head Section end-->
+
+  <h1 class="a-text-center a-border-title">PROFORMA INVOICE</h1>
+
+  <!-- Customer Information Section -->
+  <section class="a-border a-row a-font-weight-bold a-pl">
+    <div class="a-col-8 a-border-condition a-box">
+      <div class="a-row">
+        <div class="col-3">Customer Name</div>
+        <div class="a-col-1">:</div>
+        <div class="col-8">{{data.ClientName}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-3">Address</div>
+        <div class="a-col-1">:</div>
+        <div class="col-8">{{data.CurrentAddress}}</div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="a-row">
+        <div class="col-5 a-text-right">Invoice No</div>
+        <div class="a-col-1">:</div>
+        <div class="a-col-6">{{data.PINo}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-5 a-text-right">Invoice Date</div>
+        <div class="a-col-1">:</div>
+        <div class="a-col-6">{{data.PIDate}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-5 a-text-right">LC Issuing Bank</div>
+        <div class="a-col-1">:</div>
+        <div class="a-col-6">{{data.issuingbank}}</div>
+      </div>
+    </div>
+    <div class="col-7 a-border-condition a-box">
+      <div class="a-row">
+        <div class="col-3">Delivery To</div>
+        <div class="a-col-1">:</div>
+        <div class="col-8">{{data.DeliveryTO}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-3">Address</div>
+        <div class="a-col-1">:</div>
+        <div class="col-8">{{data.DeliveryTOCurrentAddress}}</div>
+      </div>
+    </div>
+    <div class="a-col-5">
+      <div class="a-row">
+        <div class="col-5 a-text-right">Final Destination</div>
+        <div class="a-col-1">:</div>
+        <div class="col-6">{{data.FinalDestination}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-5 a-text-right">Sailing On Or About</div>
+        <div class="a-col-1">:</div>
+        <div class="col-6">{{data.sailingonorabout}}</div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="a-row">
+        <div class="col-4">Notify Party</div>
+        <div class="a-col-1">:</div>
+        <div class="col-7">{{data.NotifyParty}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Port Of Loading</div>
+        <div class="a-col-1">:</div>
+        <div class="col-7">{{data.PortOfLoading}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Carrier</div>
+        <div class="a-col-1">:</div>
+        <div class="col-7">{{data.Carrier}}</div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="a-row">
+        <div class="col-2">Mc po</div>
+        <div class="a-col-1">:</div>
+        <div class="col-9">{{data.mcpo}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-2">Mc Style</div>
+        <div class="a-col-1">:</div>
+        <div class="col-9">{{data.mcstyle}}</div>
+      </div>
+    </div>
+  </section>
+  <!-- Customer Information Section end-->
+
+
+  <!-- Table Information Section -->
+  <section>
+    <table>
+      <thead>
+        <th>W / O No</th>
+        <th>PO No</th>
+        <th>DESCRIPTION OF LABELS</th>
+        <th>COLOR QTY</th>
+        <th>SIZE (MM)</th>
+        <th>Qty In pcs</th>
+        <th>Price/1000 pcs</th>
+        <th>AMOUNT IN US $</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of workorders">
+          <td>{{obj.WorkOrderNo}}</td>
+          <td>{{obj.CustomerPONo}}</td>
+          <td>{{obj.ItemCode}}</td>
+          <td>1</td>
+          <td>{{obj.PostCode}}</td>
+          <td>{{obj.OrderQty}}</td>
+          <td>{{obj.Price}}</td>
+          <td>{{obj.OrderValue}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="a-tbl-text">Grand Total</td>
+          <td colspan="2">Total Qty PC</td>
+          <td>{{totalQt}}</td>
+          <td>Total US$</td>
+          <td>{{totalAmount}}</td>
+        </tr>
+        <tr *ngIf="discount">
+          <td colspan="3" class="a-tbl-text"></td>
+          <td colspan="2">Discount @{{discount}}%</td>
+          <td>{{discountAmount}}</td>
+        </tr>
+        <tr *ngIf="discount">
+          <td colspan="3" class="a-tbl-text"></td>
+          <td colspan="2">Net US$</td>
+          <td>{{finalAmount}}</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="a-row">
+      <div class="col-7"></div>
+      <div class="col-5 a-grand">
+        <div class="a-fl a-pl-50">Grand Total</div>
+        <div class="a-text-right">{{finalAmount}}</div>
+      </div>
+    </div>
+    <div class="a-row a-pl-12">
+
+      <div class="col-2 a-font-weight-bold">Total In Words </div>
+      <div class="a-col-1 a-font-weight-bold">:</div>
+      <div class="col-9"> {{amountInWords}}</div>
+    </div>
+  </section>
+  <!-- Table Information Section end-->
+
+  <div class="a-row a-pl-12">* Unit Price for Minimum quantity has been considered</div>
+  <div class="a-row a-narration">
+    <div class="col-1 a-font-weight-bold">Narration </div>
+    <div class="a-col-1 a-font-weight-bold">:</div>
+    <div class="col-9">{{data.Narration}}</div>
+  </div>
+
+  <!-- Term Information Section -->
+  <section>
+    <div class="a-border-term">
+      TERMS & CONDITIONS :
+    </div>
+    <div class="a-row a-border-condition a-pl a-mt">
+      <div *ngFor="let obj of terms" class="p">
+        <div>{{obj.Description}}</div>
+      </div>
+    </div>
+  </section>
+  <!-- Term Information Section end-->
+
+  <!-- Footer Section-->
+  <section class="a-row">
+    <div class="col-4 a-text-center">
+      <h3 class="a-mt">For MAHEEN DIZAYN ETIKET (BD) LTD.</h3>
+      <div><img [src]="mysign" alt="Signature" height="50px"></div>
+      <div class="a-border-sign a-font-weight-bold">Authorized Signature</div>
+    </div>
+    <div class="col-8"></div>
+  </section>
+
+  <!-- <div class="a-row a-mt">
+    <div>{{data.companyname}}, Report Date : {{data.date}}, Time : {{data.time}} </div>
+    <div class="a-ml-auto">Page {{data.page}} of {{data.alloage}}</div>
+  </div> -->
+</div>
+<p>{{lastline}}</p>

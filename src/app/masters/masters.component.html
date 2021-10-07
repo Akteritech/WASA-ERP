@@ -1,0 +1,388 @@
+<div class="ui container pt-5 mb-3">
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Company')">
+      <a class="content " [routerLink]="['/masters/companies']" >
+        <a class="center aligned header">Company</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view companies
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Companies </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalcompanies}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Customer Profile')">
+      <a class="content " [routerLink]="['/masters/customers']">
+        <a class="center aligned header">Customer</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view customers
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Customers </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalcustomers}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Department')">
+      <a class="content " [routerLink]="['/masters/departments']">
+        <a class="center aligned header">Department</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view  departments
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Departments </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totaldepartments}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Designation')">
+      <a class="content " [routerLink]="['/masters/designations']">
+        <a class="center aligned header">Designation</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view designations
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Designations </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totaldesignations}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ui four stackable cards">
+    <!-- <div class="ui fluid raised card cardmy2">
+      <a class="content " [routerLink]="['/masters/employees']">
+        <a class="center aligned header">Employee</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+         create and view employees
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Employees </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalemployees}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Brand')">
+      <a class="content " [routerLink]="['/masters/brands']">
+        <a class="center aligned header">Brand</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view  brands
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total  Brands </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalbrands}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Sub Brand')">
+      <a class="content " [routerLink]="['/masters/programs']">
+        <a class="center aligned header">Sub Brand </a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view sub brands
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Sub Brands </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalsubbrands}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Product Category')">
+      <a class="content " [routerLink]="['/masters/product-categories']">
+        <a class="center aligned header">Product Category</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view product categories
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Categories </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalproductcategories}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Product Sub Category')">
+      <a class="content " [routerLink]="['/masters/product-sub-categories']">
+        <a class="center aligned header">Product Sub Category</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view sub categories
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Sub Categories </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalproductsubcategories}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Sample Colo')">
+
+      <a class="content " [routerLink]="['/masters/sample-color']">
+        <a class="center aligned header">Sample Color</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view sample colors
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Sample Colors </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalsamplecolors}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Supplier Enroll')">
+      <a class="content " [routerLink]="['/masters/suppliers']">
+        <a class="center aligned header">Supplier</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view suppliers
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Suppliers </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalsuppliers}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Sample Wise Part')">
+
+      <a class="content " [routerLink]="['/masters/sample-part-wise']">
+        <a class="center aligned header">Sample Part Wise</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view sample part wises
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+
+              <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+                <strong>Total Sample Part Wises </strong>
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+                {{totalsamplepartwises}}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui four stackable cards">
+  <div class="ui fluid raised card cardmy2" *ngIf="permittedPages.includes('Lov')">
+
+
+    <a class="content " [routerLink]="['/masters/lovs']">
+      <a class="center aligned header">Lov</a>
+      <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+        create and view lovs
+      </div>
+    </a>
+    <div class="center aligned extra content">
+      <div class="ui two cards content">
+        <a class="card p-0 cardmy">
+          <div class="ui orange mini statistic">
+
+            <div class="ui text-dark" style="text-transform: uppercase !important;font-size: 11px !important;">
+              <strong>Total Lovs </strong>
+            </div>
+          </div>
+        </a>
+
+        <a class="card p-0 cardmy">
+          <div class="ui green mini statistic">
+            <div class="value p-1" style="text-transform: uppercase !important;font-size: 14px !important;font-weight: bold">
+              {{totallovs}}
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

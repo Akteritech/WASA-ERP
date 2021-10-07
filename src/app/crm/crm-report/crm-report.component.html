@@ -1,0 +1,49 @@
+<div class="ui segment small inline form pt-5" style="margin-top: 50px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+
+  <div class="ui container mt-2">
+    <div class="ui link divided stackable four cards">
+      <a class="card raised cardmy2" [routerLink]="['outstandingSummary']">
+        <div class="ui centered my-3">
+          <div class="ui grid w-100">
+            <div class="nine wide column">
+              <h1 class="ml-3">Outstanding Summary</h1>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image">
+                <img src="assets/crm_outstanding.png" style="height: 80.38px; width: 88.38px">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+            Create and View Outstanding Summary
+          </div>
+        </div>
+      </a>
+      <!-- <a class="card raised cardmy2" [routerLink]="['crmReport']">
+        <div class="ui centered my-3">
+          <div class="ui grid w-100">
+            <div class="nine wide column">
+              <h1 class="ml-3">CRM Report</h1>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image">
+                <img src="assets/woven1.png" style="height: 80.38px; width: 88.38px">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+            View  CRM Report
+          </div>
+        </div>
+      </a>  -->
+    </div>
+  </div>
+</div>

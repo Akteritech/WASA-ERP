@@ -1,0 +1,140 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+
+  <div>
+    <div class="mt-2" [ngStyle]="{'background-color':'#71797E'}">
+      <form onsubmit="return false;" class="ui small form" #form='ngForm' [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui segment mt-2" [ngStyle]="{'background-color':'#71797E'}">
+          <h4 class="ui teal dividing header">
+            <br>
+            Add Grade
+          </h4>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Grade Name English</label>
+              <input type="text" placeholder="Grade Name Emglish" id="GradeName" name="GradeName"
+                [(ngModel)]="grade.GradeName">
+            </div>
+            <div class="field">
+              <label>Grade Name Bangla</label>
+              <input type="text" placeholder="Grade Name Bangla" id="GradeNameBangla" name="GradeNameBangla"
+                [(ngModel)]="grade.GradeNameBangla">
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <sui-select placeholder="." class="selection" name="companyname" [(ngModel)]="grade.Status"
+                [options]="status" [isSearchable]="true" labelField="type" valueField="value" #selectcStatus>
+                <sui-select-option *ngFor="let op of selectcStatus.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+
+            <div class="field">
+              <label>Salary Range</label>
+              <input type="number" placeholder="Salary Range" id="SalaryRange" name="SalaryRange"
+                [(ngModel)]="grade.SalaryRange">
+            </div>
+
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Remarks</label>
+              <textarea [(ngModel)]="grade.Remark" id="Remark" name="Remark" placeholder="Remark" rows="3"></textarea>
+            </div>
+          </div>
+          <button *ngIf="!this.editId" class="ui teal tiny button my-1" (click)="patch()">Save</button>
+          <button *ngIf="this.editId" class="ui teal tiny button my-1" (click)="editGrade()">Update</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <table class="ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Actions</th>
+        <th>Grade Name</th>
+        <th>Grade Name Bangla</th>
+        <th>Salary Range</th>
+        <th>Remark</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of dataList; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+        <td class="single line pointer">
+          <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/grade/',showdata?.GradeId]"></i>
+        </td>
+        <td>{{showdata?.GradeName}}</td>
+        <td style="font-family: SutonnyMJ;">{{showdata?.GradeNameBangla}}</td>
+        <td>{{showdata?.SalaryRange }}</td>
+        <td>{{showdata?.Remark }}</td>
+        <td>{{showdata?.Status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment mt-5">
+      <h3 class="ui teal dividing header">
+        Search Grade
+      </h3>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Grade</label>
+          <input required type="text" id="Grade" name="Grade" placeholder="Grade" [(ngModel)]="Name" />
+        </div>
+        <div class="field required">
+          <label>Grade Name</label>
+          <input required type="text" id="GradeName" name="GradeName" placeholder="Grade Name"
+            [(ngModel)]="SerachText" />
+        </div>
+      </div>
+      <button class="ui purple tiny button my-1" (click)="search()">
+        Search
+      </button>
+    </div>
+  </form>
+
+  <table class="ui very compact unstackable teal table" *ngIf="datas">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <!-- <th>Actions</th> -->
+        <th>Grade Name</th>
+        <th>Grade Name Bangla</th>
+        <th>Status</th>
+        <th>CREATE DATE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of datas; let i = index">
+        <td>{{i+1}} </td>
+        <!-- <td class="single line">
+        <i class="edit link blue icon"></i>
+      </td> -->
+        <td>
+          {{data?.GradeName}}
+        </td>
+        <td>
+          {{data?.GradeNameBangla}}
+        </td>
+        <td>{{data?.Status}}</td>
+        <td>{{data?.CreateDate.substring(0, 10)}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

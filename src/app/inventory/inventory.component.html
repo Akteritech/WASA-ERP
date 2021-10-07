@@ -1,0 +1,1112 @@
+<div class="ui container pt-3 mb-3">
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/items']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Items</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/item.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                {{totalItem}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                {{totalItemGroup}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                today's
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/issue']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Issue Note</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/issue.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/issue']">
+        <a class="center aligned header">Issue Note</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view issue
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total issue
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's issue
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/opening']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Opening Inventory</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/opinventory.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/opening']">
+        <a class="center aligned header">Opening Inventory</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view opening inventory
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Opening
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's opening
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/receive']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Receiving</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/receiving.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- <a class="content " [routerLink]="['/inventory/receive']">
+        <a class="center aligned header">Receiving</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          view receiving report
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total receive
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's receive
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2">
+      <a class="content " [routerLink]="['/inventory/stock-report']">
+        <a class="center aligned header">Stock Report</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          view stock report
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Stock
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's stock
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/adjustment']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Adjustment</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/adjustment.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/adjustment']">
+        <a class="center aligned header">Adjustment</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock adjustment
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                {{totalItemAdjustment}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Stock Adjustment
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's stock adjustment
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/indent']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Indent Note</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/indent.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/indent']">
+        <a class="center aligned header">Indent Note</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view indent note
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Indent
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's Indent
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/inv-material']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Chemical Inventory</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/chemical.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/inv-material']">
+        <a class="center aligned header">Chemical Inventory</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view stock inventory material
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                {{totalItemMaterial}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Chemical
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's Chemical
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/loan-in']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Loan In</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/loanin.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/loan-in']">
+        <a class="center aligned header">Loan In</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock loan in
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total loan in
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's loan in
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/loanoutAgainstloanin']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Loan Out against Loan In</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/loanoutagt.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/loanoutAgainstloanin']">
+        <a class="center aligned header">Loan Out against Loan In</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock loan out against loan in
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total loan out
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's loan out
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/loan-out']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Loan Out</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/loanout.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/loan-out']">
+        <a class="center aligned header">Loan Out</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock loan out
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total loan out
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's loan out
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/transfer-in']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Transfer In</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/transferin.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/transfer-in']">
+        <a class="center aligned header">Transfer In</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock transfer in
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total transfer in
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's transfer in
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/transfer-out']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Transfer Out</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/transferout.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/transfer-out']">
+        <a class="center aligned header">Transfer Out</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock transfer out
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total transfer out
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's transfer out
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/material-dashboard']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Material Dashboard</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/materialdashboard.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/material-dashboard']">
+        <a class="center aligned header">Material Dashboard</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          view stock Issued Material
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total issued material
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's issued material
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/purchase-requirement']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Purchase Requirement</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/purchaserequirement.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/purchase-requirement']">
+        <a class="center aligned header">Purchase Requirement</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view purchase requirement
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total purchase requirement
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's purchase requirement
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/purchase-requisition']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Purchase Requisition</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/purchaserequisition.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/purchase-requisition']">
+        <a class="center aligned header">Purchase Requisition</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view purchase requisition
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total purchase requisition
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's purchase requisition
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/stock-adjustment']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Stock Adjustment</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/stockadjustment.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/stock-adjustment']">
+        <a class="center aligned header">Stock Adjustment</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view stock adjustment
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total stock adjustment
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's stock adjustment
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/temporary-receive']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Temporary Receive</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/temporaryreceive.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- <a class="content " [routerLink]="['/inventory/temporary-receive']">
+        <a class="center aligned header">Temporary Receive</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view temporary receive
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total temporary receive
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's temporary receive
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/returnnote']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Return Note</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/returnnote.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- <a class="content " [routerLink]="['/inventory/returnnote']">
+        <a class="center aligned header">Return Note</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          Create and view Return Note
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total return note
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's return note
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+        <a class="raised cardmy2" [routerLink]="['/inventory/indentstatus']">
+          <div class="ui centered mt-2 mb-3">
+            <div class="ui grid">
+              <div class="nine wide column">
+                <h3 class="mt-1 ml-5">Indent Status</h3>
+              </div>
+              <div class="seven wide column">
+                <div class="ui image small ml-4">
+                  <img src="assets/indentstatus.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      <!-- <a class="content " [routerLink]="['/inventory/indentstatus']">
+        <a class="center aligned header">Indent Status</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          view Indent Status
+        </div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total indent
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                0
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's indent
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui four stackable cards">
+    <div class="ui fluid raised card cardmy2">
+        <a class="raised cardmy2" [routerLink]="['/inventory/binchange']">
+          <div class="ui centered mt-2 mb-3">
+            <div class="ui grid">
+              <div class="nine wide column">
+                <h3 class="mt-1 ml-5">Bin Change</h3>
+              </div>
+              <div class="seven wide column">
+                <div class="ui image small ml-4">
+                  <img src="assets/binchange.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      <!-- <a class="content " [routerLink]="['/inventory/binchange']">
+        <a class="center aligned header">Bin Change</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">Change Item's Bin</div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">0</div>
+              <div class="ui label mini bg-transparent">Total loan in</div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">0</div>
+              <div class="ui label mini bg-transparent">Today's loan in</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+        <a class="raised cardmy2" [routerLink]="['/inventory/ribbonreceive']">
+          <div class="ui centered mt-2 mb-3">
+            <div class="ui grid">
+              <div class="nine wide column">
+                <h3 class="mt-1 ml-5">Ribbon Receive</h3>
+              </div>
+              <div class="seven wide column">
+                <div class="ui image small ml-4">
+                  <img src="assets/ribbonreceive.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      <!-- <a class="content " [routerLink]="['/inventory/ribbonreceive']">
+        <a class="center aligned header">Ribbon Receive</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">Change Item's Bin</div>
+      </a> -->
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">0</div>
+              <div class="ui label mini bg-transparent">Total loan in</div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">0</div>
+              <div class="ui label mini bg-transparent">Today's loan in</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+        <a class="raised cardmy2" [routerLink]="['/inventory/issuedashboard']">
+          <div class="ui centered mt-2 mb-3">
+            <div class="ui grid">
+              <div class="nine wide column">
+                <h3 class="mt-1 ml-5">Issue Dashboard</h3>
+              </div>
+              <div class="seven wide column">
+                <div class="ui image small ml-4">
+                  <img src="assets/issuedashboard.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      <div class="center aligned extra content">
+        <div class="ui two cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">0</div>
+              <div class="ui label mini bg-transparent">Total Issue</div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">0</div>
+              <div class="ui label mini bg-transparent">Today's Issue</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid raised card cardmy2">
+      <a class="raised cardmy2" [routerLink]="['/inventory/invenotry-requisition']">
+        <div class="ui centered mt-2 mb-3">
+          <div class="ui grid">
+            <div class="nine wide column">
+              <h3 class="mt-1 ml-5">Floor Requisition</h3>
+            </div>
+            <div class="seven wide column">
+              <div class="ui image small ml-4">
+                <img src="assets/issuedashboard.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    <div class="center aligned extra content">
+      <div class="ui two cards content">
+        <a class="card p-0 cardmy">
+          <div class="ui orange mini statistic">
+            <div class="value p-1">0</div>
+            <div class="ui label mini bg-transparent">Total Issue</div>
+          </div>
+        </a>
+
+        <a class="card p-0 cardmy">
+          <div class="ui green mini statistic">
+            <div class="value p-1">0</div>
+            <div class="ui label mini bg-transparent">Today's Issue</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="ui fluid raised card cardmy2">
+    <a class="raised cardmy2" [routerLink]="['/inventory/purchasedash']">
+      <div class="ui centered mt-2 mb-3">
+        <div class="ui grid">
+          <div class="nine wide column">
+            <h3 class="mt-1 ml-5">Purchase Dashboard</h3>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image small ml-4">
+              <img src="assets/issuedashboard.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  <div class="center aligned extra content">
+    <div class="ui two cards content">
+      <a class="card p-0 cardmy">
+        <div class="ui orange mini statistic">
+          <div class="value p-1">0</div>
+          <div class="ui label mini bg-transparent">Total Issue</div>
+        </div>
+      </a>
+
+      <a class="card p-0 cardmy">
+        <div class="ui green mini statistic">
+          <div class="value p-1">0</div>
+          <div class="ui label mini bg-transparent">Today's Issue</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>

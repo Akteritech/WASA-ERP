@@ -1,0 +1,180 @@
+<form class="ui form" #form='ngForm' onsubmit="return false;" autocomplete="off">
+  <div class="ui segment pt-5">
+    <h4 class="ui teal dividing header">
+      <button class="ui tiny red right floated button my-1" (click)="reset()" >Reset form</button>
+      <br>
+      Add New PI
+    </h4>
+    <!-- <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      <button class="ui tiny orange button my-1" type="button"  (click)="back()">
+        <i class="arrow left icon"></i> Back
+      </button>
+      <br>
+      Edit Work Order
+    </h4> -->
+
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Company</label>
+        <sui-select required class="selection" [options]="companies" [(ngModel)]="master.CompanyID" [isDisabled]="editId"
+          (ngModelChange)="getWorkOrders()" name="companyname" labelField="companyname" valueField="companyid"
+          #selectDataCOMP>
+          <sui-select-option *ngFor="let op of selectDataCOMP.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field required">
+        <label>Client</label>
+        <sui-select *ngIf="!editId" placeholder=" " class="selection" [(ngModel)]="master.CustomerID" name="client" [options]="clients"
+          (ngModelChange)="clientSelected()" labelField="clientname" valueField="clientid"
+          (input)="getClients($event.target.value)" [isSearchable]="true" #selectCustomers>
+          <sui-select-option *ngFor="let o of selectCustomers.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+        <span *ngIf="editId">{{customer}}</span>
+      </div>
+
+      <div class="field required">
+        <label>Sales Executive</label>
+        <sui-select *ngIf="!editId" placeholder=" " class="selection" [(ngModel)]="master.SalesPersonID" name="salespersonid"
+          [options]="salesPeople" labelField="SalesPeron" valueField="Emp_ID"
+          (input)="getSalesPeople($event.target.value)" [isSearchable]="true" (ngModelChange)="getWorkOrders()"
+          #selectsalespersonid>
+          <sui-select-option *ngFor="let o of selectsalespersonid.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+        <span *ngIf="editId">{{customerService}}</span>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Delivery Client</label>
+        <sui-select placeholder=" " class="selection" [(ngModel)]="master.CustomerDeliveryID" name="deliveryClient"
+          [options]="deliveryClients" labelField="clientname" valueField="clientid"
+          (input)="getDeliveryClients($event.target.value)" (ngModelChange)="getDeliveryAddress()" [isSearchable]="true"
+          #selectDeliveryCustomers>
+          <sui-select-option *ngFor="let o of selectDeliveryCustomers.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Delivery Address</label>{{deliveryAddress}}
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Merchandiser Name:</label>
+        <input type="text" placeholder="Merchandiser Name" [(ngModel)]="master.MerchandiserName"
+          name="MerchandiserName">
+      </div>
+
+      <div class="field">
+        <label>Bank Charge Text</label>
+        <input type="text" placeholder="Bank Charge" name="bankchargetext" [(ngModel)]="master.BankChargeText" />
+      </div>
+
+      <div class="field">
+        <label>Bank Charge Amount</label>
+        <input type="number" placeholder="Bank Charge Amount" name="bankchargevalue"
+          [(ngModel)]="master.BankChargeAmount" />
+      </div>
+
+      <div class="field">
+        <label>Job No</label>
+        <input type="text" placeholder="Job No" name="job" [(ngModel)]="master.JobNo" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>ERQ</label>
+        <input placeholder="ERQ" type="text" [(ngModel)]="master.REQ" id="merchandiser" name="erq" />
+      </div>
+
+      <div class="field">
+        <label>Style No</label>
+        <input placeholder="Style" type="text" [(ngModel)]="master.StyleNo" name="style">
+      </div>
+
+
+      <div class="field">
+        <label>PI Discount</label>
+        <input placeholder="PI Discount" type="number" [(ngModel)]="master.Pi_Discount" name="refNo" />
+      </div>
+
+      <div class="field required">
+        <label>Carrier</label>
+        <sui-select class="selection" [(ngModel)]="master.Carrier" name="type" [options]="carriers"
+          labelField="listitem" valueField="id" #selectfinishTypes>
+          <sui-select-option *ngFor="let o of selectfinishTypes.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Terms & Condition</label>
+        <sui-select class="selection" [(ngModel)]="master.TnAID" name="terms" [options]="terms" labelField="TnAName"
+          valueField="TnAID" #selectterms>
+          <sui-select-option *ngFor="let o of selectterms.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Port of Loading</label>
+        <sui-select class="selection" [(ngModel)]="master.PortOfLoading" name="loadingPort" [options]="loadingPorts"
+          labelField="listitem" valueField="id" #selectports>
+          <sui-select-option *ngFor="let o of selectports.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Unit</label>
+        <sui-select class="selection" [(ngModel)]="master.MeasurableUnit" name="unit" [options]="units"
+          labelField="listitem" valueField="id" #selectunit>
+          <sui-select-option *ngFor="let o of selectunit.filteredOptions" [value]="o"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field required">
+        <label>PI Date</label>
+        <input placeholder="PI Date" suiDatepicker [pickerMinDate]="today" [pickerMode]="'date'"
+          [(ngModel)]="master.PIDate" name="deliveryDate">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label> Narration</label>
+        <input type="text" [(ngModel)]="master.Narration" name="narration">
+      </div>
+    </div>
+    Select Workorders to Add<br>
+    <ul>
+      <li *ngFor="let order of detail; let i =index">
+        <input type="checkbox" name="check{{i}}" [(ngModel)]="checks[i]">{{order.WorkOrderNo}}
+      </li>
+    </ul>
+    <button type="button" class="ui blue tiny button my-1" (click)="add()">Add</button>
+    <table class="ui very compact table">
+      <thead>
+        <tr>
+          <th>Remove</th>
+          <th>Work Order</th>
+          <th>Sample</th>
+          <th>Part</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of selectedWorkOrder; let i =index">
+          <td><i class=" trash link red icon" (click)="remove(i)"></i></td>
+          <td>{{order.WorkOrderNo}}</td>
+          <td>{{order.SampleName}}</td>
+          <td>{{order.ListItem}}</td>
+          <td>{{order.Qty}}</td>
+          <td>{{order.Rate}}</td>
+          <td>{{order.amount}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Pi Qty: {{master.PIQty}}; Pi Amount: {{master.PIValue}}</p>
+    <button *ngIf="!editId" type="button" class="ui purple tiny button my-1" (click)="save()">Save</button>
+    <button *ngIf="editId" type="button" class="ui purple tiny button my-1" (click)="update()">Update</button>
+  </div>
+</form>

@@ -1,0 +1,16 @@
+a{
+  text-decoration:none;
+}
+#main{
+  border:1px solid black;
+  width:400px;
+  height:100px;
+  margin:auto;
+}
+p{
+  text-align:center;
+  font-size:20px;
+}
+td:hover {
+color: #009E30;
+}

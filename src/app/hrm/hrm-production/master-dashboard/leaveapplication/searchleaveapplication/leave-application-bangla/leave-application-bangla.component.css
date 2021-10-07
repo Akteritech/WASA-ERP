@@ -1,0 +1,26 @@
+.banglaText {
+    border: 1px solid black;padding: 5px; font-family: SutonnyMJ; font-size: 20px;
+}
+
+.tbl_style{
+    border-collapse: collapse;width: 100%; font-size: 20px; margin-top: 5px; text-align: center; margin: 40px 0px;
+}
+
+.td_border{
+    border: 1px solid black;padding: 5px;
+}
+
+.font_size_bangla{
+    font-size: 15px;
+}
+
+@media print {
+    /* .pt-5, .py-5{
+        padding-top: 0rem !important;
+    } */
+
+    .ui .bottom .attached .segment .pt-5 .pushable{
+        padding-top: 0rem !important;
+    }
+
+}

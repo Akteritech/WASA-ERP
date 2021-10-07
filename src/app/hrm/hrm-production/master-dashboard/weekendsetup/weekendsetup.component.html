@@ -1,0 +1,65 @@
+<script src="customers.component.ts"></script>
+<div class="mb-5 pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+
+  <div class="mt-2">
+    <app-addweekendsetup ></app-addweekendsetup>
+  </div>
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment mt-5" [ngStyle]="{'background-color':'#71797E'}">
+      <h3 class="ui teal dividing header">
+        Search Weekend
+      </h3>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Weekend</label>
+          <input required type="text" id="Weekend" name="Weekend" placeholder="Weekend" [(ngModel)]="Name" />
+        </div>
+        <div class="field required">
+          <label>Card No</label>
+          <input required type="text" id="CardNo" name="CardNo" placeholder="Card No" [(ngModel)]="SerachText" />
+        </div>
+      </div>
+      <button class="ui purple tiny button my-1" (click)="search()">
+        Search
+      </button>
+    </div>
+  </form>
+  <table class="ui very compact unstackable teal table" *ngIf="datas">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <!-- <th>Actions</th> -->
+        <th>Employee ID</th>
+        <th>Employee Card No</th>
+        <th>Weekend Day</th>
+        <th>CREATE DATE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of datas; let i = index">
+        <td>{{i+1}} </td>
+        <!-- <td class="single line">
+          <i class="edit link blue icon"></i>
+        </td> -->
+        <td>
+          {{data?.EMP_ID }}
+        </td>
+        <td>
+          {{data?.EMP_CARD_NO}}
+        </td>
+        <td>{{data?.WEEKEND_DAY}}</td>
+        <td>{{data?.CREATE_DATE.substring(0, 10)}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

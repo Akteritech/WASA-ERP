@@ -1,0 +1,560 @@
+<button class="ui tiny left labeled orange icon button" *ngIf="this.editId" (click)="this.api.backClicked()" >
+  <i class="left arrow icon"></i>
+  Go Back
+</button>
+<sui-message class="warning mb-2 mt-2" *ngIf="!addsample.samplename || !addsample.productcategoryid">
+  <li>
+    <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+  </li>
+  <li>
+   To check or add technical details select sample
+  </li>
+</sui-message>
+<div class="ui segment cardmy2">
+<h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse()" >
+  Woven Technical Details
+  <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">
+    <i class="add ml-1 blue small icon" *ngIf="collapse"></i>
+    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>
+  </button>
+</h3>
+<div [suiCollapse]="collapse">
+  <div class="ui mt-1 ">
+    <!--    <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">-->
+    <!--      <tbody>-->
+    <!--      <tr class="bg-teal text-white">-->
+    <!--        <td> S.No</td>-->
+    <!--        <td class="center aligned"> <i class="trash icon"></i></td>-->
+    <!--        <td> Warp Color </td>-->
+    <!--        <td> Weaving Type </td>-->
+    <!--        <td> File Name </td>-->
+    <!--        <td> Anti Dying </td>-->
+    <!--        <td> Pick </td>-->
+    <!--        <td> Cutter </td>-->
+    <!--        <td> Length Cut to Cut </td>-->
+    <!--        <td> Damask Length </td>-->
+    <!--        <td> Finish Length </td>-->
+    <!--        <td> Width </td>-->
+    <!--        <td> Hook </td>-->
+    <!--        <td> Starching Info </td>-->
+    <!--      </tr>-->
+    <!--      <tr *ngFor="let TechnicalDetails of WovenTechnicalDetails; let i = index">-->
+    <!--        <td> {{ i+1 }}</td>-->
+    <!--&lt;!&ndash;        <td class="pointer center aligned" (click)="deleteYarn(item.wovencommondetailsid ,i)"> <i class="trash red icon"></i></td>&ndash;&gt;-->
+    <!--        <td> {{TechnicalDetails?.colorinfo?.listitem}} </td>-->
+    <!--        <td *ngIf="TechnicalDetails.weavingtype ===1"> Satin</td>-->
+    <!--        <td *ngIf="TechnicalDetails.weavingtype ===0"> Tafeta</td>-->
+    <!--        <td> {{TechnicalDetails?.filename}}</td>-->
+    <!--        <td *ngIf="TechnicalDetails.antidying === 1"> Yes</td>-->
+    <!--        <td *ngIf="TechnicalDetails.antidying === 2"> No</td>-->
+    <!--        <td *ngIf="TechnicalDetails.antidying === 3"> Not Applicable</td>-->
+    <!--        <td> {{TechnicalDetails?.pick}}</td>-->
+    <!--        <td> {{TechnicalDetails?.cutter}}</td>-->
+    <!--        <td> {{TechnicalDetails?.pslengthctoc}}</td>-->
+    <!--        <td> {{TechnicalDetails?.damasklength }}</td>-->
+    <!--        <td> {{TechnicalDetails?.psfoldtofold}}</td>-->
+    <!--        <td> {{TechnicalDetails?.pswidth}}</td>-->
+    <!--        <td> {{TechnicalDetails?.samplehuk}}</td>-->
+    <!--        <td *ngIf="TechnicalDetails.stracinginfo === 1"> Yes</td>-->
+    <!--        <td *ngIf="TechnicalDetails.stracinginfo === 2"> No</td>-->
+    <!--        <td *ngIf="TechnicalDetails.stracinginfo === 3"> Not Applicable</td>-->
+
+    <!--      </tr>-->
+    <!--      </tbody>-->
+    <!--    </table>-->
+<!--{{wovenDetail | json}}-->
+    <form onsubmit="return false;" class="ui small form " #form='ngForm'>
+      <div class="equal width fields">
+        <div class="field required">
+          <ng-template let-option  #samplenoandname>
+            {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+          </ng-template>
+          <label>Sample No</label>
+          <sui-select  required class="selection" name="sampleno" placeholder=" "
+                       [(ngModel)]="sampleid"
+                       [options]="samplenodata"
+                       [optionTemplate]="samplenoandname"
+                       (input)="optionslookupSampleNo($event.target.value)"
+                       (ngModelChange)="getWoven(this.sampleid)"
+                       labelField="sampleno"
+                       valueField="sampleid"
+                       [isSearchable]="true"
+                       #SelectSamples>
+            <sui-select-option *ngFor="let option of SelectSamples.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+      </div>
+
+      <div class="equal width fields">
+        <div class="field">
+          <div class="field required">
+            <label>Warp Color</label>
+            <sui-select required class="selection" id="WrapColor" name="Wrap_Color" placeholder="warp color"
+                        [(ngModel)]="wovenDetail.color"
+                        [options]="colors"
+                        labelField="listitem"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #MultiWrapColor>
+              <sui-select-option *ngFor="let option of MultiWrapColor.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field required">
+            <label>Weaving Type</label>
+            <sui-select class="selection" id="Working_Type" name="Working_Type"  placeholder="Select Weaving Type"
+                        [(ngModel)]="wovenDetail.weavingtype"
+                        [options]="weavingtype"
+                        labelField="listitem"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #MultiWreavingType>
+              <sui-select-option *ngFor="let option of MultiWreavingType.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text" [(ngModel)]="wovenDetail.Working_Type"   id="Working_Type" name="Working_Type" autofocus placeholder="Working Type"/>-->
+          </div>
+        </div>
+        <div class="field required">
+          <label>File Name</label>
+          <input  type="text" [(ngModel)]="wovenDetail.filename"   id="File_Name" name="File_Name" autofocus placeholder="file name"/>
+        </div>
+        <div class="field">
+          <label>Anti Dying</label>
+          <sui-select class="selection" id="AntiDying" name="AntiDying" placeholder="Select Anti Dying"
+                      [(ngModel)]="wovenDetail.antidying"
+                      [options]="api.options"
+                      labelField="name"
+                      valueField="value"
+                      [isSearchable]="true"
+                      #AntiDying>
+            <sui-select-option *ngFor="let option of AntiDying.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Pick</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.pick"   id="Pick" name="Pick" autofocus placeholder="pick"/>
+        </div>
+        <div class="field required">
+          <label>Cutter</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.cutter"   id="Cutter" name="Cutter" autofocus placeholder="cutter"/>
+        </div>
+        <div class="field required">
+          <label>Length(mm)</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.pslengthctoc"   id="Cut_to_Cut" name="Cut_to_Cut" autofocus placeholder="00.00"/>
+        </div>
+      </div>
+      <div class="equal width fields">
+                <div class="field required">
+                  <label>Finish Length(mm)</label>
+                  <input  type="text"  [(ngModel)]="wovenDetail.psfoldtofold"   id="Finish_Length" name="Finish_Length" autofocus placeholder=" "/>
+                </div>
+                <div class="field required">
+                  <label>Width(mm)</label>
+                  <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.pswidth"   id="Width" name="Width" autofocus placeholder="00.00"/>
+                </div>
+        <div class="field ">
+          <label>Damask Length</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.damasklength" min="0"  id="Damask_Length" name="Damask_Length" autofocus placeholder="00.00"/>
+        </div>
+        <div class="field required">
+          <label>Hook</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.samplehuk"   id="Huk" name="Hook" autofocus placeholder="hook"/>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Starching Info</label>
+          <sui-select class="selection" id="Stracing" name="Stracing" placeholder="Select Starching"
+                      [(ngModel)]="wovenDetail.stracinginfo"
+                      [options]="api.options"
+                      labelField="name"
+                      valueField="value"
+                      [isSearchable]="true"
+                      #multiSelectStracing>
+            <sui-select-option *ngFor="let option of multiSelectStracing.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+
+        <div class="field required">
+          <label>Beam Tension</label>
+          <input  type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.beamtension" min="0"  id="Beam_Tension" name="Beam_Tension" autofocus placeholder="Beam Tension"/>
+        </div>
+        <div class="field required">
+          <label>Warp Denier</label>
+          <sui-select class="selection" id="Wrap_Denier" name="Wrap_Denier" placeholder="Select Starching"
+                      [(ngModel)]="wovenDetail.warpdenier"
+                      [options]="api.denier_Value"
+                      labelField="name"
+                      valueField="value"
+                      #multiSelectwarpdenier>
+            <sui-select-option *ngFor="let option of multiSelectwarpdenier.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Ironing Info</label>
+          <sui-select class="selection" id="Ironing_Info" name="Ironing_Info" placeholder="ironing info"
+                      [(ngModel)]="wovenDetail.ironicinfo"
+                      [options]="api.options"
+                      labelField="name"
+                      valueField="value"
+                      [isSearchable]="true"
+                      #Ironing_Info>
+            <sui-select-option *ngFor="let option of Ironing_Info.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Ultrasonic Cutting</label>
+          <sui-select class="selection" id="Ultrasonic_Cutting" name="Ultrasonic_Cutting" placeholder="ultrasonic cutting"
+                      [(ngModel)]="wovenDetail.ultrasoniccutting"
+                      [options]="api.options"
+                      labelField="name"
+                      valueField="value"
+                      [isSearchable]="true"
+                      #Ultrasonic_Cutting>
+            <sui-select-option *ngFor="let option of Ultrasonic_Cutting.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>Pick Wheel</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.pickwheel"   id="Pick_Wheel" name="Pick_Wheel" autofocus placeholder="pick wheel"/>
+        </div>
+        <div class="field required">
+          <label>Cut Fold Info</label>
+          <sui-select class="selection" id="Cut_Fold_Info" name="Cut_Fold_Info" placeholder="cut fold info"
+                      [(ngModel)]="wovenDetail.cutfoldinfo"
+                      [options]="cutfoldinfos"
+                      labelField="listitem"
+                      valueField="id"
+                      [isSearchable]="true"
+                      #Cut_Fold_Info>
+            <sui-select-option *ngFor="let option of Cut_Fold_Info.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Production Capacity</label>
+          <input  type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.productioncapacity"   id="Production_Capacity" name="Production_Capacity" autofocus placeholder="production capacity"/>
+        </div>
+
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Wash/Starch/Ironing Time</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.washstarcirontime"   id="Wash" name="Wash" autofocus placeholder="wash/starch/ironing time"/>
+        </div>
+        <div class="field">
+          <label>Ultrasonic Cut Capacity</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.ultrasoniccutcapacity"  id="Ultrasonic_Cut_Capacity" name="Ultrasonic_Cut_Capacity" autofocus placeholder="ultrasonic cut capacity "/>
+        </div>
+        <div class="field">
+          <label>Cut Fold Capacity</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.cutfoldcapacity"  id="Cut_Fold_Capacity" name="Cut_Fold_Capacity" autofocus placeholder="cut fold capacity"/>
+        </div>
+        <div class="field">
+          <label>Finishing Info</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" [(ngModel)]="wovenDetail.finishinginfo"   id="Finishing_Info" name="Finishing_Info" autofocus placeholder="finishing info"/>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Remark</label>
+          <textarea  type="text" [(ngModel)]="wovenDetail.remarks" rows="2"   id="Remark" name="Remark" autofocus placeholder="Remark"></textarea>
+        </div>
+      </div>
+
+      <button type="button" class="ui teal tiny button"  *ngIf="!this.editId" [disabled]="!this.sampleid || !this.wovenDetail.color || !this.wovenDetail.weavingtype ||
+       !this.wovenDetail.filename || !this.wovenDetail.pick || !this.wovenDetail.cutter || !this.wovenDetail.pslengthctoc || !this.wovenDetail.psfoldtofold || !this.wovenDetail.pswidth || !this.wovenDetail.samplehuk || !this.wovenDetail.beamtension ||
+        !this.wovenDetail.warpdenier || !this.wovenDetail.pickwheel || !this.wovenDetail.cutfoldinfo" (click)="patch(form)" >Save</button>
+<!--      <button type="button" class="ui green tiny button" [disabled]="!this.sampleid" *ngIf="this.wovenDetail.length < 1" (click)="patch(form)" >Save</button>-->
+      <button type="button" class="ui primary tiny button" (click)="Updatepatch(form)" [disabled]="!this.sampleid || !this.wovenDetail.color || !this.wovenDetail.weavingtype ||
+       !this.wovenDetail.filename || !this.wovenDetail.pick || !this.wovenDetail.cutter || !this.wovenDetail.pslengthctoc || !this.wovenDetail.psfoldtofold || !this.wovenDetail.pswidth || !this.wovenDetail.samplehuk || !this.wovenDetail.beamtension ||
+        !this.wovenDetail.warpdenier || !this.wovenDetail.pickwheel || !this.wovenDetail.cutfoldinfo" *ngIf="this.currentRoute?.toString()?.includes('edit')">Update</button>
+    </form>
+  </div>
+</div>
+
+
+<h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" >
+  Woven Yarn Details
+  <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">
+    <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+  </button>
+</h3>
+  <sui-message class="warning mb-2 mt-2" *ngIf="!addsample.samplename || !addsample.productcategoryid">
+    <li>
+     Fill data in denier and pick fields to get Required Quantity
+    </li>
+    <li>
+     Select Sample to check or add yarn details on that sample
+    </li>
+  </sui-message>
+<!--<h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--  3. Edit Woven Yarn Details-->
+<!--  <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">-->
+<!--    <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>-->
+<!--    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>-->
+<!--  </button>-->
+<!--</h3>-->
+<div [suiCollapse]="collapse1">
+  <div class="ui mt-1 ">
+
+    <!--<div class="ui divider"></div>-->
+    <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+      <tbody>
+      <tr class="bg-teal text-white">
+        <td> S.No</td>
+        <td class="center aligned" > <i class="edit icon" *ngIf="this.editId"></i></td>
+        <td class="center aligned"> <i class="trash icon"></i></td>
+        <td> Color Desription</td>
+        <td> Color</td>
+        <td> Material Name</td>
+        <td> Required Qty</td>
+        <td> Maheen Code</td>
+        <td> Denier</td>
+        <td> Pick</td>
+        <td> Supplier</td>
+        <!--<td> Supplier Code</td>-->
+        <td> Sequence ID</td>
+      </tr>
+      <tr *ngFor="let item of WovenYarnDetails; let i = index">
+        <td> {{ i+1 }}</td>
+        <td>
+          <i class="edit icon" (click)="selectYarn(item,i)" *ngIf="this.editId" [(ngModel)]="item.selected" name="{{i}}"></i></td>
+        <td class="pointer center aligned" (click)="deleteYarn(item.yarninfoid ,i)"> <i class="trash red icon"></i></td>
+        <!--        <td>  <i class="edit link blue icon" [routerLink]="['/woven/samples/edit',s?.sampleid]"></i><strong class="link pointer blue icon"  [routerLink]="['/woven/samples/edit',s?.sampleid]" >Edit</strong></td>-->
+
+        <td> {{item?.colordescription}} </td>
+        <td> {{item?.color}}</td>
+        <td> {{item?.item?.itemcode}}</td>
+        <td> {{item?.requiredqty}}</td>
+        <td> {{item?.maheencode}}</td>
+        <td> {{item?.denier}}</td>
+        <td> {{item?.pick}}</td>
+        <td> {{item?.supplierid?.suppliername }}</td>
+        <td> {{item?.sequenceid}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="ui small form">
+      <div class="equal width fields">
+        <div class="field">
+          <ng-template let-option  #samplenoandname>
+            {{option?.sampleno}} <strong>-{{option?.samplename}}</strong>
+          </ng-template>
+          <label>Sample No</label>
+          <sui-select required class="selection" name="yarnsampleno" placeholder=" "
+                      [(ngModel)]="sampleid"
+                      [options]="samplenodata"
+                      [optionTemplate]="samplenoandname"
+                      (input)="optionslookupSampleNo($event.target.value)"
+                      (ngModelChange)="getYarn(this.sampleid)"
+                      labelField="sampleno"
+                      valueField="sampleid"
+                      [isSearchable]="true"
+                      #Selectyarnsampleno>
+            <sui-select-option *ngFor="let option of Selectyarnsampleno.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field ">
+          <label>Color Description</label>
+          <input  type="text" [(ngModel)]="yarn.colordescription" id="Desription" name="Desription"placeholder="Description"/>
+        </div>
+        <div class="field required">
+          <label>Color</label>
+          <input  type="text" [(ngModel)]="yarn.color" id="Color" name="Color" placeholder="Color"/>
+        </div>
+        <div class="field required">
+          <label>Item</label>
+          <sui-select class="selection" id="Item" name="Item" placeholder=" "
+                      [(ngModel)]="yarn.itemid"
+                      [options]="items"
+                      [isDisabled]="!yarn.color"
+                      (input)="searchItem($event.target.value)"
+                      labelField="itemcode"
+                      valueField="itemid"
+                      [isSearchable]="true"
+                      #Selectitmes>
+            <sui-select-option *ngFor="let option of Selectitmes.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field ">
+          <label>Required Qty</label>
+          <input  min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="yarn.requiredqty" id="Required_Qty" name="Required_Qty" placeholder="required qty"/>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Maheen Code</label>
+          <input  type="text" [(ngModel)]="yarn.maheencode" id="Maheen_Code" name="Maheen" placeholder="maheen code"/>
+        </div>
+        <div class="field required">
+          <label>Denier</label>
+          <input  type="number" [(ngModel)]="yarn.denier" id="Denier" name="Denier" placeholder="denier"/>
+        </div>
+        <div class="field required" >
+          <label>Pick</label>
+          <input  type="number" min="0" (keydown)="api.numberOnly($event)" (ngModelChange)="getRequiredQty(this.sampleid);" [(ngModel)]="yarn.pick" id="PickNo" name="Pickno" placeholder="pick"/>
+        </div>
+        <div class="field">
+          <label>Supplier</label>
+          <sui-select class="selection" id="Supplier" name="Supplier" placeholder=" "
+                      [(ngModel)]="yarn.supplierid"
+                      [options]="suppliers"
+                      (input)="optionsLookupSupplier($event.target.value)"
+                      labelField="suppliername"
+                      valueField="supplierid"
+                      [isSearchable]="true"
+                      #SelectSupplier>
+            <sui-select-option *ngFor="let option of SelectSupplier.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Sequence ID</label>
+          <input min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="yarn.sequenceid" id="Sequence_ID" name="Sequence_ID" placeholder="sequence ID"/>
+        </div>
+        <div class="field pt-3 mt-2">
+          <!--          <button type="button" *ngIf="WovenYarnDetails >= 2" class="ui red right floated tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+          <button type="button" class="ui right floated primary tiny button"  [disabled]="!this.sampleid || !this.yarn.color || !this.yarn.itemid || !this.yarn.maheencode || !this.yarn.denier || !this.yarn.pick" (click)="saveYarn()" ><i class="add icon"></i> Add Yarn</button>
+          <button type="button" class="ui right floated primary tiny button" *ngIf="index >= 0" [disabled]="!this.sampleid || !this.yarn.color || !this.yarn.itemid || !this.yarn.maheencode || !this.yarn.denier || !this.yarn.pick"  (click)="updateYarnOnEdit()" > Update Yarn</button>
+<!--          <button type="button" class="ui right floated primary tiny button" *ngIf="this.editId" (click)="updateYarn()" ><i class="add icon"></i> Add Yarn</button>-->
+        </div>
+        <!--<div class="field pt-3 mt-2">-->
+        <!--<button type="button" class="ui primary tiny button" (click)="addYarnDetails()"><i class="add icon"></i> Add Yarn</button>-->
+        <!--<br>-->
+        <!--</div>-->
+      </div>
+      <!--      <button type="button" class="ui teal tiny button " (click)="saveYarn(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+      <!--        Save-->
+      <!--      </button>-->
+      <!--      <button type="button" class="ui primary tiny button " (click)="updateYarn(form)"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+      <!--        Update-->
+      <!--      </button>-->
+      <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+    </div>
+  </div>
+</div>
+</div>
+<!--<h3 class="ui top blue attached header mt-3 pointer"  (click)="collapse2 = !collapse2;"  >-->
+<!--   Key Entry Details-->
+<!--  <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">-->
+<!--    <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>-->
+<!--    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>-->
+<!--  </button>-->
+<!--</h3>-->
+<!--<h3 class="ui top blue attached header mt-3 pointer"  (click)="collapse2 = !collapse2;"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--  4.Edit Key Entry Details-->
+<!--  <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">-->
+<!--    <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>-->
+<!--    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>-->
+<!--  </button>-->
+<!--</h3>-->
+<!--<div [suiCollapse]="collapse2">-->
+<!--  <div class="ui mt-1">-->
+<!--    &lt;!&ndash;<div class="ui divider"></div>&ndash;&gt;-->
+<!--    <table class="ui compact single line table rounded-0 mt-2" style="margin-top: -8px;">-->
+<!--      <tbody>-->
+<!--      <tr class="bg-teal text-white" *ngIf="keyEntryFields.length >= 1">-->
+<!--        <td >S.No</td>-->
+<!--        <td  class="center aligned"> <i class="trash icon"></i></td>-->
+<!--        <td> Color </td>-->
+<!--        <td> Size</td>-->
+<!--        <td> Style</td>-->
+<!--        <td> Key 4</td>-->
+<!--        <td> Key 5</td>-->
+<!--        <td> Key 6</td>-->
+<!--        <td> Key 7</td>-->
+<!--        <td> Key 8</td>-->
+<!--        <td> Key 9</td>-->
+<!--        <td> Quantity</td>-->
+<!--      </tr>-->
+<!--      <tr *ngFor="let key of keyEntryFields; let i = index">-->
+<!--        <td> {{ i+1 }}</td>-->
+<!--        <td class="pointer center aligned" (click)="deleteKeyEntry(key.keyentryid ,i);"> <i class="trash red icon"></i></td>-->
+<!--        <td>{{key?.keyentry1}}</td>-->
+<!--        <td>{{key?.keyentry2}}</td>-->
+<!--        <td>{{key?.keyentry3}}</td>-->
+<!--        <td>{{key?.keyentry4}}</td>-->
+<!--        <td>{{key?.keyentry5}}</td>-->
+<!--        <td>{{key?.keyentry6}}</td>-->
+<!--        <td>{{key?.keyentry7}}</td>-->
+<!--        <td>{{key?.keyentry8}}</td>-->
+<!--        <td>{{key?.keyentry9}}</td>-->
+<!--        <td>{{key?.keyentry10}}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--    <form class="ui small form"  #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()" >-->
+<!--      <div class="equal width fields">-->
+<!--        <div class="field">-->
+<!--          <label>Color</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry1 " id="keyentry1" name="keyentry1" placeholder="Color"/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Size</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry2" id="keyentry2" name="keyentry2" placeholder="Size "/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Style</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry3" id="keyentry3" name="keyentry3" placeholder="Style No"/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Key 4</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry4" id="keyentry4" name="keyentry4" placeholder=""/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Key 5</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry5" id="keyentry5" name="keyentry5" placeholder=""/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Key 6</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry6" id="keyentry6" name="keyentry6" placeholder=""/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Key 7</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry7" id="keyentry7" name="keyentry7" placeholder=""/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Key 8</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry8" id="keyentry8" name="keyentry8" placeholder=""/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Key 9</label>-->
+<!--          <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry9" id="keyentry9" name="keyentry9" placeholder=""/>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--          <label>Quantity</label>-->
+<!--          <input min="0" type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="SampleWiseKeyEntryField.keyentry10" id="Quantity" name="Quantity" placeholder="Quantity"/>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="equal width fields">-->
+<!--        <div class="field">-->
+<!--          <button type="button" *ngIf="keyEntryFields.length >= 2" class="ui red right floated tiny button" (click)="deleteAllKeyEntry()"> Delete All</button>-->
+<!--          <button type="button" class="ui right floated primary tiny button" (click)="addKeyDetails(form)"><i class="add icon"></i> Add Key</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <button type="button" class="ui teal tiny button" (click)="saveKeyEntryFields(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">Save</button>-->
+<!--      <button type="button" class="ui primary tiny button" (click)="updateKeyEntryFields()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">Update</button>-->
+
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+

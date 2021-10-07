@@ -1,0 +1,160 @@
+export class OffsetWorkOrder {
+  sampleid: any;
+  orderreceivedate: any;
+  partialdeldate: any;
+  ordercanceldate: any;
+  clientid: any;
+  brandid: any;
+  buyinghouseid: any;
+  customerpono: any;
+  billtoaddressid: any;
+  shipmentaddressid: any;
+  merchandisername: any;
+  modeofpayment: any;
+  dalivaryid: any;
+  estdeliverdate: any;
+  isminimumcharge: any;
+  salespersonid: any;
+  customerserviceid: any;
+  companyid: any;
+  specialinstruction: any;
+  productcodeno: any;
+  isfoc: any;
+  focworkorderid: any;
+  focreasonid: any;
+  ordertype: any;
+  fabriccomposition: any;
+  jobcartstatus: any;
+  narration: any;
+  statusid: any;
+  createdby: any;
+  createddate: any;
+  pistatus: any;
+  approvedby: any;
+  approveddate: any;
+  approvedcomments: any;
+  extracolumn1: any;
+  extracolumn2: any;
+  extracolumn3: any;
+  extracolumn4: any;
+  extracolumn5: any;
+  extracolumn6: any;
+  ishold: any;
+  iscanceled: any;
+  orderholddate: any;
+  ppsamplestatus: any;
+  mastersample: any;
+  lastmodifiedby: any;
+  lastmodifydate: any;
+  deletedby: any;
+  deleteddate: any;
+  confirmationdate: any;
+  promisedate: any;
+  deliverydate: any;
+  promiseby: any;
+  confirmby: any;
+  changedreason: any;
+  cancelbyholdby: any;
+  complainno: any;
+  speedorder: any;
+  constructor() {
+    this.sampleid = 0;
+    this.complainno = '';
+    this.orderreceivedate = '';
+    this.partialdeldate = '';
+    this.ordercanceldate = '';
+    this.clientid = 0;
+    this.brandid = 0;
+    this.customerpono = '';
+    this.dalivaryid = 0;
+    this.estdeliverdate = '';
+    this.salespersonid = 0;
+    this.customerserviceid = 0;
+    this.companyid = 0;
+    this.productcodeno = '';
+    this.fabriccomposition = 0;
+    this.narration = '';
+    this.extracolumn1 = '';
+    this.extracolumn2 = '';
+    this.extracolumn3 = '';
+    this.extracolumn4 = '';
+    this.extracolumn5 = '';
+    this.extracolumn6 = '';
+    this.ishold = 0;
+    this.deliverydate = '';
+    this.merchandisername = '';
+    this.focworkorderid = 0;
+    this.focreasonid = 0;
+    this.jobcartstatus = 0;
+
+  }
+
+}
+export class OffsetWorkOrderDetail {
+  wodetailid: any;
+  workorderid: any;
+  partsid: any;
+  price: any;
+  orderqty: any;
+  customerpono: any;
+  productionunitid: any;
+  wastagepercentage: any;
+  ordervalue: any;
+  unitid: any;
+  statusid: any;
+  createdby: any;
+  createddate: any;
+  brandid: any;
+  length: any;
+  width: any;
+  samplecolorid: any;
+  finishtype: any;
+  rcvstatus: any;
+  adjrate: any;
+  adjdate: any;
+  adjby: any;
+  adjamount: any;
+  adjpriceid: any;
+  adjqty: any;
+  totalbreakdown: any;
+  part: any;
+  constructor() {
+    this.orderqty = 0;
+    this.adjamount = 0;
+  }
+}
+export class OffsetWorkOrderBreakdownDetail {
+  orderbreakdownid: any;
+  workorderid: any;
+  partsid: any;
+  keyentry1: any;
+  keyentry2: any;
+  keyentry3: any;
+  keyentry4: any;
+  keyentry5: any;
+  keyentry6: any;
+  keyentry7: any;
+  keyentry8: any;
+  keyentry9: any;
+  breakdownqty: any;
+  statusid: any;
+  itempriceid: any;
+  wastageid: any;
+  settingwastageqty: any;
+  productionwastageqty: any;
+  finishstockstatus: any;
+  createddate: any;
+  returnqty: any;
+  constructor() {
+    this.createddate = new Date();
+    this.partsid = 0;
+    this.itempriceid = 0;
+    this.wastageid = 0;
+    this.settingwastageqty = 0;
+    this.productionwastageqty = 0;
+    this.finishstockstatus = 0;
+    this.returnqty = 0;
+    this.statusid = 0;
+    
+  }
+}

@@ -1,0 +1,79 @@
+<div class="ui segment pt-5">
+  <button class="ui blue label" printSectionId="printContent" ngxPrint><i class="print icon"></i> Print</button>
+  <div id="printContent" #printContent>
+    <div style="font-size: 10px;" *ngFor="let person of jobcards">
+      <table style="border-collapse: collapse;width: 100%;">
+        <tr>
+          <td style="padding: 5px;text-align: center;">
+            <div style="font-size: 16px; font-weight: bold;">{{person.company}}</div>
+            <div>Saidabad Water Treatment Plant.</div>
+            <div style="font-weight: bold;">Monthly Job Card Report</div>
+            <div style="font-weight: bold; text-decoration: underline;">{{dateString}}</div>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; padding: 5px; border:1px solid black; font-size: 10px;">
+        <tr>
+          <td style="width: 65%; padding: 5px;">
+            <div>Card No : {{person.card}}</div>
+            <div>Departmennt : {{person.department}}</div>
+            <div>Date of Joining : {{person.join.substring(0,10)}}</div>
+          </td>
+          <td style="width: 35%; padding: 5px;">
+            <div>Name : {{person.name}} </div>
+            <div>Designation : {{person.designation}} </div>
+          </td>
+        </tr>
+      </table>
+      <table
+        style="border:1px solid black; border-collapse: collapse;width: 100%; text-align: center; font-size: 10px;">
+        <tr>
+          <!-- [class.manual]="s[day]=='P'" -->
+          <th style="width: 20%; border-right:1px solid black;  padding: 5px;">DATE</th>
+          <th style="width: 20%; border-right:1px solid black;  padding: 5px;">IN TIME</th>
+          <th style="width: 20%; border-right:1px solid black;  padding: 5px;">OUT TIME</th>
+          <th style="width: 20%; border-right:1px solid black;  padding: 5px;">SHIFT</th>
+          <th style="width: 10%; border-right:1px solid black;  padding: 5px;">STATUS </th>
+          <th style="width: 5%; border-right:1px solid black;  padding: 5px;">TOTAL HOUR </th>
+          <th style="width: 5%;  padding: 5px;">OT </th>
+        </tr>
+        <tr *ngFor="let day of person.days">
+          <td style="border-right:1px solid black; border-top:1px solid black;  padding: 5px;" [class.manual]="day.Manual!='0'">{{day.date}}</td>
+          <td style="border-right:1px solid black; border-top:1px solid black;  padding: 5px;">{{day.inTime}}</td>
+          <td style="border-right:1px solid black; border-top:1px solid black;  padding: 5px;">{{day.outTime}}</td>
+          <td style="border-right:1px solid black; border-top:1px solid black;  padding: 5px;">{{day.shift}}</td>
+          <td style="border-right:1px solid black; border-top:1px solid black;  padding: 5px;">{{day.status}}</td>
+          <td style="border-right:1px solid black; border-top:1px solid black;  padding: 5px;">{{day.Totalhour}}</td>
+          <td style="border-top:1px solid black;  padding: 5px;">{{day.OT}}</td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; border-bottom:1px solid black; font-size: 10px;">
+        <tr>
+          <td style="padding: 5px; width: 15%;">Summary</td>
+          <td style="padding: 5px; width: 85%; text-align: left;">Total - {{person.total}}</td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; font-size: 10px; font-weight: bold;">
+        <tr>
+          <td style="padding: 5px; width: 12%; text-align: left;">Present (P + L) - {{person.present}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left;">Late (L) - {{person.late}}</td>
+          <td style="padding: 5px; width: 12%; text-align: left;">Absent (A) - {{person.absent}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left;">(SL)- {{person.sickLeave}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left;">(CL)- {{person.casualLeave}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left;">(LWP)- 0</td>
+          <td style="padding: 5px; width: 12%; text-align: left;">Weekend (W)- {{person.weekend}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left;">Holiday (H)- {{person.holiday}}</td>
+          <td style="padding: 5px; width: 4%; text-align: left;">(OS)- 0</td>
+          <td style="padding: 5px; width: 9%; text-align: left;">Hour(s)- {{this.thours}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left;">OT- {{person.OT}}</td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%; font-size: 8px;">
+        <tr>
+          <td style="padding: 5px; width: 85%;">Printed INTELLIGENT TECHNOLOGY System, Report Date: {{today}} </td>
+          <!-- <td style="padding: 5px; width: 15%; text-align: right;">Page 1 of 14</td> -->
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,290 @@
+<div class="mb-5 pt-5">
+  <button class="ui teal tiny button" data-tooltip="click to close form and see table data" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit') && addNewPrice">
+    <span *ngIf="collapse"> <i class="add icon"></i>Create Master Price Entry</span>
+    <span *ngIf="!collapse" ><i class="arrow up icon "></i>click to close form</span>
+
+  </button>
+
+  <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+
+<!--  <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+<!--    <i class="file excel icon"></i>-->
+<!--    <div class="text">Download Excel / Csv</div>-->
+<!--    <i class="dropdown icon"></i>-->
+<!--  </button>-->
+
+<!--  <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+<!--    <i class="file pdf icon"></i>-->
+<!--    <div class="text">Download PDF</div>-->
+<!--    <i class="dropdown icon"></i>-->
+<!--  </button>-->
+  <button class="ui tiny left orange labeled icon button" (click)="backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <button class="ui tiny right floated green dropdown button" [ngClass]="{'orange':!showSearchForm}" (click)="showSearchForm = !showSearchForm;">
+    <i class="search icon"></i>
+    <div class="text mr-1">Search</div>
+    <!--<i class="dropdown icon"></i>-->
+    <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+    <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+  </button>
+  <ng-template let-popup #popupExcel >
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectPrices.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectPrices.length <=0"  (click)="exportCsv()"><strong><i class="arrow down icon"></i></strong>Excel Selected Data</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="this.selectPrices.length <=0"  (click)="exporttoCsv()"><strong><i class="arrow down icon"></i></strong>Csv Selected Data</button>
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label> From Date</label>
+          <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="deliveryDate" autocomplete="off">
+        </div>
+        <div class="field">
+          <label> To Date</label>
+          <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date"  [(ngModel)]="toDate" name="deliveryDate" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny green button m-1"  [disabled]="!fromDate || !toDate" (click)="generateReport()"><strong><i class="arrow down icon"></i></strong>Excel</button>
+    <!-- <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)"><strong><i class="arrow down icon"></i></strong>Csv</button> -->
+  </ng-template>
+
+  <ng-template let-popup #popupPDF >
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectPrices.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectPrices.length <=0"  (click)="exportToPDF()"><strong><i class="arrow down icon"></i></strong>PDF Selected Data</button>
+    <button class="ui tiny blue button m-1"  [disabled]="this.selectPrices.length <=0" (click)="printOpen()"><strong><i class="print icon"></i> </strong>   Print Selected Data</button>
+    <!--<button class="ui tiny teal button m-1" (click)="openPrint()"> <strong><i class="print icon"></i></strong> Direct Print</button>-->
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label> From Date</label>
+          <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="deliveryDate" autocomplete="off">
+        </div>
+        <div class="field">
+          <label> To Date</label>
+          <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date"  [(ngModel)]="toDate" name="deliveryDate" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny red button m-1" [disabled]="!fromDate || !toDate" (click)="exportToPDF(true)"><strong><i class="arrow down icon"></i></strong> PDF</button>
+    <button class="ui tiny blue button m-1" [disabled]="!fromDate || !toDate" (click)="printOpen(true)"><strong><i class="print icon"></i> </strong> Print</button>
+  </ng-template>
+
+
+  <form onsubmit="return false;" class="ui small mt-2 inline form" #form='ngForm' *ngIf="showSearchForm">
+    <h4 class="ui blue dividing header">
+      Search Master Price Entry
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label> Sample Name</label>
+        <sui-select placeholder=" "
+                     class="selection"
+                     [(ngModel)]="masterPrice.sampleid"
+                     name="sampel"
+                     [options]="samples"
+                     (input)="optionsLookupSamples($event.target.value)"
+                     labelField="samplename"
+                     valueField="sampleid"
+                     [isSearchable]="true"
+                     #selectSample>
+        <sui-select-option *ngFor="let o of selectSample.filteredOptions" [value]="o"></sui-select-option>
+      </sui-select>
+      </div>
+      <div class="field">
+        <label> Customer Name</label>
+        <sui-select placeholder=" "
+                     class="selection"
+                     [(ngModel)]="masterPrice.customerid"
+                     name="customername"
+                     [options]="customers"
+                     (input)="optionsLookupCustomers($event.target.value)"
+                     labelField="clientname"
+                     valueField="clientid"
+                     [isSearchable]="true"
+                     #selectCustomers>
+        <sui-select-option *ngFor="let o of selectCustomers.filteredOptions" [value]="o"></sui-select-option>
+      </sui-select>
+      </div>
+      <div class="field">
+        <label>Created From Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="deliveryDate" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Created To Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="deliveryDate" autocomplete="off">
+      </div>
+      <div class="one wide field mr-1">
+        <label>&nbsp;</label>
+
+        <button class="ui teal small button " (click)="get()">
+          Search
+        </button>
+      </div>
+      <div class="one wide field ml-1">
+        <label>&nbsp;</label>
+
+        <button class="ui small red button" (click)="form.resetForm();get()">
+          Reset
+        </button>
+      </div>
+<!--      <div class="one wide field ml-1">-->
+<!--        <label>&nbsp;</label>-->
+
+<!--        <button class="ui small red button" (click)="gets()">-->
+<!--          Today's Records-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="one wide field ml-1 mr-1">-->
+<!--        <label>&nbsp;</label>-->
+
+<!--        <button class="ui small teal button" (click)="generateReport()">-->
+<!--          Generate Report-->
+<!--        </button>-->
+<!--      </div>-->
+    </div>
+
+
+  </form>
+  <h3 class="ui blue horizontal divider header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Add Master Price
+  </h3>
+  <h3 class="ui blue horizontal divider header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+    Update Master Price
+  </h3>
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-master-price-entry (added)="getItemCount()" ></app-add-master-price-entry>
+    </div>
+  </div>
+<!--  <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+<!--    <i class="file excel icon"></i>-->
+<!--    <div class="text">Download Excel / Csv</div>-->
+<!--    <i class="dropdown icon"></i>-->
+<!--  </button>-->
+
+<!--  <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+<!--    <i class="file pdf icon"></i>-->
+<!--    <div class="text">Download PDF</div>-->
+<!--    <i class="dropdown icon"></i>-->
+<!--  </button>-->
+<div class="overflow-x-scroll mt-2 mb-2">
+  <table class="ui blue stackable table">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllPrice" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th class="pointer">Actions</th>
+      <th>Section</th>
+      <th>Sample Name</th>
+      <th>Buyer Name</th>
+      <th>Sales Executive</th>
+      <th>Customer Name</th>
+      <th>Price</th>
+      <th>Rebate Value</th>
+      <th>Rebate(%?)</th>
+      <th>Cost($)</th>
+      <th>finish Type</th>
+      <th>Part No.</th>
+      <th>Length</th>
+      <th>Width</th>
+      <th>Min Order Value</th>
+      <th>Per Quantity</th>
+      <th>Min Order Qty.</th>
+      <th>Buyer Comm Value</th>
+      <th>Buyer Comm(%?)</th>
+      <th>Extra Rebate Value</th>
+      <th>Extra Rebate(%?)</th>
+      <th>Merchandiser Comm Value</th>
+      <th>Merchandiser Comm(%?)</th>
+      <th>Creation Date</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr  *ngFor="let price of prices ; let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="price.selected" name="{{i}}" (click)="selectSamples(price,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td class="single line">
+        <a class="ui blue tiny label" *ngIf="editPrice" [routerLink]="['/costing/masterprice/edit',price?.itempriceid]"><i class="edit white icon"></i> Edit </a>
+        <a class="ui blue tiny label" (click)="viewDetail(price?.itempriceid)"><i class="eye link white icon"></i> View </a>
+<!--        <i class="edit link blue icon" [routerLink]="['/costing/masterprice/edit',price?.itempriceid]" (click)="optionsLookupSampleItems(query)"></i>-->
+<!--        <i class="eye link teal icon"  (click)="viewDetail(price?.itempriceid)"></i>-->
+      </td>
+      <td>{{price?.productCategory?.productcategoryname}}</td>
+      <td>{{price?.sample?.samplename}}({{price?.partNo?.partnoid}})</td>
+      <td>{{price?.brand?.brandname}}</td>
+      <td *ngIf="price.salespersonid !== -1">{{price?.salesPerson?.firstname}}</td>
+      <td *ngIf="price.salespersonid === -1">All</td>
+      <td *ngIf="price.customerid !== -1" >{{price?.customer?.clientname}}</td>
+      <td *ngIf="price.customerid === -1">All</td>
+      <td>{{price?.price}}</td>
+      <td ><span *ngIf="price.rebatepercent === false">{{price?.rebate}}</span></td>
+      <td ><span *ngIf="price.rebatepercent === true">{{price?.rebate}}</span></td>
+      <td>{{price?.cost}}</td>
+      <td>{{price?.lov?.listitem}}</td>
+      <td *ngIf="price?.partNo?.partnoid === 1217">0.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1216">1</td>
+      <td *ngIf="price?.partNo?.partnoid === 1218">1.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1219">2</td>
+      <td *ngIf="price?.partNo?.partnoid === 1220">2.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1221">3</td>
+      <td *ngIf="price?.partNo?.partnoid === 1222">3.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1223">4</td>
+      <td *ngIf="price?.partNo?.partnoid === 1224">4.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1225">5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1226">5.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1227">6</td>
+      <td *ngIf="price?.partNo?.partnoid === 1228">6.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1229">7</td>
+      <td *ngIf="price?.partNo?.partnoid === 1230">7.5</td>
+      <td *ngIf="price?.partNo?.partnoid === 1231">8</td>
+      <td>{{price?.length}}</td>
+      <td>{{price?.width}}</td>
+      <td>{{price?.minordervalue}}</td>
+      <td>{{price?.perquantity}}</td>
+      <td>{{price?.minorderqty}}</td>
+      <td ><span *ngIf="price.commissionpercent === false">{{price?.commission}}</span></td>
+      <td ><span *ngIf="price.commissionpercent === true">{{price?.commission}}</span></td>
+      <td ><span *ngIf="price.extrarebatepercent === false">{{price?.extrarebate}}</span></td>
+      <td ><span *ngIf="price.extrarebatepercent === true">{{price?.extrarebate}}</span></td>
+      <td ><span *ngIf="price.merchandisercommpercent === false">{{price?.merchandisercommission}}</span></td>
+      <td ><span *ngIf="price.merchandisercommpercent === true">{{price?.merchandisercommission}}</span></td>
+      <td>{{price?.stockratedate | date}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get()">
+  </sui-pagination>
+
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()"  [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

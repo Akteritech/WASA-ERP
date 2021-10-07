@@ -1,0 +1,96 @@
+
+<div class="ui segment">
+  <form class="ui small form ml-2" #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()" >
+    <div class="">
+      <h4 class="ui teal dividing header" *ngIf="!includes('edit')">
+
+        Add New Lov Type
+      </h4>
+      <h4 class="ui teal dividing header" *ngIf="includes('edit')"  >
+
+        Edit Lov Type
+      </h4>
+      <div class="equal width fields">
+        <div class="field required">
+          <label > List Type</label>
+          <input  type="text" [(ngModel)]="newlovtype.lovtype" id="lovtype" name="lovtype" placeholder="New Llist Type">
+        </div>
+        <div class="field required">
+          <label>List Item</label>
+          <input  type="text" [(ngModel)]="newlovtype.listitem" id="newlistitem" name="newlistitem" placeholder="list item">
+        </div>
+        <div class="field required" *ngIf="!includes('edit')">
+          <label>List Value</label>
+          <input  type="text" [(ngModel)]="newlovtype.listvalue" id="newlistvalue" name="newlistvalue" placeholder="list value">
+        </div>
+        <div class="field required" *ngIf="!includes('edit')">
+          <label>List Sequence</label>
+          <input  type="number" [(ngModel)]="newlovtype.listsequence" id="newlistsequence" name="newlistsequence" placeholder="list sequence">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Remarks</label>
+          <textarea  type="text" [(ngModel)]="newlovtype.remarks" id="newremarks" rows="2" name="newremarks" placeholder="remarks"></textarea>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <button class="ui teal right floated tiny button my-1" (click)="add()" *ngIf="!includes('edit')">
+            Add Lov Type
+          </button>
+          <button class="ui primary  tiny button my-1" (click)="updateData()" *ngIf="includes('edit')">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="" *ngIf="!includes('edit')">
+      <h4 class="ui teal dividing header" >
+        Create New List Item
+      </h4>
+      <ng-template let-option #optionTemplate>
+<!--        {{ option.listitem }}-->
+        <br>
+        <span class="text-muted">
+      <strong>{{ option?.lovtype}}</strong>
+      </span>
+      </ng-template>
+      <div class="equal width fields">
+        <div class="field">
+          <label>List Type</label>
+          <sui-select
+            class="selection" placeholder=" "
+            [(ngModel)]="lovData"
+            name="lovList"
+            [options]="lovs"
+            [optionTemplate]="optionTemplate"
+            (input)="optionsLookupLOVS($event.target.value)"
+            (ngModelChange)="selectedLOVData();"
+            labelField="lovtype"
+            [isSearchable]="true"
+            #selectSampleName>
+            <sui-select-option *ngFor="let o of selectSampleName.filteredOptions" [value]="o"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field required">
+          <label>New List Item</label>
+          <input  type="text" [(ngModel)]="master.listitem" id="listitem" name="listitem" placeholder="List Item">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Remarks</label>
+          <textarea  type="text" [(ngModel)]="master.remarks" id="remarks" rows="2" name="remarks" placeholder="remarks"></textarea>
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field">
+          <button class="ui teal right floated tiny button my-1" (click)="patch(form)" >
+            Add List Item
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

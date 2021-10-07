@@ -1,0 +1,421 @@
+<!--<button class="ui icon red button" (click)="getPdf()" ><i class="print icon"></i></button>-->
+
+<div class="nexgen pt-5" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Label') ||
+ this.showpagedata3?.CompanyName.includes('Maheen Nexgen') || this.showpagedata3?.CompanyName.includes('MAHEEN DIZAYN')" id="nexgen">
+  <table style="margin-bottom: 12px; width: 100%">
+    <tr>
+      <td>
+        <div style="font-size: 22px; padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Label')"> 	Maheen Label Tex Ltd. </div>
+        <div style="font-size: 22px; padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Nexgen')"> MAHEEN DIZAYN ETIKET (BD) LTD. </div>
+        <div style="font-size: 22px; padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('MAHEEN DIZAYN')"> MAHEEN DIZAYN ETIKET (BD) LTD. </div>
+        <div style="padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Label')">Khurdukhosh Para, Mijmiji, P.S-Siddirgonj, Dist: Narayangonj, Bangladesh. </div>
+        <div style="padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Nexgen')">(JVwithNexgenPackagingLtd.) </div>
+        <div style="padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Nexgen')"> Khurdukhosh Para, Mijmiji, P.S-Siddirgonj, Dist: Narayangonj, Bangladesh. </div>
+        <div style="padding: 5px;" *ngIf="this.showpagedata3?.CompanyName.includes('MAHEEN DIZAYN')"> SA Plot-307, RS-416 Khurdukhosh Para, Mijmiji, P.S-Siddirgonj, Dist: Narayangonj, Bangladesh. </div>
+      </td>
+      <td>
+        <div style="border: 1px solid black; padding: 5px; font-size: 20px; text-align: center;">
+          HAG-CT112WH-CN
+        </div>
+        <div style="padding: 2px; text-align: center;  font-size: 13px;">Doc.Code: PPC/03/017</div>
+        <div style="padding: 2px; text-align: center;  font-size: 13px;">Effective date: 15/12/14</div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="margin-bottom: 12px; width: 100%">
+    <tr>
+      <td>
+        <div style="text-align: center; font-size: 14px; font-weight: bold;">Delivery Challan </div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="margin-bottom: 12px; font-size: 11px; border: 1px solid black; width: 100%">
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Delivery Party Name :
+        {{showpagedata3?.DalivaryParty}} </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Challan No : {{showpagedata3?.ChallanNo}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Party Address : {{showpagedata3?.PartyAddress}}
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Challan Date : {{showpagedata3?.ChallanDate }}
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Merchandiser : {{showpagedata3?.Merchandiser}}
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Order No : {{showpagedata3?.WorkOrderNo }}
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">P.O Ref No. : {{showpagedata3?.CustomerPONo}}
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Customer Name : {{showpagedata3?.ClientName}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Buyer : {{showpagedata3?.BuyerName}} </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Customer Address :{{showpagedata3?.CurrentAddress}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Ecom : {{challanDetails?.client?.buyername}} </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Cosignee Name :  </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">MC Style : {{showpagedata3?.MCStyle}}</td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">MC PO : {{showpagedata3?.MCPO}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Fabric Composition : {{showpagedata3?.Fabric}}</td>
+    </tr>
+  </table>
+
+  <table style="margin-bottom: 12px; font-size: 11px; border: 1px solid black;border-collapse: collapse; width: 100%">
+    <tr>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">SL</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Particulars</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Color</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Size</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Style No</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px"></th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px"></th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Order Qty</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Already Challan</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">This Challan</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Rem. Qty</th>
+    </tr>
+    <tr *ngFor="let detail of showpagedata; let i = index">
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{i+1}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.SampleName}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry1}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry2}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry3}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry4}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry5}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.BreakDownQTY}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.PreviousChallanQty}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.ChallanBreakDownQty}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.BreakDownQTY -( detail?.ChallanBreakDownQty + detail?.PreviousChallanQty)}}</td>
+    </tr>
+    <tr>
+      <td colspan="7"></td>
+      <td>{{orderTotal}}</td>
+      <td>{{prevChallanTotal}}
+      <td>{{challanqty}}</td>
+      <td>{{remQty}}</td>
+    </tr>
+
+  </table>
+
+  <table style="margin-bottom: 12px; width: 100%">
+    <tr>
+      <td style="width: 40%;">
+        <table style="border: 1px solid black;border-collapse: collapse; width: 100%;" *ngFor="let data of showpagedata1; let index = i">
+          <tr *ngIf="this.data?.pos === '1' ">
+            <td style="padding: 7px;">Order Qty</td>
+            <td style="padding: 7px; text-align: right;">{{data?.Qty}}</td>
+          </tr>
+          <tr  *ngIf="this.data?.pos === '2'">
+            <td style="padding: 7px;">Already Challan Qty</td>
+            <td style="padding: 7px; text-align: right;">{{data?.Qty}}</td>
+          </tr>
+          <tr  *ngIf="this.data?.pos  === '3'">
+            <td style="padding: 7px;">This Challan</td>
+            <td style="padding: 7px; text-align: right;">{{data?.Qty}}</td>
+          </tr>
+        </table>
+        <table style="border: 1px solid black;border-collapse: collapse; width: 100%;">
+          <tr>
+            <td style="padding: 7px;">Balance</td>
+            <td style="padding: 7px; text-align: right;">{{qtyTotal}}</td>
+          </tr>
+        </table>
+<!--        <div class="ui left floated" style="padding: 7px; border: 1px solid black;border-collapse: collapse; width: 100%; text-align: right;"><span style="margin-left: 10px">Balance:</span>{{qtyTotal}}</div>-->
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 40%;">
+        <div style="border: 1px solid black; padding: 5px; font-size: 20px; text-align: center;">
+          Supplied Qty/PC
+        </div>
+        <table style="border: 1px solid black; border-collapse: collapse; width: 100%;">
+          <tr>
+            <td style="padding: 5px; text-align: center;">Challan No</td>
+            <td style="padding: 5px; text-align: center;">Challan Qty</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; text-align: center;">{{showpagedata2?.ChallanNo}}</td>
+            <td style="padding: 5px; text-align: center;">{{showpagedata2?.ChallanBreakDownQty}}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse; width: 100%; margin-bottom: 30px;">
+    <tr>
+      <td style="padding: 5px;"><strong> Narration:</strong> {{showpagedata3?.Remarks}}</td>
+    </tr>
+  </table>
+
+  <table style=" border: 1px solid black; border-collapse: collapse; width: 100%; margin-bottom: 12px;">
+    <tr>
+      <td style="padding: 5px; font-size: 14px; font-weight: bold;">TERMS & CONDITIONS MLTL :</td>
+    </tr>
+    <tr>
+      <td style="padding: 5px;">1. Any discrepancy with the quantity and quality of this consignment must be reported to
+        the Maheen Nexgen within 2 (two) weeks of receipt. </td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse; width: 100%; margin-bottom: 12px;">
+    <tr>
+      <td style="padding: 5px; font-size: 11px;">Printed Maheen Label Tex Ltd Entry Date:01.03.2020 , Time: 07:28:17
+      </td>
+    </tr>
+  </table>
+
+  <table style="width: 100%; text-align: center; margin-top: 100px">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="margin-top: 10px">
+      <td style="border-bottom: 2px solid black;padding: 4px">{{showpagedata3?.CreatedBy}}</td>
+      <td style="border-bottom: 2px solid black;padding: 4px"></td>
+      <td style="border-bottom: 2px solid black;padding: 4px"></td>
+      <td style="border-bottom: 2px solid black;padding: 4px"></td>
+    </tr>
+    <tr>
+      <td>Received By</td>
+      <td>Approved By</td>
+      <td>Authorised Signature</td>
+      <td>Receiver's Signature</td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse; width: 100%;">
+    <tr>
+      <td style="padding: 5px; font-size: 11px; text-align: right; font-weight: bold;"> Received the above in good
+        condition & found no discrepancy </td>
+    </tr>
+  </table>
+</div>
+
+<div class="byways" *ngIf="this.showpagedata3?.CompanyName.includes('Maheen Byways')" id="byways">
+  <table style="margin-bottom: 12px; width: 100%">
+    <tr>
+      <td style="width: 10%;">
+        <img src="assets/byways_logo.png" style="height: 80.38px; width: 88.38px">
+      </td>
+      <td style="width: 45%;">
+        <div style="font-size: 22px; padding: 5px;">MAHEEN DIZAYN ETIKET (BD) LTD. </div>
+        <div style="padding: 5px;"> {{challanDetails?.company?.address}} </div>
+      </td>
+      <td style="width: 45%;">
+        <div style="border: 1px solid black; padding: 5px; font-size: 20px; text-align: center;">
+          PRI 17MEN1611-78.00
+        </div>
+        <div style="padding: 2px; text-align: center;  font-size: 13px;">Doc.Code:PPC/03/017</div>
+        <div style="padding: 2px; text-align: center;  font-size: 13px;">Effective date:15/12/14</div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="margin-bottom: 12px; width: 100%">
+    <tr>
+      <td>
+        <div style="text-align: center; font-size: 14px; font-weight: bold;">Delivery Challan </div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="margin-bottom: 12px; font-size: 11px; border: 1px solid black; width: 100%">
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Delivery Party Name :
+        {{showpagedata3?.DalivaryParty}} </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Challan No : {{showpagedata3?.ChallanNo}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Party Address : {{showpagedata3?.PartyAddress}}
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Challan Date : {{showpagedata3?.ChallanDate }}
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Merchandiser : {{showpagedata3?.Merchandiser}}
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Order No : {{showpagedata3?.WorkOrderNo }}
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">P.O Ref No. : {{showpagedata3?.CustomerPONo}}
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Customer Name : {{showpagedata3?.ClientName}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Buyer : {{showpagedata3?.BuyerName}} </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Customer Address :{{showpagedata3?.CurrentAddress}} </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Ecom : {{challanDetails?.client?.buyername}} </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">Cosignee Name :  </td>
+    </tr>
+    <tr>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">MC Style : {{showpagedata3?.MCStyle}}</td>
+      <td style="width: 10%;"></td>
+      <td style="width: 45%; font-weight: bold; padding: 5px;">MC PO : {{showpagedata3?.MCPO}} </td>
+    </tr>
+  </table>
+
+  <table style=" border-collapse: collapse;width: 100%;">
+    <tr>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">SL</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Particulars</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Color</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Size</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Style No</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px"></th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px"></th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Order Qty</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Already Challan</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">This Challan</th>
+      <th style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">Rem. Qty</th>
+    </tr>
+    <tr *ngFor="let detail of showpagedata; let i = index">
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{i+1}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.SampleName}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry1}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry2}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry3}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry4}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.KeyEntry5}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.BreakDownQTY}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.PreviousChallanQty}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.ChallanBreakDownQty}}</td>
+      <td style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">{{detail?.BreakDownQTY -( detail?.ChallanBreakDownQty + detail?.PreviousChallanQty)}}</td>
+    </tr>
+    <tr>
+      <td colspan="7"></td>
+      <td>{{orderTotal}}</td>
+      <td>{{prevChallanTotal}}
+      <td>{{challanqty}}</td>
+      <td>{{remQty}}</td>
+    </tr>
+   
+  </table>
+
+  <table style="margin-bottom: 12px; width: 100%">
+    <tr>
+      <td style="width: 40%;">
+        <table style="border: 1px solid black;border-collapse: collapse; width: 100%;" *ngFor="let data of showpagedata1; let index = i">
+          <tr *ngIf="this.data?.pos === '1' ">
+            <td style="padding: 7px;">Order Qty</td>
+            <td style="padding: 7px; text-align: right;">{{data?.Qty}}</td>
+          </tr>
+          <tr  *ngIf="this.data?.pos === '2'">
+            <td style="padding: 7px;">Already Challan Qty</td>
+            <td style="padding: 7px; text-align: right;">{{data?.Qty}}</td>
+          </tr>
+          <tr  *ngIf="this.data?.pos  === '3'">
+            <td style="padding: 7px;">This Challan</td>
+            <td style="padding: 7px; text-align: right;">{{data?.Qty}}</td>
+          </tr>
+
+        </table>
+        <table style="border: 1px solid black;border-collapse: collapse; width: 100%;">
+          <tr>
+            <td style="padding: 7px;">Balance</td>
+            <td style="padding: 7px; text-align: right;">{{qtyTotal}}</td>
+          </tr>
+        </table>
+<!--        <div class="ui right floated" style="padding: 7px; border: 1px solid black;border-collapse: collapse; width: 100%; text-align: right;">Balance:{{qtyTotal}}</div>-->
+      </td>
+      <td style="width: 10%;"></td>
+      <td style="width: 40%;">
+        <div style="border: 1px solid black; padding: 5px; font-size: 20px; text-align: center;">
+          Supplied Qty/PC
+        </div>
+        <table style="border: 1px solid black; border-collapse: collapse; width: 100%;">
+          <tr>
+            <td style="padding: 5px; text-align: center;">Challan No</td>
+            <td style="padding: 5px; text-align: center;">Challan Qty</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px; text-align: center;">{{showpagedata2?.ChallanNo}}</td>
+            <td style="padding: 5px; text-align: center;">{{showpagedata2?.ChallanBreakDownQty}}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse; width: 100%; margin-bottom: 30px;">
+    <tr>
+      <td style="padding: 5px;"><strong> Narration:</strong> {{showpagedata3?.Remarks}}</td>
+    </tr>
+  </table><br><br><br>
+
+  <table style=" border: 1px solid black; border-collapse: collapse; width: 100%; margin-bottom: 12px;">
+    <tr>
+      <td style="padding: 5px; font-size: 14px; font-weight: bold;">TERMS & CONDITIONS MLTL :</td>
+    </tr>
+    <tr>
+      <td style="padding: 5px;">1. Any discrepancy with the quantity and quality of this consignment must be reported to
+        the Maheen Nexgen within 2 (two) weeks of receipt. </td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse; width: 100%; margin-bottom: 12px;">
+    <tr>
+      <td style="padding: 5px; font-size: 11px;">Printed Maheen Label Tex Ltd Entry Date:01.03.2020 , Time: 07:28:17
+      </td>
+    </tr>
+  </table>
+
+  <table style="width: 100%; text-align: center; margin-top: 100px">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr style="margin-top: 10px">
+      <td style="border-bottom: 2px solid black;padding: 4px">{{showpagedata3?.CreatedBy}}</td>
+      <td style="border-bottom: 2px solid black;padding: 4px"></td>
+      <td style="border-bottom: 2px solid black;padding: 4px"></td>
+      <td style="border-bottom: 2px solid black;padding: 4px"></td>
+    </tr>
+    <tr>
+      <td>Received By</td>
+      <td>Approved By</td>
+      <td>Authorised Signature</td>
+      <td>Receiver's Signature</td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse; width: 100%;">
+    <tr>
+      <td style="padding: 5px; font-size: 11px; text-align: right; font-weight: bold;"> Received the above in good
+        condition & found no discrepancy </td>
+    </tr>
+  </table>
+
+</div>
+
+

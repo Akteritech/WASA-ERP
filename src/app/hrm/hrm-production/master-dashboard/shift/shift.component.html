@@ -1,0 +1,54 @@
+<div class="mb-5 pt-5">
+  <div class="ui grid w-100">
+    <div class="thirteen wide column">
+      <button class="ui tiny orange button " type="button" (click)="backClicked()">
+        <strong><i class="angle left icon"></i></strong>
+        Back
+      </button>
+      <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        <i class="refresh icon"></i>
+        Refresh
+      </button>
+    </div>
+  </div>
+  <div class="mt-2">
+    <app-addshift (added)="get()"></app-addshift>
+  </div>
+  <table class="ui very compact unstackable teal table"[ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Shift</th>
+        <th>Effective From</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Acceptable Late</th>
+        <th>Delay Time</th>
+        <th>Shift Name English</th>
+        <th>Shift Name Bangla</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of datas; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+        <td>{{data?.SHIFT_ID }}</td>
+        <td>{{data?.EFFECTIVE_DATE.substring(0, 10) }}</td>
+        <td>{{data?.START_TIME}}</td>
+        <td>{{data?.END_TIME}}</td>
+        <td>{{data?.ACCEPTABLE_LATE}}</td>
+        <td>{{data?.DELAY_TIME_OUT}}</td>
+        <td>{{data?.SHIFT_NAME_ENG}}</td>
+        <td>{{data?.SHIFT_NAME_BNG}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()" [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

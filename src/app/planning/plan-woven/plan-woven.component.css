@@ -1,0 +1,19 @@
+.cardmy3 {
+    border-left:  1px solid #5d84ba !important;
+  }
+  .content{
+    /*border-top:  1px solid #5d84ba !important;*/
+  }
+  .cardmy2 {
+    box-shadow:0 5px 20px 0 #d4d4d5,0 0 0 0 #d4d4d5 !important;
+    /*color: #ffffff !important;*/
+    /*background-image: linear-gradient(to right, rgb(239, 239, 245), rgb(239, 239, 245)) !important;*/
+  }
+  div.a {
+    width: 150px;
+    height: 20px;
+    margin: 10px 0px 0px 60px;
+    background-color: white;
+    transform: rotate(-20deg);
+  }
+  

@@ -1,0 +1,35 @@
+<div class="mt-3">
+
+  <button class="ui tiny primary button" type="button" (click)="getDetails()">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+
+<table class="ui mini very compact table">
+      <thead>
+      <tr>
+        <th>S.No</th>
+        <th class="pointer"><i class="trash red icon"></i></th>
+        <th class="pointer"><i class="edit blue icon"></i></th>
+        <th>Weaving Type</th>
+        <th>File Name</th>
+        <th>Finishing Width</th>
+        <th>Pick</th>
+        <th>Cutter</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let s of wovenDetails; let i = index">
+        <td>{{i+1}}</td>
+        <td class="pointer"><i class="trash red icon"></i></td>
+        <td class="pointer aligned"  [routerLink]=""><i class="ui blue edit icon"></i></td>
+        <td>{{s.weavingtype}}</td>
+        <td>{{s.filename}}</td>
+        <td>{{s.psfoldtofold}}</td>
+        <td>{{s.pick}}</td>
+        <td>{{s.cutter}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>

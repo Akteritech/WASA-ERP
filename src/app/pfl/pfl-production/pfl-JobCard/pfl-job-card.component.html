@@ -1,0 +1,131 @@
+<div class="">
+  <button class="ui tiny orange button my-1"  (click)="back()">
+    <i class="arrow left icon"></i> Back
+  </button>
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <span *ngIf="collapse"> <strong><i class="add icon"></i></strong>Add Job Card</span>
+    <span *ngIf="!collapse"><strong><i class="arrow up icon "></i></strong> Done</span>
+  </button>
+  <button class="ui primary tiny button" (click)="get(true, false);">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+  <button class="ui tiny right floated green dropdown button" [ngClass]="{'orange':!showSearchForm}" (click)="showSearchForm = !showSearchForm;">
+    <i class="search icon"></i>
+    <div class="text mr-1">Search</div>
+    <!--<i class="dropdown icon"></i>-->
+    <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+    <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm' *ngIf="showSearchForm">
+    <h4 class="ui teal dividing header">
+      Search Job Card
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Job Card No</label>
+        <input type="text" placeholder="job card no" [(ngModel)]="searchJobCard" id="jobcardno" name="jobcardno"/>
+      </div>
+      <div class="field">
+        <label>Brand Name</label>
+        <sui-select class="selection" name="brandname" placeholder=" "
+                    id="brandname"
+                    [(ngModel)]="searchBrand"
+                    [options]="brands"
+                    (input)="getBrands($event.target.value)"
+                    labelField="brandname"
+                    valueField="brandid"
+                    [isSearchable]="true"
+                    #SelectBrands>
+          <sui-select-option *ngFor="let option of SelectBrands.filteredOptions" [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+      
+      
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Work Order No</label>
+        <input type="text" [(ngModel)]="searchWorkOrder" id="workorderno" name="workorderno">   
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="fromDate" autocomplete="off" (ngModelChange)="get(true, false)">
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <input placeholder="Order Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate" autocomplete="off" (ngModelChange)="get(true, false)">
+      </div>
+      <div class="one wide field ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small green button" (click)="get(true, false)">
+          Search
+        </button>
+      </div>
+      <div class="one wide field ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small red button" (click)="reset()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-pfl-job-card (added)="get(true, true)" [productcategoryid] = "productcategoryid"></app-add-pfl-job-card>
+    </div>
+  </div>
+  <table class=" ui very compact unstackable teal table">
+    <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Action</th>
+      <th>Job Card No</th>
+      <th>Job Card Date</th>
+      <th>Work Order No</th>
+      <th>Sample Name</th>
+      <th>Product Category</th>
+      <th>Client Name</th>
+      <th>Brand Name</th>
+      <th>Delivery Date</th>
+      <th>Is Production Done</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let jc of jobCards; let i = index">
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td>
+        <i (click)="viewDetail(jc?.JobCardID)" class="eye link teal icon"></i>
+        <i (click)="delete(jc?.JobCardID)" *ngIf="jc.StatusID == 0 && deletePermission" class="trash link red icon"></i>
+      </td>
+      <td>{{jc?.JobCardNo }}</td>
+      <td>{{jc?.CreatedDate | date }}</td>
+      <td>{{jc?.WorkOrderNo}}</td>
+      <td>{{jc?.SampleName}}</td>
+      <td>{{jc?.ProductCategoryName}}</td>
+      <td>{{jc?.ClientName }}</td>
+      <td>{{jc?.BrandName }}</td>
+      <td>{{jc?.EstDeliverDate | date }}</td>
+      <td >&nbsp;&nbsp;
+        <div  *ngIf="jc?.isproductiondone ===  '0'" class="ui tiny green horizontal label">YES</div>
+        <div  *ngIf="jc?.isproductiondone !==  '1'" class="ui tiny red horizontal label">NO</div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get(false, false)">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()"  [disabled]="!goToPage || goToPage==meta.currentPage || goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

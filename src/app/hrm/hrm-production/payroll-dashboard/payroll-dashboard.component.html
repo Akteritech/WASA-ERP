@@ -1,0 +1,167 @@
+<app-submit-code *ngIf="!visible" page="Payroll" (valid)="visible = true"></app-submit-code>
+<div class="ui container pt-5" *ngIf="visible">
+  <div class="ui link divided stackable four cards">
+
+    <a class="card raised cardmy3" [routerLink]="['employeeAdvance']" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Employee Advance</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/emp_advance.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee Advance and View Employee Advance
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy3" [routerLink]="['salaryIncrement']" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Salary Increment</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/emp_increment.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Salary Increment and View Salary Increment
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy3" [routerLink]="['createSalary']" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Salary Generate</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/salary_generate.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          View Salary Generate
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['billUpload']" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Bill Upload</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/salary_increment.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Bill Upload
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="ui link divided stackable four cards">
+    <a class="card raised cardmy3" [routerLink]="['employeeTermination']" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Employee Termination</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/emp_termination.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee Termination and View Employee Termination
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['employeeRejoining']"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Employee Rejoining</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/emp_rejoining.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee Rejoining and View Employee Rejoining
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['bonus']"  [routerLinkActive]="['bonus']" [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Bonus</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/bonus.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Bonus Generate
+        </div>
+      </div>
+    </a>
+    <a class="card raised cardmy3" [routerLink]="['activation']"  [routerLinkActive]="['activation']" [routerLinkActiveOptions]="{exact: true}">
+      <div class="ui centered my-3">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3">Activation</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/activation.png" style="height: 88.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Activation Generate
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

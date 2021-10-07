@@ -1,0 +1,132 @@
+<form onsubmit="return false;" class="ui small mt-2 inline form">
+  <h4 class="ui teal dividing header">
+    Search PFL Product Status
+  </h4>
+  <div class="equal width fields">
+
+    <div class="field">
+      <label>From Date :</label>
+      <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+             name="fromDate">
+    </div>
+    <div class="field">
+      <label>To Date :</label>
+      <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+    </div>
+
+    <div class="field required">
+      <label>Company</label>
+      <sui-select required placeholder=" "
+                  class="selection"
+                  [options]="companies"
+                  [(ngModel)]="company"
+                  name="companyname"
+                  [isSearchable]="true"
+                  labelField="companyname"
+                  valueField="companyid"
+                  #selectDataCOMP>
+
+        <sui-select-option *ngFor="let op of selectDataCOMP.filteredOptions" [value]="op"></sui-select-option>
+      </sui-select>
+      <!--<input placeholder="Company" type="text" [(ngModel)]="selectSample.companyname"  id="companyname" name="companyname"  />-->
+    </div>
+    <div class="field  required">
+      <label>Order Type</label>
+      <sui-select required placeholder=" "
+                  class="selection"
+                  [options]="orderTypes"
+                  [(ngModel)]="ordertype"
+                  name="ordertype"
+                  [isSearchable]="true"
+                  labelField="listitem"
+                  valueField="listvalue"
+                  #selectordertype>
+
+        <sui-select-option *ngFor="let op of selectordertype.filteredOptions" [value]="op"></sui-select-option>
+      </sui-select>
+    </div>
+    <div class="field">
+      <label>Work Order Number :</label>
+      <input type="text" placeholder="Work Order Number" name="workOrdernumber" [(ngModel)]="workOrdernumber">
+    </div>
+    <div class="field required">
+      <label>Material Name</label>
+      <sui-select  class="selection" name="item" placeholder=" "
+                   [isSearchable]="true"
+                   [options]="items"
+                   [(ngModel)]="itemid"
+                   labelField="ItemCode"
+                   valueField="ItemID"
+                   #item>
+        <sui-select-option *ngFor="let option of item.filteredOptions"
+                           [value]="option"></sui-select-option>
+      </sui-select>
+    </div>
+  </div>
+
+  <div class="equal width fields">
+    <div class="ml-1 mt-2">
+      <label>&nbsp;</label>
+      <button type="button" (click)="searchForAprrove()" class="ui small teal button"><i class="search left icon" ></i>Search</button>
+      <button type="button" (click)="excel()" class="ui small teal button"><i class="search left icon" ></i>Pfl Jobcard Approval Excel</button>
+      <button type="button" (click)="approvJobCard()" class="ui small teal button"><i class="search left icon" ></i>Aprrove</button>
+    </div>
+  </div>
+  <table class="ui very compact unstackable teal table " id="excel">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox class="middle aligned" name="foreign" >
+        </sui-checkbox>
+      </th>
+      <th>SL</th>
+      <th>Work Order No</th>
+      <th>Work Order Date</th>
+      <th>JobCard Date</th>
+      <th>Delivery Date</th>
+      <th>Customer PO No.</th>
+      <th>Customer Name </th>
+      <th>Sample Name </th>
+      <th>Part </th>
+      <th>Order Qty</th>
+      <th>Plan Qty</th>
+      <th>Sample Color </th>
+      <th>Item </th>
+      <th>RQ Roll/Mtr</th>
+      <th>SW Roll/Mtr</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of searchedData; let i =index">
+      <td>
+        <sui-checkbox class="mt-2"  [(ngModel)]="order.selected" name="{{i}}" (click)="selectCards(order,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+
+      <td>{{order?.WorkOrderNo}}</td>
+      <td>{{order?.OrderReceiveDate}}</td>
+      <td>{{order?.JobDate}}</td>
+      <td>{{order?.EstDeliverDate}}</td>
+      <td>{{order?.CustomerPONo}}</td>
+      <td>{{order?.ProductCategoryName}} </td>
+      <td>{{order?.CustomerPONo}}</td>
+      <td>{{order?.ClientName}}</td>
+      <td>{{order?.SampleName}}</td>
+      <td>{{order?.ListItem}}</td>
+      <td>{{order?.OrderQty}}</td>
+      <td>{{order?.PlanedQTY}}</td>
+      <td>{{order?.SampleColorName}}</td>
+      <td>{{order?.ItemCode}}</td>
+      <td>{{order?.RequiredQty}}</td>
+      <td>{{order?.RequiredQty}}</td>
+
+    </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+                  (pageChange)="pageChange()">
+  </sui-pagination>
+
+
+</form>

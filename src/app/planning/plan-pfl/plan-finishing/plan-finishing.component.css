@@ -1,0 +1,35 @@
+.tips .submittext {
+    visibility: hidden;
+    width: 80px;
+    background-color: green;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tips:hover .submittext {
+    visibility: visible;
+  }
+
+  .tips .deletetext {
+    visibility: hidden;
+    width: 80px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tips:hover .deletetext {
+    visibility: visible;
+  }

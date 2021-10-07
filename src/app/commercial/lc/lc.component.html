@@ -1,0 +1,105 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" routerLink="../">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;">
+    <span *ngIf="collapse"> <i class="add icon"></i>Create LC</span>
+    <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+  </button>
+  <button class="ui primary tiny button" (click)="get()">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+</div>
+
+<div [suiCollapse]="collapse">
+  <div class="mt-2">
+    <app-create-lc (added)="onSaved($event)" [id]="editId"></app-create-lc>
+  </div>
+</div>
+
+<form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+  <h4 class="ui teal dividing header">
+    Search LC
+  </h4>
+  <div class="equal width fields">
+    <div class="field">
+      <label>Company</label>
+      <sui-select placeholder="Select Company" class="selection" [options]="companies" name="companyid"
+        [(ngModel)]="companySearch" labelField="companyname" valueField="companyid" [isSearchable]="true"
+        #selectCompany>
+        <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+      </sui-select>
+    </div>
+    <div class="field">
+      <label>LC No</label>
+      <input type="text" placeholder="Search by LC No" name="LCNOSearch" [(ngModel)]="LCNOSearch" class="ui input">
+    </div>
+    <div class="field">
+      <label>From Date</label>
+      <input type="date" name="deliveryDate" [(ngModel)]="searchFrom" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>To Date</label>
+      <input type="date" name="deliveryDate" [(ngModel)]="searchTo" autocomplete="off">
+    </div>
+  </div>
+  <div class="equal width fields">
+    <button type="button" class="ui teal tiny button" (click)="searchTable()">
+      Search
+    </button>
+    <button type="button" class="ui tiny red button" (click)="reset()"> Reset </button>
+  </div>
+</form>
+<div style="width: 100%; overflow-x: scroll; overflow-y: scroll;">
+  <table class="ui very compact unstackable teal table">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Action</th>
+        <th>LC No</th>
+        <th>LC Date</th>
+        <th>Client Name</th>
+        <th>LC Expiry Date</th>
+        <th>Maturity Date</th>
+        <th>Remarks</th>
+        <th>LC Amount</th>
+        <th>Type of Payment</th>
+        <th>Beneficiary Bank</th>
+        <th>Customer Bank</th>
+        <th>LC Tenor</th>
+        <th>Amendment No</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let LClist of response; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+        <td class="single line pointer">
+          <i class="edit link orange icon"></i>
+        </td>
+        <td>{{LClist?.LCNo }}</td>
+        <td>{{LClist?.LCDate }}</td>
+        <td>{{LClist?.ClientName }}</td>
+        <td>{{LClist?.LCExpiryDate}}</td>
+        <td>{{LClist?.MaturityDate}}</td>
+        <td>{{LClist?.Remarks}}</td>
+        <td>{{LClist?.LCAmount}}</td>
+        <td>{{LClist?.TypeofPayment[1]}}</td>
+        <td>{{LClist?.BeneficiaryBank}}</td>
+        <td>{{LClist?.CustomerBank}}</td>
+        <td>{{LClist?.LCTenor[1]}}</td>
+        <td>{{LClist?.AmndNo}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+  [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+  (pageChange)="get()">
+</sui-pagination>
+<div class="ui action input ml-2">
+  <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+  <button (click)="goToPageNo()" [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+  </button>
+</div>

@@ -1,0 +1,181 @@
+<!-- <a href="#" (click)="downloadPDF()">Print</a> -->
+<div class="a-container pt-5" id="MyDIv">
+  <!-- Heading section for company information -->
+  <section class="a-row">
+    <div class="col-2"></div>
+    <div class="col-9">
+      <h2 class="a-font-weight-bold">MAHEEN DIZAYN ETIKET (BD) LTD.</h2>
+      <div>Strategic partner with.</div>
+      <div><img [src]="logo" alt="logo">Nexgen | packaging</div>
+      <div>{{data.Address}}.</div>
+      <div>Fax: {{data.Fax}} Phone: {{data.Phone}}, Mobile: {{data.Mobile}}</div>
+      <div>Email: <a href="{{data.email}}"> <ins>{{data.Email}}</ins></a> Web-{{data.Web}}</div>
+    </div>
+  </section>
+  <!-- Heading section for company information end -->
+
+  <h1 class="a-text-center a-border-title">PROFORMA INVOICE</h1>
+
+  <!-- Customer information section  -->
+
+  <section class="a-border a-row a-font-weight-bold a-pl">
+    <div class="col-7">
+      <div class="a-row">
+        <div class="col-3">Customer Name</div>
+        <div class="col-1">:</div>
+        <div class="col-8">{{data.ClientName}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-3">Address</div>
+        <div class="col-1">:</div>
+        <div class="col-8">{{data.CurrentAddress}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-3">Notify Party</div>
+        <div class="col-1">:</div>
+        <div class="col-8">{{data.NotifyParty}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-3">Port Of Loading</div>
+        <div class="col-1">:</div>
+        <div class="col-8">{{data.PortOfLoading}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-3">Carrier</div>
+        <div class="col-1">:</div>
+        <div class="col-8">{{data.Carrier}}</div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="a-row">
+        <div class="col-4">Invoice No</div>
+        <div class="col-1">:</div>
+        <div class="col-7">{{data.PINo}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Invoice Date</div>
+        <div class="col-1">:</div>
+        <div class="col-7">{{data.PIDate}} LC </div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Issuing Bank </div>
+        <div class="col-1">:</div>
+        <div class="col-7">{{data.issuingbank}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Final Destination</div>
+        <div class="col-1">:</div>
+        <div class="col-7">{{data.FinalDestination}}</div>
+      </div>
+      <div class="a-row">
+        <div class="col-4">Sailing On Or About</div>
+        <div class="col-1">:</div>
+        <div class="col-7">{{data.sailingonorabout}}</div>
+      </div>
+    </div>
+  </section>
+  <!-- Customer information section end -->
+
+
+  <!-- Table information section  -->
+
+  <table>
+    <thead>
+      <th>W / O No</th>
+      <th>PO No</th>
+      <th>Mc Style</th>
+      <th>Mc Po</th>
+      <th>DESCRIPTION OF LABELS</th>
+      <th>COLOR QTY</th>
+      <th>SIZE (MM)</th>
+      <th>Qty In pcs</th>
+      <th>Price/1000 pcs</th>
+      <th>AMOUNT IN US $</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let obj of workorders">
+        <td>{{obj.WorkOrderNo}}</td>
+        <td>{{obj.CustomerPONo}}</td>
+        <td>{{obj.mcstyle}}</td>
+        <td>{{obj.mcpo}}</td>
+        <td>{{obj.ItemCode}}</td>
+        <td>1</td>
+        <td>{{obj.PostCode}}</td>
+        <td>{{obj.OrderQty}}</td>
+        <td>{{obj.Price}}</td>
+        <td>{{obj.OrderValue}}</td>
+      </tr>
+    </tbody>
+    <tfoot class="a-total">
+      <tr>
+        <td colspan="5" class="a-tbl-text a-pl">Grand Total</td>
+        <td colspan="2">Total Qty PC</td>
+        <td>{{totalQt}}</td>
+        <td>Total US$</td>
+        <td class="a-text-right a-pr">{{totalAmount}}</td>
+      </tr>
+      <tr *ngIf="discount">
+        <td colspan="5" class="a-tbl-text"></td>
+        <td colspan="4">Discount @{{discount}}%</td>
+        <td>{{discountAmount}}</td>
+      </tr>
+      <tr *ngIf="discount">
+        <td colspan="5" class="a-tbl-text"></td>
+        <td colspan="4">Net US$</td>
+        <td>{{finalAmount}}</td>
+      </tr>
+      <tr>
+        <td colspan="9" class="a-text-right">Add Bank Charge</td>
+        <td class="a-text-right a-pr">{{data.BankChargeAmount}}</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="a-row">
+  <div class="col-8"></div>
+  <div class="a-row col-4 a-total">
+      <div class="col-6 a-text-left">Total</div>
+      <div class="col-6 a-text-right">{{finalAmount}}</div>
+    </div>
+  </div>
+  <div class="a-row a-pl-12">
+    <div class="col-2 a-font-weight-bold">Total In Words </div> <div class="a-col-1 a-font-weight-bold">:</div>
+    <div class="col-9"> {{amountInWords}}</div>
+ </div>
+
+
+  <!-- Table information section end -->
+
+  <div class="a-row a-mt">
+    <div class="col-1 a-font-weight-bold">Narration </div> <div class="a-col-1 a-font-weight-bold">:</div>
+    <div class="col-9">{{data.Narration}}</div> </div>
+
+  <!-- Term condition information section -->
+  <section>
+    <div class="a-border-term">
+      TERMS & CONDITIONS :
+    </div>
+    <div class="a-row a-border-condition a-pl">
+      <div *ngFor="let obj of terms" class="col-12">
+        <p class="p">{{obj.Description}}  </p>
+      </div>
+    </div>
+  </section>
+  <!-- Term condition information section end-->
+
+
+  <!-- Signature information section -->
+  <section class="a-row">
+    <div class="col-5 a-text-center">
+      <h3 class="a-mt">For MAHEEN DIZAYN ETIKET (BD) LTD.</h3>
+      <div><img [src]="mysign" alt="Signature" height="50px"></div>
+      <div class=" a-border-sign a-font-weight-bold">Authorized Signature</div>
+    </div>
+    <div class="col-7"></div>
+  </section>
+
+  <div class="a-row a-mt">
+    <div>Maheen Nexgen, Report Date : 20-04-20, Time : 9:33:14PM</div>
+    <div class="a-ml-auto">Page 1 of 1</div>
+  </div>
+</div>
+<p>{{lastline}}</p>

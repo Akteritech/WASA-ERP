@@ -1,0 +1,155 @@
+<div class="pt-5">
+  <sui-message class="warning mb-2 mt-2">
+    <li>
+      <strong>Note : </strong>Search Button is For Search With WorkOrderNo. and Generate Excel Or Pdf
+    </li>
+    <li>
+      For Other Report Search By Date
+    </li>
+  </sui-message>
+  <div>
+    <button class="ui tiny orange button" type="button" [routerLink]="['/planning/pfl']">
+      <i class="arrow left icon"></i>
+      Back
+    </button>
+    <form onsubmit="return false;" class="ui small mt-2 inline form">
+      <h4 class="ui teal dividing header">
+        Search PFL Product Status
+      </h4>
+      <div class="equal width fields">
+        <div class="field">
+          <label>Work Order Number :</label>
+          <input type="text" placeholder="Work Order Number" name="workOrdernumber" [(ngModel)]="workOrdernumber">
+        </div>
+        <div class="field">
+          <label>From Date :</label>
+          <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+            name="fromDate">
+        </div>
+        <div class="field">
+          <label>To Date :</label>
+          <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="ml-1 mt-2">
+          <label>&nbsp;</label>
+          <button type="button" (click)="getTableData()" class="ui small teal button">
+            <i class="search left icon"></i>Search</button>
+        </div>
+        <div class="ml-1 mt-2">
+          <label>&nbsp;</label>
+          <button type="button" class="ui small green button" (click)="generateExcelOfSearchedData()">Excel
+            Export</button>
+          <button type="button" class="ui small red  button" (click)="exportToPDF()">PDF Export</button>
+          <button type="button" class="ui small green  button" (click)="PrintStatusReport()">Print Status
+            Report</button>
+          <button type="button" class="ui small green  button" (click)="cuttingStatusReport()">Cutting Status
+            Report</button>
+          <button type="button" class="ui small green  button" (click)="finishStatusReport()">Finish Status
+            Export</button>
+        </div>
+        <!--      <div class="ml-1 mt-2">-->
+        <!--        <label>&nbsp;</label>-->
+        <!--        <button type="button" class="ui small blue button" (click)="printstatus()">Print Status Export</button>-->
+        <!--      </div>-->
+        <!--      <div class="ml-1 mt-2">-->
+        <!--        <label>&nbsp;</label>-->
+        <!--        <button type="button" class="ui small blue button" (click)="cuttingstatus()">Cutting Status Export</button>-->
+        <!--      </div>-->
+        <!--      <div class="ml-1 mt-2">-->
+        <!--        <label>&nbsp;</label>-->
+        <!--        <button type="button" class="ui small blue button" (click)="finishstatus()">Finish Status Export</button>-->
+        <!--      </div>-->
+      </div>
+      <div class="overflow-x-scroll mt-2 mb-2">
+
+        <table class="ui very compact unstackable teal table">
+          <tr class="bg-teal text-white pr-5">
+            <!--        <th>-->
+            <!--            <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllCard" (ngModelChange)="selectAll()">-->
+            <!--            </sui-checkbox>-->
+            <!--&lt;!&ndash;          <input type="checkbox" (click)="allCheck()" [(ngModel)]="masterCheck" name="check">&ndash;&gt;-->
+            <!--        </th>-->
+            <th>Work Order No </th>
+            <th>Order Date</th>
+            <th>Delivery Date</th>
+            <th>Order Qty</th>
+            <th>Job Qty </th>
+            <th>Item Name </th>
+            <th>Planning Status </th>
+            <th>Plan Date Time</th>
+            <th>Designer Status </th>
+            <th>Design Date Time </th>
+            <th>Designer </th>
+            <th>Prof Reading Status</th>
+            <th>Prof Reading Date </th>
+            <th>Prof Reader Name</th>
+            <th>Printing Status </th>
+            <th>Printing Date Time</th>
+            <th>Printing Operator </th>
+            <th>Cutting Status </th>
+            <th>Cutting Date Time </th>
+            <th>Cutting Operator</th>
+            <th>Curring Status </th>
+            <th>Curring Date</th>
+            <th>Curring User </th>
+            <th>Lab Test Status </th>
+            <th>Lab Date Time </th>
+            <th>Lab Tester </th>
+            <th>Finishing Status </th>
+            <th>Finishing Date Time </th>
+            <th>Finisher Name </th>
+            <th>AQL Status </th>
+            <th>AQL Date Time </th>
+            <th>AQL User </th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let item of dataList; let i = index">
+              <!--            <td>-->
+              <!--                <sui-checkbox class="mt-2" [(ngModel)]="item.selected" name="{{i}}" (click)="selectCards(item,i)"></sui-checkbox>-->
+              <!--            </td>-->
+              <td>{{item['Work Order No']}}</td>
+              <td>{{item['Order Date']}}</td>
+              <td>{{item['Delivery Date']}}</td>
+              <td>{{item['Order Qty']}}</td>
+              <td>{{item['Job Qty']}}</td>
+              <td>{{item['Item Name']}}</td>
+              <td>{{item['Planning Status']}}</td>
+              <td>{{item['Plan Date Time']}}</td>
+              <td>{{item['Designer Status']}}</td>
+              <td>{{item['Design Date Time']}}</td>
+              <td>{{item['Designer']}}</td>
+              <td>{{item['Prof Reading Status']}}</td>
+              <td>{{item['Prof Reading Date Time']}}</td>
+              <td>{{item['Prof Reader Name']}}</td>
+              <td>{{item['Printing Status']}}</td>
+              <td>{{item['Printing Date Time']}}</td>
+              <td>{{item['Printing Operator']}}</td>
+              <td>{{item['Cutting Status']}}</td>
+              <td>{{item['Cutting Date Time']}}</td>
+              <td>{{item['Cutting Operator']}}</td>
+              <td>{{item['Curring Status']}}</td>
+              <td>{{item['Curring Date Time']}}</td>
+              <td>{{item['Curring User']}}</td>
+              <td>{{item['Lab Test Status']}}</td>
+              <td>{{item['Lab Date Time']}}</td>
+              <td>{{item['Lab Tester']}}</td>
+              <td>{{item['Finishing Status']}}</td>
+              <td>{{item['Finishing Date Time']}}</td>
+              <td>{{item['Finisher Name']}}</td>
+              <td>{{item['AQL Status']}}</td>
+              <td>{{item['AQL Date Time']}}</td>
+              <td>{{item['AQL User']}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+        [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+        (pageChange)="pageChange()">
+      </sui-pagination>
+    </form>
+  </div>
+</div>

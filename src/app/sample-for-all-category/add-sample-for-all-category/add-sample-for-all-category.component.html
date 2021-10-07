@@ -1,0 +1,827 @@
+<div class="ui top attached tabular menu">
+  <a class="item blue active" data-tab="first" (click)="getSampleStatus()"><h3> Add Sample General Specification </h3></a>
+  <a class="item blue" data-tab="second"  (click)="optionsLookupSample();getColor();getCutFold()"><h3>Add Technical Details</h3></a>
+  <a class="item blue" data-tab="third" (click)="optionsLookupSample();optionsLookupItem();optionsLookupSupplier('a')"><h3>Add Material Details/Required</h3></a>
+  <a class="item blue" data-tab="fourth" (click)="optionsLookupSample()"><h3>Add Amendment Record Details</h3></a>
+</div>
+<div class="ui bottom attached tab segment active" data-tab="first">
+  <sui-message class="warning mb-2 mt-2" *ngIf="!addsample.samplename && !addsample.productcategoryid">
+    <li>
+      <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+    </li>
+  </sui-message>
+<!--  <h3 class="ui top blue  attached header mt-2 pointer"  (click)="collapse = !collapse;" *ngIf="this.currentRoute?.toString()?.includes('add')">-->
+<!--    1. Add  New  Sample-->
+<!--    <button class="ui mini icon right floated button text-dark bg-transparent" [ngClass]="{'teal':collapse,'red':!collapse}">-->
+<!--      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+<!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+<!--    </button>-->
+<!--  </h3>-->
+<!--  <h3 class="ui top blue  attached header mt-2 pointer"  (click)="collapse = !collapse;" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--    1. Edit Woven Sample-->
+<!--    <button class="ui mini icon right floated button text-dark bg-transparent" [ngClass]="{'teal':collapse,'red':!collapse}">-->
+<!--      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+<!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+<!--    </button>-->
+<!--  </h3>-->
+
+      <form class="ui small form " #form='ngForm' onsubmit="return false;" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+     <div class="ui segment cardmy2">
+        <div class="ui two column grid">
+          <div class="fourteen wide column">
+            <div class="equal width fields">
+              <div class=" field required">
+                <label>Sample Name(Product Reference)</label>
+                <input required type="text" [(ngModel)]="addsample.samplename" id="samplename" name="samplename"
+                       placeholder="sample name">
+              </div>
+              <div class="field ">
+                <label>Company</label>
+                <sui-select placeholder="company name"
+                            class="selection"
+                            name="companyname"
+                            [(ngModel)]="addsample.companyid"
+                            [options]="companies"
+                            [isSearchable]="true"
+                            labelField="companyname"
+                            valueField="companyid"
+                            #selectcompanyname>
+                  <sui-select-option *ngFor="let op of selectcompanyname.filteredOptions"
+                                     [value]="op"></sui-select-option>
+                </sui-select>
+              </div>
+            </div>
+            <div class="equal width fields">
+              <div class="field required">
+                <label>Brand Name</label>
+                <sui-select class="selection" name="brandname" placeholder=" "
+                            id="brandname"
+                            [(ngModel)]="addsample.brandid"
+                            [options]="brands"
+                            (input)="optionsLookupBrand($event.target.value)"
+                            (ngModelChange)="getSubBrand(addsample.brandid)"
+                            labelField="brandname"
+                            valueField="brandid"
+                            [isSearchable]="true"
+                            #SelectBrands>
+                  <sui-select-option *ngFor="let option of SelectBrands.filteredOptions"
+                                     [value]="option"></sui-select-option>
+                </sui-select>
+              </div>
+              <div class="field">
+                <label>Sub Brand</label>
+                <sui-select  [isDisabled]="!subbrands" class="selection" name="subbrand" placeholder="select sub brands"
+                             [options]="subbrands"
+                             [(ngModel)]="addsample.programid"
+                             labelField="programname"
+                             valueField="programid"
+                             [isSearchable]="true"
+                             #selectsubbrand>
+                  <sui-select-option *ngFor="let option of selectsubbrand.filteredOptions"
+                                     [value]="option"></sui-select-option>
+                </sui-select>
+              </div>
+            </div>
+          </div>
+          <div class="two wide column pl-1">
+            <div class="fields pl-2 pt-2">
+
+              <div class="sixteen wide field p-2 pointer ImgSize" title="Click here to add Image" >
+                <img *ngIf="!addsample.imagepath" src="{{this.api.noImagePath}}" class="ui fluid image " alt=""  (click)="image.click()">
+                <!--<img *ngIf="addsample.imagePath" [src]="imageSrc" class="ui image" alt="" (click)="image.click()">-->
+                <img *ngIf="addsample.imagepath" src="{{ api.baseUrl + this.addsample?.imagepath }}" class="ui image" alt="" (click)="image.click()">
+                <input type="file" hidden style="padding: 5px" accept="image/*"  (change)="handleFileInput($event.target.files)" #image name="image" placeholder="image"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Product Category</label>
+            <sui-select class="selection" name="Product_Category" placeholder="product category"
+                        [isSearchable]="true"
+                        [options]="productcategories"
+                        [(ngModel)]="addsample.productcategoryid"
+                        (ngModelChange)="this.getproductcategories()"
+                        labelField="productcategoryname"
+                        valueField="productcategoryid"
+                        #selectProductCategoryName>
+              <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field required">
+            <label>Product Sub Category</label>
+            <sui-select class="selection" name="ProductSubCategory" placeholder="product sub category"
+                        [options]="productsubcategories"
+                        [(ngModel)]="addsample.productsubcategoryid"
+                        [isSearchable]="true"
+                        labelField="productsubcategoryname"
+                        valueField="productsubcategoryid"
+                        #selectProductSubCategoryName>
+              <sui-select-option *ngFor="let option of selectProductSubCategoryName.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Client</label>
+            <sui-select class="selection" name="Client" placeholder="client "
+                        [(ngModel)]="addsample.clientid"
+                        [options]="clients"
+                        (input)="optionsLookupClient($event.target.value)"
+                        labelField="clientname"
+                        valueField="clientid"
+                        [isSearchable]="true"
+                        #multiSelectClients>
+              <sui-select-option *ngFor="let option of multiSelectClients.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field ">
+            <label>NPD Executive</label>
+            <sui-select placeholder="npd executive"
+                        class="selection"
+                        [options]="executives"
+                        [(ngModel)]="addsample.npdexecutiveid"
+                        name="npdexecutiveid"
+                        [isSearchable]="true"
+                        labelField="SalesPeron"
+                        valueField="Emp_ID"
+                        #selectNpdExecutiveName>
+              <sui-select-option *ngFor="let op of selectNpdExecutiveName.filteredOptions" [value]="op!==null?op:'N/A'"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field ">
+            <label>Designer</label>
+            <sui-select placeholder="designer"
+                        class="selection"
+                        [options]="designers"
+                        [(ngModel)]="addsample.designerid"
+                        name="designer"
+                        [isSearchable]="true"
+                        labelField="SalesPeron"
+                        valueField="Emp_ID"
+                        #selectDesignerName>
+              <sui-select-option *ngFor="let op of selectDesignerName.filteredOptions" [value]="op!==null?op:'N/A'"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field ">
+            <label>Sales Person</label>
+            <sui-select placeholder="sales person"
+                        class="selection"
+                        name="salesperson"
+                        [options]="salespersons"
+                        [(ngModel)]="addsample.salespersonid"
+                        [isSearchable]="true"
+                        labelField="SalesPeron"
+                        valueField="Emp_ID"
+                        #multuiname>
+              <sui-select-option *ngFor="let op of multuiname.filteredOptions" [value]="op!==null?op:'N/A'"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field required">
+            <label>Receive Date</label>
+            <!--          <input type="date" ngModel="addsample.orderdate" name="rcvdate">-->
+            <div class="ui left icon input">
+              <i class="calendar icon"></i>
+              <input suiDatepicker
+                     [pickerMaxDate]="minDateRcv"
+                     [(ngModel)]="addsample.orderdate"
+                     [pickerMode]="'date'"
+                     name="rcvdate">
+            </div>
+          </div>
+          <div class="field required">
+            <label>Estimate Date</label>
+            <div class="ui left icon input">
+              <i class="calendar icon"></i>
+              <input  suiDatepicker [pickerMinDate]="minDateEst"
+                      [(ngModel)]="addsample.estdeliverydate"
+                      [pickerMode]="'date'"
+                      name="estdate" >
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Length(MM):</label>
+            <input type="number" (ngModelChange)="formValidation()"  min="0" placeholder="length should not be negative" [(ngModel)]="addsample.length" id="length" name="length">
+          </div>
+          <div class="field required">
+            <label>Width(MM):</label>
+            <input type="number" min="0" placeholder="width should not be negative" [(ngModel)]="addsample.width" id="width" name="width">
+          </div>
+          <div class="field ">
+            <label>Pcs/Yard</label>
+            <input type="text"  placeholder="pcs/yard" [(ngModel)]="addsample.pcsyard" id="pcsyard" name="pcsyard">
+          </div>
+          <div class="field required">
+            <label>Status</label>
+            <sui-select class="selection" name="SampleStatus" placeholder=" "
+                        [(ngModel)]="addsample.genspcStatus"
+                        [options]="statuses"
+                        labelField="statusdescription"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectSampleStatus>
+              <sui-select-option *ngFor="let option of multiSelectSampleStatus.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Approval Date</label>
+            <div class="ui left icon input">
+              <i class="calendar icon"></i>
+              <input suiDatepicker [pickerInitialDate]="minDateApproval"
+                     [(ngModel)]="addsample.approveldate"
+                     [pickerMode]="'date'"
+                     pickerPlacement="bottom left"
+                     name="approveldate">
+            </div>
+          </div>
+          <div class="field required">
+            <label> Color</label>
+            <input type="text"  placeholder="ground color" [(ngModel)]="addsample.groundcolor" id="groundcolor" name="groundcolor">
+          </div>
+          <div class="field ">
+            <label>Paper GSM</label>
+            <input type="number"  min="0" placeholder="Paper GSM" [(ngModel)]="addsample.papergsm" id="papergsm" name="papergsm">
+          </div>
+          <div class="field ">
+            <label>No. of Ups</label>
+            <input type="number"   min="0" placeholder="No of ups" [(ngModel)]="addsample.noofups" id="noofups" name="noofups">
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Remark</label>
+            <textarea type="text" rows="3"  placeholder="write something here ...." [(ngModel)]="addsample.remark1" id="Remark" name="Remark"></textarea>
+          </div>
+        </div>
+        <div class="field my-3">
+          <sui-checkbox  class="mt-3" [(ngModel)]="addsample.isbarcode" name="isbarcode">Is Bar Code</sui-checkbox>
+        </div>
+<!--        <div class="field my-3">-->
+<!--          <sui-checkbox  class="mt-3" [(ngModel)]="addsample.isbarcode" name="isjob">Is Job For Multi Material </sui-checkbox>-->
+<!--        </div>-->
+        <div class="equal width fields">
+          <div class="field ">
+            <label >
+              Pdf upload for Artwork
+            </label>
+            <input type="file"   class="mb-2" (change)="uploadPDFfile($event.target.files)"  #fileInput>
+            <sui-progress class="my-2" *ngIf="!myProgressDATApdf && !this.currentRoute?.toString()?.includes('edit')" [value]="value" name="progress" [showProgress]="progress" [precision]="precision" [maximum]="maximun" ></sui-progress>
+            <div style="border: 1px solid black;padding: 5px" *ngIf="this.currentRoute?.toString()?.includes('edit')"><strong>Uploaded PDF  &nbsp;&nbsp;:&nbsp;&nbsp; </strong> <a *ngIf="addsample.artworklocation && this.currentRoute?.toString()?.includes('edit')">{{addsample?.artworklocation}}</a> </div>
+            <label class="ui label green" *ngIf="myProgressDATApdf">
+              <strong>File uploaded successfully</strong>
+            </label>
+          </div>
+          <div class="field ">
+            <label >
+              image upload for document
+            </label>
+            <input type="file"   class="mb-2" (change)="uploadImagefile($event.target.files)"  #fileInput>
+            <sui-progress class="my-2" *ngIf="!myProgressDATAimage &&  !this.currentRoute?.toString()?.includes('edit')" [value]="value2" name="progress" [showProgress]="progress" [precision]="precision" [maximum]="maximun" ></sui-progress>
+            <div style="border: 1px solid black;padding: 5px" *ngIf="this.currentRoute?.toString()?.includes('edit')"><strong>Uploaded Image &nbsp;&nbsp;:&nbsp;&nbsp; </strong><a *ngIf="addsample.filename">{{addsample?.filename}}</a></div>
+            <label class="ui label green" *ngIf="myProgressDATAimage">
+              <strong>Image uploaded successfully</strong>
+            </label>
+          </div>
+        </div>
+        <button class="ui teal tiny button"  (click)="patch(form);optionsLookupSample();"  type="button" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+          Save
+        </button>
+        <button class="ui primary tiny button " (click)="update(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+          Update
+        </button>
+        <button type="button" class="ui small red button" (click)="form.resetForm()">
+          Reset
+        </button>
+     </div>
+      </form>
+
+
+</div>
+<div class="ui bottom attached tab segment" data-tab="second">
+  <div class="ui segment" >
+  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse()" >
+    2. Woven Common Details
+    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">
+      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>
+      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>
+    </button>
+  </h3>
+<!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--    2.Edit Woven Technical Details-->
+<!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse,'red':!collapse}">-->
+<!--      <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+<!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+<!--    </button>-->
+<!--  </h3>-->
+
+
+      <form onsubmit="return false;" class="ui small form" #form='ngForm'>
+        <div class="field required">
+          <label>Sample No</label>
+          <sui-select  required class="selection" name="sampleno" placeholder=" "
+                       [(ngModel)]="sampleid"
+                       [options]="samples"
+                       labelField="sampleno"
+                       valueField="sampleid"
+                       [isSearchable]="true"
+                       #SelectSamples>
+            <sui-select-option *ngFor="let option of SelectSamples.filteredOptions"
+                               [value]="option"></sui-select-option>
+          </sui-select>
+
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <div class="field ">
+              <label>Warp Color</label>
+              <sui-select required class="selection" id="WrapColor" name="Wrap_Color" placeholder="warp color"
+                          [(ngModel)]="wovenDetail.color"
+                          [options]="colors"
+                          labelField="listitem"
+                          valueField="id"
+                          [isSearchable]="true"
+                          #MultiWrapColor>
+                <sui-select-option *ngFor="let option of MultiWrapColor.filteredOptions"
+                                   [value]="option"></sui-select-option>
+              </sui-select>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field ">
+              <label>Weaving Type</label>
+              <sui-select class="selection" id="Working_Type" name="Working_Type"  placeholder="Select Weaving Type"
+                          [(ngModel)]="wovenDetail.weavingtype"
+                          [options]="api.working_type"
+                          labelField="name"
+                          valueField="value"
+                          [isSearchable]="true"
+                          #MultiWreavingType>
+                <sui-select-option *ngFor="let option of MultiWreavingType.filteredOptions"
+                                   [value]="option"></sui-select-option>
+              </sui-select>
+              <!--<input  type="text" [(ngModel)]="wovenDetail.Working_Type"   id="Working_Type" name="Working_Type" autofocus placeholder="Working Type"/>-->
+            </div>
+          </div>
+          <div class="field">
+            <label>File Name</label>
+            <input  type="text" [(ngModel)]="wovenDetail.filename"   id="File_Name" name="File_Name" autofocus placeholder="file name"/>
+          </div>
+          <div class="field">
+            <label>Anti Dying</label>
+            <sui-select class="selection" id="AntiDying" name="AntiDying" placeholder="Select Anti Dying"
+                        [(ngModel)]="wovenDetail.antidying"
+                        [options]="api.options"
+                        labelField="name"
+                        valueField="value"
+                        [isSearchable]="true"
+                        #AntiDying>
+              <sui-select-option *ngFor="let option of AntiDying.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field ">
+            <label>Pick</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.pick"   id="Pick" name="Pick" autofocus placeholder="pick"/>
+          </div>
+          <div class="field">
+            <label>Cutter</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.cutter"   id="Cutter" name="Cutter" autofocus placeholder="cutter"/>
+          </div>
+          <div class="field">
+            <label>Length Cut to Cut</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.pslengthctoc"   id="Cut_to_Cut" name="Cut_to_Cut" autofocus placeholder="00.00"/>
+          </div>
+          <div class="field ">
+            <label>Damask Length</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.damasklength" min="0"  id="Damask_Length" name="Damask_Length" autofocus placeholder="00.00"/>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Finish Length</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.psfoldtofold"   id="Finish_Length" name="Finish_Length" autofocus placeholder="00.00"/>
+          </div>
+          <div class="field required">
+            <label>Width</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.pswidth"   id="Width" name="Width" autofocus placeholder="00.00"/>
+          </div>
+          <div class="field ">
+            <label>Hook</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.samplehuk"   id="Huk" name="Hook" autofocus placeholder="hook"/>
+          </div>
+          <div class="field">
+            <label>Starching Info</label>
+            <sui-select class="selection" id="Stracing" name="Stracing" placeholder="Select Starching"
+                        [(ngModel)]="wovenDetail.stracinginfo"
+                        [options]="api.options"
+                        labelField="name"
+                        valueField="value"
+                        [isSearchable]="true"
+                        #multiSelectStracing>
+              <sui-select-option *ngFor="let option of multiSelectStracing.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text" [(ngModel)]="wovenDetail."   id="sample_name" name="sample_name" autofocus placeholder="Sample Name"/>-->
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <label>Beam Tension</label>
+            <input  type="number"  [(ngModel)]="wovenDetail.beamtension" min="0"  id="Beam_Tension" name="Beam_Tension" autofocus placeholder="Beam Tension"/>
+          </div>
+          <div class="field required">
+            <label>Wrap Denier</label>
+            <sui-select class="selection" id="Wrap_Denier" name="Wrap_Denier" placeholder="Select Starching"
+                        [(ngModel)]="wovenDetail.warpdenier"
+                        [options]="api.denier_Value"
+                        labelField="name"
+                        valueField="value"
+                        #multiSelectwarpdenier>
+              <sui-select-option *ngFor="let option of multiSelectwarpdenier.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="number" [(ngModel)]="wovenDetail.warpdenier" min="0"  id="Wrap_Denier" name="Wrap_Denier" autofocus placeholder="warp denier"/>-->
+          </div>
+          <div class="field">
+            <label>Ironing Info</label>
+            <sui-select class="selection" id="Ironing_Info" name="Ironing_Info" placeholder="ironing info"
+                        [(ngModel)]="wovenDetail.ironicinfo"
+                        [options]="api.options"
+                        labelField="name"
+                        valueField="value"
+                        [isSearchable]="true"
+                        #Ironing_Info>
+              <sui-select-option *ngFor="let option of Ironing_Info.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text" [(ngModel)]="wovenDetail.sampleName"   id="Ironing Info" name="Ironing Info" autofocus placeholder="Sample Name"/>-->
+          </div>
+          <div class="field">
+            <label>Ultrasonic Cutting</label>
+            <sui-select class="selection" id="Ultrasonic_Cutting" name="Ultrasonic_Cutting" placeholder="ultrasonic cutting"
+                        [(ngModel)]="wovenDetail.ultrasoniccutting"
+                        [options]="api.options"
+                        labelField="name"
+                        valueField="value"
+                        [isSearchable]="true"
+                        #Ultrasonic_Cutting>
+              <sui-select-option *ngFor="let option of Ultrasonic_Cutting.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text" [(ngModel)]="wovenDetail.sampleName"   id="Ultrasonic Cutting" name="Ultrasonic Cutting" autofocus placeholder="Sample Name"/>-->
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Laser Cutting</label>
+            <sui-select class="selection" id="Laser_Cutting" name="Laser_Cutting" placeholder="laser cutting"
+                        [(ngModel)]="wovenDetail.lasercutting"
+                        [options]="api.options"
+                        labelField="name"
+                        valueField="value"
+                        [isSearchable]="true"
+                        #Laser_Cutting>
+              <sui-select-option *ngFor="let option of Laser_Cutting.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input  type="text" [(ngModel)]="wovenDetail.sampleName"   id="Laser Cutting" name="Laser Cutting" autofocus placeholder="Sample Name"/>-->
+          </div>
+          <div class="field">
+            <label>Cut Fold Info</label>
+            <sui-select class="selection" id="Cut_Fold_Info" name="Cut_Fold_Info" placeholder="cut fold info"
+                        [(ngModel)]="wovenDetail.cutfoldinfo"
+                        [options]="cutfoldinfos"
+                        labelField="listitem"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #Cut_Fold_Info>
+              <sui-select-option *ngFor="let option of Cut_Fold_Info.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Production Capacity</label>
+            <input  type="text" [(ngModel)]="wovenDetail.productioncapacity"   id="Production_Capacity" name="Production_Capacity" autofocus placeholder="production capacity"/>
+          </div>
+          <div class="field">
+            <label>Wash/Starch/Ironing Time</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.washstarcirontime"   id="Wash" name="Wash" autofocus placeholder="wash/starch/ironing time"/>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Ultrasonic Cut Capacity</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.ultrasoniccutcapacity"  id="Ultrasonic_Cut_Capacity" name="Ultrasonic_Cut_Capacity" autofocus placeholder="ultrasonic cut capacity "/>
+          </div>
+          <div class="field">
+            <label>Cut Fold Capacity</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.cutfoldcapacity"  id="Cut_Fold_Capacity" name="Cut_Fold_Capacity" autofocus placeholder="cut fold capacity"/>
+          </div>
+          <div class="field">
+            <label>Finishing Info</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.finishinginfo"   id="Finishing_Info" name="Finishing_Info" autofocus placeholder="finishing info"/>
+          </div>
+          <div class="field required">
+            <label>Pick Wheel</label>
+            <input  type="number" min="0" [(ngModel)]="wovenDetail.pickwheel"   id="Pick_Wheel" name="Pick_Wheel" autofocus placeholder="pick wheel"/>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Remark</label>
+            <textarea  type="text" [(ngModel)]="wovenDetail.remarks" rows="2"   id="Remarks" name="Remarks" autofocus placeholder="Remark"></textarea>
+          </div>
+        </div>
+
+        <button type="button" class="ui teal tiny button" (click)="patch1(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">Save</button>
+        <button type="button" class="ui primary tiny button" (click)="Updatepatch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">Update</button>
+      </form>
+    <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" >
+      3. Woven Yarn Details
+      <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">
+        <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+      </button>
+    </h3>
+  <table class="ui compact single line  table rounded-0 mt-2" style="margin-top: -8px;">
+    <tbody>
+    <tr class="bg-teal text-white">
+      <td> S.No</td>
+      <td class="center aligned"> <i class="trash icon"></i></td>
+      <td> Color Desription</td>
+      <td> Color</td>
+      <td> Material Name</td>
+      <td> Required Qty</td>
+      <td> Maheen Code</td>
+      <td> Denier</td>
+      <td> Pick</td>
+      <td> Supplier</td>
+      <!--<td> Supplier Code</td>-->
+      <td> Sequence ID</td>
+    </tr>
+    <tr *ngFor="let item of WovenYarnDetails; let i = index">
+      <td> {{ i+1 }}</td>
+      <td class="pointer center aligned" (click)="deleteYarn(item.yarninfoid ,i)"> <i class="trash red icon"></i></td>
+      <td> {{item?.colordescription}} </td>
+      <td> {{item?.color}}</td>
+      <td> {{item?.item?.itemcode}}</td>
+      <td> {{item?.requiredqty}}</td>
+      <td> {{item?.maheencode}}</td>
+      <td> {{item?.denier}}</td>
+      <td> {{item?.pick}}</td>
+      <td> {{item?.supplier?.suppliername }}</td>
+      <td> {{item?.sequenceid}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="ui small form">
+    <div class="equal width fields">
+      <div class="field">
+        <label>Sample No</label>
+        <sui-select required class="selection" name="yarnsampleno" placeholder=" "
+                    [(ngModel)]="sampleid"
+                    [isDisabled]="true"
+                    [options]="samples"
+                    (input)="optionsLookupSample()"
+                    labelField="sampleno"
+                    valueField="sampleid"
+                    [isSearchable]="true"
+                    #Selectyarnsampleno>
+          <sui-select-option *ngFor="let option of Selectyarnsampleno.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Color Description</label>
+        <input  type="text" [(ngModel)]="yarn.colordescription" id="Desription" name="Desription"placeholder="Description"/>
+      </div>
+      <div class="field required">
+        <label>Color</label>
+        <input  type="text" [(ngModel)]="yarn.color" id="Color" name="Color"placeholder="Color"/>
+      </div>
+      <div class="field">
+        <label>Item</label>
+        <sui-select class="selection" id="Item" name="Item" placeholder=" "
+                    [(ngModel)]="yarn.itemid"
+                    [options]="items"
+                    [isDisabled]="!yarn.color"
+                    (input)="searchItem($event.target.value)"
+                    labelField="itemcode"
+                    valueField="itemid"
+                    [isSearchable]="true"
+                    #Selectitmes>
+          <sui-select-option *ngFor="let option of Selectitmes.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field ">
+        <label>Required Qty</label>
+        <input  min="0" type="number" [(ngModel)]="yarn.requiredqty" id="Required_Qty" name="Required_Qty" placeholder="required qty"/>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Maheen Code</label>
+        <input  type="text" [(ngModel)]="yarn.maheencode" id="Maheen_Code" name="Maheen" placeholder="maheen code"/>
+      </div>
+      <div class="field">
+        <label>Denier</label>
+        <sui-select class="selection" id="denier" name="denier"
+                    [(ngModel)]="yarn.denier"
+                    [options]="api.denier_Value"
+                    labelField="name"
+                    valueField="value"
+                    #SelectMultidenier>
+          <sui-select-option *ngFor="let option of SelectMultidenier.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+        <!--<input  type="number" [(ngModel)]="yarn.denier" id="Denier" name="Denier"placeholder="denier"/>-->
+      </div>
+      <div class="field" >
+        <label>Pick</label>
+        <input  type="number" min="0" [(ngModel)]="yarn.pick" id="PickNo" name="Pickno" placeholder="pick"/>
+      </div>
+      <div class="field">
+        <label>Supplier</label>
+        <sui-select class="selection" id="Supplier" name="Supplier" placeholder=" "
+                    [(ngModel)]="yarn.supplierid"
+                    [options]="suppliers"
+                    (input)="optionsLookupSupplier($event.target.value)"
+                    labelField="suppliername"
+                    valueField="supplierid"
+                    [isSearchable]="true"
+                    #SelectSupplier>
+          <sui-select-option *ngFor="let option of SelectSupplier.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sequence ID</label>
+        <input min="0" type="number" [(ngModel)]="yarn.sequenceid" id="Sequence_ID" name="Sequence_ID" placeholder="sequence ID"/>
+      </div>
+      <div class="field pt-3 mt-2">
+        <!--          <button type="button" *ngIf="WovenYarnDetails >= 2" class="ui red right floated tiny button" (click)="deleteAllYarn()"> Delete All</button>-->
+        <button type="button" class="ui right floated primary tiny button" (click)="saveYarn(form)"><i class="add icon"></i> Add Key</button>
+      </div>
+      <!--<div class="field pt-3 mt-2">-->
+      <!--<button type="button" class="ui primary tiny button" (click)="addYarnDetails()"><i class="add icon"></i> Add Yarn</button>-->
+      <!--<br>-->
+      <!--</div>-->
+    </div>
+    <!--      <button type="button" class="ui teal tiny button " (click)="saveYarn(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+    <!--        Save-->
+    <!--      </button>-->
+    <!--      <button type="button" class="ui primary tiny button " (click)="updateYarn(form)"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+    <!--        Update-->
+    <!--      </button>-->
+    <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+  </div>
+    <h3 class="ui top blue attached header mt-3 pointer"  (click)="collapse2 = !collapse2;" >
+      4. Key Entry Details
+      <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">
+        <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>
+        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>
+      </button>
+    </h3>
+  <table class="ui compact single line table rounded-0 mt-2" style="margin-top: -8px;">
+    <tbody>
+    <tr class="bg-teal text-white" *ngIf="keyEntryFields.length >= 1">
+      <td >S.No</td>
+      <td  class="center aligned"> <i class="trash icon"></i></td>
+      <td> Color </td>
+      <td> Size</td>
+      <td> Style</td>
+      <td> Key 4</td>
+      <td> Key 5</td>
+      <td> Key 6</td>
+      <td> Key 7</td>
+      <td> Key 8</td>
+      <td> Key 9</td>
+      <td> Quantity</td>
+    </tr>
+    <tr *ngFor="let key of keyEntryFields; let i = index">
+      <td> {{ i+1 }}</td>
+      <td class="pointer center aligned" (click)="deleteKeyEntry(key.keyentryid ,i);"> <i class="trash red icon"></i></td>
+      <td>{{key?.keyentry1}}</td>
+      <td>{{key?.keyentry2}}</td>
+      <td>{{key?.keyentry3}}</td>
+      <td>{{key?.keyentry4}}</td>
+      <td>{{key?.keyentry5}}</td>
+      <td>{{key?.keyentry6}}</td>
+      <td>{{key?.keyentry7}}</td>
+      <td>{{key?.keyentry8}}</td>
+      <td>{{key?.keyentry9}}</td>
+      <td>{{key?.keyentry10}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <form class="ui small form"  #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()" >
+    <div class="equal width fields">
+      <div class="field">
+        <label>Color</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry1 " id="keyentry1" name="keyentry1" placeholder="Color"/>
+      </div>
+      <div class="field">
+        <label>Size</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry2" id="keyentry2" name="keyentry2" placeholder="Size "/>
+      </div>
+      <div class="field">
+        <label>Style</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry3" id="keyentry3" name="keyentry3" placeholder="Style No"/>
+      </div>
+      <div class="field">
+        <label>Key 4</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry4" id="keyentry4" name="keyentry4" placeholder=""/>
+      </div>
+      <div class="field">
+        <label>Key 5</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry5" id="keyentry5" name="keyentry5" placeholder=""/>
+      </div>
+      <div class="field">
+        <label>Key 6</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry6" id="keyentry6" name="keyentry6" placeholder=""/>
+      </div>
+      <div class="field">
+        <label>Key 7</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry7" id="keyentry7" name="keyentry7" placeholder=""/>
+      </div>
+      <div class="field">
+        <label>Key 8</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry8" id="keyentry8" name="keyentry8" placeholder=""/>
+      </div>
+      <div class="field">
+        <label>Key 9</label>
+        <input type="text" [(ngModel)]="SampleWiseKeyEntryField.keyentry9" id="keyentry9" name="keyentry9" placeholder=""/>
+      </div>
+      <div class="field">
+        <label>Quantity</label>
+        <input min="0" type="number" [(ngModel)]="SampleWiseKeyEntryField.keyentry10" id="Quantity" name="Quantity" placeholder="Quantity"/>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <button type="button" *ngIf="keyEntryFields.length >= 2" class="ui red right floated tiny button" (click)="deleteAllKeyEntry()"> Delete All</button>
+        <button type="button" class="ui right floated primary tiny button" (click)="addKeyDetails(form)"><i class="add icon"></i> Add Key</button>
+      </div>
+    </div>
+    <button type="button" class="ui teal tiny button" (click)="saveKeyEntryFields(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">Save</button>
+    <button type="button" class="ui primary tiny button" (click)="updateKeyEntryFields()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">Update</button>
+
+  </form>
+</div>
+  <app-pfl-technical-details ></app-pfl-technical-details>
+  <app-add-material-detail></app-add-material-detail>
+  <app-add-material-detail></app-add-material-detail>
+</div>
+<div class="ui bottom attached tab segment" data-tab="third">
+  <app-add-material-detail></app-add-material-detail>
+<!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--    3. Edit Woven Yarn Details-->
+<!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">-->
+<!--      <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>-->
+<!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>-->
+<!--    </button>-->
+<!--  </h3>-->
+
+      <!--<div class="ui divider"></div>-->
+
+    </div>
+
+<div class="ui bottom attached tab segment" data-tab="fourth">
+
+<!--  <h3 class="ui top blue attached header mt-3 pointer"  (click)="collapse2 = !collapse2;"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+<!--    4.Edit Key Entry Details-->
+<!--    <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse2,'red':!collapse2}">-->
+<!--      <i class="add ml-1 blue small icon" *ngIf="collapse2"></i>-->
+<!--      <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse2"></i>-->
+<!--    </button>-->
+<!--  </h3>-->
+
+      <!--<div class="ui divider"></div>-->
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

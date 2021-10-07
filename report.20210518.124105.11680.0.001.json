@@ -1,0 +1,402 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20210518.124105.11680.0.001.json",
+    "dumpEventTime": "2021-05-18T12:41:05Z",
+    "dumpEventTimeStamp": "1621320065685",
+    "processId": 11680,
+    "cwd": "D:\\mahtab.hrm\\CTBLProject\\erp-client",
+    "commandLine": [
+      "node",
+      "--max-old-space-size=8800",
+      "./node_modules/@angular/cli/bin/ng",
+      "build",
+      "--prod"
+    ],
+    "nodejsVersion": "v12.13.1",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.13.1",
+      "v8": "7.7.299.13-node.16",
+      "uv": "1.33.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.2",
+      "napi": "5",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.13.1/node-v12.13.1-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.13.1/node-v12.13.1.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.13.1/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.19042",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1353093,
+        "nice": 0,
+        "sys": 2957796,
+        "idle": 28644593,
+        "irq": 479156
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 812843,
+        "nice": 0,
+        "sys": 1321734,
+        "idle": 30820421,
+        "irq": 19984
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1784937,
+        "nice": 0,
+        "sys": 2701171,
+        "idle": 28468890,
+        "irq": 41609
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1583968,
+        "nice": 0,
+        "sys": 2136500,
+        "idle": 29234515,
+        "irq": 26671
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1633390,
+        "nice": 0,
+        "sys": 2282156,
+        "idle": 29039437,
+        "irq": 47578
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1058000,
+        "nice": 0,
+        "sys": 1389062,
+        "idle": 30507921,
+        "irq": 18734
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1573734,
+        "nice": 0,
+        "sys": 2185453,
+        "idle": 29195796,
+        "irq": 40843
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz",
+        "speed": 1800,
+        "user": 1209953,
+        "nice": 0,
+        "sys": 1246843,
+        "idle": 30498171,
+        "irq": 15078
+      }
+    ],
+    "host": "MANDEEP-CONTINE"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff712661729",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712665b4c",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712664b08",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff71275369b",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712f582de",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712f40321",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712e0dbec",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712dc79bb",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712dc7682",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712dce3f2",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712dcdbfe",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712dce066",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712df96f2",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712df967a",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712dcba17",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712e1a9b2",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712e152f6",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712e0b353",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712e09b24",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712e2adf5",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff712b96e19",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00007ff71338404d",
+      "symbol": ""
+    },
+    {
+      "pc": "0x00000244c0c93381",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 1776340992,
+    "totalCommittedMemory": 1776340992,
+    "usedMemory": 1725712304,
+    "availableMemory": 6794562040,
+    "memoryLimit": 9277800448,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261872,
+        "used": 32296,
+        "available": 229576
+      },
+      "new_space": {
+        "memorySize": 33554432,
+        "committedMemory": 33554432,
+        "capacity": 16759808,
+        "used": 16727312,
+        "available": 32496
+      },
+      "old_space": {
+        "memorySize": 1665511424,
+        "committedMemory": 1665511424,
+        "capacity": 1663460520,
+        "used": 1657689336,
+        "available": 5771184
+      },
+      "code_space": {
+        "memorySize": 13008896,
+        "committedMemory": 13008896,
+        "capacity": 12277088,
+        "used": 5809696,
+        "available": 6467392
+      },
+      "map_space": {
+        "memorySize": 30937088,
+        "committedMemory": 30937088,
+        "capacity": 30895120,
+        "used": 12602560,
+        "available": 18292560
+      },
+      "large_object_space": {
+        "memorySize": 32444416,
+        "committedMemory": 32444416,
+        "capacity": 32300704,
+        "used": 32300704,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 622592,
+        "committedMemory": 622592,
+        "capacity": 550400,
+        "used": 550400,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 16759808,
+        "used": 0,
+        "available": 16759808
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 85.968,
+    "kernelCpuSeconds": 18.531,
+    "cpuConsumptionPercent": 125.902,
+    "maxRss": 2529198080,
+    "pageFaults": {
+      "IORequired": 919425,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 6503,
+      "writes": 5
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=C:": "C:\\",
+    "=D:": "D:\\mahtab.hrm\\CTBLProject\\erp-client",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "ANDROID_HOME": "C:\\Program Files\\Android\\Android Studio\\bin",
+    "ANDROID_SDK_ROOT": "C:\\Users\\Lenovo\\AppData\\Local\\Android\\Sdk\\tools;C:\\Users\\Lenovo\\AppData\\Local\\Android\\Sdk;C:\\Users\\Lenovo\\AppData\\Local\\Android\\Sdk\\platform-tools;C:\\Users\\Lenovo\\AppData\\Local\\Android\\Sdk\\platforms;",
+    "APPDATA": "C:\\Users\\Mahtab\\AppData\\Roaming",
+    "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_10552_PDSFFOXODVQQDTDP",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "MANDEEP-CONTINE",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "configsetroot": "C:\\WINDOWS\\ConfigSetRoot",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+    "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Mahtab",
+    "JD2_HOME": "C:\\Users\\Mahtab\\AppData\\Local\\JDownloader 2.0",
+    "LOCALAPPDATA": "C:\\Users\\Mahtab\\AppData\\Local",
+    "LOGONSERVER": "\\\\MANDEEP-CONTINE",
+    "NUMBER_OF_PROCESSORS": "8",
+    "OneDrive": "C:\\Users\\Mahtab\\OneDrive",
+    "ORIGINAL_XDG_CURRENT_DESKTOP": "undefined",
+    "OS": "Windows_NT",
+    "Path": "C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;C:\\Program Files (x86)\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\110\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\110\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files (x86)\\Microsoft SQL Server\\110\\DTS\\Binn\\;C:\\Program Files\\nodejs\\;C:\\Users\\Mahtab\\AppData\\Roaming\\npm;C:\\Program Files\\Java\\jdk1.8.0_201\\bin;C:\\Program Files\\Java\\jre1.8.0_201\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Users\\Atin\\AppData\\Roaming\\npm;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C:\\Users\\Mahtab\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Mahtab\\AppData\\Local\\Programs\\Microsoft VS Code\\bin",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "8e0c",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "%ProgramFiles%\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\110\\Tools\\PowerShell\\Modules\\;C:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\PowerShell\\Modules\\",
+    "PUBLIC": "C:\\Users\\Public",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\Mahtab\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\Mahtab\\AppData\\Local\\Temp",
+    "TMPDIR": "C:\\Users\\Public\\Documents\\iSkysoft\\CreatorTemp",
+    "USERDOMAIN": "MANDEEP-CONTINE",
+    "USERDOMAIN_ROAMINGPROFILE": "MANDEEP-CONTINE",
+    "USERNAME": "Mahtab",
+    "USERPROFILE": "C:\\Users\\Mahtab",
+    "VS110COMNTOOLS": "C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\",
+    "VS120COMNTOOLS": "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\",
+    "windir": "C:\\WINDOWS",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.56.2",
+    "LANG": "en_US.UTF-8",
+    "COLORTERM": "truecolor",
+    "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-743038bc3a-sock",
+    "GIT_ASKPASS": "c:\\Users\\Mahtab\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+    "VSCODE_GIT_ASKPASS_NODE": "C:\\Users\\Mahtab\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "VSCODE_GIT_ASKPASS_MAIN": "c:\\Users\\Mahtab\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+    "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\bcryptprimitives.dll"
+  ]
+}

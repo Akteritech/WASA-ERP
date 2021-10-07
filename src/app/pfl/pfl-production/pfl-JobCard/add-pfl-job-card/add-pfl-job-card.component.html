@@ -1,0 +1,145 @@
+
+<form class="ui tiny form m-1" #form='ngForm' onsubmit="return false;" autocomplete="off"  enctype="multipart/form-data" *ngIf="addList.includes('Job Card')">
+  <div class="ui segment m-1 mt-2">
+    <h4 class="ui teal dividing header">
+      <!--      <button class="ui tiny orange button my-1" type="button"  (click)="back()">-->
+      <!--        <i class="arrow left icon"></i> Back-->
+      <!--      </button>-->
+      <br>
+      New Job Card
+    </h4>
+    
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Company Name</label>
+        <sui-select placeholder="company name"  required
+                    class="selection"
+                    [options]="companies"
+                    [isDisabled]="!companies"
+                    [(ngModel)]="company"
+                    (ngModelChange) = "optionsLookupWorkOrder()"
+                    name="companyname"
+                    [isSearchable]="true"
+                    labelField="companyname"
+                    valueField="companyid"
+                    #selectCompanyName>
+          <sui-select-option *ngFor="let op of selectCompanyName.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>WorkOrder No.</label>
+        <sui-select placeholder=" "
+                    class="selection"
+                    [options]="orders"
+                    [isDisabled]="!orders"
+                    [(ngModel)]="workorderno"
+                    (input)="optionsLookupWorkOrder($event.target.value)"
+                    name="workorderno"
+                    [isSearchable]="true"
+                    labelField="workorderno"
+                    valueField="workorderno"
+                    (ngModelChange) = "getOrderDetailsByCategoryAndSampleName()"
+                    #selectWorkOrderNo>
+          <sui-select-option *ngFor="let op of selectWorkOrderNo.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <button type="button" class="ui small red button" (click)="reset()">Reset</button>
+    <!-- <button type="button" class="ui small green button" (click)="getOrderDetailsByCategoryAndSampleName()">Get</button> -->
+  </div>
+
+
+  <!-- <div  *ngIf="workOrders"  class="ui segment m-1 mt-2">
+    <div class="overflow-y-scroll mt-2 " style="height: 200px">
+      <table class="ui mini very compact single line unstackable teal table ">
+        <thead>
+        <tr>
+          <th>
+            <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllWO" (ngModelChange)="selectAll()"></sui-checkbox>
+          </th>
+          <th>WO No</th>
+          <th>Sample Name</th>
+          <th>Parts</th>
+          <th>Client Name</th>
+          <th>Brand Name</th>
+          <th>Delivery Date</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Style</th>
+          <th>Order Qty</th>
+          <th>Unplanned Qty</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr *ngFor="let wo of workOrders; let i = index">
+          <td><sui-checkbox  class="mt-2" [(ngModel)]="wo.selected" name="{{i}}" ></sui-checkbox></td>
+          <td>{{wo?.WorkOrderNo }}</td>
+          <td>{{wo?.SampleName }}</td>
+          <td>{{wo?.Parts}}</td>
+          <td>{{wo?.ClientName }}</td>
+          <td>{{wo?.BrandName }}</td>
+          <td>{{wo?.EstDeliverDate.substring(0, 10) }}</td>
+          <td>{{wo?.Color }}</td>
+          <td>{{wo?.SIZE }}</td>
+          <td>{{wo?.STYLE }}</td>
+          <td>{{wo?.OrderQty }}</td>
+          <td>{{wo?.unplanned }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button type="button" class="ui teal tiny button my-2" (click)="planJobs()">
+      Plan Selected Jobs
+    </button>
+  </div> -->
+
+  <div *ngIf="jobsToPlan.length > 0" class="ui segment m-1 mt-2">
+    <h4 class="ui teal dividing header">Plan A Particular Job</h4>
+    Priority: <input type="number" name="priority" [(ngModel)]="priority">
+    <div >
+      <table class="ui mini very compact teal unstackable table">
+        <thead>
+        <tr>
+          <th>
+            <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="masterSelect" (ngModelChange)="selectAll()"></sui-checkbox>
+          </th>
+          <th>Work Order No.</th>
+          <th>Sample Name</th>
+          <th>Parts</th>
+          <th>Client Name</th>
+          <th>Brand Name</th>
+          <th>Delivery Date</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Style</th>
+          <th>Order Qty</th>
+          <th class="single line">Planed Qty</th>
+          <th>UnPlaned Qty</th>
+        </tr>
+        </thead>
+        <tbody><tr *ngFor="let jtp of jobsToPlan; let i = index">
+          <td><sui-checkbox [(ngModel)]="selections[i]" name="check{{i}}"></sui-checkbox></td>
+          <td>{{jtp?.WorkOrderNo }}</td>
+          <td>{{jtp?.SampleName }}</td>
+          <td>{{jtp?.Parts }}</td>
+          <td>{{jtp?.ClientName }}</td>
+          <td>{{jtp?.BrandName }}</td>
+          <td>{{jtp?.EstDeliverDate | date }}</td>
+          <td>{{jtp?.Color }}</td>
+          <td>{{jtp?.SIZE}}</td>
+          <td>{{jtp?.STYLE}}</td>
+          <td>{{jtp?.OrderQty }}</td>
+          <td class="single line"> <div class="field">
+            <input placeholder="" [min]="1" type="number" [max]="jtp?.OrderQty" [(ngModel)]="jtp.PQty" name="planqty{{i}}" [max]="jtp?.OrderQty" [min]="0">
+          </div></td>
+          <td>{{jtp?.unplanned }}</td>
+          
+        </tr></tbody>
+      </table>
+    </div>
+    <button type="button" class="ui primary tiny button my-2"  (click)="create()">
+      Create Job
+    </button>
+  </div>
+</form>

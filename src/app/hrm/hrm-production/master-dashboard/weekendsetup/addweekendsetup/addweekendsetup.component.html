@@ -1,0 +1,138 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h3 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add Weekend
+    </h3>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Weekend ID</label>
+        <input type="text" [(ngModel)]="weekend.WEEKEND_ID" name="weekendid">
+      </div>
+      <div class="field" >
+        <label>Zone</label>
+        <sui-select placeholder=".  " class="selection" name="companyname" [options]="companies" [(ngModel)]="weekend.unit" (ngModelChange)="getEmpDetails()"
+          (input)="getCompanies($event.target.value)" [isSearchable]="true" labelField="DIVISION_NAME_ENG"
+          valueField="DIVISION_ID" #selectCompanyName>
+          <sui-select-option *ngFor="let op of selectCompanyName.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field ">
+        <label>Department</label>
+        <sui-select placeholder="Select Department" class="selection" name="department" [(ngModel)]="weekend.department"
+           labelField="DeptEngNm" valueField="DEPARTMENT_ID" (ngModelChange)="getEmpDetails()">
+          <sui-select-option *ngFor="let op of departments" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Card No</label>
+        <sui-select placeholder="." class="selection" name="cardno" [options]="cardnos" [(ngModel)]="weekend.EMP_CARD_NO"
+          labelField="EMP_CARD_NO" valueField="EMP_CARD_NO" (keyup)="getCards($event.target.value)"
+          (ngModelChange)="getEmpDetails()" [isSearchable]="true" #selectCard>
+          <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Group</label>
+        <sui-select placeholder="." class="selection" name="group" [options]="groups" labelField="GROUP_NAME_ENG"
+          [isSearchable]="true" valueField="GROUP_ID" #selectGroup>
+          <sui-select-option *ngFor="let op of selectGroup.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Line</label>
+        <input type="text" name="Line">
+      </div>
+      <div class="field">
+        <label>Floor</label>
+        <input type="text" name="Floor">
+      </div>
+    </div>
+    <div class="equal width fields" >
+      <div class="field">
+        <div class="fields two">
+          <div class="field">
+            <label>Weekend Day</label>
+            <sui-select placeholder="." class="selection" name="weekendday" [(ngModel)]="weekend.WEEKEND_DAY" [isSearchable]="true">
+              <sui-select-option value="Saturday"></sui-select-option>
+              <sui-select-option value="Sunday"></sui-select-option>
+              <sui-select-option value="Monday"></sui-select-option>
+              <sui-select-option value="Tuesday"></sui-select-option>
+              <sui-select-option value="Wednesday"></sui-select-option>
+              <sui-select-option value="Thrusday"></sui-select-option>
+              <sui-select-option value="Friday"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="equal width fields">
+            <div class="ml-1 ml-1 mt-4">
+              <button class="ui purple tiny button ml-1" (click)="get()">Search</button>
+            </div>
+            <div class="ml-1 ml-1 mt-4">
+              <button class="ui red tiny button ml-1" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <table class="ui very compact teal table unstackable" [ngStyle]="{'background-color':'#71797E'}">
+      <thead>
+        <tr>
+          <th><input type="checkbox" name="allChecl" [(ngModel)]="allCheck" (ngModelChange)="checkAll()"></th>
+          <th>SL</th>
+          <th>Department</th>
+          <th>Employee Name</th>
+          <th>Card No</th>
+          <th>Designation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of employerDetails; let i = index">
+          <td><input type="checkbox" name="checks{{i}}" [(ngModel)]="checks[i]"></td>
+          <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+          <td>{{data?.DeptEngNm}}</td>
+          <td>{{data?.EMP_NAME_ENG}}</td>
+          <td>{{data?.EMP_CARD_NO}}</td>
+          <td>{{data?.DesigNmEng}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+      [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+      (pageChange)="pageChange()">
+    </sui-pagination>
+    <br />
+    <button class="ui teal tiny button my-1" (click)="patch(form)"
+      *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+  </div>
+
+  <table class="ui very compact teal table unstackable" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Department Name</th>
+        <th>Employee Id</th>
+        <th>Employee Card No</th>
+        <th>Employee Name</th>
+        <th>Designation</th>
+        <th>Weekend Day</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cust of allWeekendData; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+        <td>{{cust?.DeptEngNm}}</td>
+        <td>{{cust?.EMP_ID}}</td>
+        <td>{{cust?.EMP_CARD_NO}}</td>
+        <td>{{cust?.EMP_NAME_ENG}}</td>
+        <td>{{cust?.DesigNmEng}}</td>
+        <td>{{cust?.WEEKEND_DAY}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</form>

@@ -1,0 +1,10 @@
+.myinput {
+    visibility: hidden !important;
+}
+.ui.checkbox input:checked~.box:after, .ui.checkbox input:checked~label:after {
+    visibility: hidden !important;
+}
+.ui.checkbox input.hidden+label {
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+}

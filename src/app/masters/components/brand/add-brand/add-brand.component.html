@@ -1,0 +1,86 @@
+  <form onsubmit="return false;" class="ui small form " #form='ngForm' (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+     Add  New Brand
+    </h4>
+      <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+     Edit Brand
+    </h4>
+        <sui-message class="warning mb-2 mt-2" *ngIf="!brand.brandname && !brand.contactperson">
+            <li>
+                <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+            </li>
+        </sui-message>
+    <div class="equal width fields" >
+      <div class="field required">
+      <label> Brand Name</label>
+      <input required type="text" placeholder="brand name" [(ngModel)]="brand.brandname" id="brandname" name="brandname">
+    </div>
+      <div class="field required">
+      <label> Contact Person</label>
+      <input type="text" placeholder="contact person" [(ngModel)]="brand.contactperson" id="contactperson" name="contactperson">
+    </div>
+      <div class="field required">
+        <label> Telephone</label>
+        <input required type="text" placeholder="telephone" [(ngModel)]="brand.telephone" id="telephone" name="telephone">
+      </div>
+    </div>
+    <div class="equal width fields">
+    <div class="field">
+    <label> Fax</label>
+    <input type="text" placeholder="fax" [(ngModel)]="brand.fax" id="fax" name="fax">
+  </div>
+      <div class="field required">
+    <label> Email</label>
+    <input required type="email" placeholder="email" [(ngModel)]="brand.email" id="email" name="email">
+  </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Is Nexgen Buyer</label>
+        <sui-select class="selection" id="IsNexgenBuyer" name="IsNexgenBuyer" placeholder="Select IsNexgenBuyer"
+                    [(ngModel)]="brand.isnexzenbuyer"
+                    [options]="api.options"
+                    labelField="name"
+                    valueField="value"
+                    [isSearchable]="true"
+                    #IsNexgenBuyer>
+          <sui-select-option *ngFor="let option of IsNexgenBuyer.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+<!--      <div class="field">-->
+<!--        <label> Is Nexgen Buyer</label>-->
+<!--        <input type="text" placeholder="is nexgen buyer" [(ngModel)]="brand.isnexzenbuyer" id="isnexzenbuyer" name="isnexzenbuyer">-->
+<!--      </div>-->
+    </div>
+    <div class="equal width fields">
+
+      <div class="field">
+      <label> Specific Price</label>
+      <input type="number" placeholder="specific rate" [(ngModel)]="brand.specificprice" id=" specificprice" name="specificprice">
+    </div>
+    </div>
+    </div>
+    <button class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+    <button class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Update
+    </button>
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

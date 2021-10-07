@@ -1,0 +1,52 @@
+<!--<div id="generatedImage"></div>-->
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="this.api.backClicked()">
+    <i class="angle left icon"></i>
+    Back
+  </button>
+  <form #form='ngForm' class="ui small mt-2 inline form" >
+    <h4 class="ui teal dividing header">
+      Search
+    </h4>
+    <div class="equal width fields" [ngStyle]="{'background-color':'#71797E'}">
+      <div class="field">
+        <label>Card No:</label>
+        <input placeholder=" card no" type="text" [(ngModel)]="cardno" (keyup.enter)="key()" name="cardno">
+      </div>
+      <div class="field">
+        <button type="button" class="ui small teal right button" (click)="getEmpPhoto(this.cardno)">
+          <i class="search left icon"></i>Search</button>
+        <button type="button" class="ui small purple button right" (click)="form.resetForm();reset()">Reset</button>
+      </div>
+
+    </div>
+  </form>
+  <table class="ui very compact unstackable teal table"[ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Card No.</th>
+        <!--    <th>Grade Name Bangla</th>-->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of dataList; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+        <!--    <td class="single line pointer">-->
+        <!--      <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/grade/',showdata?.GradeId]"></i>-->
+        <!--    </td>-->
+        <td>{{showdata?.EMP_CARD_NO}}</td>
+        <!--    <td>{{showdata?.empImage?.changingThisBreaksApplicationSecurity }}</td>-->
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange1()">
+  </sui-pagination>
+  <div class="row" id="generatedImage">
+  </div>
+  <div class="ui image" id="image" *ngIf="this.empImage">
+    <img [src]="this.empImage" alt="" style="height: 126px; width: 90px">
+  </div>
+</div>

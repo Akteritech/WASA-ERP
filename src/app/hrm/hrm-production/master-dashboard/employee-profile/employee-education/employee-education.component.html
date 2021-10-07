@@ -1,0 +1,90 @@
+<button class="ui tiny orange button" type="button" *ngIf="this.editId" (click)="this.api.backClicked()">
+  <i class="angle left icon"></i>
+  Back
+</button>
+<form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Employee Education
+      <br>
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Employee Education
+      <br>
+    </h4>
+    <sui-message class="warning mb-2 mt-2">
+      <li>
+        <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <h5 class="ui teal dividing header">
+      Employee Education Summary
+      <br>
+    </h5>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Degree</label>
+        <sui-select name="Mstatus" class="loading fluid multiple search selection" [(ngModel)]="emp.DEGREE"
+          [options]="educations" labelField="ListValue" valueField="ListValue" [isSearchable]="true" #Selecteducation>
+          <sui-select-option *ngFor="let option of Selecteducation.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Passing Year</label>
+        <input type="number" [(ngModel)]="emp.DEGREE_YEAR" id="DEGREE_YEAR" name="DEGREE_YEAR"
+          placeholder="Father Name" />
+      </div>
+      <div class="field">
+        <label>Institute</label>
+        <input type="text" [(ngModel)]="emp.INSTITUTE" id="INSTITUTE" name="INSTITUTE" placeholder="Mother Name" />
+      </div>
+      <div class="field">
+        <label>Result</label>
+        <input type="text" [(ngModel)]="emp.RESULT" id="RESULT" name="RESULT" placeholder="Mother Name" />
+      </div>
+    </div>
+    <div>
+      <button class="ui teal tiny button my-1" (click)="patch(form)">
+        Save
+      </button>
+      <button class="ui primary tiny button my-1" *ngIf="index >= 0" (click)="updateEmp()">
+        Update
+      </button>
+    </div>
+    <table class=" ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+      <thead>
+        <tr>
+          <th>
+            <sui-checkbox class="middle aligned" name="foreign" [(ngModel)]="selectAllEmployee"
+              (ngModelChange)="selectAll()"></sui-checkbox>
+          </th>
+          <th>SL</th>
+          <th>Action</th>
+          <th>Degree</th>
+          <th>Institute</th>
+          <th>Year</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of employees; let i = index">
+          <td>
+            <sui-checkbox class="mt-2" [(ngModel)]="e.selected" name="{{i}}" (click)="selectEmployees(e,i)">
+            </sui-checkbox>
+          </td>
+          <td>{{i+1}} </td>
+          <td class="single line">
+            <i class="edit icon" (click)="getEmpLoyeess(e,i)" [(ngModel)]="e.selected" name="{{i}}"></i>
+          </td>
+          <td>{{e?.DEGREE}}</td>
+          <td>{{e?.INSTITUTE}}</td>
+          <td>{{e?.DEGREE_YEAR}}</td>
+          <td>{{e?.RESULT}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</form>

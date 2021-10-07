@@ -1,0 +1,7 @@
+<form class="ui form" onsubmit="return false;" autocomplete="off"><div class="equal width fields">
+  <div class="field">
+    <label *ngIf="currentHoldData"> {{title}} Reason for workorder {{currentHoldData.workorder}}</label>
+    <textarea placeholder=" " rows="3" [(ngModel)] = "reason" name="narration"></textarea>
+  </div>
+</div></form>
+<button class="ui teal tiny button my-1" (click)="update()" >{{title}}</button>

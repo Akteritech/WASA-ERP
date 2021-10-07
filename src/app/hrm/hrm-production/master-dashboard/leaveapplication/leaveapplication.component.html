@@ -1,0 +1,182 @@
+<div class="pt-5">
+  <div class="mt-2">
+    <button class="ui tiny orange button " type="button" (click)="backClicked()">
+      <strong><i class="angle left icon"></i></strong>
+      Back
+    </button>
+    <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      <i class="refresh icon"></i>
+      Refresh
+    </button>
+    <button class="ui tiny right floated green dropdown button" routerLink="search">
+      <i class="search icon"></i>
+      <div class="text mr-1">Search</div>
+    </button>
+  </div>
+
+  <!-- <div class="mt-2">
+  <app-addleaveapplication (added)="get()"></app-addleaveapplication>
+</div> -->
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+      <h3 class="ui teal dividing header">Add Leave</h3>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Leave Name</label>
+          <sui-select placeholder=" " class="selection" name="leaves" [options]="leaveTypes"
+            [(ngModel)]="leave.LEAVE_ID" labelField="LEAVE_NAME" valueField="LEAVE_ID" (ngModelChange)="cardSelected()"
+            #selectLeave required>
+            <sui-select-option *ngFor="let op of selectLeave.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+
+        <div class="field required">
+          <label>Card No</label>
+          <sui-select placeholder="." class="selection" name="group" [options]="cardnos" [(ngModel)]="leave.EMP_CARD_NO"
+            labelField="EMP_CARD_NO" valueField="EMP_CARD_NO" (keyup)="getCards($event.target.value)"
+            (ngModelChange)="cardSelected()" [isSearchable]="true" #selectCard required>
+            <sui-select-option *ngFor="let op of selectCard.filteredOptions" [value]="op"></sui-select-option>
+          </sui-select>
+        </div>
+        <div class="field">
+          <label>Employee Name</label>{{name}}
+        </div>
+        <div class="field required">
+          <label>From Date</label>
+          <input suiDatepicker pickerMode="date" [(ngModel)]="leave.fromDate" name="fromDate"
+            (ngModelChange)="calculateDays()">
+        </div>
+        <div class="field required">
+          <label>To Date</label>
+          <input suiDatepicker pickerMode="date" [(ngModel)]="leave.toDate" name="toDate"
+            (ngModelChange)="calculateDays()">
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Contact Address</label>
+          <input required type="text" [(ngModel)]="leave.CONTACT_ADDRESS" id="CONTACT_ADDRESS" name="CONTACT_ADDRESS"
+            placeholder="Contact Address" />
+        </div>
+
+        <div class="field required">
+          <label>Contact No</label>
+          <input required type="text" [(ngModel)]="leave.CONTACT_NO" id="CONTACT_NO" name="CONTACT_NO"
+            placeholder="Contact No" />
+        </div>
+
+        <div class="field required">
+          <label>Person Responsible</label>
+          <input required type="text" [(ngModel)]="leave.RESPONSIBLE" id="RESPONSIBLE" name="RESPONSIBLE"
+            placeholder="Person Responsible" />
+        </div>
+
+        <div class="field required">
+          <label>Approved Days</label>{{leave.NO_OF_LEAVEDAY}}
+        </div>
+        <div class="field required">
+          <label>Available Leave</label>{{balance}}
+        </div>
+      </div>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Leave Reason</label>
+          <input required type="text" [(ngModel)]="leave.REMARK" id="description" name="LEAVE_REASON"
+            placeholder="Leave Reason" />
+        </div>
+      </div>
+      <button class="ui teal tiny button my-1" *ngIf="!this.editId" (click)="patch()">Save</button>
+      <button class="ui teal tiny button my-1" *ngIf="this.editId" (click)="edit()">Update</button>
+    </div>
+  </form>
+
+  <!-- <div style="width: 100%; overflow-x: scroll; ">
+    <button class="ui tiny blue button " (click)="approve()">Approve</button>
+    <table class="ui very compact unstackable teal table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" name="allChecl" [(ngModel)]="allCheck" (ngModelChange)="checkAll()"></th>
+          <th>SL</th>
+          <th>Card No</th>
+          <th>From Date</th>
+          <th>To Date</th>
+          <th>Name</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of leaveData; let i = index">
+          <td><input type="checkbox" name="checks{{i}}" [(ngModel)]="checks[i]"></td>
+          <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+          <td>{{data?.EMP_CARD_NO}}</td>
+          <td>{{data?.FROM_DATE.substring(0,10)}}</td>
+          <td>{{data?.TO_DATE.substring(0,10)}}</td>
+          <td>{{data?.EMP_NAME_ENG}}</td>
+          <td>{{data.DeptEngNm}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="get()">
+  </sui-pagination> -->
+
+  <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+    (keydown.enter)="$event.preventDefault()">
+    <div class="ui segment mt-5" [ngStyle]="{'background-color':'#71797E'}">
+      <h3 class="ui teal dividing header">
+        Search Leave
+      </h3>
+      <div class="equal width fields">
+        <div class="field required">
+          <label>Card No</label>
+          <input required type="text" id="cardNo" name="cardNo" placeholder="Card No" [(ngModel)]="cardNo" />
+        </div>
+      </div>
+      <button class="ui purple tiny button my-1" (click)="search()">
+        Search
+      </button>
+    </div>
+  </form>
+
+  <table class="ui very compact unstackable teal table" *ngIf="searchDatas" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Actions</th>
+        <th>Card No</th>
+        <th>FROM DATE</th>
+        <th>TO DATE</th>
+        <th>APPLIED DATE</th>
+        <th>NO OF LEAVEDAY</th>
+        <th>NO OF USEDDAY</th>
+        <th>CREATED BY</th>
+        <th>LEAVE NAME</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of searchDatas; let i = index">
+        <td>{{i+1}} </td>
+         <td class="single line">
+          <i class="edit link blue icon" (click)="getLeaveEditData(data?.SERIAL_NO)" ></i>
+       <!--   <i class="eye link blue icon" (click)="viewDetail(i);"></i>-->
+        </td> 
+        <td>
+          {{data?.EMP_CARD_NO}}
+        </td>
+        <td>{{data?.FROM_DATE.substring(0, 10)}}</td>
+        <td>{{data?.TO_DATE.substring(0, 10)}}</td>
+        <td>{{data?.APPLIED_DATE.substring(0, 10)}}</td>
+        <td>{{data?.NO_OF_LEAVEDAY}}</td>
+        <td>{{data?.NO_OF_USEDDAY}}</td>
+        <td>{{data?.CREATED_BY}}</td>
+        <td>{{data?.LEAVE_NAME}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

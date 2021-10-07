@@ -1,0 +1,161 @@
+<div class="ui segment small inline form mt-2" style="min-height: 600px;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Reports
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="." class="selection" [options]="companies" name="company" [(ngModel)]="companyname"
+          [isSearchable]="true" labelField="companyname" valueField="companyid" #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Department</label>
+        <sui-select placeholder="." class="selection" name="department" [options]="departments"
+          labelField="deptName" [isSearchable]="true" valueField="departmentId" #selectDepartment>
+          <sui-select-option *ngFor="let op of selectDepartment.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <sui-select class="selection" name="Product_Category" [isSearchable]="true" [options]="productcategories"
+          [(ngModel)]="productcategory" (ngModelChange)="getSample()" labelField="productcategoryname"
+          valueField="productcategoryid" #selectProductCategoryName>
+          <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sample</label>
+        <sui-select placeholder="." class="selection" [options]="samples" name="sample" [(ngModel)]="samplename"
+          [isSearchable]="true" labelField="SampleName" valueField="SampleID" (keyup)="getSample($event.target.value)"
+          #selectSample>
+          <sui-select-option *ngFor="let op of selectSample.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Customer</label>
+        <sui-select class="selection" name="customername" [isSearchable]="true" [options]="customers"
+           labelField="clientname" valueField="clientid" #selectCustomer>
+          <sui-select-option *ngFor="let option of selectCustomer.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Executive</label>
+        <sui-select class="selection" name="executivename" [isSearchable]="true" [options]="executives"
+           labelField="SalesPeron" valueField="Emp_ID" (keyup)="getExecutive($event.target.value)" #selectExecutive>
+          <sui-select-option *ngFor="let option of selectExecutive.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Supplier </label>
+        <sui-select placeholder="." class="selection" name="suppliername" [options]="supliers" labelField="suppliername"
+          valueField="supplierid" [isSearchable]="true"
+           #multiSelectClients>
+          <sui-select-option *ngFor="let op of multiSelectClients.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Buyer Name</label>
+        <sui-select placeholder="." class="selection" [options]="npdBrands" name="brand" [(ngModel)]="brandname"
+          [isSearchable]="true" labelField="BrandName" valueField="BrandID" #selectBrand>
+          <sui-select-option *ngFor="let op of selectBrand.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Item</label>
+        <sui-select placeholder="." class="selection" [options]="items" name="items" [(ngModel)]="ItemCode"
+          [isSearchable]="true" labelField="ItemCode" valueField="ItemID" (keyup)="getItems($event.target.value)" #selectItems>
+            <sui-select-option *ngFor="let op of selectItems.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Report Type</label>
+        <sui-select placeholder="Select Report Type" class="selection" name="ReportType" [isSearchable]="true" >
+          <sui-select-option value="Details"></sui-select-option>
+          <sui-select-option value="Summary"></sui-select-option>
+          <sui-select-option value="Indent"></sui-select-option>
+          <sui-select-option value="Purchase"></sui-select-option>
+          <sui-select-option value="Cross Tab"></sui-select-option>
+        </sui-select>
+      </div>
+       <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="searchFromname" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="SearchToname" autocomplete="off">
+        </div>
+      </div>
+    </div>
+  
+    <div class="equal width fields">
+      <div class="field">
+        <label>Choose Report</label>
+        <div class="two fields">
+          <div class="field">
+            <sui-select placeholder="." class="selection" [options]="reports" name="role"
+              [isSearchable]="true" labelField="ReportName" valueField="ReportID" #selectReport>
+              <sui-select-option *ngFor="let op of selectReport.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="pdfHMOrderPosition()">H&M Order Position(pdf)</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny brown button" (click)="excelHMOrderPosition()">H&M Order Position(excel)</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="pdfRebateCommission()">Rebate And Commission(pdf)</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="excelRebateCommission()" >Rebate And Commission (Excel)</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny black button" (click)="pdfPurchasePending()">Purchase Pending(pdf)</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny grey button" (click)="excelPurchasePending()" >Purchase Pending (Excel)</button>
+      </div>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,105 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <form onsubmit="return false;" class="ui small mt-2 inline form" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Work Order
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="Select Company" class="selection" [options]="companies" name="companyid"
+          [(ngModel)]="company" labelField="companyname" valueField="companyid" (ngModelChange)="getSalesPerson()"
+          #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <sui-select placeholder="Select Category" class="selection" [options]="categories" name="ProductCategoryID"
+          [(ngModel)]="category" labelField="ProductCategoryName" valueField="ProductCategoryID" #selectCategory>
+          <sui-select-option *ngFor="let op of selectCategory.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <!-- <div class="field">
+        <label>Buyer</label>
+        <sui-select placeholder="Select Buyer" class="selection" [options]="brands" name="BrandID" [(ngModel)]="brand"
+          labelField="BrandName" valueField="BrandID" [isSearchable]="true" #selectbrand>
+          <sui-select-option *ngFor="let op of selectbrand.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div> -->
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Sales Person</label>
+        <sui-select placeholder="Select Sales Person" class="selection" [options]="salesperson" name="Emp_ID"
+          [(ngModel)]="sales" labelField="FirstName" valueField="Emp_ID" #selectsalesperson>
+          <sui-select-option *ngFor="let op of selectsalesperson.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <!-- <div class="field">
+        <label>Order No/ URN No</label>
+        <sui-select placeholder="Please Select" class="selection" name="orderno" [(ngModel)]="orderno">
+          <sui-select-option value="Order No"></sui-select-option>
+          <sui-select-option value="URN NO"></sui-select-option>
+        </sui-select>
+      </div> -->
+      <div class="field">
+        <label>Work Order No.</label>
+        <input type="text" [(ngModel)]="workorderno" id="workorderno" name="workorderno" autofocus
+          placeholder="work order no." />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="mr-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui teal tiny button" (click)="getWOData()">Search</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small red button" (click)="reset();">Reset</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" *ngIf="history" (click)="patch()" >Confirm</button>
+      </div>
+    </div>
+
+    <table class="ui very compact unstackable teal table" *ngIf="history">
+      <tr class="bg-teal text-white pr-5">
+        <th>
+          <input type="checkbox" (click)="allCheck()" [(ngModel)]="masterCheck" name="check">
+        </th>
+        <th>WorkOrder No</th>
+        <th>URN No</th>
+        <th>Work Order Date</th>
+        <th>Customer</th>
+        <th>Buyer</th>
+        <th>Sample Name</th>
+        <th>Order Qty</th>
+        <th>Comments</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let confirmOrder of history; let i = index">
+          <td>
+            <input type="checkbox" class="mt-2" name="checkItem{{i}}" [(ngModel)]="tableCheckBox[i]"
+              (click)="anySelected()">
+          </td>
+          <td>{{confirmOrder?.WorkOrderNo }}</td>
+          <td>{{confirmOrder?.URNNo }}</td>
+          <td>{{confirmOrder?.OrderReceiveDate.substring(0, 10) }}</td>
+          <td>{{confirmOrder?.ClientName }}</td>
+          <td>{{confirmOrder?.BrandName }}</td>
+          <td>{{confirmOrder?.SampleName }}</td>
+          <td>{{confirmOrder?.Qty }}</td>
+          <td><input type="text" name="remark{{i}}" [(ngModel)]="confirmOrder.Remarks"></td>
+        </tr>
+        <tr *ngIf="history.length == 0">
+          <th colspan="9" style="text-align: center; padding: 10px;">No data found</th>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

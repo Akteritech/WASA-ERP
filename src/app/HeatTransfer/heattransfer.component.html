@@ -1,0 +1,198 @@
+<div class="ui container pt-5">
+  <div class="ui three stackable cards">
+    <div class="ui fluid raised card cardmy2" >
+      <a class="content " [routerLink]="['samples']">
+        <a class="center aligned header">Offset NPD Samples</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view samples
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui three cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                {{samples?.totalSamples}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Samples
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                {{samples?.todaySamples}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's Samples
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui red mini statistic">
+              <div class="value p-1">
+                {{samples?.todayDelivery}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's Delivery
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui fluid raised card cardmy2">
+      <a class="content" [routerLink]="['work-orders']">
+        <a class="center aligned header">Offset Work Orders</a>
+        <div class="center aligned meta" style="font-weight: bold; color: #1d2124">
+          create and view work orders
+        </div>
+      </a>
+      <div class="center aligned extra content">
+        <div class="ui three cards content">
+          <a class="card p-0 cardmy">
+            <div class="ui orange mini statistic">
+              <div class="value p-1">
+                {{workorders?.totalOrders}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Total Orders
+              </div>
+            </div>
+          </a>
+
+          <a class="card p-0 cardmy">
+            <div class="ui green mini statistic">
+              <div class="value p-1">
+                {{workorders?.todayOrders}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's Orders
+              </div>
+            </div>
+          </a>
+          <a class="card p-0 cardmy">
+            <div class="ui red mini statistic">
+              <div class="value p-1">
+                {{workorders?.todayDelivery}}
+              </div>
+              <div class="ui label mini bg-transparent">
+                Today's Delivery
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!--<div class="ui fluid raised card cardmy2" >-->
+      <!--<a class="content " [routerLink]="['jobcard']">-->
+        <!--<a class="center aligned header">Offset Job Cards </a>-->
+        <!--<div class="center aligned meta" style="font-weight: bold; color: #1d2124">-->
+          <!--create and view jobcards-->
+        <!--</div>-->
+      <!--</a>-->
+      <!--<div class="center aligned extra content">-->
+        <!--<div class="ui two cards content">-->
+          <!--<a class="card p-0 cardmy">-->
+            <!--<div class="ui orange mini statistic">-->
+              <!--<div class="value p-1">-->
+                <!--{{jobcards?.totalJobCards}}-->
+              <!--</div>-->
+              <!--<div class="ui label mini bg-transparent">-->
+                <!--Total Job Cards-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</a>-->
+          <!--<a class="card p-0 cardmy">-->
+            <!--<div class="ui green mini statistic">-->
+              <!--<div class="value p-1">-->
+                <!--{{jobcards?.todayJobCards}}-->
+              <!--</div>-->
+              <!--<div class="ui label mini bg-transparent">-->
+                <!--Today's Job Cards-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</a>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="ui fluid raised card cardmy2">-->
+      <!--<a class="content" [routerLink]="['job-cards']">-->
+        <!--<a class="center aligned header">Job Cards</a>-->
+        <!--<div class="center aligned meta" style="font-weight: bold; color: #1d2124">-->
+          <!--create and view job cards-->
+        <!--</div>-->
+      <!--</a>-->
+      <!--<div class="center aligned extra content my-0">-->
+        <!--<div class="ui two cards content">-->
+          <!--<a class="card p-0 cardmy">-->
+            <!--<div class="ui orange mini statistic">-->
+              <!--<div class="value p-1">-->
+                <!--{{jobcards?.totalJobCards}}-->
+              <!--</div>-->
+              <!--<div class="ui label tiny bg-transparent">-->
+                <!--Total Job Cards-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</a>-->
+          <!--<a class="card p-0 cardmy">-->
+            <!--<div class="ui green mini statistic">-->
+              <!--<div class="value p-1">-->
+                <!--{{jobcards?.todayJobCards}}-->
+              <!--</div>-->
+              <!--<div class="ui label tiny bg-transparent">-->
+                <!--Today's Job Cards-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</a>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="ui fluid raised card cardmy2">-->
+      <!--<a class="content" [routerLink]="['delivery-challans']">-->
+        <!--<a class="center aligned header">Delivery Challans</a>-->
+        <!--<div class="center aligned meta" style="font-weight: bold; color: #1d2124">-->
+          <!--create and view delivery challans-->
+        <!--</div>-->
+      <!--</a>-->
+      <!--<div class="center aligned extra content my-0">-->
+        <!--<div class="ui two cards content">-->
+          <!--<a class="card p-0 cardmy">-->
+            <!--<div class="ui orange mini statistic">-->
+              <!--<div class="value p-1">-->
+                <!--{{challans}}-->
+              <!--</div>-->
+              <!--<div class="ui label tiny bg-transparent">-->
+                <!--Total Delivery Challans-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</a>-->
+          <!--&lt;!&ndash;            <a class="card p-0 cardmy">&ndash;&gt;-->
+          <!--&lt;!&ndash;              <div class="ui green mini statistic">&ndash;&gt;-->
+          <!--&lt;!&ndash;                <div class="value p-1">&ndash;&gt;-->
+          <!--&lt;!&ndash;&lt;!&ndash;                  {{jobcards?.todayJobCards}}&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;                </div>&ndash;&gt;-->
+          <!--&lt;!&ndash;                <div class="ui label tiny bg-transparent">&ndash;&gt;-->
+          <!--&lt;!&ndash;                  Today's Job Cards&ndash;&gt;-->
+          <!--&lt;!&ndash;                </div>&ndash;&gt;-->
+          <!--&lt;!&ndash;              </div>&ndash;&gt;-->
+          <!--&lt;!&ndash;            </a>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a class="card p-1">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="ui red mini statistic">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="value p-1">&ndash;&gt;-->
+          <!--&lt;!&ndash;{{jobcards?.todayDelivery}}&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="label">&ndash;&gt;-->
+          <!--&lt;!&ndash;Today's Delivery&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+</div>

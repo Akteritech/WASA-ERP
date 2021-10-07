@@ -1,0 +1,160 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="this.api.backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui tiny right floated green dropdown button" [ngClass]="{'teal':!showSearchForm}" (click)="showSearchForm = !showSearchForm;">
+    <i class="search icon"></i>
+    <div class="text mr-1">Search</div>
+    <!--<i class="dropdown icon"></i>-->
+    <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+    <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+  </button>
+  <form #form='ngForm' class="ui small mt-2 inline form" *ngIf="showSearchForm">
+    <h4 class="ui teal dividing header">
+      Search Information
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Work Order Number :</label>
+        <input placeholder="work order no"  type="text" [(ngModel)]="workorder" name="work" (ngModelChange)="searchRecord()">
+        <!--        <sui-select placeholder=" " class="selection" [options]="workOrders" [(ngModel)]="pflplanning.proorderid"-->
+        <!--          (input)="optionsLookupWorkOrder($event.target.value)" name="workorderno" [isSearchable]="true"-->
+        <!--          labelField="workorderno" valueField="workorderno" #selectWorkOrderNo>-->
+        <!--          <sui-select-option *ngFor="let op of selectWorkOrderNo.filteredOptions" [value]="op"></sui-select-option>-->
+        <!--        </sui-select>-->
+      </div>
+      <div class="field">
+        <label>From Date :</label>
+        <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+               name="fromDate">
+      </div>
+      <div class="field">
+        <label>To Date :</label>
+        <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" (ngModelChange)="searchRecord()" [(ngModel)]="toDate" name="toDate">
+      </div>
+    </div>
+    <div class="equal width fields" style="float: right !important;">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" (click)="searchRecord()" class="ui small teal right button">
+          <i class="search left icon" ></i>Search</button>
+      </div>
+    </div>
+  </form>
+  <form onsubmit="return false;" class="ui small mt-2 inline form">
+    <h4 class="ui teal dividing header">
+     Actual Wastage Entry
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Work Order Number :</label>
+<!--        <input type="text" placeholder="Work Order Number" name="workOrdernumber"  [(ngModel)]="WorkOrderID">-->
+                <sui-select placeholder=" " class="selection" [options]="workOrders" [(ngModel)]="wastage.WorkOrderID"
+                  (input)="optionsLookupWorkOrder($event.target.value)" name="workorderno" [isSearchable]="true" (ngModelChange)="getOrderQty()"
+                  labelField="workorderno" valueField="workorderid" #selectWorkOrderNo>
+                  <sui-select-option *ngFor="let op of selectWorkOrderNo.filteredOptions" [value]="op"></sui-select-option>
+                </sui-select>
+      </div>
+      <div class="field">
+        <label>Wastage Date :</label>
+        <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="wastage.WastageDate"
+               name="wastagedate">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Order Qty :</label>
+        <input type="text" placeholder="Work Order Number" disabled name="orderqty" [(ngModel)]="wastage.TotalOrderQty">
+      </div>
+      <div class="field">
+        <label>Wastage Qty :</label>
+        <input type="text" placeholder="Work Order Number" name="wastageqty" [(ngModel)]="wastage.TotalWastageQty">
+      </div>
+      <div class="field">
+        <label>Remark:</label>
+        <textarea rows="2" [(ngModel)]="wastage.Remarks" name="remark">
+
+        </textarea>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" *ngIf="!this.editId" (click)="save()" class="ui small text-primary button">Save</button>
+<!--        <button type="button" *ngIf="this.currentRoute?.toString()?.includes('woven')" (click)="save()" class="ui small black button">Save</button>-->
+        <button type="button" *ngIf="this.editId" (click)="update()" class="ui small text-primary button">Update</button>
+      </div>
+      <div class="ml-1 mt-2">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small green  button" (click)="generateExcelOfSearchedData()" *ngIf="!this.editId"> Excel</button>
+        <button type="button" class="ui small red  button" (click)="exportToPDF()" *ngIf="!this.editId"> Pdf</button>
+      </div>
+      <!--      <div class="ml-1 mt-2">-->
+      <!--        <label>&nbsp;</label>-->
+      <!--        <button type="button" class="ui small blue button" (click)="printstatus()">Print Status Export</button>-->
+      <!--      </div>-->
+      <!--      <div class="ml-1 mt-2">-->
+      <!--        <label>&nbsp;</label>-->
+      <!--        <button type="button" class="ui small blue button" (click)="cuttingstatus()">Cutting Status Export</button>-->
+      <!--      </div>-->
+      <!--      <div class="ml-1 mt-2">-->
+      <!--        <label>&nbsp;</label>-->
+      <!--        <button type="button" class="ui small blue button" (click)="finishstatus()">Finish Status Export</button>-->
+      <!--      </div>-->
+    </div>
+
+  </form>
+    <div class="overflow-x-scroll mt-2 mb-2">
+    <table class="ui mini very compact unstackable blue table">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllSamples" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th class="single line">
+        Actions
+      </th>
+      <th>Category</th>
+      <th>Order No</th>
+      <th>Wastage Date</th>
+      <th>Order Qty</th>
+      <th>Wastage Qty</th>
+      <th>Remarks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of wastageEntry; let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="s.selected" name="{{i}}" (click)="selectSamples(s,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1}} </td>
+      <td class="single line">
+        <a class="ui blue tiny label" [routerLink]="['/wastage-entry/woven/edit',s?.WastageID]" ><i class="edit white icon"></i> Edit </a>
+      </td>
+      <td >{{s['CategoryID']}}</td>
+      <td>{{s['Order No']}}</td>
+      <td>{{s['Wastage Date']}}</td>
+      <td>{{s['Order Qty']}}</td>
+      <td>{{s['Wastage Qty']}}</td>
+      <td>{{s['Remarks']}}</td>
+    </tr>
+    </tbody>
+  </table>
+    </div>
+<!--  <sui-pagination [collectionSize]="meta.totalItemCount"-->
+<!--                  [pageSize]="meta.itemsPerPage"-->
+<!--                  [hasNavigationLinks]="true"-->
+<!--                  [hasBoundaryLinks]="true"-->
+<!--                  [hasEllipses]="true"-->
+<!--                  [maxSize]="5"-->
+<!--                  [canRotate]="true"-->
+<!--                  [(page)]="meta.currentPage"-->
+<!--                  (pageChange)="get()">-->
+<!--  </sui-pagination>-->
+<!--  <div class="ui action input ml-2">-->
+<!--    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">-->
+<!--    <button type="button" (click)="goToPageNo()"  [disabled]="!goToPage || goToPage==meta.currentPage || goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page-->
+<!--    </button>-->
+<!--  </div>-->
+</div>

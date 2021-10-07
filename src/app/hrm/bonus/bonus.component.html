@@ -1,0 +1,130 @@
+<div class="pt-5">
+  <form onsubmit="return false;" class="ui small inline form mt-2">
+    <h4 class="ui teal dividing header">Bonus</h4>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Unit/ Company</label>
+        <sui-select placeholder="." class="selection" name="company" [(ngModel)]="bonus.company" [options]="companies"
+          labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #selecCompany>
+          <sui-select-option *ngFor="let op of selecCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Department</label>
+        <sui-select placeholder="." class="selection" name="department" [(ngModel)]="bonus.department"
+          [isSearchable]="true" [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+          <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Card</label>
+        <input type="text" placeholder="Card" [(ngModel)]="bonus.card" name="card">
+      </div>
+      <div class="field">
+        <label>Bonus Upto Date</label>
+        <input suiDatepicker type="date" pickerMode="date" [(ngModel)]="date" name="listDate" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Total Working Days</label>
+        <input type="number" [(ngModel)]="bonus.days" name="days" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Bonus Name</label>
+        <input type="text" [(ngModel)]="bonus.name" name="name" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Bonus Month</label>
+        <input suiDatepicker type="date" pickerMode="date" [(ngModel)]="bonus.month" name="fromDateName"
+          autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Calculation On</label>
+        <sui-select placeholder="." class="selection" name="calculation" [(ngModel)]="bonus.calculation">
+          <sui-select-option value="Basic"></sui-select-option>
+          <sui-select-option value="Gross"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Percentage(%)</label>
+        <input type="number" [(ngModel)]="bonus.percentage" name="percentage" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Fix Amount</label>
+        <input type="number" [(ngModel)]="bonus.fixed" name="fixed" autocomplete="off">
+      </div>
+    </div>
+    <h4 class="ui teal dividing header">Actions</h4>
+    <div class="equal width fields">
+      <div class="mr-1 ml-1">
+        <button class="ui red tiny button" (click)="generate()">Bonus Generate</button>
+        <button class="ui black tiny button" (click)="blockBonus()">Remove Bonus</button>
+        <button class="ui orange tiny button" (click)="disburse()">Disburse Bonus</button>
+      </div>
+    </div>
+    <h4 class="ui teal dividing header">Reports</h4>
+    <div class="equal width fields">
+      <div class="mr-1 ml-1">
+        <label>&nbsp;</label>
+        <button class="ui green tiny button" (click)="eligibleList()">Eligible Bonus List Excel</button>
+        <button class="ui green tiny button" (click)="eligibleListPDF()">Eligible Bonus List PDF</button>
+        <button class="ui blue tiny button" (click)="statetment()">Statement</button>
+        <button class="ui purple tiny button" (click)="statementSummery()">Summery PDF</button>
+        <button class="ui purple tiny button" (click)="statementSummeryExcel()">Summery Excel</button>
+        <button class="ui teal tiny button" (click)="bankAdvice()">Bank Advice PDF</button>
+        <button class="ui teal tiny button" (click)="bankAdviceExcel()">Bank Advice Excel</button>
+        <button class="ui orange tiny button" (click)="rocketAdvice()">Rocket Advice PDF</button>
+        <button class="ui orange tiny button" (click)="rocketAdviceExcel()">Rocket Advice Excel</button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="mr-1 ml-1" *ngIf="statements">
+        <label>&nbsp;</label><button class="ui blue tiny button" (click)="statetmentPDF()">Download Statement
+          PDF</button>
+        <label>&nbsp;</label><button class="ui blue tiny button" (click)="statetmentExcel()">Download Statement
+          Excel</button>
+      </div>
+    </div>
+  </form>
+  <table class="ui mini very compact unstackable teal table">
+    <thead>
+      <tr>
+        <th><input type="checkbox" name="allCheck" [(ngModel)]="allCheck" (ngModelChange)="changeAllCheck()"></th>
+        <th>Si</th>
+        <th>Bonus</th>
+        <th>Card</th>
+        <th>Employee</th>
+        <th>Date</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Joining Date</th>
+        <th>Salary</th>
+        <th>Bonus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of statements; let i = index">
+        <td><input type="checkbox" name="check{{i}}" [(ngModel)]="checks[i]"></td>
+        <td>{{i+1+(currentPage - 1) * itemsPerPage}} </td>
+        <td>{{s?.BonusFileName}}</td>
+        <td>{{s?.IDNo}}</td>
+        <td>{{s?.EmpName}}</td>
+        <td>{{s?.BonusMonth}}</td>
+        <td>{{s?.Deptment}}</td>
+        <td>{{s?.Designation}}</td>
+        <td>{{s?.Joining}}</td>
+        <td>{{s?.PresentSalary}}</td>
+        <td>{{s?.BonusPayable}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="totalItemCount" [pageSize]="itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+</div>

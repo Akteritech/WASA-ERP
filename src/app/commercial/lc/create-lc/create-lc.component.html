@@ -1,0 +1,346 @@
+<form onsubmit="return false;" #form='ngForm' class="ui small form">
+  <div class="ui segment pt-5">
+    <h4 class="ui teal dividing header">
+      <br>
+      LC CREATE
+    </h4>
+    <div class="equal width fields" style="margin-bottom: 0px;">
+      <div class="field">
+        <div class="ui checkbox">
+          <input type="checkbox" name="amendment" value="amendment" [(ngModel)]="master.amendment">
+          <label style="margin-right: 15px;"> Amendment </label> &nbsp; &nbsp; &nbsp;
+        </div>
+      </div>
+    </div>
+
+    <div class="equal width fields" *ngIf="master.amendment">
+      <div class="field">
+        <label>LC No</label>
+        <sui-select placeholder="." class="selection" name="LCNo" [(ngModel)]="master.LCNo" [options]="lcNos"
+          labelField="LCNo" valueField="LCNo" [isSearchable]="true" (keyup)="getLCNo($event.target.value)"
+          (ngModelChange)="getAmendmentNo()" #multiSelectlcNos>
+          <sui-select-option *ngFor="let op of multiSelectlcNos.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Amendment No</label>
+        <sui-select placeholder="Select Amendment No" class="selection" name="AmndNo" [(ngModel)]="master.AmndNo"
+          [options]="amdNo" labelField="BBLCID" valueField="BBLCID" [isSearchable]="true"
+          (ngModelChange)="getPIDetailsByLCNoAmndNo()" #multiSelectAmdNo>
+          <sui-select-option *ngFor="let op of multiSelectAmdNo.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Total Value</label>
+        <input type="text" placeholder="Total Value" disabled id="PIValue" [(ngModel)]="master.PIValue" class="ui input"
+          name="PIValue">
+      </div>
+
+      <div class="field">
+        <label>Amendment Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.EstDelDate" autocomplete="off" class="ui input"
+          name="lcrequitiondate">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Part</label>
+        <input type="text" placeholder="Part" class="selection" name="part" [(ngModel)]="master.Part">
+      </div>
+
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="Select Company" class="selection" [options]="companies" name="companyid"
+          [(ngModel)]="master.CompanyID" labelField="companyname" valueField="companyid"
+          (ngModelChange)="createCINo()" #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Party Name</label>
+        <sui-select placeholder=" " class="selection" name="clientname" [(ngModel)]="master.CustomerID"
+          [options]="clients" labelField="clientname" valueField="clientid" [isSearchable]="true"
+          (keyup)="getClients($event.target.value)" (ngModelChange)="getPartyAddress()" #multiSelectClients>
+          <sui-select-option *ngFor="let op of multiSelectClients.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Sales Person</label>
+        <sui-select placeholder=" " class="selection" [options]="salesPeople" name="SalesPerson"
+          labelField="SalesPeron" valueField="Emp_ID" [(ngModel)]="master.SalesPerson" [isSearchable]="true"
+          (keyup)="getSalesPeople($event.target.value)" #selectSalesperson>
+          <sui-select-option *ngFor="let op of selectSalesperson.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Party Address</label>{{partyAddress}}
+      </div>
+
+      <div class="field">
+        <label>Issueing Bank</label>
+        <sui-select placeholder="Select Issueing Bank" class="selection" name="BankName" [(ngModel)]="issuingBank" 
+          [isSearchable]="true" (ngModelChange)="getIssuingBankBranchList()">
+          <sui-select-option *ngFor="let op of issuingBanks" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Issueing Bank Branch</label>
+        <sui-select placeholder="Select Issueing Bank Branch" class="selection" [options]="issuingBankBranches"
+          name="BranchName" [(ngModel)]="master.CustomerBankBranchID" labelField="BranchName" valueField="BankID"
+          [isSearchable]="true" (ngModelChange)="getIssueBankBranchSelected()" #selectIssueBankBranch>
+          <sui-select-option *ngFor="let op of selectIssueBankBranch.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Issueing Bank Address</label>{{issuingBankAddress}}
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Lien Bank</label>
+        <sui-select placeholder="Select Lien Bank" class="selection" name="lienBankName"
+          [(ngModel)]="lienBank" [isSearchable]="true"(ngModelChange)="getLienBankBranchList()">
+          <sui-select-option *ngFor="let op of lienBanks" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Lien Bank Branch</label>
+        <sui-select placeholder="Select Lies Bank Branch" class="selection" [options]="lienBankBranches" name="lienBankBranch"
+          [(ngModel)]="master.BeneficiaryBankBranchID" labelField="BranchName" valueField="BankID" 
+          (ngModelChange)="lienBankBranchSelected()" #selectLienBankBranch>
+          <sui-select-option *ngFor="let op of selectLienBankBranch.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Lien Bank Address</label>{{lienBankBranchAddress}}
+      </div>
+
+      <div class="field">
+        <label>LC No</label>
+        <input type="text" placeholder="LC No" [(ngModel)]="master.LCNo" name="lcNo">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>LC Issue Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.LCDate" autocomplete="off" name="lcdate">
+      </div>
+
+      <div class="field">
+        <label>LC Receive Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.LCReceiveDate" autocomplete="off" name="receiveDate">
+      </div>
+
+      <div class="field">
+        <label>LC Value</label>{{master.LCAmount}}
+      </div>
+
+      <div class="field">
+        <label>Total Carton</label>
+        <input type="number" id="lcqty" [(ngModel)]="master.TotalCarton" name="cartons">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Net Weight</label>
+        <input type="number" [(ngModel)]="master.NetWeight" name="weight">
+      </div>
+
+      <div class="field">
+        <label>Gross Weight</label>
+        <input type="number" [(ngModel)]="master.GrossWeight" name="grossWeight">
+      </div>
+      
+      <div class="field">
+        <label>LC Tenor(Days)</label>
+        <sui-select placeholder="Select LC Tenor" class="selection" [options]="lcTenors" name="lcTenor"
+          labelField="listitem" valueField="id" [(ngModel)]="master.LCTenor" [isSearchable]="true" #selectLcTenor>
+          <sui-select-option *ngFor="let op of selectLcTenor.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Shipment Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.ShipmentDate" autocomplete="off" name="shipment">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Shipment Mode</label>
+        <sui-select placeholder="Select Shipment Mode" class="selection" [options]="shipmentBy" name="shipmentBy"
+          labelField="listitem" valueField="id" [(ngModel)]="master.ShipmentMode" [isSearchable]="true" #selectShipmentMode>
+          <sui-select-option *ngFor="let op of selectShipmentMode.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>LC Type</label>
+        <sui-select placeholder="Select LC Type" class="selection" [options]="lcTypes" name="lcType"
+          labelField="listitem" valueField="id" [(ngModel)]="master.LCType" [isSearchable]="false" #selectLCType>
+          <sui-select-option *ngFor="let op of selectLCType.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Expiry Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.LCExpiryDate" autocomplete="off" name="expiryDate">
+      </div>
+
+      <div class="field">
+        <label>Port Of Loading</label>
+        <sui-select placeholder="Select Port of Loading" class="selection" [options]="portOfLoading" name="portOfLoading"
+          labelField="listitem" valueField="id" [(ngModel)]="master.PortOfLoading" [isSearchable]="false"
+          #selectPortOfLoading>
+          <sui-select-option *ngFor="let op of selectPortOfLoading.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Final Destination</label>
+        <sui-select placeholder="Select Final Destination" class="selection" [options]="finalDestination" name="finalDestination"
+          labelField="listitem" valueField="id" [(ngModel)]="master.FinalDestination" [isSearchable]="true"
+          #selectFinalDestination>
+          <sui-select-option *ngFor="let op of selectFinalDestination.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>UD</label>
+        <sui-select placeholder="Select UD" class="selection" [options]="uds" name="UD"
+          labelField="label" valueField="value" [(ngModel)]="master.UD" #selectUD>
+          <sui-select-option *ngFor="let op of selectUD.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+
+
+      <div class="field">
+        <label>UP No</label>
+        <input type="text" placeholder="UP No" [(ngModel)]="master.EstDelDate" autocomplete="off" class="ui input"
+          name="lcrequitiondate">
+      </div>
+
+      <div class="field">
+        <label>Master LC Type</label>
+        <sui-select placeholder="Select Master LC Type" class="selection" [options]="masterLCType" name="masterLCType"
+          labelField="listitem" valueField="id" [(ngModel)]="master.MasterLCType" [isSearchable]="true" #selectMasterLCType>
+          <sui-select-option *ngFor="let op of selectMasterLCType.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Master LC No</label>
+        <input type="text" placeholder="Master LC No" [(ngModel)]="master.MasterLCNo" name="lcno">
+      </div>
+
+      <div class="field">
+        <label>Loading Place</label>
+        <sui-select placeholder="Select Loading Place" class="selection" [options]="shippingAddress"
+          name="shippingAddress" labelField="listitem" valueField="id" [(ngModel)]="master.LoadingPlace"
+          [isSearchable]="true" #selectShippingAddress>
+          <sui-select-option *ngFor="let op of selectShippingAddress.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>DOC Create Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.DocCreatedDate" name="docdate">
+      </div>
+
+      <div class="field">
+        <label>CI No</label>
+        <input type="text" placeholder="CI No" [(ngModel)]="master.CINo" name="cino">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Type Of Payment</label>
+        <sui-select placeholder="Type Of Payment" class="selection" [options]="lCPayment" name="LCPayment"
+          labelField="listitem" valueField="id" [(ngModel)]="master.TypeofPayment" [isSearchable]="true" #selectLCPayment>
+          <sui-select-option *ngFor="let op of selectLCPayment.filteredOptions" [value]="op">
+          </sui-select-option>
+        </sui-select>
+      </div>
+
+      <div class="field">
+        <label>Maturity Date</label>
+        <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="master.MaturityDate" autocomplete="off" name="maturityDate">
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Remarks</label>
+        <textarea placeholder="Remarks" id="Remarks" name="Remarks" [(ngModel)]="master.Remarks" rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>INCO TERM</label>
+        <textarea placeholder="INCO TERM" id="INCO_TERM" name="INCO_TERM" [(ngModel)]="master.INCO_TERM"
+          rows="2"></textarea>
+      </div>
+    </div>
+
+    <table class="ui compact single line  table rounded-0 mt-2 unstackable" style="margin-top: -8px;">
+      <tbody>
+        <tr class="bg-teal text-white">
+          <td>PI Type</td>
+          <td>PI No</td>
+          <td>PI Date</td>
+          <td>PI Qty</td>
+          <td>PI Value</td>
+          <td>Add</td>
+        </tr>
+        <tr *ngFor="let detail of details; let i =index">
+          <td><sui-select placeholder="Select PI Type" class="selection" [options]="PIType" name="PIType{{i}}"
+              labelField="listitem" valueField="id" [(ngModel)]="detail.PIType" [isSearchable]="true" 
+              (ngModelChange)="getPINo(i)" #selectPIType>
+              <sui-select-option *ngFor="let op of selectPIType.filteredOptions" [value]="op">
+              </sui-select-option>
+          </sui-select></td>
+          <td><div><sui-select placeholder="Select PI No" class="selection" [options]="PINo[i]" name="PINo{{i}}"
+              labelField="PINo" valueField="PIID" [(ngModel)]="detail.PIID" [isSearchable]="true"
+              (ngModelChange)="getPiDetails(i)" #selectPINo>
+              <sui-select-option *ngFor="let op of selectPINo.filteredOptions" [value]="op">
+              </sui-select-option>
+          </sui-select></div></td>
+          <td>{{detail.date | date}}</td>
+          <td>{{detail.PIQty}}</td>
+          <td>{{detail.PIValue}}</td>
+          <td><button class="ui primary mini button" (click)="remove(i)">-</button></td>
+        </tr>
+        <tr><td><button class="" (click)="add()">Add</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <button *ngIf="!editId" type="button" class="ui purple tiny button my-1" (click)="save()">Save</button>
+</form>
+

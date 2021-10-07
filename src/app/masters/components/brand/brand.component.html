@@ -1,0 +1,146 @@
+
+<div class="segments pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <strong><i class="angle left icon"></i></strong>
+    Back
+  </button>
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit') && addNew">
+    <span *ngIf="collapse"> <strong><i class="add icon"></i></strong> Create Brand</span>
+    <span *ngIf="!collapse"><strong><i class="arrow up icon "></i></strong> Done</span>
+  </button>
+  <button class="ui primary tiny button" (click)="get()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <strong><i class="refresh icon"></i></strong>
+    Refresh
+  </button>
+  <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <strong><i class="file excel icon"></i></strong>
+    <div class="text">Download Excel / Csv</div>
+    <strong><i class="download icon"></i></strong>
+  </button>
+  <!--<button class="ui tiny purple dropdown button" suiPopup [popupTemplate]="popupCsv" popupTrigger="outsideClick" popupPlacement="bottom">-->
+  <!--<strong><i class="file excel icon"></i></strong>-->
+  <!--<div class="text">Download Csv</div>-->
+  <!--<strong><i class="dropdown icon"></i></strong>-->
+  <!--</button>-->
+
+  <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <strong><i class="file pdf icon"></i></strong>
+    <div class="text">Download PDF</div>
+    <strong><i class="download icon"></i></strong>
+  </button>
+  <ng-template let-popup #popupExcel >
+       <sui-message class="warning tiny mb-2" *ngIf="this.selectedBrands.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedBrands.length <=0" (click)="exporttoExcel()"><strong><i class="download icon"></i></strong> Excel Selected Data</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="this.selectedBrands.length <=0" (click)="exporttoCsv()"><strong><i class="download icon"></i></strong> Csv Selected Data</button>
+
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number"  [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number"  [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoExcel(true)"><strong><i class="download icon"></i></strong> Excel</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)"><strong><i class="download icon"></i></strong> Csv</button>
+
+  </ng-template>
+  <ng-template let-popup #popupPDF >
+       <sui-message class="warning tiny mb-2" *ngIf="this.selectedBrands.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedBrands.length <=0" (click)="exportToPDF()"><strong><i class="download icon"></i></strong>PDF Selected Data</button>
+    <button class="ui tiny blue button m-1" [disabled]="this.selectedBrands.length <=0" (click)="printOpen()"><strong><i class="print icon"></i> </strong>   Print Selected Data</button>
+    <!--<button class="ui tiny teal button m-1" (click)="openPrint()"> <strong><i class="print icon"></i></strong> Direct Print</button>-->
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny red button m-1" [disabled]="!fromPage || !toPage" (click)="exportToPDF(true)"><strong><i class="download icon"></i></strong> PDF</button>
+    <button class="ui tiny blue button m-1" [disabled]="!fromPage || !toPage" (click)="printOpen(true)"><strong><i class="print icon"></i> </strong> Print</button>
+  </ng-template>
+
+<!--  <sui-search [optionsLookup]="optionsSearch" #searchBox class="ui mini  right floated ml-5"-->
+<!--              optionsField="brandname"-->
+<!--              [retainSelectedResult]="true"-->
+<!--              (resultSelected)="alert($event.brandid)"></sui-search>-->
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-brand (added)="get()"></app-add-brand>
+    </div>
+  </div>
+  <table class="ui mini very compact teal table unstackable" id="example">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllBrand" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th class="pointer">Actions</th>
+      <th> Brand Name</th>
+      <th>Contact Person</th>
+      <th>Telephone</th>
+      <th>Fax</th>
+      <th>Email</th>
+      <th>Is Nexgen Buyer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let brand of brands ;  let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="brand.selected" name="{{i}}" (click)="selectBrands(brand,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td class="pointer">
+<!--        <i class="trash link red icon" (click)="delete(brand?.brandid)" ></i>-->
+        <i class="edit blue icon" *ngIf="editExisting" [routerLink]="['/brands/edit/',brand?.brandid]"></i>
+        <i class="eye orange icon" (click)="viewDetail(brand?.brandid)"></i>
+      </td>
+      <td>{{brand?.brandname}}</td>
+      <td>{{brand?.contactperson}}</td>
+      <td>{{brand?.telephone}}</td>
+      <td>{{brand?.fax}}</td>
+      <td>{{brand?.email}}</td>
+      <td>
+        <i *ngIf="brand?.isnexzenbuyer === 1" class="ui green check icon"></i>
+        <i *ngIf="brand?.isnexzenbuyer === 2" class="ui red x icon"></i>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--<pagination-controls *ngIf="brands" class="my-pagination" (pageChange)="p = $event"></pagination-controls>-->
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()"  [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

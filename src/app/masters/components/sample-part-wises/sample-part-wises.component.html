@@ -1,0 +1,207 @@
+<div class="mb-5 pt-5">
+  <div class="ui grid w-100">
+    <div class="ten wide column">
+      <button class="ui tiny orange button" type="button" (click)="backClicked()" >
+        <strong><i class="angle left icon"></i></strong>
+        Back
+      </button>
+      <!--<button class="ui tiny red button" type="button" *ngIf="this.currentRoute?.toString()?.includes('edit')" [routerLink]="['/master/programs']">-->
+        <!--<i class="ui x icon"></i>-->
+        <!--Cancel-->
+      <!--</button>-->
+      <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        <span *ngIf="collapse"> <i class="add icon"></i>Create Sample Part Wise</span>
+        <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+
+      </button>
+      <button class="ui primary tiny button" (click)="get()"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        <i class="refresh icon"></i>
+        Refresh
+      </button>
+
+      <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        <i class="file excel icon"></i>
+        <div class="text">Download Excel / Csv</div>
+        <i class="dropdown icon"></i>
+      </button>
+      <!--  <button class="ui tiny purple dropdown button" suiPopup [popupTemplate]="popupCsv" popupTrigger="outsideClick" popupPlacement="bottom">-->
+      <!--    <i class="file excel icon"></i>-->
+      <!--    <div class="text">Download Csv</div>-->
+      <!--    <i class="dropdown icon"></i>-->
+      <!--  </button>-->
+      <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom"  *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        <i class="file pdf icon"></i>
+        <div class="text">Download PDF</div>
+        <i class="dropdown icon"></i>
+      </button>
+      <ng-template let-popup #popupExcel >
+        <sui-message class="warning tiny mb-2" *ngIf="this.selectedSamplePartWiseLength.length <=0">
+          <li>
+            Please select data in the table
+          </li>
+        </sui-message>
+        <button class="ui tiny brown button m-1" [disabled]="this.selectedSamplePartWiseLength.length <=0" (click)="exporttoExcel()"><strong><i class="arrow down icon"></i></strong>Excel Selected  Data</button>
+        <button class="ui tiny light-grey button m-1" [disabled]="this.selectedSamplePartWiseLength.length <=0" (click)="exporttoCsv()"><strong><i class="arrow down icon"></i></strong>Csv Selected Data</button>
+
+        <div class="ui divider"></div>
+        <div class="ui form p-1">
+          <div class="two fields">
+            <div class="field">
+              <label>From Page</label>
+              <input type="number" [(ngModel)]="fromPage" name="fromPage">
+            </div>
+            <div class="field">
+              <label>To Page</label>
+              <input  type="number" [(ngModel)]="toPage" name="toPage">
+            </div>
+          </div>
+        </div>
+
+        <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoExcel(true)"><strong><i class="arrow down icon"></i></strong>Excel</button>
+        <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)"><strong><i class="arrow down icon"></i></strong>Csv</button>
+
+      </ng-template>
+      <!--  <ng-template let-popup #popupCsv >-->
+      <!--    <button class="ui tiny brown button m-1" (click)="exporttoCsv()">Download Current Page Data</button>-->
+
+      <!--    <div class="ui divider"></div>-->
+      <!--    <div class="ui form p-1">-->
+      <!--      <div class="two fields">-->
+      <!--        <div class="field">-->
+      <!--          <label>From Page</label>-->
+      <!--          <input type="number" [(ngModel)]="fromPage" name="fromPage">-->
+      <!--        </div>-->
+      <!--        <div class="field">-->
+      <!--          <label>To Page</label>-->
+      <!--          <input  type="number" [(ngModel)]="toPage" name="toPage">-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--    </div>-->
+
+      <!--    <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)">Download</button>-->
+
+      <!--  </ng-template>-->
+      <ng-template let-popup #popupPDF >
+        <sui-message class="warning tiny mb-2" *ngIf="this.selectedSamplePartWiseLength.length <=0">
+          <li>
+            Please select data in the table
+          </li>
+        </sui-message>
+        <button class="ui tiny brown button m-1" [disabled]="this.selectedSamplePartWiseLength.length <=0" (click)="exportToPDF()"><strong><i class="arrow down icon"></i></strong>PDF Selected Data</button>
+        <button class="ui tiny blue button m-1" [disabled]="this.selectedSamplePartWiseLength.length <=0" (click)="printOpen()"><strong><i class="print icon"></i> </strong>   Print Selected Data</button>
+        <!--<button class="ui tiny teal button m-1" (click)="openPrint()"> <strong><i class="print icon"></i></strong> Direct Print</button>-->
+        <div class="ui divider"></div>
+        <div class="ui form p-1">
+          <div class="two fields">
+            <div class="field">
+              <label>From Page</label>
+              <input type="number" [(ngModel)]="fromPage" name="fromPage">
+            </div>
+            <div class="field">
+              <label>To Page</label>
+              <input  type="number" [(ngModel)]="toPage" name="toPage">
+            </div>
+          </div>
+        </div>
+        <button class="ui tiny red button m-1" [disabled]="!fromPage || !toPage" (click)="exportToPDF(true)"><strong><i class="arrow down icon"></i></strong> PDF</button>
+        <button class="ui tiny blue button m-1" [disabled]="!fromPage || !toPage" (click)="printOpen(true)"><strong><i class="print icon"></i> </strong> Print</button>
+      </ng-template>
+    </div>
+    <div class="six wide column" >
+      <form class="ui small form" #form='ngForm'>
+        <div class="inline fields">
+          <div class="ten wide field">
+            <label>Search By Sample Name</label>
+            <sui-select class="selection" name="samplename" placeholder=" "
+                        [(ngModel)]="color.sampleid"
+                        [options]="samples"
+                        (input)="optionsLookupSample($event.target.value)"
+                        labelField="samplename"
+                        valueField="sampleid"
+                        [isSearchable]="true"
+                        #multiSelectSmapleName>
+              <sui-select-option *ngFor="let option of multiSelectSmapleName.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="three wide field">
+            <div class="ui tiny primary button ml-2" (click)="get(true)">
+              Search
+            </div>
+          </div>
+          <div class="three wide field">
+            <div class="ui tiny orange button ml-1"  (click)="form.resetForm();get()">
+              Reset
+            </div>
+          </div>
+
+          <!--<input type="text" placeholder="Search By Sample NAme" name="samplename" [(ngModel)]="color.sampleid">-->
+          <!--<div class="ui tiny primary button ml-2" (click)="get(true)">-->
+          <!--Search-->
+          <!--</div>-->
+          <!--<div class="ui tiny orange button ml-1"  (click)="form.resetForm();get()">-->
+          <!--Reset-->
+          <!--</div>-->
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--<sui-search [optionsLookup]="optionsSearch" #searchBox class="ui mini  right floated ml-5"-->
+  <!--optionsField="programname"-->
+  <!--[retainSelectedResult]="true"-->
+  <!--(resultSelected)="alert($event.programname)"></sui-search>-->
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-sample-part-wise (added)="get()"></app-add-sample-part-wise>
+    </div>
+  </div>
+  <table class="ui mini very compact unstackable teal table">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllSampleParts" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th>Action</th>
+      <th>Sample No</th>
+      <th>Sample Name</th>
+      <th>Length</th>
+      <th>Width</th>
+      <th>Part No.</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let Scolor of samplepartwises;  let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="Scolor.selected" name="{{i}}" (click)="selectSamplePartWise(Scolor,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td class="single line">
+        <!--<i class="trash link red icon" (click)="delete(Scolor.partsid)" style="padding-right: 25px"></i>-->
+        <i class="edit link blue icon" [routerLink]="['/masters/sample-part-wise/edit/',Scolor?.partsid]"></i>
+        <!--<i class="edit link blue icon" (click)="edit(Scolor.partsid)"  style="padding-right: 25px"></i>-->
+      </td>
+      <td>{{Scolor?.sample?.sampleno}}</td>
+      <td>{{Scolor?.sample?.samplename}}</td>
+      <td>{{Scolor?.length}}</td>
+      <td>{{Scolor?.width}}</td>
+      <td>{{Scolor?.lov?.listitem}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <!--<pagination-controls *ngIf="programs" class="my-pagination" (pageChange)="p = $event"></pagination-controls>-->
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()"  [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

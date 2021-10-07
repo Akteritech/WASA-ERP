@@ -1,0 +1,628 @@
+<!--<sui-tabset>-->
+<!--  <div class="ui top attached tabular menu">-->
+<!--    <a class="item blue active" suiTabHeader="1"><h3>Offset Sample General Information</h3></a>-->
+<!--    <a class="item blue" suiTabHeader="2"><h3>Offset Technical Details</h3></a>-->
+<!--  </div>-->
+<!--  <div class="ui bottom attached segment" suiTabContent="1">-->
+<div class="pt-5">
+  <sui-message class="warning mb-2 mt-2"
+    *ngIf="!this.addsample.samplename || !this.addsample.brandid || !this.addsample.productcategoryid || !this.addsample.productsubcategoryid || !this.addsample.orderdate || !this.addsample.length || !this.addsample.width">
+    <strong>Note : </strong>
+    <li>
+      Fields marked with asterisk <strong>(*) </strong> are mandatory
+    </li>
+    <li>
+      You can not add same samplename, length and width. these data must be unique 🙂
+    </li>
+    <li>
+      To see the Expiry date Field check expiry status
+    </li>
+    <li>
+      To see colors details on that sample click on SampleNo. in below Table
+    </li>
+  </sui-message>
+  <!--    <h3 class="ui top blue  attached header mt-2 pointer"  (click)="toggleSampleCollapse()" >-->
+  <!--      New Offset Sample-->
+  <!--      <button class="ui mini icon right floated button text-dark bg-transparent" [ngClass]="{'teal':collapse,'red':!collapse}">-->
+  <!--        <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+  <!--        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+  <!--      </button>-->
+  <!--    </h3>-->
+  <!--<h3 class="ui top blue  attached header mt-2 pointer"  (click)="toggleSampleCollapse()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+  <!--  1. Edit Offset Sample-->
+  <!--  <button class="ui mini icon right floated button text-dark bg-transparent" [ngClass]="{'teal':collapse,'red':!collapse}">-->
+  <!--    <i class="add ml-1 blue small icon" *ngIf="collapse"></i>-->
+  <!--    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse"></i>-->
+  <!--  </button>-->
+  <!--</h3>-->
+  <!--{{addsample | json}}-->
+  <div [suiCollapse]="collapse">
+    <!--      <sui-dimmer class="page" [(isDimmed)]="!designers">-->
+    <!--        <h3>-->
+    <!--          <div class="ui text loader">Wait! Form Is Loading 🙂</div></h3>-->
+    <!--      </sui-dimmer>-->
+    <div class="ui segment cardmy2">
+      <!--        <sui-dimmer class="inverted" [(isDimmed)]="!statuses">-->
+      <!--          <div class="ui text loader"> <i class="heart icon"></i>Wait! Form Is Loading</div>-->
+      <!--        </sui-dimmer>-->
+      <div class="ui mt-1">
+        <form class="ui small form" #form='ngForm' (keydown.enter)="$event.preventDefault()">
+          <div class="ui two column grid">
+            <div class="fourteen wide column">
+              <div class="equal width fields" *ngIf="this.editId">
+                <div class="field required">
+                  <label>Sample No</label>
+                  <input type="text" disabled [(ngModel)]="addsample.sampleno" name="sampleno" id="sampleno">
+                </div>
+              </div>
+              <div class="equal width fields">
+                <div class="field required">
+                  <label>Sample Name</label>
+                  <input required type="text" (change)="getSample()" (keyup)="similarSamples($event.target.value)"
+                    placeholder="sample name" [(ngModel)]="addsample.samplename" id="samplename" name="samplename"
+                    placeholder="sample name">
+                  <div class="ui fluid container" style="margin-top: 30px;" *ngIf="similarSample">
+                    <h4 style="color: blue;" *ngIf="similarSample.length">Similar Sample</h4>
+                    <ul>
+                      <li *ngFor="let sample of similarSample">{{sample}}</li>
+                    </ul>
+                    <p *ngIf="!similarSample.length" style="color: green">Sample Name is Available</p>
+
+                    <!-- <span >{{sample}},</span> -->
+                  </div>
+                </div>
+                <div class="field ">
+                  <label>Company</label>
+                  <sui-select placeholder="company name" class="selection" name="companyname"
+                    [(ngModel)]="addsample.companyid" [options]="companies" [isSearchable]="true"
+                    labelField="companyname" valueField="companyid" #selectcompanyname>
+                    <sui-select-option *ngFor="let op of selectcompanyname.filteredOptions" [value]="op">
+                    </sui-select-option>
+
+                  </sui-select>
+                </div>
+
+              </div>
+              <div class="equal width fields">
+                <div class="field required">
+                  <label>Brand Name</label>
+                  <sui-select class="selection" name="brandname" placeholder=" Brand Name" id="brandname"
+                    [(ngModel)]="addsample.brandid" [options]="brands" (input)="optionsLookupBrand($event.target.value)"
+                    (ngModelChange)="getSubBrand(addsample.brandid)" labelField="brandname" valueField="brandid"
+                    [isSearchable]="true" #SelectBrands>
+                    <sui-select-option *ngFor="let option of SelectBrands.filteredOptions" [value]="option">
+                    </sui-select-option>
+                  </sui-select>
+                </div>
+                <div class="field">
+                  <label>Sub Brand</label>
+                  <sui-select [isDisabled]="!subbrands" class="selection" name="subbrand"
+                    placeholder="select sub brands" [options]="subbrands" [(ngModel)]="addsample.programid"
+                    labelField="programname" valueField="programid" [isSearchable]="true" #selectsubbrand>
+                    <sui-select-option *ngFor="let option of selectsubbrand.filteredOptions" [value]="option">
+                    </sui-select-option>
+                  </sui-select>
+                </div>
+              </div>
+            </div>
+            <div class="two wide column pl-1 required">
+              <label>Sample Image</label>
+              <div class="fields pl-2 pt-2">
+                <div class="sixteen wide field p-2 pointer ImgSize" title="Click here to add Image">
+                  <img *ngIf="!addsample.imagepath" src="{{this.api.noImagePath}}" class="ui fluid image " alt=""
+                    (click)="image.click()">
+                  <img *ngIf="!addsample.imagepath && this.currentRoute?.toString()?.includes('edit')"
+                    src="{{this.api.noImagePath}}" class="ui fluid image " alt="" (click)="image.click()">
+                  <!--<img *ngIf="addsample.imagePath" [src]="imageSrc" class="ui image" alt="" (click)="image.click()">-->
+                  <img *ngIf="addsample.imagepath" src="{{ api.baseUrl + this.addsample?.imagepath }}" class="ui image"
+                    alt="" (click)="image.click()">
+                  <input type="file" hidden style="padding: 5px" accept="image/*"
+                    (change)="SampleImageUpload($event.target.files)" #image name="image" placeholder="image" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="equal width fields">
+            <div class="field required">
+              <label>Product Category</label>
+              <sui-select class="selection" name="Product_Category" placeholder="product category" [isSearchable]="true"
+                [isDisabled]="true" [options]="productcategories" [(ngModel)]="addsample.productcategoryid"
+                labelField="productcategoryname" valueField="productcategoryid" #selectProductCategoryName>
+                <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required">
+              <label>Product Sub Category</label>
+              <sui-select [isDisabled]="!productsubcategories" class="selection" name="ProductSubCategory"
+                placeholder="product sub category" [options]="productsubcategories"
+                [(ngModel)]="addsample.productsubcategoryid" [isSearchable]="true" labelField="productsubcategoryname"
+                valueField="productsubcategoryid" #selectProductSubCategoryName>
+                <sui-select-option *ngFor="let option of selectProductSubCategoryName.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+
+            <div class="field">
+              <label>Client</label>
+              <sui-select class="selection" name="Client" placeholder=" " [(ngModel)]="addsample.clientid"
+                [options]="clients" (input)="optionsLookupClient($event.target.value)" labelField="clientname"
+                valueField="clientid" [isSearchable]="true" #multiSelectClients>
+                <sui-select-option *ngFor="let option of multiSelectClients.filteredOptions" [value]="option">
+                </sui-select-option>
+              </sui-select>
+            </div>
+
+            <div class="field ">
+              <label>NPD Executive</label>
+              <sui-select placeholder="npd executive" class="selection" [options]="executives"
+                [(ngModel)]="addsample.executiveid" name="npdexecutiveid" [isSearchable]="true" labelField="SalesPeron"
+                valueField="Emp_ID" #selectNpdExecutiveName>
+                <sui-select-option *ngFor="let op of selectNpdExecutiveName.filteredOptions"
+                  [value]="op!==null?op:'N/A'"></sui-select-option>
+              </sui-select>
+            </div>
+          </div>
+
+          <div class="equal width fields">
+            <div class="field ">
+              <ng-template let-option #designer>
+                {{option?.SalesPeron}} <strong>-{{option?.PrevEmpID}}</strong>
+              </ng-template>
+              <label>Designer</label>
+              <sui-select placeholder=" " class="selection" [options]="designers" [optionTemplate]="designer"
+                [(ngModel)]="addsample.designerid" name="designer" [isSearchable]="true" labelField="SalesPeron"
+                valueField="Emp_ID" #selectDesignerName>
+                <sui-select-option *ngFor="let op of selectDesignerName.filteredOptions" [value]="op!==null?op:'N/A'">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Sales Person</label>
+              <ng-template let-option #salespersona>
+                {{option?.SalesPeron}} <strong>-{{option?.PrevEmpID}}</strong>
+              </ng-template>
+              <sui-select placeholder=" " class="selection" name="salesperson" [options]="salespersonss"
+                [optionTemplate]="salespersona" [(ngModel)]="addsample.salesid" [isSearchable]="true"
+                labelField="SalesPeron" valueField="Emp_ID" #salesperson>
+                <sui-select-option *ngFor="let op of salesperson.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field required">
+              <label>Receive Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerMaxDate]="minDateRcv" [(ngModel)]="addsample.orderdate"
+                  (ngModelChange)="orderDate()" [pickerMode]="'date'" name="rcvdate">
+              </div>
+            </div>
+            <div class="field ">
+              <label>Estimate Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerMinDate]="minDateEst" [(ngModel)]="addsample.estdeliverydate"
+                  (ngModelChange)="estdeliveryDate()" [pickerMode]="'date'" name="estdate">
+              </div>
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field required">
+              <label>Length(MM):</label>
+              <input type="number" (keydown)="api.numberOnly($event)" min="0"
+                placeholder="length should not be negative" [(ngModel)]="addsample.length" id="length" name="length">
+            </div>
+            <div class="field required">
+              <label>Width(MM):</label>
+              <input type="number" (keydown)="api.numberOnly($event)" (change)="getSample()" min="0"
+                placeholder="width should not be negative" [(ngModel)]="addsample.width" id="width" name="width">
+            </div>
+            <div class="field ">
+              <label>Unit</label>
+              <sui-select placeholder="unit" class="selection" name="unit" [options]="unit" [(ngModel)]="addsample.unit"
+                [isSearchable]="true" labelField="listitem" valueField="id" #UnitName>
+                <sui-select-option *ngFor="let op of UnitName.filteredOptions" [value]="op!==null?op:'N/A'">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Finish Length</label>
+              <input type="number" (keydown)="api.numberOnly($event)" [(ngModel)]="addsample.finishlength"
+                name="Finish_Length " placeholder="Finish Length " />
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Expiry Status</label>
+              <sui-checkbox [(ngModel)]="addsample.expiryStatus" name="allSalesExecutive">Expired</sui-checkbox>
+            </div>
+            <div class="field " *ngIf="this.addsample.expiryStatus === true">
+              <label>Expiry Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerMinDate]="minExpireDate" [(ngModel)]="addsample.expireDate"
+                  (ngModelChange)="expiredate()" [pickerMode]="'date'" name="expirydate">
+              </div>
+            </div>
+            <div class="field ">
+              <label>Delivery Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minDateDelivery" [(ngModel)]="addsample.deliverydate"
+                  (ngModelChange)="deliveryDate()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="deliverydate">
+              </div>
+            </div>
+            <div class="field ">
+              <label>Received from production</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minDateComplete" [(ngModel)]="addsample.completeDate"
+                  (ngModelChange)="completedate()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="completeldate">
+              </div>
+            </div>
+            <div class="field">
+              <label>Approval Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minDateApproval" [(ngModel)]="addsample.approveldate"
+                  (ngModelChange)="approvelDate()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="approveldate">
+              </div>
+            </div>
+          </div>
+
+          <div class="equal width fields">
+            <div class="field required">
+              <label>Status</label>
+              <sui-select placeholder="Select Status" class="selection" [options]="statuses"
+                [(ngModel)]="addsample.genspcStatus" name="status" [isSearchable]="true" labelField="statusdescription"
+                valueField="id" #multistatus>
+                <sui-select-option *ngFor="let op of multistatus.filteredOptions" [value]="op!==null?op:'N/A'">
+                </sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Total No. Of Color</label>
+              <input type="number" min="0" (keydown)="api.numberOnly($event)" placeholder="total no of color"
+                [(ngModel)]="addsample.totalnoofcolor" id="totalnoofcolor" name="totalnoofcolor">
+            </div>
+            <div class="field ">
+              <label>Paper GSM</label>
+              <input type="number" (keydown)="api.numberOnly($event)" min="0" placeholder="Paper GSM"
+                [(ngModel)]="addsample.papergsm" id="papergsm" name="papergsm">
+            </div>
+            <div class="field">
+              <label>Submission Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minSubmissionDate" [(ngModel)]="addsample.submissiondate"
+                  (ngModelChange)="submissionDate()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="submissiondate">
+              </div>
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Submission Comment</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.submissioncomment" id="submissioncomment" name="submissioncomment"></textarea>
+            </div>
+            <div class="field">
+              <label>Rejection Date</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minRejectionDate" [(ngModel)]="addsample.rejectiondate"
+                  (ngModelChange)="rejectionDate()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="rejectiondate">
+              </div>
+            </div>
+            <div class="field">
+              <label>Rejection Comment</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.rejectioncomment" id="rejectioncomment" name="rejectioncomment"></textarea>
+            </div>
+            <div class="field">
+              <label>Remark</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.specialinstruction" name="Remark"></textarea>
+            </div>
+
+          </div>
+          <div class="equal width fields">
+            <div class="field my-3">
+              <sui-checkbox class="mt-3" [(ngModel)]="addsample.isbarcode" name="isbarcode">Is Bar Code</sui-checkbox>
+            </div>
+            <!-- <div class="field my-3">
+                <sui-checkbox  class="mt-3" [(ngModel)]="addsample.isjobformultimaterial" name="insubcontact">Is Job For Multi Material</sui-checkbox>
+              </div>
+              <div class="field my-3">
+                <sui-checkbox  class="mt-3" [(ngModel)]="addsample.issubcontact" name="isjobformaterial">Is SubContact</sui-checkbox>
+              </div> -->
+            <div class="field">
+              <label>Reason of change</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.reasonOfChange" name="Remark"></textarea>
+            </div>
+            <div class="field mt-4">
+              <button class="ui blue small button" (click)="condition = !condition"><i class="plus icon"></i> Add More
+                Date</button>
+            </div>
+          </div>
+          <div class="equal width fields" *ngIf="condition">
+            <div class="field">
+              <label>Submission Date 2</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minSubmissionDate2" [(ngModel)]="addsample.submissiondate2"
+                  (ngModelChange)="submissionDate2()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="submissiondate2">
+              </div>
+            </div>
+            <div class="field">
+              <label>Submission Comment 2</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.submissioncomment2" id="submissioncomment2" name="submissioncomment2"></textarea>
+            </div>
+            <div class="field">
+              <label>Submission Date 3</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minSubmissionDate3" [(ngModel)]="addsample.submissiondate3"
+                  (ngModelChange)="submissionDate3()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="submissiondate3">
+              </div>
+            </div>
+            <div class="field">
+              <label>Submission Comment 3</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.submissioncomment3" id="submissioncomment3" name="submissioncomment3"></textarea>
+            </div>
+            <div class="field">
+              <label>Submission Date 4</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minSubmissionDate4" [(ngModel)]="addsample.submissiondate4"
+                  (ngModelChange)="submissionDate4()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="submissiondate4">
+              </div>
+            </div>
+            <div class="field">
+              <label>Submission Comment 4</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.submissioncomment4" id="submissioncomment4" name="submissioncomment4"></textarea>
+            </div>
+
+          </div>
+          <div class="equal width fields" *ngIf="condition">
+            <div class="field">
+              <label>Rejection Date 2</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minrejectionDate2" [(ngModel)]="addsample.rejectiondate2"
+                  (ngModelChange)="rejectionDate2()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="rejectiondate2">
+              </div>
+            </div>
+            <div class="field">
+              <label>Rejection Comment 2</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.rejectioncomment2" id="rejectioncomment2" name="rejectioncomment2"></textarea>
+            </div>
+            <div class="field">
+              <label>Rejection Date 3</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minRejectionDate3" [(ngModel)]="addsample.rejectiondate3"
+                  (ngModelChange)="rejectionDate3()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="rejectiondate3">
+              </div>
+            </div>
+            <div class="field">
+              <label>Rejection Comment 3</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.rejectioncomment3" id="rejectioncomment3" name="rejectioncomment3"></textarea>
+            </div>
+            <div class="field">
+              <label>Rejection Date 4</label>
+              <div class="ui left icon input">
+                <i class="calendar icon"></i>
+                <input suiDatepicker [pickerInitialDate]="minRejectionDate4" [(ngModel)]="addsample.rejectiondate4"
+                  (ngModelChange)="rejectionDate4()" [pickerMode]="'date'" pickerPlacement="bottom left"
+                  name="rejectiondate4">
+              </div>
+            </div>
+            <div class="field">
+              <label>Rejection Comment 4</label>
+              <textarea type="text" rows="1" placeholder="write something here ...."
+                [(ngModel)]="addsample.rejectioncomment4" id="rejectioncomment4" name="rejectioncomment4"></textarea>
+            </div>
+
+          </div>
+          <div class="equal width fields">
+            <!--              <div class="field ">-->
+            <!--                <label >-->
+            <!--                  Pdf upload for Artwork-->
+            <!--                </label>-->
+            <!--                <input type="file"  accept="application/pdf"  class="mb-2" (change)="uploadPDFfile($event.target.files)"  #fileInput>-->
+            <!--                <sui-progress class="indicating small my-2" *ngIf="!myProgressDATApdf && !this.currentRoute?.toString()?.includes('edit')" [value]="value" name="progress" [showProgress]="progress" [precision]="precision" [maximum]="maximun" ></sui-progress>-->
+            <!--                <div style="border: 1px solid black;padding: 5px" *ngIf="this.currentRoute?.toString()?.includes('edit')"><strong>Uploaded PDF  &nbsp;&nbsp;:&nbsp;&nbsp; </strong> <a *ngIf="addsample.artworklocation && this.currentRoute?.toString()?.includes('edit')">{{addsample?.artworklocation}}</a> </div>-->
+            <!--                <label class="ui label small green" *ngIf="myProgressDATApdf">-->
+            <!--                  <strong>File uploaded successfully</strong>-->
+            <!--                </label>-->
+            <!--              </div>-->
+            <!--              <div class="field ">-->
+            <!--                <label >-->
+            <!--                  Image upload for document-->
+            <!--                </label>-->
+            <!--                <input type="file"  accept="image/gif,image/jpeg,image/png"   class="mb-2" (change)="uploadImagefile($event.target.files)"  #Image>-->
+            <!--                <sui-progress class= " indicating small my-2" *ngIf="!myProgressDATAimage &&  !this.currentRoute?.toString()?.includes('edit')" [value]="value2" name="progress" [showProgress]="progress" [precision]="precision" [maximum]="maximun" ></sui-progress>-->
+            <!--                <div style="border: 1px solid black;padding: 5px" *ngIf="this.currentRoute?.toString()?.includes('edit')"><strong>Uploaded Image &nbsp;&nbsp;:&nbsp;&nbsp; </strong><a *ngIf="addsample.filename">{{addsample?.filename}}</a></div>-->
+            <!--                <label class="ui label small green" *ngIf="myProgressDATAimage">-->
+            <!--                  <strong>Image uploaded successfully</strong>-->
+            <!--                </label>-->
+            <!--              </div>-->
+            <div class="field ">
+              <label>
+                Pdf Upload For Artwork
+              </label>
+              <input type="file" accept="application/pdf" (change)="uploadPDFfile($event.target.files)" #fileInput>
+              <sui-progress class="my-2 indicating tiny"
+                *ngIf="!myProgressDATApdf &&  !this.currentRoute?.toString()?.includes('edit')" [value]="value"
+                name="progress" [showProgress]="progress" [precision]="precision" [maximum]="maximun" #progress>
+              </sui-progress>
+              <div id="label4" style="border: 1px solid black;padding: 5px"
+                *ngIf="this.currentRoute?.toString()?.includes('edit')"><strong>Uploaded PDF &nbsp;&nbsp;:&nbsp;&nbsp;
+                </strong> <a>{{addsample?.artworklocation}}</a> </div>
+              <label class="ui label green" *ngIf="myProgressDATApdf" id="label">
+                <strong>File uploaded successfully</strong>
+              </label>
+            </div>
+            <div class="field ">
+              <label>
+                Image Upload For Document
+              </label>
+              <input type="file" accept="image/gif,image/jpeg,image/png" class="mb-2"
+                (change)="uploadImagefile($event.target.files)" #doc>
+              <sui-progress class="my-2 indicating tiny"
+                *ngIf="!myProgressDATAimage &&  !this.currentRoute?.toString()?.includes('edit')" [value]="value2"
+                name="progress" [showProgress]="progress2" [precision]="precision" [maximum]="maximun" #progress2>
+              </sui-progress>
+              <div id="label3" style="border: 1px solid black;padding: 5px"
+                *ngIf="this.currentRoute?.toString()?.includes('edit')"><strong>Uploaded Image &nbsp;&nbsp;:&nbsp;&nbsp;
+                </strong><a *ngIf="addsample.filename">{{addsample?.filename}}</a></div>
+              <label class="ui label green" *ngIf="myProgressDATAimage" id="label2">
+                <strong>Image uploaded successfully</strong>
+              </label>
+            </div>
+          </div>
+
+          <button class="ui teal small button "
+            [disabled]="!this.addsample.samplename || !this.addsample.brandid || !this.addsample.productcategoryid || !this.addsample.productsubcategoryid || !this.addsample.orderdate || !this.addsample.length || !this.addsample.width"
+            (click)="patch(form);optionsLookupSample();fileInput.value = null;doc.value = null" type="button"
+            *ngIf="!this.currentRoute?.toString()?.includes('edit')"><i class="save icon"></i>
+            Save
+          </button>
+          <button class="ui primary small button "
+            [disabled]="!this.addsample.samplename || !this.addsample.brandid || !this.addsample.productcategoryid || !this.addsample.productsubcategoryid || !this.addsample.orderdate || !this.addsample.length || !this.addsample.width"
+            (click)="Updatepatch(form);fileInput.value = null;doc.value = null"
+            *ngIf="this.currentRoute?.toString()?.includes('edit')">Update</button>
+          <!--            <button type="button" class="ui tiny right floated red button" (click)="form.resetForm()">-->
+          <!--              Reset Form-->
+          <!--            </button>-->
+          <button class="ui green small button " [routerLink]="['/offset/samples']"
+            *ngIf="this.currentRoute?.toString()?.includes('edit')">
+            Create New Sample
+          </button>
+        </form>
+      </div>
+      <div class="mt-2">
+        <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse1()">
+          Add Offset Sample Color
+          <button type="button" class="ui mini icon right floated button text-dark bg-transparent "
+            [ngClass]="{'teal':collapse1,'red':!collapse1}">
+            <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+            <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+          </button>
+        </h3>
+        <!--<h3 class="ui top blue attached header mt-3 pointer"  (click)="toggleCollapse1()" *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+        <!--  3. Edit PFL Sample Color-->
+        <!--  <button type="button" class="ui mini icon right floated button text-dark bg-transparent " [ngClass]="{'teal':collapse1,'red':!collapse1}">-->
+        <!--    <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>-->
+        <!--    <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>-->
+        <!--  </button>-->
+        <!--</h3>-->
+
+        <div [suiCollapse]="collapse1">
+          <!--  {{color | json}}-->
+          <div class="ui mt-1 ">
+            <table class="ui compact single line  table mt-2" style="margin-top: -8px;">
+              <tbody>
+                <tr class="bg-teal text-white">
+                  <td> S.No</td>
+                  <td class="center aligned"> <i class="edit icon" *ngIf="this.editId"></i></td>
+
+                  <td class="center aligned"> <i class="trash icon"></i></td>
+                  <td>Sample No.</td>
+                  <td>Background Color</td>
+                  <td>Print Color</td>
+                </tr>
+                <tr *ngFor="let item of sampleColorData; let i = index">
+                  <td> {{ i+1 }}</td>
+                  <!--                                    <td *ngIf="this.editId" ><sui-checkbox  class="mt-2" [(ngModel)]="item.selected"  name="{{i}}"  (click)="selectColor(item,i)"></sui-checkbox></td>-->
+
+                  <td> <i class="edit icon" (click)="selectColor(item,i)" *ngIf="this.editId"
+                      [(ngModel)]="item.selected" name="{{i}}"></i></td>
+
+                  <td class="pointer center aligned" (click)="deleteColorData(item.samplecolorid , i)"> <i
+                      class="trash red icon"></i></td>
+                  <td> {{item?.sample?.sampleno}} </td>
+                  <td> {{item?.samplecolorname}} </td>
+                  <td> {{item?.printcolor}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="ui small form">
+              <div class="equal width fields">
+                <div class="field required">
+                  <label>Sample No</label>
+                  <sui-select required class="selection" name="sampleno" placeholder=" " [(ngModel)]="sampleid"
+                    [options]="samples" [isDisabled]="true" labelField="sampleno" valueField="sampleid"
+                    [isSearchable]="true" #SelectSamples>
+                    <sui-select-option *ngFor="let option of SelectSamples.filteredOptions" [value]="option">
+                    </sui-select-option>
+                  </sui-select>
+                </div>
+                <div class="field ">
+                  <label>Background Color </label>
+                  <input type="text" [(ngModel)]="color.samplecolorname "
+                    (keyup)="getBackgroundColor($event.target.value)" autocomplete="on" name="samplecolorname "
+                    placeholder="Color Name" />
+                  <div class="ui fluid container" style="margin-top: 30px;" *ngIf="similarColor">
+                    <h4 style="color: blue;">Similar Color</h4>
+                    <ul>
+                      <li>{{similarColor}}</li>
+                    </ul>
+                    <!-- <span >{{sample}},</span> -->
+                  </div>
+                </div>
+
+                <div class="field required">
+                  <label>Print Color</label>
+                  <input type="text" [(ngModel)]="color.printcolor" autocomplete="on" name="printcolor "
+                    placeholder="Print Color" />
+                </div>
+                <div class="field pt-3 mt-2">
+                  <button type="button" class="ui right floated primary tiny button"
+                    [disabled]="!this.sampleid || !this.color.printcolor" (click)="saveSampleColor()"><i
+                      class="add icon"></i> Add</button>
+                  <button type="button" class="ui right floated primary tiny button"
+                    [disabled]="!this.sampleid || !this.color.printcolor" *ngIf="index >= 0"
+                    (click)="updateSampleColor()"> Update</button>
+
+                </div>
+              </div>
+
+              <!--      <button type="button" class="ui teal tiny button " (click)="saveSampleColor()" *ngIf="!this.currentRoute?.toString()?.includes('edit')">-->
+              <!--        Save-->
+              <!--      </button>-->
+              <!--      <button type="button" class="ui primary tiny button " (click)="updateYarn()"  *ngIf="this.currentRoute?.toString()?.includes('edit')">-->
+              <!--      Update-->
+              <!--      </button>-->
+              <!--<button type=button class="ui orange tiny button" (click)="saveYarn()">Save</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  </div>-->
+<!--  <div class="ui bottom attached segment" suiTabContent="2">-->
+<!--    <div class="ui segment cardmy2">-->
+<!--      <app-add-material-detail></app-add-material-detail>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</sui-tabset>-->

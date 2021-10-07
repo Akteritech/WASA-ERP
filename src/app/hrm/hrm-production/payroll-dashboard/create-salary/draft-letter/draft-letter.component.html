@@ -1,0 +1,163 @@
+<div class="ui segment mt-2" style="width: 90%; margin: 0 auto;">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui tiny blue button" printSectionId="printContent" ngxPrint><i class="print icon"></i> Print</button>
+  <div id="printContent">
+    <div *ngFor="let data of bankDatas">
+      <table style="border-collapse: collapse;width: 100%; font-weight: bold; margin-top: 160px;">
+        <tbody>
+          <tr>
+            <td style="width: 70%;padding: 5px;">
+              Ref: {{data.RefrenceNo}}
+            </td>
+            <td style="width: 30%;">
+              Date: {{newDate}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="border-collapse: collapse;width: 100%">
+        <tbody>
+          <tr>
+            <td style="padding: 5px;">
+              <div>{{data.RefTo}}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table style="margin:20px 0px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td style="padding: 5px;">
+            <!-- Subject: Salary Disbursement for the month of {{dateString}} -->
+            {{data.RefSubject}}
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse: collapse;width: 100%">
+        <tr>
+          <td style="padding: 5px;">
+            Dear Sir
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;">
+            <div style="margin-bottom: 20px;">
+              {{data.DraftBody}}
+              </div>
+            <div>
+            </div>
+            <table style="width: 100%; margin-bottom: 20px;border:1px solid black;border-collapse: collapse;"
+              *ngIf="bankDatas1">
+              <tr style="border-bottom:1px solid black;">
+                <td style="padding: 5px;border-right:1px solid black;">
+                  SL
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  ID No.
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  Name
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  Account No
+                </td>
+                <td style="padding: 5px;">
+                  Amount
+                </td>
+              </tr>
+              <tr *ngFor="let data1 of bankDatas1; let i = index" style="border-bottom:1px solid black;">
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{i+1}}
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{data1?.CardNo}}
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{data1?.EmployeeName}}
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{data1?.AccountNNumber}}
+                </td>
+                <td style="padding: 5px;">
+                  {{data1?.BankAmount}}
+                </td>
+              </tr>
+              <tr style="border-bottom:1px solid black; font-weight: bold;">
+                <td style="padding: 5px;border-right:1px solid black; text-align: right;" colspan="4">
+                  Total
+                </td>
+                <td style="padding: 5px;">
+                  {{totalBankAmount}}
+                </td>
+              </tr>
+            </table>
+            <table style="width: 100%; margin-bottom: 20px;border:1px solid black;border-collapse: collapse;"
+              *ngIf="bankDatasRocket">
+              <tr style="border-bottom:1px solid black;">
+                <td style="padding: 5px;border-right:1px solid black;">
+                  SL
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  ID No.
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  Name
+                </td>
+
+
+                <td style="padding: 5px; border-right:1px solid black;">
+                  Rocket Number
+                </td>
+                <td style="padding: 5px;">
+                  Amount
+                </td>
+              </tr>
+              <tr *ngFor="let data of bankDatasRocket; let i = index" style="border-bottom:1px solid black;">
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{i+1}}
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{data?.ID}}
+                </td>
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{data?.Name}}
+                </td>
+
+
+                <td style="padding: 5px; border-right:1px solid black;">
+                  {{data['Rocket Number']}}
+                </td>
+                <td style="padding: 5px;">
+                  {{data?.Amount}}
+                </td>
+              </tr>
+              <tr style="border-bottom:1px solid black; font-weight: bold;">
+                <td style="padding: 5px;border-right:1px solid black; text-align: right;" colspan="4">
+                  Total
+                </td>
+                <td style="padding: 5px;">
+                  {{TotalAmount}}
+                </td>
+              </tr>
+            </table>
+            <div>
+              {{data.DraftClosing}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;">
+            <div style="margin-top: 20px;"> Thanking You </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;">
+            Best Regards
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

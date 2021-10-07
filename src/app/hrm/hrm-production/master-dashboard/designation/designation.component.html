@@ -1,0 +1,108 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" routerLink="../">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui primary tiny button">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+
+  <div>
+    <div class="mt-2">
+      <form onsubmit="return false;" class="ui small form" #form='ngForm'>
+        <div class="ui segment mt-2" [ngStyle]="{'background-color':'#71797E'}">
+          <h4 class="ui teal dividing header">
+            <br>
+            Add Designation
+          </h4>
+          <div class="equal width fields">
+            <div class="field ">
+              <label>Unit/ Company</label>
+              <!-- <sui-select placeholder="Company Name" class="selection" name="companyname" [(ngModel)]="designation.DIVISION_ID">
+              <sui-select-option *ngFor="let op of companies" [value]="op"></sui-select-option>
+            </sui-select> -->
+              <sui-select placeholder="." class="selection" name="company" [(ngModel)]="designation.DIVISION_ID"
+                [options]="companies" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #selecCompany>
+                <sui-select-option *ngFor="let op of selecCompany.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field ">
+              <label>Department</label>
+              <sui-select placeholder="." class="selection" name="department" [(ngModel)]="designation.DEPARTMENT_ID"
+                [isSearchable]="true" [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID"
+                #selectDept>
+                <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Designation Name English</label>
+              <input type="text" placeholder="Designation Name Emglish" id="DesigNmEng" name="DesigNmEng" maxlength="50"
+                [(ngModel)]="designation.DesigNmEng">
+            </div>
+            <div class="field">
+              <label>Designation Name Bangla</label>
+              <input type="text" placeholder="Designation Name Bangla" id="DesigNmBng" name="DesigNmBng" maxlength="50"
+                [(ngModel)]="designation.DesigNmBng">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Short Name</label>
+              <input type="text" placeholder="Short Name" id="DesigShortNm" name="DesigShortNm" maxlength="50"
+                [(ngModel)]="designation.DesigShortNm">
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <sui-select placeholder="." class="selection" name="Status" [(ngModel)]="designation.Status"
+                [options]="status" [isSearchable]="true" labelField="type" valueField="value" #selectcStatus>
+                <sui-select-option *ngFor="let op of selectcStatus.filteredOptions" [value]="op"></sui-select-option>
+              </sui-select>
+            </div>
+            <div class="field">
+              <label>Priority</label>
+              <input type="number" placeholder="Priority" id="Position" name="Position" maxlength="50"
+                [(ngModel)]="designation.Position">
+            </div>
+          </div>
+          <div class="equal width fields">
+            <div class="field">
+              <label>Remarks</label>
+              <textarea [(ngModel)]="designation.Remark" id="Remark" name="Remark" placeholder="Remark"
+                rows="3"></textarea>
+            </div>
+          </div>
+          <button *ngIf="!this.editId" class="ui teal tiny button my-1" (click)="patch(form)">Save</button>
+          <button *ngIf="this.editId" class="ui teal tiny button my-1" (click)="edit()">Update</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <table class="ui very compact unstackable teal table" [ngStyle]="{'background-color':'#71797E'}">
+    <thead>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Actions</th>
+        <th>Designation Name English</th>
+        <th>Designation Name Bangla</th>
+        <th>Designation Short Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let showdata of dataList; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+        <td class="single line pointer">
+          <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/designation/',showdata?.DesigID]"></i>
+        </td>
+        <td>{{showdata?.DesigNmEng}}</td>
+        <td style="font-family: SutonnyMJ;">{{showdata?.DesigNmBng}}</td>
+        <td>{{showdata?.DesigShortNm }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+</div>

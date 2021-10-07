@@ -1,0 +1,110 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+  <button class="ui tiny orange button" *ngIf="!showCollapse" (click)="showCollapse=true">
+    <i class="arrow up icon"></i>Close Draft
+  </button>
+  <div [suiCollapse]="showCollapse">
+    <div class="mt-2">
+      <app-show-letter-draft [id]="showDetails"></app-show-letter-draft>
+    </div>
+  </div>
+  <div class="ui segment small inline form mt-2" [ngStyle]="{'background-color':'#71797E'}">
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+        <h4 class="ui teal dividing header">
+          Letter Draft
+        </h4>
+        <div class="equal width fields">
+          <div class="field required">
+            <div class="ui right labeled input">
+              <label for="to" class="ui label">Reference</label>
+              <input type="text" placeholder="" id="RefrenceNo" name="RefrenceNo"
+                [(ngModel)]="this.letterDraft.RefrenceNo">
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <div class="ui right labeled input">
+              <label for="to" class="ui label">To</label>
+              <input type="text" placeholder="" name="to" [(ngModel)]="this.letterDraft.RefTo">
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <div class="ui right labeled input">
+              <label for="to" class="ui label">Subject</label>
+              <input type="text" placeholder="" name="subject" [(ngModel)]="this.letterDraft.RefSubject">
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <textarea id="body" name="body" placeholder="Write Here.." rows="3"
+              [(ngModel)]="this.letterDraft.DraftBody"></textarea>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field required">
+            <textarea id="body" name="body" placeholder="Closing" rows="3"
+              [(ngModel)]="this.letterDraft.DraftClosing"></textarea>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="ml-1 mr-1">
+            <label>&nbsp;</label><button type="button" class="ui tiny teal button" (click)="save()">Save</button>
+          </div>
+          <!-- <div class="ml-1 mr-1">
+          <label>&nbsp;</label><button type="button" class="ui tiny teal button" (click)="pdfDraft()">Preview
+            Draft</button>
+        </div> -->
+          <div class="ml-1 mr-1">
+            <label>&nbsp;</label><button type="button" class="ui tiny purple button"
+              (click)="searchLetterDraftList()">Search</button>
+          </div>
+        </div>
+
+        <table class="ui very compact teal table unstackable">
+          <thead>
+            <tr>
+              <th>SL</th>
+              <th>Action</th>
+              <th>Refrence No</th>
+              <th>Ref To</th>
+              <th>Ref Subject</th>
+              <th>Draft Body</th>
+              <th>Draft Closing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of dataList; let i = index">
+              <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+              <td class="single line">
+                <!-- (click)="edit(i)" -->
+                <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/letterDraft',data?.AppID]"></i>
+                <i class="eye link orange icon" (click)="viewDetail(i);"></i>
+              </td>
+              <td>{{data?.RefrenceNo}}</td>
+              <td>{{data?.RefTo}}</td>
+              <td>{{data?.RefSubject}}</td>
+              <td>{{data?.DraftBody}}</td>
+              <td>{{data?.DraftClosing}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage"
+          [hasNavigationLinks]="true" [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true"
+          [(page)]="meta.currentPage" (pageChange)="pageChange()">
+        </sui-pagination>
+      </div>
+    </form>
+  </div>
+</div>

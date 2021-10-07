@@ -1,0 +1,127 @@
+<button class="ui tiny orange button" type="button" *ngIf="this.editId" (click)="this.api.backClicked()">
+  <i class="angle left icon"></i>
+  Back
+</button>
+<form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Employee Personal
+      <br>
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Employee Personal
+      <br>
+    </h4>
+    <sui-message class="warning mb-2 mt-2">
+      <li>
+        <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Marital Status</label>
+        <sui-select name="Mstatus" class="loading fluid multiple search selection" [(ngModel)]="emp.MERITAL_STATUS_ENG"
+          [options]="api.maritalStatus" labelField="name" valueField="name" [isSearchable]="true" #selectMeritalStatus>
+          <sui-select-option *ngFor="let option of selectMeritalStatus.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Father/Husband's Name</label>
+        <input type="text" [(ngModel)]="emp.FATHER_NAME_ENG" id="FATHER_NAME_ENG" name="FATHER_NAME_ENG"
+          placeholder="Father/ Husband's Name" />
+      </div>
+      <div class="field">
+        <label>Father/Husband's Name(Bangla)</label>
+        <input type="text" [(ngModel)]="emp.FATHER_NAME_BNG" id="FATHER_NAME_BNG" name="FATHER_NAME_BNG"
+          placeholder="Father/Husband's Name(Bangla)" style="font-family: SutonnyMJ;" />
+      </div>
+      <div class="field">
+        <label>Mother's Name</label>
+        <input type="text" [(ngModel)]="emp.MOTHER_NAME_ENG" id="MOTHER_NAME_ENG" name="MOTHER_NAME_ENG"
+          placeholder="Mother Name" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="required field">
+        <label>Mother's Name(Bangla)</label>
+        <input required type="text" [(ngModel)]="emp.MOTHER_NAME_BNG" id="MOTHER_NAME_BNG" name="MOTHER_NAME_BNG"
+          placeholder="Mother's Name(Bangla)" style="font-family: SutonnyMJ;" />
+      </div>
+      <div class="field">
+        <label>Height</label>
+        <input type="number" [(ngModel)]="emp.HEIGHT" id="HEIGHT" name="HEIGHT" placeholder="Height" />
+      </div>
+      <div class="field">
+        <label>Weight</label>
+        <input type="number" [(ngModel)]="emp.WEIGHT" id="WEIGHT" name="WEIGHT" placeholder="Weight" />
+      </div>
+      <div class="field">
+        <label>Blood Group</label>
+        <sui-select name="bloodGroup" class="selection" [(ngModel)]="emp.BLOOD_GROUP_ENG" [options]="bloodgroups"
+          [isSearchable]="true" labelField="listitem" valueField="listitem" #selectBloodGrp>
+          <sui-select-option *ngFor="let option of selectBloodGrp.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields ">
+      <div class="field required">
+        <label>Sex</label>
+        <sui-select required name="gender" class="selection" id="gender" [(ngModel)]="emp.SEX" [options]="gender"
+          labelField="listitem" valueField="listitem" [isSearchable]="true" #selectgender>
+          <sui-select-option *ngFor="let option of selectgender.filteredOptions" [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Date Of Birth</label>
+        <input suiDatepicker [(ngModel)]="emp.BIRTH_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="BIRTH_DATE">
+      </div>
+      <div class="field required">
+        <label>Place Of Birth</label>
+        <!-- <input suiDatepicker [(ngModel)]="emp.BIRTH_PLACE" [pickerUseNativeOnMobile]="true" pickerMode="date"
+          name="BIRTH_PLACE"> -->
+        <input type="text" [(ngModel)]="emp.BIRTH_PLACE" name="BIRTH_PLACE">
+      </div>
+      <div class="field required">
+        <label>Religion</label>
+        <sui-select class="selection" name="religion" placeholder="Select Religion" [(ngModel)]="emp.RELIGION_ID"
+          [options]="religions" labelField="listitem" valueField="listitem" [isSearchable]="true" #multiSelectreligions>
+          <sui-select-option *ngFor="let option of multiSelectreligions.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Nationality</label>
+        <sui-select class="selection" name="nationalities" placeholder="Select Nationality"
+          [(ngModel)]="emp.NATIONALITY" [options]="nationalities" labelField="listitem" valueField="listitem"
+          [isSearchable]="true" #multiSelectnationalities>
+          <sui-select-option *ngFor="let option of multiSelectnationalities.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Last Education</label>
+        <input required type="number" [(ngModel)]="emp.LAST_EDUCATION" id="LAST_EDUCATION" name="LAST_EDUCATION"
+          placeholder="Last Education" />
+      </div>
+      <div class="field required">
+        <label>Total No. Of Experience</label>
+        <input required type="number" [(ngModel)]="emp.TOTAL_EXPERIENCE" id="TOTAL_EXPERIENCE" name="TOTAL_EXPERIENCE"
+          placeholder="Total No. Of Experience" />
+      </div>
+    </div>
+    <div>
+      <button class="ui teal tiny button my-1" (click)="patch(form)">
+        Save
+      </button>
+      <button class="ui primary tiny button my-1" (click)="updateEmp()">
+        Update
+      </button>
+    </div>
+  </div>
+</form>

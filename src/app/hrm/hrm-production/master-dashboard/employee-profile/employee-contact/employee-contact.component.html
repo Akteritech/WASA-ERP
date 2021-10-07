@@ -1,0 +1,175 @@
+<button class="ui tiny orange button" type="button" *ngIf="this.editId" (click)="this.api.backClicked()">
+  <i class="angle left icon"></i>
+  Back
+</button>
+<form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Employee Contact
+      <br>
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Employee Contact
+      <br>
+    </h4>
+    <sui-message class="warning mb-2 mt-2">
+      <li>
+        <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <h5 class="ui teal dividing header">
+      Present Address
+      <br>
+    </h5>
+    <div class="equal width fields">
+      <div class="required field">
+        <label>Phone No</label>
+        <input required type="text" [(ngModel)]="emp.PRESENT_ADD_PHONE" id="PRESENT_ADD_PHONE" name="PRESENT_ADD_PHONE"
+          placeholder="Phone No" />
+      </div>
+      <div class="field">
+        <label>Police Station</label>
+        <input type="text" [(ngModel)]="emp.PRESENT_ADD_CITY_BNG" id="@PRESENT_ADD_CITY_BNG" name="@PRESENT_ADD_CITY_BNG"
+          placeholder="Police Station" />
+      </div>
+      <div class="field">
+        <label>City</label>
+        <input type="text" [(ngModel)]="emp.PRESENT_ADD_CITY_ENG" id="PRESENT_ADD_CITY_ENG" name="PRESENT_ADD_CITY_ENG"
+          placeholder="City" />
+      </div>
+      <div class="field">
+        <label>Zip Code</label>
+        <input type="text" [(ngModel)]="emp.PRESENT_ADD_ZIP" id="PRESENT_ADD_ZIP" name="PRESENT_ADD_ZIP"
+          placeholder="Zip Code" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Address</label>
+        <textarea [(ngModel)]="emp.PRESENT_ADD_ENG" name="PRESENT_ADD_ENG" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label>Address Bangla</label>
+        <textarea style="font-family: SutonnyMJ;" [(ngModel)]="emp.PRESENT_ADD_BNG" name="PRESENT_ADD_BNG" rows="2"></textarea>
+      </div>
+    </div>
+    <h5 class="ui teal dividing header">
+      Permanent Address
+      <br>
+    </h5>
+    <div class="equal width fields">
+      <div class="field">
+        <label>City</label>
+        <input type="text" [(ngModel)]="emp.PRESENT_ADD_CITY_ENG" id="PRESENT_ADD_CITY_ENG1" name="PRESENT_ADD_CITY_ENG1"
+          placeholder="City" />
+      </div>
+      <div class="field">
+        <label>District</label>
+        <input type="text" [(ngModel)]="emp.PER_ADD_DIST_ENG" id="PER_ADD_DIST_ENG" name="PER_ADD_DIST_ENG"
+          placeholder="District" />
+      </div>
+      <div class="field">
+        <label>Zip Code</label>
+        <input type="text" [(ngModel)]="emp.PER_ADD_ZIP" id="PER_ADD_ZIP" name="PER_ADD_ZIP"
+          placeholder="Zip Code" />
+      </div>
+      <div class="required field">
+        <label>Phone No</label>
+        <input required type="text" [(ngModel)]="emp.PER_ADD_PHONE" id="PER_ADD_PHONE" name="PER_ADD_PHONE"
+          placeholder="Phone No" />
+      </div>
+      <div class="field">
+        <label>Police Station</label>
+        <input type="text" [(ngModel)]="emp.PRESENT_ADD_CITY_BNG" id="PRESENT_ADD_CITY_BNG" name="PRESENT_ADD_CITY_BNG"
+          placeholder="Police Station" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Address</label>
+        <textarea [(ngModel)]="emp.PER_ADD_ENG" name="PER_ADD_ENG" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label>Address Bangla</label>
+        <textarea style="font-family: SutonnyMJ;" [(ngModel)]="emp.PER_ADD_BNG" name="PER_ADD_BNG" rows="2"></textarea>
+      </div>
+    </div>
+    <h5 class="ui teal dividing header">
+      Others
+      <br>
+    </h5>
+    <div class="equal width fields ">
+      <div class="field required">
+        <label>National Id No.</label>
+        <input required type="text" [(ngModel)]="emp.NATIONAL_ID_NO" id="NATIONAL_ID_NO" name="NATIONAL_ID_NO"
+          placeholder="National Id No." />
+      </div>
+      <div class="field required">
+        <label>Email</label>
+        <input required type="text" [(ngModel)]="emp.EMAIL_ADD" id="EMAIL_ADD" name="EMAIL_ADD"
+          placeholder="Email" />
+      </div>
+      <div class="field required">
+        <label>Passport No.</label>
+        <input required type="text" [(ngModel)]="emp.PASSPORT_NO" id="PASSPORT_NO" name="PASSPORT_NO"
+          placeholder="Passport No." />
+      </div>
+      <div class="field required">
+        <label>Bank Acc. No.</label>
+        <input required type="text" [(ngModel)]="emp.BANK_ACCOUNT_NO" id="BANK_ACCOUNT_NO" name="BANK_ACCOUNT_NO"
+          placeholder="Bank Acc. No." />
+      </div>
+      <div class="field">
+        <label>Bank Acc Activity</label>
+        <sui-checkbox class="mt-2" [(ngModel)]="emp.BANK_AC_ACTIVITY" name="BANK_AC_ACTIVITY">
+        </sui-checkbox>
+      </div>
+      <div class="field required">
+        <label>Driving License No.</label>
+        <input required type="text" [(ngModel)]="emp.DRIVING_LICENSE_NO" id="DRIVING_LICENSE_NO"
+          name="DRIVING_LICENSE_NO" placeholder="Driving License No." />
+      </div>
+    </div>
+    <h5 class="ui teal dividing header">
+      Emergency Contact
+      <br>
+    </h5>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Contact Name</label>
+        <input required type="text" [(ngModel)]="emp.EMER_CONT_NAME_ENG" id="EMER_CONT_NAME_ENG"
+          name="EMER_CONT_NAME_ENG" placeholder="Contact Name" />
+      </div>
+      <div class="field required">
+        <label>Phone No</label>
+        <input required type="text" [(ngModel)]="emp.EMER_CONT_PHONE" id="EMER_CONT_PHONE" name="EMER_CONT_PHONE"
+          placeholder="Phone No" />
+      </div>
+      <div class="field required">
+        <label>Relation</label>
+        <input required type="text" [(ngModel)]="emp.EMER_CONT_REL_ENG" id="EMER_CONT_REL_ENG" name="EMER_CONT_REL_ENG"
+          placeholder="Relation" />
+      </div>
+      <div class="field required">
+        <label>Contact Name Bangla</label>
+        <input required type="text" [(ngModel)]="emp.EMER_CONT_NAME_BNG" id="EMER_CONT_NAME_BNG"
+          name="EMER_CONT_NAME_BNG" placeholder="Contact Name Bangla" />
+      </div>
+      <div class="field required">
+        <label>Relation Bangla</label>
+        <input required type="text" [(ngModel)]="emp.EMPR_CONT_REL_BNG" id="EMPR_CONT_REL_BNG" name="EMPR_CONT_REL_BNG"
+          placeholder="Relation Bangla" />
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button class="ui teal tiny button my-1" (click)="patch(form)">
+      Save
+    </button>
+    <button class="ui primary tiny button my-1" (click)="updateEmp()">
+      Update
+    </button>
+  </div>
+</form>

@@ -1,0 +1,256 @@
+<form onsubmit="return false;" class="ui mini form " #form='ngForm' id="myform" autocomplete="off"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Add New Employee
+      <br>
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Edit Employee
+      <br>
+    </h4>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!emp.prevempId && !emp.firstname ">
+      <li>
+        <strong>Note : </strong> Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="ui two column grid">
+      <div class="fourteen wide column">
+        <div class="equal width fields">
+          <div class="required field">
+            <label>Employee No.</label>
+            <div class="ui labeled input">
+              <input required type="text" [(ngModel)]="emp.prevempId" name="no" placeholder="no" />
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="required field">
+            <label>First Name</label>
+            <input required type="text" [(ngModel)]="emp.firstname" id="Fname" name="Fname" placeholder="First Name" />
+          </div>
+          <div class="field">
+            <label>Middle Name</label>
+            <input type="text" [(ngModel)]="emp.middlename" id="Mname" name="Mname" placeholder="Middle Name" />
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" [(ngModel)]="emp.lastname" id="Lname" name="Lname" placeholder="Last Name" />
+          </div>
+          <div class=" field">
+            <label>Full Name In Bangla</label>
+            <input type="text" [(ngModel)]="emp.empfullnameinbangla" name="fullname"
+              placeholder="Full Name In Bangla" />
+          </div>
+        </div>
+      </div>
+      <div class="two wide column pl-1">
+        <div class="fields required pl-0">
+          <div class="sixteen wide field pl-0 pointer" title="Click here to change Product Image">
+            <img *ngIf="!emp.imagepath" src="{{this.api.noImagePath}}" class="ui fluid image" alt=""
+              (click)="image.click()">
+            <img *ngIf="emp.imagepath" src="{{ api.baseUrl + this.emp.imagepath }}" class="ui fluid image" alt=""
+              (click)="image.click()">
+            <input type="file" hidden style="padding: 5px" accept="image/*"
+              (change)="handleFileInput($event.target.files)" #image name="image" placeholder="Image" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="equal width fields ">
+      <div class="field">
+        <label>Father Name</label>
+        <input type="text" [(ngModel)]="emp.fathersname" id="FatherName" name="FatherName" placeholder="Father Name" />
+      </div>
+      <div class="field">
+        <label>Mother Name</label>
+        <input type="text" [(ngModel)]="emp.mothersname" id="MotherName" name="MotherName" placeholder="Mother Name" />
+      </div>
+      <div class="field">
+        <label>Blood Group</label>
+        <sui-select name="bloodGroup" class="selection" [(ngModel)]="emp.bloodgroup" [options]="bloodgroups"
+          [isSearchable]="true" labelField="listitem" valueField="id" #selectBloodGrp>
+          <sui-select-option *ngFor="let option of selectBloodGrp.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Gender</label>
+        <sui-select required name="gender" class="selection" id="gender" [(ngModel)]="emp.sex" [options]="gender"
+          labelField="listitem" valueField="id" [isSearchable]="true" #selectgender>
+          <sui-select-option *ngFor="let option of selectgender.filteredOptions" [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Marital Status</label>
+        <sui-select name="Mstatus" class="loading fluid multiple search selection" [(ngModel)]="emp.maritalstatus"
+          [options]="maritalstatuses" labelField="listitem" valueField="id" [isSearchable]="true" #selectMeritalStatus>
+          <sui-select-option *ngFor="let option of selectMeritalStatus.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Date Of Birth</label>
+        <input suiDatepicker [(ngModel)]="emp.dob" [pickerUseNativeOnMobile]="true" pickerMode="date" name="DOBDate">
+      </div>
+      <div class="field required">
+        <label>Religion</label>
+        <sui-select class="selection" name="religion" placeholder="Select Religion" [(ngModel)]="emp.religion"
+          [options]="religions" labelField="listitem" valueField="id" [isSearchable]="true" #multiSelectreligions>
+          <sui-select-option *ngFor="let option of multiSelectreligions.filteredOptions" [value]="option">
+          </sui-select-option>
+
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Nationality</label>
+        <sui-select class="selection" name="nationalities" placeholder="Select Nationality"
+          [(ngModel)]="emp.nationality" [options]="nationalities" labelField="listitem" valueField="id"
+          [isSearchable]="true" #multiSelectnationalities>
+          <sui-select-option *ngFor="let option of multiSelectnationalities.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Identification Type</label>
+        <input required type="number" [(ngModel)]="emp.empidentificationtypeid" id="Idtype" name="Idtype"
+          placeholder="Identification Type" />
+      </div>
+      <div class="field required">
+        <label>National ID No.</label>
+        <input required type="number" [(ngModel)]="emp.idno" id="IdNo" name="IdNo" placeholder="National ID No." />
+      </div>
+      <div class="field required">
+        <label>Identification Mark</label>
+        <input required type="text" [(ngModel)]="emp.identificationmark" id="IdentityMarks" name="IdentityMarks"
+          placeholder="Identification Mark" />
+      </div>
+    </div>
+    <div>
+      <button class="ui teal tiny button my-1" (click)="patch(form)"
+        *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+        Save
+      </button>
+      <button class="ui primary tiny button my-1" (click)="updateEmp()"
+        *ngIf="this.currentRoute?.toString()?.includes('edit')">
+        Update
+      </button>
+    </div>
+  </div>
+
+  <div class="ui segment mt-2">
+    <h3 class="ui top blue attached header mt-3 pointer" (click)="toggleCollapse1()">
+      Add Official Info
+      <button type="button" class="ui mini icon right floated button text-dark bg-transparent "
+        [ngClass]="{'teal':collapse1,'red':!collapse1}">
+        <i class="add ml-1 blue small icon" *ngIf="collapse1"></i>
+        <i class="arrow alternate up small red ml-1 icon" *ngIf="!collapse1"></i>
+      </button>
+    </h3>
+    <div [suiCollapse]="collapse1">
+      <div class="ui segment mt-1 ">
+        <div class="equal width fields">
+          <div class="field">
+            <label>Employee Name</label>
+            <input type="text" id="FatherName" name="EmployeeName" placeholder="Employee Name" />
+          </div>
+          <div class="field">
+            <label>Card No</label>
+            <input type="text" id="MotherName" name="CardNo" placeholder="Card No" />
+          </div>
+          <div class="field">
+            <label>Attendance Device ID</label>
+            <input type="text" id="AttendanceDeviceID" name="AttendanceDeviceID" placeholder="Attendance Device ID" />
+          </div>
+          <div class="field required">
+            <label>Company</label>
+            <sui-select required placeholder=" " class="selection" [options]="companies" name="companyname"
+              [isSearchable]="true" labelField="companyname" valueField="companyid" #selectCOMP>
+
+              <sui-select-option *ngFor="let op of selectCOMP.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Department</label>
+            <sui-select placeholder="." class="selection" name="department" [isSearchable]="true"
+              [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+              <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Section</label>
+            <sui-select placeholder="." class="selection" name="section" [isSearchable]="true" [options]="sections"
+              labelField="SecEngNm" valueField="SECTION_ID" #selectSection>
+              <sui-select-option *ngFor="let op of selectSection.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Designation</label>
+            <sui-select placeholder="." class="selection" name="designation" [options]="designations"
+              labelField="designation" valueField="desigId" (keyup)="getDesignations($event.target.value)"
+              [isSearchable]="true" #selectdesignation>
+              <sui-select-option *ngFor="let op of selectdesignation.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Last Promotion</label>
+            <div class="ui labeled input">
+              <input type="text" name="lastpromotion" placeholder="Last Promotion" />
+            </div>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Employee Type</label>
+            <sui-select placeholder="." class="selection" name="employeetypename" [options]="employeeTypes"
+              labelField="type" valueField="value" #selectEmployeeType>
+              <sui-select-option *ngFor="let op of selectEmployeeType.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Grade</label>
+            <sui-select placeholder="." class="selection" name="grade" [options]="grades" labelField="listItem"
+              valueField="listValue" #selectGrade>
+              <sui-select-option *ngFor="let op of selectGrade.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Shift</label>
+            <sui-select placeholder="." class="selection" name="shift" [options]="shifts" labelField="listItem"
+              valueField="listValue" #selectShift>
+              <sui-select-option *ngFor="let op of selectShift.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+          <div class="field">
+            <label>Weekly Off</label>
+            <sui-select placeholder="." class="selection" name="weeklyOff" [options]="weeklyOffs" labelField="listItem"
+              valueField="listValue" #selectweeklyOffs>
+              <sui-select-option *ngFor="let op of selectweeklyOffs.filteredOptions" [value]="op"></sui-select-option>
+            </sui-select>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Date Of Joining</label>
+            <input suiDatepicker pickerMode="date" name="dateOfJoining">
+          </div>
+          <div class="field">
+            <label>Provision Period (By Month)</label>
+            <input type="number" min="0"  name="provisionperiod">
+          </div>
+          <div class="field">
+            <label>Confirmation Date </label>
+            <input suiDatepicker pickerMode="date" name="confirmationDate">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

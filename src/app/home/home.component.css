@@ -1,0 +1,18 @@
+.cardmy {
+  box-shadow:0 5px 20px 0 #d4d4d5,0 0 0 0 #d4d4d5 !important;
+  /*color: #ffffff !important;*/
+  /*background-image: linear-gradient(to right, rgb(239, 239, 245), rgb(239, 239, 245)) !important;*/
+}
+.cardmy2 {
+  box-shadow:0 5px 20px 0 #d4d4d5,0 0 0 0 #d4d4d5 !important;
+  /*color: #ffffff !important;*/
+  /*background-image: linear-gradient(to right, rgb(239, 239, 245), rgb(239, 239, 245)) !important;*/
+}
+.cardmy3 {
+  box-shadow:0 5px 20px 0 #d4d4d5,0 0 0 0 #d4d4d5 !important;
+  /*color: #ffffff !important;*/
+  /*background-image: linear-gradient(to right, rgb(239, 239, 245), rgb(239, 239, 245)) !important;*/
+}
+.content{
+  border-top:  2px solid steelblue !important;
+}

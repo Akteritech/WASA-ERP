@@ -1,0 +1,84 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="on"
+  (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment" [ngStyle]="{'background-color':'#71797E'}">
+    <h3 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Create Shift
+    </h3>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Group</label>
+        <sui-select placeholder="." class="selection" [(ngModel)]="shift.GROUP_ID" name="group" [options]="groups"
+          labelField="GROUP_NAME_ENG" [isSearchable]="true" valueField="GROUP_ID" #selectGroup>
+          <sui-select-option *ngFor="let op of selectGroup.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Shift ID</label>
+        <input type="text" [(ngModel)]="shift.SHIFT_ID" name="SHIFT_ID">
+      </div>
+      <div class="field">
+        <label>Shift Name English</label>
+        <input type="text" [(ngModel)]="shift.SHIFT_NAME_ENG" name="SHIFT_NAME_ENG">
+      </div>
+      <div class="field">
+        <label>Shift Name Bangla</label>
+        <input type="text" [(ngModel)]="shift.SHIFT_NAME_BNG" name="SHIFT_NAME_BNG">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Effective Date</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="shift.EFFECTIVE_DATE" name="EFFECTIVE_DATE">
+      </div>
+      <div class="field ">
+        <label>Start Time</label>
+        <input type="time" [(ngModel)]="shift.START_TIME" id="START_TIME" name="START_TIME" placeholder="Start Time" />
+      </div>
+      <div class="field ">
+        <label>End Time</label>
+        <input type="time" [(ngModel)]="shift.END_TIME" id="END_TIME" name="END_TIME" placeholder="End Time" />
+      </div>
+      <div class="field ">
+        <label>Buyer In Time</label>
+        <input type="time" [(ngModel)]="shift.BUYER_IN" id="BUYER_IN" name="BUYER_IN" placeholder="Buyer In Time" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Buyer Out Time</label>
+        <input type="time" [(ngModel)]="shift.BUYER_OUT" id="BUYER_OUT" name="BUYER_OUT" placeholder="Buyer Out Time" />
+      </div>
+      <div class="field ">
+        <label>Delay Time</label>
+        <input type="time" [(ngModel)]="shift.DELAY_TIME_OUT" id="DELAY_TIME_OUT" name="DELAY_TIME_OUT"
+          placeholder="Delay Time" />
+      </div>
+      <div class="field ">
+        <label>Acceptable Late</label>
+        <input type="time" [(ngModel)]="shift.ACCEPTABLE_LATE" id="ACCEPTABLE_LATE" name="ACCEPTABLE_LATE"
+          placeholder="Acceptable Late" />
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field ">
+        <label>Over Time</label>
+        <sui-select placeholder="Over Time" class="selection" [(ngModel)]="shift.OVERTIME" name="group">
+          <sui-select-option value="Yes"></sui-select-option>
+          <sui-select-option value="No"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Remarks</label>
+        <input type="text" [(ngModel)]="shift.REMARK" name="REMARK">
+      </div>
+      <div class="field">
+        <label> Midnight Cross Over</label>
+        <sui-checkbox class="mt-2" name=""></sui-checkbox>
+      </div>
+    </div>
+    <button class="ui teal tiny button my-1" (click)="patch(form)">
+      Save
+    </button>
+  </div>
+
+</form>

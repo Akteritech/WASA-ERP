@@ -1,0 +1,235 @@
+/* code {
+  background-color: #60c065;
+  padding: 0.25em 0.3em;
+  font-family: 'Lato';
+  font-weight: bold;
+}
+
+.container {
+  padding: 1em 0em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+
+.grid {
+  position: relative;
+  padding : 3em;
+}
+
+.grid:before {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+ 
+  content: '';
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  
+}
+
+.ui.divided.grid:before,
+.celled.grid:before {
+  display: none;
+}
+
+.ui.aligned .column:after {
+  display: none !important;
+}
+
+.grid .column:not(.row):not(.grid):after {
+  background-color: rgba(86, 61, 124, .15);
+  box-shadow: 0px 0px 0px 1px rgba(86, 61, 124, 0.2) inset;
+  content: "";
+  display: block;
+  min-height: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .stackable.grid:before {
+      width: 100%;
+      left: 0em;
+  }
+}
+
+body>.grid {
+    height: 100%;
+    background-color: #6d95ddea;
+}
+
+.image {
+    margin-top: -100px;
+}
+.column {
+    max-width: 450px;
+}
+
+.ui.stacked.segment::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    border-top: 0px solid rgba(34,36,38,.15);
+    background: rgba(0,0,0,.03);
+    width: 100%;
+    height: 6px;
+    visibility: visible;
+}
+
+.ui.button {
+    
+    background: #fafafb none;
+    color:#000;
+    border: 0.03125em solid #484084;
+}
+
+.ui.button:hover {
+ 
+  background: #e2e1e1 none;
+  color:#000;
+  border: 1px solid #484084;
+} */
+* {
+	box-sizing: border-box;
+}
+body {
+	font-family: poppins;
+	font-size: 16px;
+	color: #fff;
+}
+.form-box {
+	background-color: rgba(0, 0, 0, 0.5);
+	margin: auto auto;
+	padding: 40px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px #000;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 400px;
+	height: 450px;
+}
+.form-box:before {
+  
+  /* background-image: url("https://eiesco.com.bd/wp-content/uploads/2020/11/DBPXskmXYAAveKJ-1024x768.jpg"); */
+/* background-image: "https://wallpaperaccess.com/full/3172457.jpg"; */
+  background-color: rgb(161, 228, 178);
+  width: 100%;
+	height: 100%;
+	background-size: cover;
+	content: "";
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+	display: block;
+	/* filter: blur(2px); */
+}
+.form-box .header-text {
+  left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	font-size: 32px;
+	font-weight: 600;
+	padding-bottom: 30px;
+	text-align: center;
+}
+.form-box input {
+	margin: 10px 10px;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	width: 100%;
+	font-size: 18px;
+	font-family: poppins;
+	
+}
+
+/* .form-box input[type=checkbox] {
+	display: none;
+} */
+.form-box label {
+	position: relative;
+	margin-left: 0;
+	margin-right: 0;
+	top: 5px;
+	display: inline-block;
+  text-align: center;
+	/* width: 200px; */
+	/* height: 20px; */
+	/* cursor: pointer; */
+}
+.form-box label:before {
+	/* content: "sdfsd"; */
+	/* display: inline-block; */
+	width: 200px;
+	height: 20px;
+	border-radius: 5px;
+	position: absolute;
+	left: 0;
+	bottom: 1px;
+	background-color: #ddd;
+}
+/* .form-box input[type=checkbox]:checked+label:before {
+	content: "\2713";
+	font-size: 20px;
+	color: #000;
+	text-align: center;
+	line-height: 20px;
+} */
+.form-box span {
+	font-size: 14px;
+}
+.form-box button {
+	background-color: rgb(181, 191, 194);
+	color: rgb(20, 7, 7);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100%;
+	font-size: 18px;
+	padding: 10px;
+	margin: 10px 10px;
+}
+span a {
+	color: #BBB;
+}
+.form-box.ui.dropdown.search{
+  width:100%; 
+  margin: 0px 0px; 
+}
+.avatar{
+    width: 80px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: -30px;
+    left: calc(50% - 50px);
+}
+h1{
+    margin: 10px 10px;
+    padding: 0 0 0px;
+    text-align: center;
+    font-size: 20px;
+}
+h4{
+    margin: 10px 10px;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 15px;
+}
+h5{
+    margin: 10px 10px;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 12px;
+}

@@ -1,0 +1,304 @@
+<!-- 
+<hello name="{{ name }}"></hello>
+<p>
+  Start editing to see some magic happen :) <br>
+  open this in full screen 
+</p>
+<h1>
+  Please open it in full screen mode <br>
+  your current location is:- <br>
+  lat:-{{lat}}<br>
+  lng-:{{lng}}
+</h1> -->
+
+
+<!-- <div class="pt-5">
+<div class="ui center aligned grid">
+
+  <div class="ten wide column" >
+    <h2 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}">Face Attendance</h2>
+  </div>
+</div>     
+<div id="container">
+  <video autoplay="true" id="videoElement">
+  
+  </video>
+</div>
+
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snap">Snap Photo</button>
+<canvas id="canvas" width="640" height="480"></canvas> -->
+
+<!-- <div class="video-container" *ngIf="!error">
+	<video [class.show]="!isCaptured" [class.hide]="isCaptured" #video id="video" [width]="WIDTH" [height]="HEIGHT"
+		autoplay></video>
+	<canvas [class.show]="isCaptured" [class.hide]="!isCaptured" #canvas id="canvas" [width]="WIDTH"
+		[height]="HEIGHT"></canvas>
+</div> -->
+
+<!-- <div class="snap-container">
+	<button class="btn btn-primary" *ngIf="!isCaptured" (click)="capture()">Snap Photo</button>
+	<button class="btn btn-danger" *ngIf="isCaptured" (click)="removeCurrent()">Take Another</button>
+
+	<div *ngIf="error" class="text-danger mt-4">
+		{{ error }}. Please click refresh on stackblitz
+		<div class="mt-5">
+			<img src="https://trungk18.com/7e0976255739e721501803ee074f1f94/camera.gif" />
+		</div>
+		</div>
+	</div> -->
+
+	<!-- <ul class="list-unstyled">
+		<li *ngFor="let src of captures; let idx = index" (click)="setPhoto(idx)">
+			<img [src]="src" height="50" />
+  </li>
+	</ul> -->
+
+
+
+
+<div class="mapouter"><div class="gmap_canvas">
+  <div class="contentarea">
+      <div>
+
+        <h1>
+         
+      </h1>
+      </div>
+       
+      <video id="player" controls autoplay></video>
+      <!-- <script>
+        const player = document.getElementById('player');
+      
+        const constraints = {
+          video: true,
+        };
+      
+        navigator.mediaDevices.getUserMedia(constraints)
+          .then((stream) => {
+            player.srcObject = stream;
+          });
+      </script> -->
+         <div>
+
+
+          <!-- <input type="file" name="video" accept="video/*" capture="environment"> -->
+          <!-- <input type="file" accept="image/*" capture="camera"> -->
+
+
+          <!-- <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+          
+            <input type="file" accept="image/*" (change)="showPreview($event)" capture="camera"/>
+          
+           
+            <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+              <img src="{{imageSrc}}" alt="{{imageAlt}}" />
+            </div>
+          
+           
+            <input formControlName="name" placeholder="Enter name">
+          
+            <button type="submit">Submit</button>
+          </form> -->
+
+          <div  class="form-group">
+            <!-- <label for="image">Open Camera</label> -->
+            <input type="file"  placeholder="Open Camera"  class="form-control"  accept="image/*" (change)="onFileChange($event)" placeholder="Upload file..." capture="camera" >
+          </div>
+          <div class="container">
+              <img [src]="url" width="240px" height="320px">
+          </div>
+
+         </div>
+         <script language="JavaScript">
+ 
+          // Configure a few settings and attach camera
+          function configure(){
+           Webcam.set({
+            width: 320,
+            height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+           });
+           Webcam.attach( 'my_camera' );
+          }
+          // A button for taking snaps
+         
+         
+          // preload shutter audio clip
+          var shutter = new Audio();
+          shutter.autoplay = false;
+          shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : 'shutter.mp3';
+         
+          function take_snapshot() {
+           // play sound effect
+           shutter.play();
+         
+           // take snapshot and get image data
+           Webcam.snap( function(data_uri) {
+           // display results in page
+           document.getElementById('results').innerHTML = 
+            '<img id="imageprev" src="'+data_uri+'"/>';
+           } );
+         
+           Webcam.reset();
+          }
+         
+         function saveSnap(){
+          // Get base64 value from <img id='imageprev'> source
+          var base64image = document.getElementById("imageprev").src;
+         
+          Webcam.upload( base64image, 'upload.php', function(code, text) {
+           console.log('Save successfully');
+           //console.log(text);
+          });
+         
+         }
+         </script>
+
+  
+
+
+           <div><h3>DHAKA WASA MAP</h3></div>
+
+         <div id="#map">
+          <iframe src="https://www.google.com/maps/d/embed?mid=1J3t4h2od8VKIG6xXGvy-0GN2qs72MR-U" width="640" height="480"></iframe>
+          </div>
+
+          <!-- <div>
+
+          </div>
+
+          <div id="my_camera"></div>
+          <input type=button value="Configure" onClick="configure()">
+          <input type=button value="Take Snapshot" onClick="take_snapshot()">
+          <input type=button value="Save Snapshot" onClick="saveSnap()">
+          
+          <div id="results" ></div> -->
+          <video id="video" width="640" height="480" autoplay></video>
+          <button id="snap">Snap Photo</button>
+          <canvas id="canvas" width="640" height="480"></canvas>
+         </div>
+         <script>
+          /* JS comes here */
+          // (function() {
+        
+          //     var width = 320; // We will scale the photo width to this
+          //     var height = 0; // This will be computed based on the input stream
+        
+          //     var streaming = false;
+        
+          //     var video = null;
+          //     var canvas = null;
+          //     var photo = null;
+          //     var startbutton = null;
+        
+              // function startup() {
+              //     video = document.getElementById('video');
+              //     canvas = document.getElementById('canvas');
+              //     photo = document.getElementById('photo');
+              //     startbutton = document.getElementById('startbutton');
+        
+              //     navigator.mediaDevices.getUserMedia({
+              //             video: true,
+              //             audio: false
+              //         })
+              //         .then(function(stream) {
+              //             video.srcObject = stream;
+              //             video.play();
+              //         })
+              //         .catch(function(err) {
+              //             console.log("An error occurred: " + err);
+              //         });
+        
+              //     video.addEventListener('canplay', function(ev) {
+              //         if (!streaming) {
+              //             height = video.videoHeight / (video.videoWidth / width);
+        
+              //             if (isNaN(height)) {
+              //                 height = width / (4 / 3);
+              //             }
+        
+              //             video.setAttribute('width', width);
+              //             video.setAttribute('height', height);
+              //             canvas.setAttribute('width', width);
+              //             canvas.setAttribute('height', height);
+              //             streaming = true;
+              //         }
+              //     }, false);
+        
+              //     startbutton.addEventListener('click', function(ev) {
+              //         takepicture();
+              //         ev.preventDefault();
+              //     }, false);
+        
+              //     clearphoto();
+              // }
+        
+        
+              // function clearphoto() {
+              //     var context = canvas.getContext('2d');
+              //     context.fillStyle = "#AAA";
+              //     context.fillRect(0, 0, canvas.width, canvas.height);
+        
+              //     var data = canvas.toDataURL('image/png');
+              //     photo.setAttribute('src', data);
+              // }
+        
+              // function takepicture() {
+              //     var context = canvas.getContext('2d');
+              //     if (width && height) {
+              //         canvas.width = width;
+              //         canvas.height = height;
+              //         context.drawImage(video, 0, 0, width, height);
+        
+              //         var data = canvas.toDataURL('image/png');
+              //         photo.setAttribute('src', data);
+              //     } else {
+              //         clearphoto();
+              //     }
+              // }
+        
+              // window.addEventListener('load', startup, false);
+          // })();
+          </script>
+<!-- <agm-map [latitude]="lat" [longitude]="lng"> 
+  <agm-marker [latitude]="lat" [longitude]="lng">
+   </agm-marker> 
+</agm-map> -->
+<!-- <h1>WASA</h1>
+<p><a href="https://angular-maps.com/" target="_blank">Staff location</a></p>
+
+<agm-map 
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  [zoomControl]="false"
+  (mapClick)="mapClicked($event)">
+
+  <agm-marker 
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+      
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+    
+  </agm-marker>
+  
+  <agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+      [radius]="5000"
+      [fillColor]="'red'"
+      [circleDraggable]="true"
+      [editable]="true">
+  </agm-circle>
+
+</agm-map>
+</div> -->
+

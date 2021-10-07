@@ -1,0 +1,230 @@
+<div class="pt-5">
+  <h4 class="ui teal dividing header">
+    <button class="ui tiny orange button" type="button" routerLink="../">
+      <i class   ="arrow left icon"></i>
+      Back
+    </button>
+    <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      <span *ngIf="collapse"> <strong><i class="add icon"></i></strong>Add New Challan </span>
+      <span *ngIf="!collapse"><strong><i class="arrow up icon "></i></strong> Done</span>
+    </button>
+    <button class="ui primary tiny button my-1"  (click)="form.resetForm();get()">
+      <i class="refresh icon"></i> Refresh
+    </button>
+    <button class="ui tiny green dropdown button" suiPopup [popupTemplate]="popupExcel" popupTrigger="outsideClick" popupPlacement="bottom">
+      <i class="file excel icon"></i>
+      <div class="text">Download Excel / Csv</div>
+      <i class="dropdown icon"></i>
+    </button>
+    <button class="ui tiny red dropdown button" suiPopup [popupTemplate]="popupPDF" popupTrigger="outsideClick" popupPlacement="bottom">
+      <i class="file pdf icon"></i>
+      <div class="text">Download PDF</div>
+      <i class="dropdown icon"></i>
+    </button>
+    <br>
+    Search Delivery Challans
+  </h4>
+  <ng-template let-popup #popupExcel >
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectedChallans.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1"  [disabled]="this.selectedChallans.length <=0"(click)="exporttoExcel()"><strong><i class="arrow down icon"></i></strong> Excel Selected Data</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="this.selectedChallans.length <=0" (click)="exporttoCsv()"><strong><i class="arrow down icon"></i></strong> Csv Selected Data</button>
+
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number"  [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number"  [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny green button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoExcel(true)"><strong><i class="arrow down icon"></i></strong> Excel</button>
+    <button class="ui tiny light-grey button m-1" [disabled]="!fromPage || !toPage" (click)="exporttoCsv(true)"><strong><i class="arrow down icon"></i></strong> Csv</button>
+
+  </ng-template>
+  <ng-template let-popup #popupPDF >
+    <sui-message class="warning tiny mb-2" *ngIf="this.selectedChallans.length <=0">
+      <li>
+        Please select data in the table
+      </li>
+    </sui-message>
+    <button class="ui tiny brown button m-1" [disabled]="this.selectedChallans.length <=0"  (click)="exportToPDF()"><strong><i class="arrow down icon"></i></strong>PDF Selected Data</button>
+    <button class="ui tiny blue button m-1"  [disabled]="this.selectedChallans.length <=0" (click)="printOpen()"><strong><i class="print icon"></i> </strong>   Print Selected Data</button>
+    <!--<button class="ui tiny teal button m-1" (click)="openPrint()"> <strong><i class="print icon"></i></strong> Direct Print</button>-->
+    <div class="ui divider"></div>
+    <div class="ui form p-1">
+      <div class="two fields">
+        <div class="field">
+          <label>From Page</label>
+          <input type="number" [(ngModel)]="fromPage" name="fromPage">
+        </div>
+        <div class="field">
+          <label>To Page</label>
+          <input  type="number" [(ngModel)]="toPage" name="toPage">
+        </div>
+      </div>
+    </div>
+    <button class="ui tiny red button m-1" [disabled]="!fromPage || !toPage" (click)="exportToPDF(true)"><strong><i class="arrow down icon"></i></strong> PDF</button>
+    <button class="ui tiny blue button m-1" [disabled]="!fromPage || !toPage" (click)="printOpen(true)"><strong><i class="print icon"></i> </strong> Print</button>
+  </ng-template>
+  <form onsubmit="return false;" class="ui small inline form" #form='ngForm'>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Client</label>
+        <sui-select class="selection" name="Client" placeholder=" "
+                    [(ngModel)]="deliveryChallan.customerid"
+                    [options]="clients"
+                    (input)="optionsLookupClient($event.target.value)"
+                    labelField="clientname"
+                    valueField="clientid"
+                    [isSearchable]="true"
+                    #multiSelectClients>
+          <sui-select-option *ngFor="let option of multiSelectClients.filteredOptions"
+                             [value]="option"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Challan No.</label>
+        <input  type="text" [(ngModel)]="deliveryChallan.challanno"   id="challanno" name="challanno" autofocus placeholder="challan no."/>
+      </div>
+<!--      <div class="field">-->
+<!--        <label>Work Order No.</label>-->
+<!--        <input  type="text" [(ngModel)]="deliveryChallan.workorderno"   id="workorderno" name="workorderno" autofocus placeholder="work order no."/>-->
+<!--      </div>-->
+      <div class="field required">
+        <label>Work Order No</label>
+        <sui-select [required]="true" placeholder=" "
+                    class="selection"
+                    [options]="workOrders"
+                    [(ngModel)]="deliveryChallan.workorderid"
+                    (input)="optionsLookupWorkOrder($event.target.value)"
+                    name="workorderno"
+                    [isSearchable]="true"
+                    labelField="workorderno"
+                    valueField="workorderid"
+                    #selectworkorderno>
+          <sui-select-option *ngFor="let op of selectworkorderno.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Company</label>
+        <sui-select required placeholder="Company  "
+                    class="selection"
+                    [options]="companies"
+                    [(ngModel)]="deliveryChallan.companyid"
+                    (input)="getCompanies($event.target.value)"
+                    name="companyname"
+                    [isSearchable]="true"
+                    labelField="companyname"
+                    valueField="companyid"
+                    #selectCompanyName>
+          <sui-select-option *ngFor="let op of selectCompanyName.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <input placeholder="challan date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="deliveryDate" autocomplete="off" (ngModelChange)="get(true)">
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <input placeholder="challan date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="deliveryDate" autocomplete="off" (ngModelChange)="get(true)">
+      </div>
+      <!--      <div class="field">-->
+      <!--        <label>&nbsp;</label>-->
+      <!--        <sui-checkbox [(ngModel)]="deliveryChallan.isdelivered" name="isdelivered">Is Delivered?</sui-checkbox>-->
+      <!--      </div>-->
+      <div class="one wide field mr-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui teal small button "
+                [disabled]="!deliveryChallan.customerid  &&  !deliveryChallan.challanno &&  !deliveryChallan.workorderno && !deliveryChallan.companyid && !deliveryChallan.workorderid && !fromDate && !toDate" (click)="get(true)">
+          Search
+        </button>
+      </div>
+      <div class="one wide field ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small red button" (click)="get();form.resetForm()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </form>
+  <h3 class="ui blue horizontal divider header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Add Challan
+  </h3>
+  <h3 class="ui blue horizontal divider header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+    Update Challan
+  </h3>
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-delivery-challan (added)="get(true);"></app-add-delivery-challan>
+    </div>
+  </div>
+  <table class="ui mini very compact unstackable blue table">
+    <thead>
+    <tr>
+      <th>
+        <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectAllChallan" (ngModelChange)="selectAll()"></sui-checkbox>
+      </th>
+      <th>S.No</th>
+      <th class="single line">
+        Actions
+      </th>
+      <th>Company </th>
+      <th>Challan No</th>
+      <th>Challan Date</th>
+      <th>Client</th>
+      <th>Work Order No</th>
+      <th>Sample Name</th>
+<!--      <th>Challan Qty</th>-->
+      <th>Narration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of deliveryChallans; let i = index">
+      <td><sui-checkbox  class="mt-2" [(ngModel)]="s.selected" name="{{i}}" (click)="selectChallans(s,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+      <td class="single line">
+        <!--        <i class="trash link red icon" (click)="delete(s?.deliverychallanid)"></i>-->
+        <!--        <i class="edit link blue icon"  [routerLink]="['/delivery-challans/edit/',s?.deliverychallanid]"></i>-->
+        <a class="ui blue tiny label"  [routerLink]="['/challan/deliverychallan/edit/',s?.deliverychallanid]"><i class="edit white icon"></i> Edit </a>
+        <a class="ui blue tiny label" (click)="viewDetail1(s?.deliverychallanid)"><i class="eye link white icon"></i> Gate Pass </a>
+        <a class="ui blue tiny label" (click)="viewDetail(s?.deliverychallanid)"><i class="eye link white icon"></i> Challan </a>
+        <!--        <i class="eye link teal icon" (click)="viewDetail(s?.deliverychallanid)"></i>-->
+      </td>
+      <td>{{s?.company?.companyname}}</td>
+      <td>{{s?.challanno}}</td>
+      <td>{{s?.challandate | date}}</td>
+      <td>{{s?.client?.clientname}}</td>
+      <td>{{s?.workorder?.workorderno}}</td>
+      <td>{{s?.workorder?.sample?.samplename}}</td>
+<!--      <td>{{challanqty}}</td>-->
+      <td>{{s?.remarks}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <sui-pagination [collectionSize]="meta.totalItemCount"
+                  [pageSize]="meta.itemsPerPage"
+                  [hasNavigationLinks]="true"
+                  [hasBoundaryLinks]="true"
+                  [hasEllipses]="true"
+                  [maxSize]="5"
+                  [canRotate]="true"
+                  [(page)]="meta.currentPage"
+                  (pageChange)="get()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button type="button" (click)="goToPageNo()"  [disabled]="!goToPage || goToPage==meta.currentPage || goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div>
+</div>

@@ -1,0 +1,157 @@
+<!--      <h4 class="ui header m-0 print" >&nbsp; Company ID &nbsp; : &nbsp; <span style="color: #f2711c">{{comp?.companyid}}</span></h4>-->
+<!--      <div class="ui divider"></div>-->
+<!--      <div class="ui grid">-->
+<!--        <div class="twelve wide column">-->
+<!--          <table class="column">-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--              <td><strong>Company Name</strong></td><td > : </td><td>&nbsp;&nbsp;{{comp?.companyname}} </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td><strong>Short Name</strong></td><td > : </td><td>&nbsp;&nbsp;{{comp?.shortname}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td><strong>Address</strong></td><td > : </td><td>&nbsp;&nbsp;{{comp?.address}} </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td ><strong>ERC No</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.ercno}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td ><strong>Label H.S Code</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.hscode}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+<!--        </div>-->
+<!--        <div class="four wide column">-->
+<!--          <div class="card">-->
+<!--          <div class="ui small image">-->
+<!--            <img *ngIf="comp?.logo" src="{{ api.baseUrl + this.comp?.logo }}" class="ui fluid image" alt="" >-->
+<!--          </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="ui grid">-->
+<!--        <div class="sixteen wide column">-->
+<!--          <div class="ui two column grid ">-->
+<!--          <div class="row">-->
+<!--          <table class="column">-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--              <td ><strong>Mobile No</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.mobile}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td><strong>Phone</strong></td><td > : </td><td>&nbsp;&nbsp;{{comp?.phone}} </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <td ><strong>Fax</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.fax}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <td ><strong>Email</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.email}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <td ><strong>Web</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.web}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+<!--            <table class="column">-->
+<!--              <tbody>-->
+<!--              <tr>-->
+<!--                <td ><strong>District</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.district}}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td ><strong>Post Code</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.postcode}}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td ><strong>Year of Renewal</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.yearofrenewal}}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td ><strong>LCA No</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.lcano}}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--            <td ><strong>Tin No</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.tinno}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <td ><strong>Vat Reg No</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.vatregno}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td ><strong>IRC No.</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.ircno}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td ><strong>Sector of Industry</strong></td><td > : </td><td >&nbsp;&nbsp;{{comp?.sectorofindustry}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--            </table>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+<div class="">
+  <div  id="printContent" >
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+          <h2 class="center aligned vertically">Company id. #{{comp?.companyid}}</h2>
+        </div>
+<!--        <div class="four wide column">-->
+<!--          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="comp?.companyid" [bc-display-value]="false"></ngx-barcode>-->
+<!--        </div>-->
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{comp?.companyname}}</strong> </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title:Company</strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>Company Name&nbsp;&nbsp;:&nbsp;&nbsp;</strong>  {{comp?.companyname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Short Name &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.shortname}}  </td>
+          <td  rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+            <img width="200" height="200" *ngIf="comp?.imagepath" src="{{ api.baseUrl + comp?.imagepath }}"  alt="" >
+          </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Address&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{comp?.address}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Address2&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{comp?.address2}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>ERC NO. &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.ercno}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Label H.S Code &nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{comp?.hscode}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Mobile  &nbsp;:&nbsp;&nbsp; </strong> {{comp?.mobile}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Phone no.&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.phone}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Fax &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{comp?.fax}} </td>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Email&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.email}}  </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Web &nbsp;:&nbsp;&nbsp; </strong>{{comp?.web}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>District &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.district}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Post &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.postcode}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Year of Renewal &nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{comp?.yearofrenewal}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>LCA NO.&nbsp;:&nbsp;&nbsp; </strong> {{comp?.lcano}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Tin No &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{comp?.tinno}} </td>
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Vat Category &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{comp?.vatregno}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>IRC NO &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{comp?.ircno}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sector of Industry &nbsp;:&nbsp;&nbsp; </strong> {{comp?.sectorofindustry}} </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

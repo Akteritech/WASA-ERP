@@ -1,0 +1,73 @@
+<div class="pt-5">
+  <div  id="printContent" >
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+<!--          <button class="ui tiny green button m-1"  (click)="exporttoExcel()"><strong><i class="file excel icon"></i></strong></button>-->
+
+<!--                    <h2 class="center aligned vertically">Maheen ERP</h2>-->
+        </div>
+        <!--        <div class="four wide column">-->
+        <!--          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="comp?.companyid" [bc-display-value]="false"></ngx-barcode>-->
+        <!--        </div>-->
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+<!--          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>{{price?.priceanyname}}</strong> </td>-->
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong><h3> Master Price Details</h3></strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>section &nbsp;&nbsp;:&nbsp;&nbsp;</strong>  {{price?.productCategory?.productcategoryname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sample Name  &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.sample?.samplename}}  </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Customer Sample Name  &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.sample?.customersamplename}}  </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Buyer&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{price?.brand?.brandname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sub Buyer&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{price?.program?.programname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Sales Executive. &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.salesPerson?.firstname}} <span *ngIf="price?.salespersonid === -1">All</span> </td>
+<!--          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.salespersonid === -1"><strong>Sales Executive. &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong>All </td>-->
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>length &nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{price?.length}} </td>
+
+          <td style="border: 1px solid black;padding: 5px"><strong>width  &nbsp;:&nbsp;&nbsp; </strong> {{price?.width}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Per Qty.&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.perquantity}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Finish Type &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{price?.lov?.listitem}} </td>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Cost&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.cost}}  </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Price &nbsp;:&nbsp;&nbsp; </strong>{{price?.price}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Min Order Qty &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.minorderqty}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Min Order Value &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.minordervalue}}</td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.rebatepercent=== true"><strong>Rebate Percent &nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{price?.rebate}}</td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.rebatepercent=== false"><strong>Rebate  &nbsp;&nbsp;:&nbsp;&nbsp; </strong> &nbsp;{{price?.rebate}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.commissionpercent === true"><strong>Buyer Comm Percent&nbsp;:&nbsp;&nbsp; </strong> {{price?.commission}}</td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.commissionpercent === false"><strong>Buyer Comm&nbsp;:&nbsp;&nbsp; </strong> {{price?.commission}}</td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.merchandisercommpercent === true"><strong>Merchandiser Comm  percent&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{price?.merchandisercommission}} </td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.merchandisercommpercent === false"><strong>Merchandiser Comm &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{price?.merchandisercommission}} </td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.extrarebatepercent === true"><strong>Extra Rebate Percent &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.extrarebate}} </td>
+          <td style="border: 1px solid black;padding: 5px" *ngIf="price?.extrarebatepercent === false"><strong>Extra Rebate  &nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.extrarebate}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Size-Wise Quantity &nbsp;&nbsp;:&nbsp;&nbsp; </strong>  {{price?.sizewiseqty}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Size-Wise Value &nbsp;:&nbsp;&nbsp; </strong> {{price?.sizewisevalue}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>PartNo&nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{price?.partNo?.listitem}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Customer. &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{price?.customer?.clientname}} <span *ngIf="price?.customerid === -1">All</span> </td>
+          <td  rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+            <img width="200" height="200" *ngIf="price?.sample?.imagepath" src="{{ api.baseUrl + price?.sample?.imagepath }}"  alt="" >
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

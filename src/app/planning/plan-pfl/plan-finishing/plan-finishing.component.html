@@ -1,0 +1,167 @@
+<sui-message class="warning mb-2 pt-5" >
+  <strong>Note : </strong>
+  <li>finish qty, setting wastage qty, print wastage qty ,cutting wastage qty, comment and finishername are mandatory</li>
+</sui-message>
+<h4 class="ui teal dividing header mt-1" style="text-align: center;">
+  PFL FINISHING
+</h4>
+<div class="mb-5">
+  <button class="ui tiny orange button" type="button" [routerLink]="['/planning/pfl-dashboard']">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui tiny right floated green dropdown button" [ngClass]="{'teal':!showSearchForm}"
+    (click)="showSearchForm = !showSearchForm;">
+    <i class="search icon"></i>
+    <div class="text mr-1">Search</div>
+    <!--<i class="dropdown icon"></i>-->
+    <span *ngIf="!showSearchForm"> <i class="arrow right icon"></i></span>
+    <span *ngIf="showSearchForm"><i class="arrow down icon "></i></span>
+  </button>
+  <form #form='ngForm' class="ui small mt-2 inline form" *ngIf="showSearchForm">
+    <h4 class="ui teal dividing header">
+      Search PFL Finishing Information
+    </h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Work Order Number :</label>
+        <input placeholder="work order no"  type="text" [(ngModel)]="finish.profinishedorderid" name="work">
+
+      </div>
+      <div class="field">
+        <label>From Date :</label>
+        <input placeholder="From Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate"
+          name="fromDate">
+      </div>
+      <div class="field">
+        <label>To Date :</label>
+        <input placeholder="To Date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="toDate">
+      </div>
+    </div>
+    <div class="equal width fields" style="float: right !important;">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" (click)="searchRecord()" class="ui small teal right button">
+          <i class="search left icon" ></i>Search</button>
+      </div>
+      <div class="mr-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui small purple button right" (click)="form.resetForm();getData()">Reset</button>
+      </div>
+    </div>
+  </form>
+  <div class="ml-1 mt-3">
+    <label>&nbsp;</label>
+  </div>
+  <div class="ml-1 mt-3">
+    <label>&nbsp;</label>
+    <button type="button" class="ui small green button float-left"
+            *ngIf="this.selectedCards.length >= 1 && this.selectedCards && this.selectedCards[0].FIN_Status == 15 &&
+this.selectedCards[0].finishqty && this.selectedCards[0].settingwastageqty && this.selectedCards[0].printwastageqty
+&& this.selectedCards[0].cuttingwastageqty && this.selectedCards[0].finishername && this.selectedCards[0].comment" (click)="completeData()">Confirm</button>
+  </div>
+</div>
+<!--<button class="circular ui icon button" id='slideLeft' (click)="scroll()">-->
+<!--  <i class="arrow left icon" ></i>-->
+<!--</button>-->
+<!--<button class="circular ui icon button" id='slideRight' (click)="scroll()">-->
+<!--  <i class="arrow right icon"></i>-->
+<!--</button>-->
+<div class="overflow-x-scroll mt-2 mb-2">
+  <table class=" ui very compact unstackable teal table" id="scrol">
+    <thead style="text-align: center;">
+      <tr>
+        <th>
+          <sui-checkbox class="middle aligned" name="foreign">
+          </sui-checkbox>
+        </th>
+        <th>S.No</th>
+        <th>Action</th>
+        <th>Work Order No</th>
+        <th>Delivery Date</th>
+        <th>Party Name</th>
+        <th>Item Name</th>
+        <th>Part</th>
+        <th>Color</th>
+        <th>Plan Qty</th>
+        <th>Finish Qty</th>
+        <th>Settings Wastage Qty</th>
+        <th>Printing Wastage Qty</th>
+        <th>Cutting Wastage Qty</th>
+        <th>Finisher Name</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let jc of dataList; let i= index">
+      <td>
+        <sui-checkbox class="mt-2"  [(ngModel)]="jc.selected" name="{{i}}" (click)="selectCards(jc,i)"></sui-checkbox>
+      </td>
+      <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
+
+      <td class="text-center single line">
+                  <button class="ui tiny red label mr-2 ml-2" type="button" *ngIf="jc?.FIN_Status == 0" (click)="jobReceive()"><strong style="color: black">Job Receive</strong></button>
+<!--        <button class="ui tiny orange label" *ngIf="jc?.Cat_Status == 9"><strong>-->
+<!--          Pending for Cutting </strong></button>-->
+        <button class="ui tiny yellow label"  *ngIf="jc?.FIN_Status == 15"><strong style="color: black">
+          Finish Running </strong></button>
+
+        | <i class="trash link red icon ml-2 tips" (click)="deleteRecord(jc.FIN_Id, jc.Lab_Id)">
+        <span class="deletetext">Delete</span>
+      </i>
+      </td>
+      <td> <a class="pointer link" >{{jc?.WorkOrderNo}}</a></td>
+      <td>{{jc?.EstDeliverDate}}</td>
+      <td>{{jc?.ClientName}}</td>
+      <td>{{jc?.SampleName}}</td>
+      <td>{{jc?.PartNo}}</td>
+      <td>{{jc?.SampleColorName}}</td>
+      <td>{{jc?.FIN_Job_Qty}}</td>
+      <td>
+        <div class="ui action input">
+          <input type="text" name="cutting-qty" value="0" [(ngModel)]="jc.finishqty">
+        </div>
+      </td>
+      <td>
+        <div class="ui action input">
+          <input type="text" name="comments" [(ngModel)]="jc.settingwastageqty">
+        </div>
+      </td>
+      <td>
+        <div class="ui action input">
+          <input type="text" name="comments1" [(ngModel)]="jc.printwastageqty">
+        </div>
+      </td>
+      <td>
+        <div class="ui action input">
+          <input type="text" name="comments2" [(ngModel)]="jc.cuttingwastageqty">
+        </div>
+      </td>
+      <td>
+        <div class="ui action input">
+          <input type="text" name="comments3" [(ngModel)]="jc.finishername">
+        </div>
+      </td>
+      <td>
+        <div class="ui action input">
+          <input type="text" name="comments4" [(ngModel)]="jc.comment">
+        </div>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+<sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+                [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+                (pageChange)="pageChange()">
+</sui-pagination>
+<!-- <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="getJobCard()">
+  </sui-pagination>
+  <div class="ui action input ml-2">
+    <input [(ngModel)]="goToPage" [min]="1" name="selectedPage" placeholder="" type="number">
+    <button (click)="goToPageNo()" [disabled]="goToPage>meta.totalPageCount || goToPage<1" class="ui button">Go to Page
+    </button>
+  </div> -->

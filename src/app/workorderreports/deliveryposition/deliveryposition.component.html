@@ -1,0 +1,283 @@
+<div class="ui segment small inline form mt-2" style="min-height: 600px; margin-top: 100px !important;">
+  <button class="ui tiny left orange labeled icon button" (click)="this.api.backClicked()">
+    <i class="left arrow icon"></i>
+    Go Back
+  </button>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+    <h4 class="ui teal dividing header">
+      Search Delivery Position
+    </h4>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Company</label>
+        <sui-select placeholder="." class="selection" [options]="companies" name="company"
+          [(ngModel)]="companyname" [isSearchable]="true" labelField="companyname" valueField="companyid"
+          #selectCompany>
+          <sui-select-option *ngFor="let op of selectCompany.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Client Name</label>
+        <sui-select placeholder="." class="selection" name="customername" [isSearchable]="true" [options]="customers"
+          [(ngModel)]="customer" labelField="clientname" valueField="clientid" #selectCustomer>
+          <sui-select-option *ngFor="let option of selectCustomer.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sales Executive</label>
+        <sui-select placeholder="." class="selection" name="executivename" [isSearchable]="true" [options]="executives"
+          [(ngModel)]="executive" labelField="SalesPeron" valueField="Emp_ID" (input)="getExecutive($event.target.value)" #selectExecutive>
+          <sui-select-option *ngFor="let option of selectExecutive.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Buyer Name</label>
+        <sui-select placeholder="." class="selection" [options]="npdBrands" name="brand"
+          [(ngModel)]="brandname" [isSearchable]="true" labelField="BrandName" valueField="BrandID" #selectBrand>
+          <sui-select-option *ngFor="let op of selectBrand.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Product Category</label>
+        <sui-select placeholder="." class="selection" name="Product_Category" [isSearchable]="true" [options]="productcategories"
+          [(ngModel)]="productcategory" labelField="productcategoryname" valueField="productcategoryid"
+          #selectProductCategoryName>
+          <sui-select-option *ngFor="let option of selectProductCategoryName.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Sample Name</label>
+        <input type="text" [(ngModel)]="sample" id="sample" name="samplename" autofocus placeholder="Sample Name" />
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="field">
+        <label>Work Order No</label>
+        <input type="text" [(ngModel)]="workorderno" id="workorderno" name="workorderno" autofocus
+          placeholder="work order no." />
+      </div>
+      <div class="field">
+        <label>From Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchFrom" name="searchfromname" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <div class="ui left icon input">
+          <i class="calendar icon"></i>
+          <input suiDatepicker [pickerMode]="'date'" [(ngModel)]="searchTo" name="searchtoname" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="pdfDeliveryPosition()">Delivery Position</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="pdfChallanRegister()">Challan Register</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="pdfBookList()">Book List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="excelOrderBookDetails()">Order Book
+          Details</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny black button" (click)="pdfOrderSummery()">Order Summery</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny brown button" (click)="pdfItemwiseSales()">Item wise Sales</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny facebook button" (click)="pdfDueList()">Due List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny youtube button" (click)="pdfRebateOrCommission()">Rebate Or
+          Commission</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny pink button" (click)="pdfPIDiscount()">PI Discount</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny violet button" (click)="excelExportReport()">Export Report</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny green button" (click)="excelDeliveryPositionReport()">Excel Delivery
+          Position</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny teal button" (click)="excelDueListReport()">Excel Due List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny vk button" (click)="excelChallanRegisterAndPINoReport()">Challan Register
+          And PI No</button>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny twitter button" (click)="excelItemWiseSample()">Item Wise Sample In
+          Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny google button" (click)="pdfItemWiseSample()">Item Wise Sample in
+          pdf</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="pdfPartyWiseDueValue()">Party Wise Due Value</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny blue button" (click)="excelHoldList()">Hold List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="excelShortOrderList()">Short Order List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny grey button" (click)="excelItemwiseSales()">Item wise Sales</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny yellow button" (click)="excelNexgenShippingInfo()">Nexgen Shipping
+          Info</button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny violet button" (click)="excelProjectionList()">Projection Order</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="excelPPSampleList()">PP Sample List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny green button" (click)="excelSubContactList()">Sub Contact List</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny grey button" (click)="excelSubContractReceiveRegister()">Sub Contract
+          Receive Register Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny color1 button" (click)="excelSubContractReceivePosition()">Sub Contract
+          Receive Position Excel</button>
+      </div>
+    </div>
+
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny color2 button" (click)="excelTotalOrderStatusReport()">Total Order Status Report</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny color3 button" (click)="excelCategorywisePlanSheet()">Category wise Plane Sheet</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny color4 button" (click)="excelWovenPlanwiseReport()">Woven Plan wise Report</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny color5 button" (click)="excelExportOrderwithPart()">Export Order with Part</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- <div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 500px;" *ngIf="deliveryPositionsData">
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny olive button" (click)="excelDeliveryPosition()">Excel</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="pdfDeliveryPosition()">Pdf</button>
+      </div>
+    </div>
+    <table class="ui very compact unstackable teal table striped">
+      <tr>
+        <td colspan="12" style="text-align: center;">
+          <span style="font-size: 16px; font-weight: bold;">Delivery Prosition Report</span>
+        </td>
+      </tr>
+      <tr class="bg-teal text-white pr-5">
+        <th>SL</th>
+        <th>Work Order No</th>
+        <th>Order Date</th>
+        <th>Delivery Date</th>
+        <th>PO</th>
+        <th>Label Name</th>
+        <th>Party Name</th>
+        <th>Buyer</th>
+        <th>Challan No</th>
+        <th>Challan Date</th>
+        <th>Order qty</th>
+        <th>Delivery Qty</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let deliveryPosition of deliveryPositionsData; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{deliveryPosition['WorkOrderNo']}}</td>
+          <td>
+            <div *ngIf="deliveryPosition['OrderReceiveDate']">
+              {{deliveryPosition['OrderReceiveDate'].substring(0, 10)}}
+            </div>
+          </td>
+          <td>{{deliveryPosition['EstDeliverDate'].substring(0, 10)}}</td>
+          <td>{{deliveryPosition['CustomerPONo']}}</td>
+          <td>{{deliveryPosition['SampleName']}}</td>
+          <td>{{deliveryPosition['ClientName']}}</td>
+          <td>{{deliveryPosition['BrandName']}}</td>
+          <td>{{deliveryPosition['ChallanNo']}}</td>
+          <td>
+            <div *ngIf="deliveryPosition['ChallanDate']">
+              {{deliveryPosition['ChallanDate'].substring(0, 10)}}
+            </div>
+          </td>
+          <td>{{deliveryPosition['OrderQty']}}</td>
+          <td>{{deliveryPosition['CHALQTY']}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+</div>

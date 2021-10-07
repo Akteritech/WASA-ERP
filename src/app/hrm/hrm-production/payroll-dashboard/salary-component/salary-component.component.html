@@ -1,0 +1,54 @@
+<div class="pt-5">
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse">
+    <span *ngIf="collapse"> <i class="add icon"></i>New</span>
+    <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+
+  </button>
+  <button class="ui primary tiny button" (click)="get()">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+
+  <div [suiCollapse]="collapse">
+    <br>
+    <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off"
+      (keydown.enter)="$event.preventDefault()">
+      <div class="ui segment">
+        <h4 class="ui teal dividing header">
+          <button class="ui teal tiny button my-1" (click)="patch()">
+            Save
+          </button>
+          <br>
+          Salary Component
+        </h4>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Name</label>
+            <input [(ngModel)]="salComp.name" type="text" id="loanName" name="loanName" placeholder="Name" />
+          </div>
+          <div class="field">
+            <label>Abbreviation</label>
+            <input [(ngModel)]="salComp.abbreviation" type="text" id="Abbreviation" name="Abbreviation"
+              placeholder="Least Character" />
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <sui-select class="selection" name="status" placeholder="Select Status" [(ngModel)]="salComp.type"
+              [options]="api.salaryType" labelField="name" valueField="name" [isSearchable]="true" #multiSelectAtt>
+              <sui-select-option *ngFor="let option of multiSelectAtt.filteredOptions" [value]="option">
+              </sui-select-option>
+              <!--<div class="link text-primary item" (click)="toggleCompanyCollapse()">Create Company</div>-->
+            </sui-select>
+          </div>
+        </div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Description</label>
+            <textarea [(ngModel)]="salComp.desc" type="text" id="desc" name="desc" placeholder="Description"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

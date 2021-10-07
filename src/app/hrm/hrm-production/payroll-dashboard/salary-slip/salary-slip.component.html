@@ -1,0 +1,254 @@
+
+<div class="pt-5">
+  <button class="ui teal tiny button" [ngClass]="{'teal':collapse,'red':!collapse}" (click)="collapse = !collapse">
+    <span *ngIf="collapse"> <i class="add icon"></i>New</span>
+    <span *ngIf="!collapse"><i class="arrow up icon "></i>Done</span>
+
+  </button>
+  <button class="ui primary tiny button" (click)="get()">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+
+  <div [suiCollapse]="collapse">
+    <div class="ui segment container mt-2 ">
+      <sui-modal [isClosable]="false" *ngIf="collapseDepartment" #modal>
+        <div class="header">Add Department</div>
+        <div class="content">
+          <app-add-department></app-add-department>
+        </div>
+        <div class="actions">
+          <small class="text-muted left aligned">- Closing will not save data</small>
+          <button class="ui red button" (click)="toggleDepartmentCollapse()" type="button">Close</button>
+        </div>
+      </sui-modal>
+      <sui-modal [isClosable]="false" *ngIf="collapseDesignation" #modal>
+        <div class="header">Add Designation</div>
+        <div class="content">
+          <app-add-designation></app-add-designation>
+        </div>
+        <div class="actions">
+          <small class="text-muted left aligned">- Closing will not save data</small>
+          <button class="ui red button" (click)="toggleDesignationCollapse()" type="button">Close</button>
+        </div>
+      </sui-modal>
+      <sui-modal [isClosable]="false" *ngIf="collapseCompany" #modal>
+        <div class="header">Add Company</div>
+        <div class="content">
+          <app-add-company></app-add-company>
+        </div>
+        <div class="actions">
+          <small class="text-muted left aligned">- Closing will not save data</small>
+          <button class="ui red button" (click)="toggleCompanyCollapse()" type="button">Close</button>
+        </div>
+      </sui-modal>
+      <br>
+      <form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()">
+        <div class="ui segment">
+        <h4 class="ui teal dividing header">
+          <button class="ui teal tiny button my-1" (click)="patch(form)">
+            Save
+          </button>
+          <br>
+          Salary Slip
+        </h4>
+        <div class="equal width fields">
+          <div class="field" >
+            <label>Posting Date</label>
+            <input [(ngModel)]="sal.postingDate" id="postingDate" name="postingDate"suiDatepicker pickerMode="date" class="ui input " placeholder="Select Date"/>
+          </div>
+          <div class="field required" [ngClass]="{ 'error' : !sal.empNo }">
+            <label>Employee No.</label>
+            <sui-select class="selection" name="empNo." placeholder="Select Emp No."
+                        [(ngModel)]="sal.empNo"
+                        [options]="empNo"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectEmpNo>
+              <sui-select-option *ngFor="let option of multiSelectEmpNo.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input required type="text" [(ngModel)]="emp.companyId"  id="Company_ID" title="Company_ID" autofocus placeholder="Company ID"/>-->
+          </div>
+          <div class="field">
+            <label>Employee Name</label>
+            <input [(ngModel)]="sal.empName" type="text" id="EmployeeName" title="EmployeeName" placeholder="Employee Name"/>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <sui-select class="selection" name="status" placeholder="Select Status"
+                        [(ngModel)]="sal.status"
+                        [options]="api.attStatus"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectAtt>
+              <sui-select-option *ngFor="let option of multiSelectAtt.filteredOptions"
+                                 [value]="option"></sui-select-option>
+              <!--<div class="link text-primary item" (click)="toggleCompanyCollapse()">Create Company</div>-->
+            </sui-select>
+            <!--<input required type="text" [(ngModel)]="emp.companyId"  id="Company_ID" title="Company_ID" autofocus placeholder="Company ID"/>-->
+          </div>
+
+        </div>
+        <div class="equal width fields">
+
+          <div class="field">
+            <label>Branch</label>
+            <sui-select class="selection" name="Branch." placeholder="Select Branch."
+                        [(ngModel)]="sal.branch"
+                        [options]="branches"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectEmpNo>
+              <sui-select-option *ngFor="let option of multiSelectEmpNo.filteredOptions"
+                                 [value]="option"></sui-select-option>
+            </sui-select>
+            <!--<input required type="text" [(ngModel)]="emp.companyId"  id="Company_ID" title="Company_ID" autofocus placeholder="Company ID"/>-->
+          </div>
+          <div class="field">
+            <label>Company</label>
+            <sui-select class="selection" name="company" placeholder="Select Company"
+                        [(ngModel)]="sal.companyId"
+                        [options]="companies"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectcompany>
+              <sui-select-option *ngFor="let option of multiSelectcompany.filteredOptions"
+                                 [value]="option"></sui-select-option>
+              <div class="link text-primary item" (click)="toggleCompanyCollapse()">Create Company</div>
+            </sui-select>
+            <!--<input required type="text" [(ngModel)]="emp.companyId"  id="Company_ID" title="Company_ID" autofocus placeholder="Company ID"/>-->
+          </div>
+
+          <div class="field">
+            <label>Department</label>
+            <sui-select class="selection" name="designation" placeholder="Select Designation"
+                        [(ngModel)]="sal.departmentId"
+                        [options]="departments"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectdesignation>
+              <sui-select-option *ngFor="let option of multiSelectdesignation.filteredOptions"
+                                 [value]="option"></sui-select-option>
+              <div class="link text-primary item" (click)="toggleDepartmentCollapse()">Create Department</div>
+            </sui-select>
+            <!--<input type="text" placeholder="Department ID " [(ngModel)]="emp.departmentId" id="Department_ID" title="Department_ID">-->
+          </div>
+          <div class="field">
+            <label>Designation</label>
+            <sui-select class="selection" name="department" placeholder="Select Department"
+                        [(ngModel)]="sal.designationId"
+                        [options]="designations"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectdepartment>
+              <sui-select-option *ngFor="let option of multiSelectdepartment.filteredOptions"
+                                 [value]="option"></sui-select-option>
+              <div class="link text-primary item" (click)="toggleDepartmentCollapse()">Create Designation</div>
+            </sui-select>
+            <!--<input type="text" placeholder="Department ID " [(ngModel)]="emp.departmentId" id="Department_ID" title="Department_ID">-->
+          </div>
+
+        </div>
+        <div class="equal width fields">
+          <div class="field" >
+            <label>Start Date</label>
+            <input [(ngModel)]="sal.startDate" id="startDate" name="startDate"suiDatepicker pickerMode="date" class="ui input " placeholder="Select Date"/>
+          </div>
+          <div class="field" >
+            <label>End Date</label>
+            <input [(ngModel)]="sal.endDate" id="endDate" name="endDate"suiDatepicker pickerMode="date" class="ui input " placeholder="Select Date"/>
+          </div>
+          <div class="field">
+            <label>Letter Head</label>
+            <input type="text" [(ngModel)]="sal.letterHead"  id="LetterHead" name="LetterHead" title="LetterHead" autofocus placeholder="Letter Head "/>
+          </div>
+          <div class="field">
+            <label>Payroll Frequency</label>
+            <sui-select class="selection" name="payrollFreq" placeholder="Select Status"
+                        [(ngModel)]="sal.payrollFreq"
+                        [options]="api.payrollFreq"
+                        labelField="name"
+                        valueField="id"
+                        [isSearchable]="true"
+                        #multiSelectpayrollFreq>
+              <sui-select-option *ngFor="let option of multiSelectpayrollFreq.filteredOptions"
+                                 [value]="option"></sui-select-option>
+              <!--<div class="link text-primary item" (click)="toggleCompanyCollapse()">Create Company</div>-->
+            </sui-select>
+            <!--<input required type="text" [(ngModel)]="sal.companyId"  id="Company_ID" title="Company_ID" autofocus placeholder="Company ID"/>-->
+          </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Working Days</label>
+            <input type="number" [(ngModel)]="sal.workingDays"  id="WorkingDays" name="WorkingDays" title="WorkingDays"  />
+          </div>
+          <div class="field">
+            <label>Leave Without Pay</label>
+            <input type="number" [(ngModel)]="sal.leaveWithoutPay"  id="LeaveWithoutPay" name="LeaveWithoutPay" title="LeaveWithoutPay"  />
+          </div>
+          <div class="field">
+            <label>Payments Days</label>
+            <input type="number" [(ngModel)]="sal.paymentsDays"  id="PaymentsDays" name="PaymentsDays" title="PaymentsDays"  />
+          </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="equal width fields">
+          <div class="field">
+            <label>Gros Pay</label>
+            <input type="number" [(ngModel)]="sal.grosPay"  id="grosPay" name="grosPay" title="grosPay"  />
+          </div>
+          <div class="field">
+            <label>Total Deduction</label>
+            <input type="number" [(ngModel)]="sal.totalDeduction"  id="totalDeduction" name="totalDeduction" title="totalDeduction"  />
+          </div>
+          <!--<div class="field">-->
+          <!--<label></label>-->
+          <!--<input type="number" [(ngModel)]="sal.PaymentsDays"  id="PaymentsDays" name="PaymentsDays" title="PaymentsDays"  />-->
+          <!--</div>-->
+        </div>
+
+        <div class="equal width fields">
+          <div class="field">
+            <label>Total Principal Amount </label>
+            <input type="number" [(ngModel)]="sal.totalPrincipalAmount"  id="totalPrincipalAmount" name="totalPrincipalAmount" title="totalPrincipalAmount"  />
+          </div>
+          <div class="field">
+            <label>Total Loan Repayment</label>
+            <input type="number" [(ngModel)]="sal.totalLoanRepayment"  id="totalLoanRepayment" name="totalLoanRepayment" title="totalLoanRepayment"  />
+          </div>
+          <div class="field">
+            <label>Total Interest Amount </label>
+            <input type="number" [(ngModel)]="sal.totalInterestAmount"  id="totalInterestAmount" name="totalInterestAmount" title="totalInterestAmount"  />
+          </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui mini form " >
+          <label class="text-info re">NET PAY INFORMATION</label><br>
+          <div class="field">
+            <div class="equal width fields">
+              <div class="field">
+                <label>Net Pay </label>
+                <input type="number" [(ngModel)]="sal.netPay"  id="netPay" name="netPay" title="netPay"  />
+              </div>
+              <div class="field">
+                <label>Rounded Total</label>
+                <input type="number" [(ngModel)]="sal.roundedTotal"  id="roundedTotal" name="roundedTotal" title="roundedTotal"  />
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

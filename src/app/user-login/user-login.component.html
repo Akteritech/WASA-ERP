@@ -1,0 +1,93 @@
+<!-- <div class="ui center aligned grid" >
+
+  <div class="twelve wide column">
+    <div class="ui center aligned grid">
+    
+        <img src="assets/bdwasa2.jpg"  />
+
+    </div>
+    
+      <h3 style="margin-top: 30px;">ATTENDANCE  SYSTEM</h3>
+ 
+    <form class="ui form" >
+      <div class="ui stacked secondary segment ">
+       
+        <div class="field ">
+          <div class="twelve wide column">
+          <label>Zone</label> 
+          <div class="ui center aligned grid">
+          
+          <sui-select placeholder="Select zone name" class="selection"  name="companyname" [(ngModel)]="companyname" >
+            
+            <sui-select-option *ngFor="let op of companies" [value]="op"></sui-select-option>
+          </sui-select>
+          </div>
+        </div>
+      </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="email" placeholder="User Name" [(ngModel)]="username" (keyup)="onKey($event.keyCode)">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password" [(ngModel)]="password" (keyup)="onKey($event.keyCode)">
+          </div>
+        </div>
+        <div class="ui fluid small submit button" (click)="login()">Login</div>
+      </div>
+      <div class="ui error message"></div>
+    </form>
+    <div class="ui center aligned grid">
+      <div class="twelve wide column">
+        <img src="assets/ITlogo.jpg" />
+      </div>
+    
+  </div>
+</div>
+</div> -->
+<!DOCTYPE html>
+<!--www.codingflicks.com--> 
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IT</title>
+	<!-- <link href="style.css" rel="stylesheet"> -->
+</head>
+<body background="assets/image.jpg">
+	<div class="form-box">
+    <img src="assets/avatar.jpg" class="avatar">
+   
+    <div>
+      <h1> DHAKA WASA </h1>
+    </div>
+    <div>
+    <h4>Welcome to online Attendance system</h4>
+    </div>
+
+    <!-- <select id="ddlArea" name="ddlArea"> 
+      <option>Product1 : Electronics </option>
+      <option>Product2 : Sports </option>
+  </select> -->
+  
+  <div>
+  <sui-select style="margin-left: 10px; padding: 10px; min-width: 100%; background:rgb(217, 219, 219);color: black;" placeholder="Select area name" class="selection"  name="companyname" [(ngModel)]="companyname" >
+      
+    <sui-select-option *ngFor="let op of companies" [value]="op"  ></sui-select-option>
+  </sui-select>
+
+
+  
+  <input type="text" name="email" placeholder="User Name"      [(ngModel)]="username" (keyup)="onKey($event.keyCode)">
+    <input type="password" name="password" placeholder="Password" [(ngModel)]="password" (keyup)="onKey($event.keyCode)">
+      <button  (click)="login()">Sign in</button>
+      <div>
+        <h5>INTELLIGENT TECHNOLOGY.2021</h5>
+        </div>
+   
+    </div>
+	</div>
+</body>
+</html>

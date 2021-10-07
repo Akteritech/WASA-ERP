@@ -1,0 +1,369 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="angle left icon"></i>
+    Back
+  </button>
+  <button class="ui tiny button" [ngClass]="{ 'teal': collapse , 'red': !collapse }" type="button"
+    (click)="collapse = !collapse;" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <span *ngIf="collapse"><i class="add icon"></i> Add New Employee</span>
+    <span *ngIf="!collapse"><i class="arrow up icon"></i> Done</span>
+  </button>
+  <button class="ui primary tiny button" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    <i class="refresh icon"></i>
+    Refresh
+  </button>
+  <!-- <button class="ui yellow tiny button" disabled (click)="PrintWorkerIdCard()" title="Enter card no. and search"
+    *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Multiple Worker ID Card
+  </button> -->
+  <!-- <button class="ui yellow tiny button" disabled (click)="PrintStaffIdCard()" title="Enter card no. and search"
+    *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Multiple Staff ID Card
+  </button> -->
+
+  <!-- <button class="ui black tiny button" (click)="PrintOldWorkerIdCard()" title="Enter card no. and search"
+    *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Single Worker ID Card
+  </button> -->
+  <!-- <button class="ui black tiny button" (click)="printOldMultipleStaff()" title="Enter card no. and search"
+    *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Single Staff ID Card
+  </button> -->
+  <!-- <button class="ui primary tiny button" [routerLink]="['/hrm/hrmMaster/employee-history', this.cardno]"
+    title="Enter card no. and search" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Employee info Preview
+  </button> -->
+
+  <!-- <button class="ui primary tiny button" (click)="printGenderlist()"
+    *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    GenderList
+  </button> -->
+  <button class="ui purple tiny button" (click)="uploadCard()">Enroll ID Card Device</button>
+  <button class="ui purple tiny button" (click)="employeeList()">Employee List</button>
+  <ul id="container"></ul>
+  <form #form='ngForm' class="ui small mt-2 inline form">
+    <h4 class="ui teal dividing header">
+      Search
+    </h4>
+    <div class="equal width fields" [ngStyle]="{'background-color':'#71797E'}">
+      <div class="field">
+        <label>Card No:</label>
+        <input placeholder=" card no" type="text" [(ngModel)]="cardno" (keyup.enter)="searchRecord()" name="cardno">
+      </div>
+      <div class="field required">
+        <label>Department</label>
+        <sui-select name="DEPARTMENT_ID" class="selection" [(ngModel)]="department" [options]="departments"
+          [isSearchable]="true" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #SelectDepartment>
+          <sui-select-option *ngFor="let option of SelectDepartment.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Zone</label>
+        <sui-select name="DIVISION_ID" class="selection" [(ngModel)]="unit" [options]="units"   
+          labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID" #SelectUnit>
+          <sui-select-option *ngFor="let option of SelectUnit.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Designation</label>
+        <sui-select required name="DESIGNATION_ID" class="selection" id="DESIGNATION_ID" [(ngModel)]="desig"
+          [options]="designations" labelField="DesigNmEng" valueField="DesigID" [isSearchable]="true"
+          #SelectDesignantion>
+          <sui-select-option *ngFor="let option of SelectDesignantion.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-select>
+      </div>
+<!--      <div class="field">-->
+        <button type="button" class="ui tiny teal right button" (click)="searchRecord()">
+          <i class="search left icon"></i>Search</button>
+        <button type="button" class="ui tiny red button right" (click)="form.resetForm()">Reset</button>
+        <!-- <button type="button" class="ui tiny purple button right"
+          [routerLink]="['/hrm/hrmMaster/account-list', this.unit]">Account List</button>
+        <button class="ui tiny orange button right" (click)="benefitList()">Benefit List</button> -->
+<!--      </div>-->
+
+    </div>
+  </form>
+
+  <div [suiCollapse]="collapse">
+    <div class="mt-2">
+      <app-add-employee-profile (added)="getItemCount()"></app-add-employee-profile>
+    </div>
+  </div>
+  <table class=" ui very compact unstackable teal table">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Action</th>
+        <th>Card No.</th>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Zone Name</th>
+        <th>Designation</th>
+        <th>Department</th>
+        <th>Joining Date</th>
+        <th>Present Salary</th>
+        <th> Employee Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of employees; let i = index">
+        <td>{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}}</td>
+
+
+        <td class="single line">
+          <!--                <i class="trash link red icon" (click)="delete(e.EMP_ID)" ></i>-->
+          <i class="edit link blue icon" [routerLink]="['/hrm/hrmMaster/employee-profile',e?.IDNo]"></i>
+          <i class="eye link orange icon" (click)="viewDetail(e.IDNo)"></i>
+        <td>{{e?.IDNo}}</td>
+        <td><img src="assets/employees/{{e?.Photo}}.jpg"  alt="" height="70px" width="70px"  ></td>
+        <td>{{e?.EmployeeName}}</td>
+        <td>{{e?.Unit}}</td>
+        <td>{{e?.Designation}}</td>
+        <td>{{e?.Department}}</td>
+        <td>{{e?.Joining}}</td>
+        <td>{{e?.JoiningSalary}}</td>
+        <td>{{e?.EmpType}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination [collectionSize]="meta.totalItemCount" [pageSize]="meta.itemsPerPage" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="meta.currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+
+</div>
+<!-- *ngFor="let data of workerIdCard; let i= index" -->
+
+
+
+<div class="ui basic modal">
+  <div id="printSection">
+
+    <table style="border-collapse: collapse; width: 218px; margin: 0 auto;"
+      *ngFor="let data of staffIdCard; let i= index">
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center;">
+          <div class="ui image">
+            <img src="assets/impress_logo1.png" style="width: 81px;height: 54px;">
+          </div>
+        </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center;">
+          <div class="ui image">
+            <img [src]="data?.companyLogo" alt="" style="height: 25px; width: 218px">
+          </div>
+        </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center; font-size: 12px; font-style: italic;">A sister Concern of Impress Group</td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center;">
+          <div class="ui image">
+            <img [src]="this.image" alt="" style="height: 80px; width: 80px">
+          </div>
+        </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center; font-size: 15px;"> {{data?.EMP_NAME_ENG}} </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center; font-size: 15px;"> {{data?.DeptEngNm}} </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center;"> </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center; font-size: 15px; padding-top: 10px;"> {{data?.DesigNmEng}} </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center; font-size: 15px;"> Joining Date: {{data?.JOINING_DATE.substring(0, 10)}} </td>
+      </tr>
+      <tr style="background-color: #e1f4fd;">
+        <td style="text-align: center; font-size: 15px; font-weight: bold; padding-top: 10px; padding-bottom: 10px;">ID
+          No: {{data?.EmpCardNo}} </td>
+      </tr>
+      <tr>
+        <td style="text-align: center; padding-top: 10px;">
+          <div class="ui image">
+            <img [src]="data?.backgroundImage" alt="" style="width: 212px; height: 350px; ">
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+  <div id="hidden2">
+
+    <table style="border-collapse: collapse; width: 720px; margin-bottom: 10px;"
+      *ngFor="let data of workerIdCard; let i= index">
+      <tr>
+        <td style="width:340px; padding-right: 12px; vertical-align: top;">
+          <div style="height: 225px; overflow:hidden; border: 1px solid black;">
+            <table style="border-bottom:1px solid black; border-collapse: collapse;width: 100%;">
+              <tr>
+                <td style="text-align: center;">
+                  <div class="ui image">
+                    <img src="assets/impress_logo.png" style="height: 20px; width: 25px">
+                  </div>
+                  <div style="font-size: 12px;"> পরিচয় পত্র </div>
+                </td>
+              </tr>
+            </table>
+            <table style="border-collapse: collapse;width: 100%;">
+              <tr>
+                <td style="width: 20%; text-align: left;">
+                  <div class="ui image">
+                    <img [src]="data?.companyLogo" style="height: 30px; width: 35px">
+                  </div>
+                </td>
+                <td style="width: 80%; font-size: 15px; text-align: center;">
+                  <span style="font-family: SutonnyMJ; font-size: 15px;">{{data?.DIVISION_NAME_ENG}}</span>
+                </td>
+              </tr>
+            </table>
+            <table style="border-collapse: collapse;width: 100%;">
+              <tr>
+                <td style="width: 80%; text-align: left; vertical-align: top;">
+                  <div style="font-size: 10px;"> শ্রমিকের নাম :
+                    <span style="font-family: SutonnyMJ; font-size: 15px;">
+                      {{data?.EMP_NAME_ENG}}
+                    </span>
+                  </div>
+                  <div style="font-size: 10px;"> পদবি:
+                    <span style="font-family: SutonnyMJ; font-size: 15px;">{{data?.DesigNmEng}}</span>
+                  </div>
+                  <div style="font-size: 10px;"> বিভাগ:
+                    <span style="font-family: SutonnyMJ; font-size: 15px;">{{data?.DeptEngNm}}</span>
+                  </div>
+                  <div style="font-size: 10px;"> আইডি কার্ড নং:
+                    <span style="font-family: SutonnyMJ; font-size: 15px; font-weight: bold;">{{data?.EmpCardNo}}</span>
+                  </div>
+                  <div style="font-size: 10px;"> যোগদানের তারিখ:
+                    <span style="font-family: SutonnyMJ; font-size: 15px;">{{data?.JOINING_DATE}}</span>
+                  </div>
+                </td>
+                <td style="width: 20%; text-align: left; vertical-align: top;">
+                  <div class="ui image">
+                    <img [src]="this.image" alt="" style="height: 70px; width: 126px">
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <table style="border-collapse: collapse;width: 100%;">
+              <tr>
+                <td style="width: 20%;">
+                  <table style="border-collapse: collapse;width: 50%;">
+                    <tr>
+                      <td style="height:15px; text-align: left;">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: left; border-top: 1px dotted black; font-size: 10px;">
+                        শ্রমিকের স্বাক্ষর
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 20%; text-align: right;">
+                  <table align="right" style="border-collapse: collapse;width: 50%;">
+                    <tr>
+                      <td style="text-align: right; ">
+                        <div class="ui image">
+                          <img src="assets/worker_signature.png" style="height: 17px; width: 57px">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right; border-top: 1px dotted black; font-size: 10px;">
+                        মালিক/ ব্যবস্থাপক
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="width:340px; vertical-align: top;">
+          <div style="height: 225px; overflow:hidden; border: 1px solid black;">
+            <table style="border-collapse: collapse;width: 100%;">
+              <tr>
+                <td style="width: 204px;">
+                  <table style=" border-collapse: collapse;width: 100%;">
+                    <tr>
+                      <td style="font-size: 8px; font-weight: bold;">
+                        মেয়াদ:
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px; font-weight: bold;">
+                        প্রতিষ্ঠানের ঠিকানা:
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        <span style="font-weight: bold;"> প্রধান কার্যালয়:</span> আহম্মেদ ম্যানশন (২য় তলা), ২৪
+                        শান্তিনগর
+                        (চামেলিবাগ) ঢাকা -১২১৭, বাংলাদেশ
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        <span style="font-weight: bold;">কারখানা:</span> খোর্দ্দঘোষ পাড়া, মিজমিজি, সিদ্ধিরগঞ্জ,
+                        নারায়নগঞ্জ
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        <span style="font-weight: bold;">টেলিফোন নং:</span> ০১৭১১৬৮৯১০৮, ০১৭৭৬৩০২৬৮৬
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        উক্ত পরিচয় পত্র হারাইয়া গেলে তাৎক্ষনিক ব্যবস্থাপনা কর্তৃপক্ষকে জানাইতে হইবে।
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td style="width: 136px; vertical-align: top;">
+                  <table style=" border-collapse: collapse;width: 100%;">
+                    <tr>
+                      <td style="font-size: 8px;">
+                        <span style="font-weight: bold;">রক্তের গ্রুপ : </span>
+                        <span style="font-family: SutonnyMJ; font-size: 13px;">{{data?.BLOOD_GROUP_BNG}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        <span style="font-weight: bold;"> স্থানীয় ঠিকানা : </span>
+                        <span style="font-family: SutonnyMJ; font-size: 10px;">{{data?.PER_ADD_BNG}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        <span style="font-weight: bold;">জরুরি যোগাযোগের ফোন নম্বর : </span>
+                        <span style="font-family: SutonnyMJ; font-size: 13px;">{{data?.EMER_CONT_PHONE}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 8px;">
+                        জাতীয় পরিচয় পত্র নং : <span
+                          style="font-family: SutonnyMJ; font-size: 13px;">{{data?.NATIONAL_ID_NO}}</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

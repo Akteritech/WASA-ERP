@@ -1,0 +1,72 @@
+<form onsubmit="return false;" class="ui small form" #form='ngForm' autocomplete="off" (keydown.enter)="$event.preventDefault()">
+  <div class="ui segment mt-2">
+    <h4 class="ui teal dividing header" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      <br>
+      Add New Sub Brand
+    </h4>
+    <h4 class="ui teal dividing header" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      <br>
+      Edit Sub Brand
+    </h4>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!program.programname && !program.brandid">
+      <li>
+        <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Sub Brand Name</label>
+        <input [(ngModel)]="program.programname" id="programname" name="programname" placeholder="sub brand name"
+               type="text" required>
+    </div>
+      <div class="field required ">
+        <label>Brand</label>
+        <sui-select [isSearchable]="true" required
+                    class="selection"
+                    [isDisabled]="!program.programname"
+                    [options]="brands"
+                    [(ngModel)]="program.brandid"
+                    name="brandid"
+                    id="brandid"
+                    placeholder=" "
+                    labelField="brandname"
+                    valueField="brandid"
+                    #selectBrandName>
+          <sui-select-option *ngFor="let op of selectBrandName.filteredOptions" [value]="op"></sui-select-option>
+          <!-- <div class="link text-primary item" (click)="toggleSalutationCollapse()">Create Brand</div> -->
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <input  type="number" [(ngModel)]="program.status" id="status" name="status" placeholder="" min="0" required>
+      </div>
+    </div>
+  </div>
+  <button class="ui teal medium button my-1" (click)="patch(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+    Save
+  </button>
+  <button class="ui primary medium button my-1" (click)="patch(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+    Update
+  </button>
+</form>
+<!-- <sui-modal [isClosable]="false" *ngIf="collapseSalutation" #modal>
+    <div class="header">Add Salutations</div>
+    <div class="content">
+      <app-add-brand></app-add-brand>
+    </div>
+    <div class="actions">
+      <small class="text-muted left aligned">- Closing will not save data</small>
+      <button class="ui red button" (click)="toggleSalutationCollapse()" type="button">Close</button>
+    </div>
+  </sui-modal> -->
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,341 @@
+<div class="pt-5">
+  <button class="ui tiny orange button" type="button" (click)="backClicked()">
+    <i class="arrow left icon"></i>
+    Back
+  </button>
+  <button class="ui red tiny button my-1" (click)="reset()">
+    <i class="recycle icon"></i> Reset
+  </button>
+
+  <h4 class="ui teal dividing header">Generate Payroll</h4>
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm'>
+
+    <div class="equal width fields">
+      <!-- <div class="field ">
+      <label>Employee Type</label>
+      <sui-select placeholder="Employee Type" class="selection" name="type" [(ngModel)]="employeeType">
+        <sui-select-option value="Staff"></sui-select-option>
+        <sui-select-option value="Worker"></sui-select-option>
+        <sui-select-option value="Worker"></sui-select-option>
+      </sui-select>
+    </div> -->
+      <div class="field ">
+        <label>Company</label>
+        <sui-select placeholder="company name" class="selection" name="companyname" [(ngModel)]="company"
+          [options]="companies" [isSearchable]="true" labelField="DIVISION_NAME_ENG" valueField="DIVISION_ID"
+          #selectcompanyname>
+          <sui-select-option *ngFor="let op of selectcompanyname.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Department</label>
+        <sui-select placeholder="." class="selection" name="department" [(ngModel)]="department" [isSearchable]="true"
+          [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+          <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Card</label>
+        <input type="text" [(ngModel)]="card" name="cards">
+      </div>
+      <div class="field">
+        <label>Month</label>
+        <input suiDatepicker pickerMode="date" [(ngModel)]="date" name="fromDateName" autocomplete="off">
+      </div>
+      <div class="field required">
+        <label>Advance Type</label>
+        <sui-select placeholder="." class="selection" name="advancetype" [options]="typeoftrans" [(ngModel)]="typeoftran"
+           labelField="TypeName" valueField="TypeName" 
+           [isSearchable]="true" #selectAdvType
+          required>
+          <sui-select-option *ngFor="let op of selectAdvType.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+    </div>
+    <h4 class="ui teal dividing header">Actions</h4>
+    <div class="equal width fields">
+      <div>
+        <label>&nbsp;</label><button class="ui tiny olive button blackText" (click)="statementGridView()">View</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny olive button blackText" (click)="patch()">Salary Remove</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny olive button blackText" (click)="salaryReactive()">Salary
+          Reactive</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny olive button blackText" (click)="generateSalary()">Process
+          Salary</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny olive button blackText" (click)="generateExceptionSalary()">Process
+          Exception Salary</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny green button blackText" (click)="blockSalary()">Salary Lock</button>
+      </div>
+
+    </div>
+    <h4 class="ui teal dividing header">Before Generate</h4>
+    <div class="equal width fields">
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="newJoinList()">Monthly New Joining</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="inactiveList()"> Monthly Inactive
+          List</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="rejoinListPDF()">Rejoin List PDF</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="rejoinList()">Rejoin List</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="transferList()">Transfer List</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="transferListPDF()">Transfer List
+          PDF</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="employeeList()">Employee List</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="employeeListPDF()">Employee List
+          PDF</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="wagesExcel()">Minimum Wages Eligible
+          Excel</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny purple button" (click)="wagesPdf()">Minimum Wages Eligible
+          Pdf</button>
+      </div>
+    </div>
+    <h4 class="ui teal dividing header">Generate and Reports</h4>
+    <div class="equal width fields">
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="statementSummery()">Salary Summary</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="statementSummeryExcel()">Salary Summary
+          Excel</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="incrementExcel()">Increment Statement
+          Excel</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="incrementPDF()">Increment Statement
+          PDF</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="sectionStatementSummery()">Section
+          Summary</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="bankStatement()">Bank Advice</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="statement()">Statement</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="statementExcel()">Statement Excel</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="pf()">PF Excel</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="pfPdf()">PF PDF</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="officerPayslip()">Officer
+          Payslip</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="workerPayslip()">Worker
+          Payslip</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="rocket()">Rocket Advice</button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="draftLetterPdf()">Bank Advice pdf</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="recketAdvice()">Rocket Advise pdf</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="salaryAdvance()">Advance / Loan / PFLoan / EIPS</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="payrollJournal()">Payroll Journal</button>
+      </div>
+      <div>
+        <label>&nbsp;</label><button class="ui tiny olive button blackText" (click)="statementGridViewCash()">View Cash</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny teal button" (click)="statementcash()">Cash Advise</button>
+      </div>
+    </div>
+    <h4 class="ui teal dividing header">Estimation</h4>
+    <div class="equal width fields">
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button type="button" class="ui tiny blue button" (click)="generateEstimate()">Create
+          Salary Estimate</button>
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button type="button" class="ui tiny blue button" (click)="estimateSalary()">Estimateed
+          Salary Summery</button>
+      </div>
+    </div>
+  </form>
+  <h4 class="ui teal dividing header">Generate Stop List (Before Salary Disbarsement)</h4>
+  <form onsubmit="return false;" class="ui small inline form mt-2">
+    <div class="equal width fields">
+      <div class="field">
+        <label>Attendance Start Date</label><input suiDatepicker pickerMode="date" name="fromDateName"
+          autocomplete="off" [(ngModel)]="stopFrom">
+      </div>
+      <div class="field">
+        <label>Attendance End Date</label><input suiDatepicker pickerMode="date" name="toDateName" autocomplete="off"
+          [(ngModel)]="stopTo">
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button type="button" class="ui tiny green button" (click)="stopList()">Salary Stop
+          List</button>
+      </div>
+    </div>
+  </form>
+  <h4 class="ui teal dividing header">Tax Statement</h4>
+  <form onsubmit="return false;" class="ui small inline form mt-2">
+    <div class="equal width fields">
+      <div class="field">
+        <label>From Date</label><input suiDatepicker pickerMode="date" name="taxFrom" autocomplete="off"
+          [(ngModel)]="taxFrom">
+      </div>
+      <div class="field">
+        <label>To Date</label><input suiDatepicker pickerMode="date" name="taxTo" autocomplete="off"
+          [(ngModel)]="taxTo">
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny green button" (click)="taxList()">Download Excel</button>
+        <button class="ui tiny green button" (click)="taxListPdf()">Download PDF</button>
+      </div>
+    </div>
+  </form>
+  <h4 class="ui teal dividing header">Tentative Unit wise Salary</h4>
+  <form onsubmit="return false;" class="ui small inline form mt-2">
+    <div class="equal width fields">
+      <div class="field">
+        <label>Attendance Start Date</label><input suiDatepicker pickerMode="date" name="taxFrom" autocomplete="off"
+          [(ngModel)]="tentativeFrom">
+      </div>
+      <div class="field">
+        <label>Attendance End Date</label><input suiDatepicker pickerMode="date" name="taxTo" autocomplete="off"
+          [(ngModel)]="tentativeTo">
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny green button" (click)="tentativeSalary()">Download</button>
+      </div>
+    </div>
+  </form>
+  <h4 class="ui teal dividing header">Attendance wise Employee List</h4>
+  <form onsubmit="return false;" class="ui small inline form mt-2">
+    <div class="equal width fields">
+      <div class="field">
+        <label>Attendance Start Date</label><input suiDatepicker pickerMode="date" name="taxFrom" autocomplete="off"
+          [(ngModel)]="attendanceFrom">
+      </div>
+      <div class="field">
+        <label>Attendance End Date</label><input suiDatepicker pickerMode="date" name="taxTo" autocomplete="off"
+          [(ngModel)]="attendanceTo">
+      </div>
+      <div class="ml-1 mr-1">
+        <label>&nbsp;</label><button class="ui tiny green button" (click)="attWiseEmpList()">Download</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="ui mini very compact unstackable teal table">
+    <thead>
+      <tr>
+        <td style="text-align: center;">Generate Salary Successful</td>
+      </tr>
+    </thead>
+  </table>
+
+  <div style="width: 100%; overflow-x: scroll;">
+    <table class="ui mini very compact unstackable teal table" *ngIf="statementGrid">
+      <thead>
+        <tr>
+          <th><input type="checkbox" name="allChecl" [(ngModel)]="allCheck" (ngModelChange)="checkAll()"></th>
+          <th>SL</th>
+          <th>Edit</th>
+          <th>Department</th>
+          <th>Card No</th>
+          <th>Employee Name</th>
+          <th>Joining</th>
+          <th>Designation</th>
+          <th>Present Salary</th>
+          <th>Basic Amount</th>
+          <th>House Rent</th>
+          <th>Medical Amount</th>
+          <th>Lunch Amount</th>
+          <th>Convince</th>
+          <th>Absent Days</th>
+          <th>Absent Amount</th>
+          <th>Late Joining Days</th>
+          <th>Late Joining</th>
+          <th>Net Salary</th>
+          <th>Advance Amount</th>
+          <th>Allow Incr Arear</th>
+          <th>Payable Salary</th>
+          <th>Adjustment Amount</th>
+          <th>Tax Amount</th>
+          <th>Cash Amount</th>
+          <th>Bank Amount</th>
+          <th>CD Amount Deposit</th>
+        </tr>
+        <tr *ngFor="let data of statementGrid; let i = index">
+          <td><input type="checkbox" name="checks{{i}}" [(ngModel)]="checks[i]"></td>
+          <td>{{i+1}}</td>
+          <td><i class="edit blue icon" (click)="editSalary(i)"></i></td>
+          <td>{{data['Department']}}</td>
+          <td>{{data['CardNo']}}</td>
+          <td>{{data['EmployeeName']}}</td>
+          <td>{{data['Joining'].substring(0,10)}}</td>
+          <td>{{data['Designation']}}</td>
+          <td>{{data['PresentSalary']}}</td>
+          <td>{{data['BasicAmount']}}</td>
+          <td>{{data['HousdeRent']}}</td>
+          <td>{{data['MedicalAmount']}}</td>
+          <td>{{data['LaunchAmount']}}</td>
+          <td>{{data['Conveyance']}}</td>
+          <td>{{data['AbsentDays']}}</td>
+          <td>{{data['AbsentAmount']}}</td>
+          <td>{{data['LatejoiningDays']}}</td>
+          <td>{{data['LateJoiningAmount']}}</td>
+          <td>{{data['NetSalary']}}</td>
+          <td>{{data['AdvanceAmount']}}</td>
+          <td>{{data['Allow-Incr-Arear']}}</td>
+          <td>{{data['PayableSalary']}}</td>
+          <td>{{data['adjustmentAmount']}}</td>
+          <td>{{data['TaxAmount']}}</td>
+          <td>{{data['CashAmount']}}</td>
+          <td>{{data['BankAmount']}}</td>
+          <td>{{data['CDAmountDeposit']}}</td>
+        </tr>
+      </thead>
+    </table>
+    <sui-pagination [collectionSize]="totalItemCount" [pageSize]="itemsPerPage" [hasNavigationLinks]="true"
+      [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="currentPage"
+      (pageChange)="pageChange()">
+    </sui-pagination>
+  </div>
+</div>

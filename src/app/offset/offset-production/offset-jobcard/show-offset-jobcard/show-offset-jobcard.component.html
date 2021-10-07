@@ -1,0 +1,462 @@
+<div id="printContent" #printContent style="margin-top: 10px;" class="pt-5">
+
+  <div class="ui grid">
+
+    <table style="border-collapse: collapse;width: 100%">
+
+      <tr>
+
+        <td style="padding-left: 8px;">
+
+          <div style="margin-bottom: 4px;margin-left: 4px;font-size: 16px; font-weight: bold;">Work Order No: {{jobCardDetails?.WorkOrderNo}} </div>
+
+          <div style="margin-left: 4px; font-size: 16px; font-weight: bold;">Job Card #{{jobCardDetails?.JobCardNo}}</div>
+
+        </td>
+
+        <td style="text-align: right;">
+
+          <span style="margin-right: 5px;">
+
+            <ngx-barcode [bc-height]="40" [bc-width]="2" [bc-margin-top]="1" [bc-value]="jobCardDetails?.JobCardNo"
+              [bc-display-value]="false"></ngx-barcode>
+
+          </span>
+
+        </td>
+
+      </tr>
+
+    </table>
+  </div>
+
+  <table style=" margin-bottom: 5px; border: 1px solid black; border-collapse: collapse;width: 100%; padding: 5px;">
+    <tr>
+
+      <td colspan="2"
+        style="border-top: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center; font-size: 16px;">
+        <strong>{{jobCardDetails?.CompanyName}}</strong> </td>
+
+      <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Doc. Code: Doc. Code: NPD/03/021
+        </strong></td>
+
+    </tr>
+
+    <tr>
+
+      <td colspan="2" style="border-left: 1px solid black;padding: 5px;text-align: center; font-size: 16px;">
+        <strong>Title: Job
+          card {{jobCardDetails?.ProductCategoryName}}</strong> </td>
+
+      <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Page 1 of 1</strong> </td>
+
+    </tr>
+
+    <tr>
+
+      <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Effective Date: 15/12/2014 </strong>
+      </td>
+
+      <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Revision Status: 00</strong> </td>
+
+      <td style="border: 1px solid black;padding: 5px;text-align: center"><strong>Issue No: 01</strong> </td>
+
+    </tr>
+
+  </table>
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;"> <strong>PARTY NAME :</strong></div>
+      </td>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;"><strong>{{jobCardDetails?.PartyName}}</strong>
+        </div>
+      </td>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;"><strong>RECEIVE DATE :</strong></div>
+      </td>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;">
+          <strong>{{jobCardDetails?.OrderReceiveDate | date}}</strong></div>
+      </td>
+    </tr>
+  </table>
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;"> <strong>DELIVERY DATE :</strong></div>
+      </td>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;">
+          <strong>{{jobCardDetails?.EstDeliverDate | date}}</strong></div>
+      </td>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;"><strong>MARKETING EXECUTIVE :</strong></div>
+      </td>
+      <td style="text-align: left; width: 24%;">
+        <div style="border: 1px solid black; padding: 5px; width: 92%;">
+          <strong>{{jobCardDetails?.EmployeeName}}</strong></div>
+      </td>
+    </tr>
+  </table>
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left; width: 15%;">
+        <div style="border: 1px solid black; padding: 5px; width: 88%;"> <strong>JOB NUMBER :</strong></div>
+      </td>
+      <td style="text-align: left; width: 15%;">
+        <div style="border: 1px solid black; padding: 5px; width: 88%;"><strong>{{jobCardDetails?.JobCardNo}}</strong>
+        </div>
+      </td>
+      <td style="text-align: left; width: 17%;">
+        <div style="border: 1px solid black; padding: 5px; width: 88%;"><strong>Production Plan Date :</strong></div>
+      </td>
+      <td style="text-align: left; width: 15%;">
+        <div style="border: 1px solid black; padding: 5px; width: 88%;">
+          <strong>{{jobCardDetails?.CreatedDate | date}}</strong></div>
+      </td>
+      <td style="text-align: left; width: 14%;">
+        <div style="border: 1px solid black; padding: 5px; width: 88%;"><strong>Priority :</strong></div>
+      </td>
+      <td style="text-align: center; width: 10%;">
+        <div style="border: 1px solid black; padding: 5px; width: 88%;"><strong>{{jobCardDetails?.Priority}}</strong>
+        </div>
+      </td>
+      <td style="text-align: center; width: 8%;">
+        <div style="padding: 5px; width: 88%; font-size: 20px;"><strong> {{jobCardSize}} </strong></div>
+      </td>
+    </tr>
+  </table>
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left; width: 15%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"> <strong>ITEM LENGTH :</strong></div>
+      </td>
+      <td style="text-align: left; width: 12%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"><strong>{{jobCardDetails?.Length}}</strong>
+        </div>
+      </td>
+      <td style="text-align: left; width: 12%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"><strong>WIDTH :</strong></div>
+      </td>
+      <td style="text-align: left; width: 12%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"><strong>{{jobCardDetails?.Width}}</strong>
+        </div>
+      </td>
+      <td style="text-align: left; width: 12%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"><strong>Base Color :</strong></div>
+      </td>
+      <td style="text-align: center; width: 13%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;">
+          <strong>{{jobCardDetails?.SampleColorName}}</strong></div>
+      </td>
+      <td style="text-align: center; width: 12%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"><strong>Lettering Color</strong></div>
+      </td>
+      <td style="text-align: center; width: 10%;">
+        <div style="border: 1px solid black; padding: 5px; width: 85%;"><strong>{{jobCardDetails?.PrintColor}}</strong>
+        </div>
+      </td>
+      <!-- <td style="text-align: center; width: 10%;"><div style="border: 1px solid black; padding: 5px; width: 100%;"><strong> 2 </strong></div></td> -->
+    </tr>
+  </table>
+  <table style="border: none; border-collapse: collapse; width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: right; width: 20%;">
+        <div style="padding: 5px; width: 100%; height: 15px;"> <strong></strong></div>
+      </td>
+      <td style="text-align: right; width: 10%;">
+        <div style="border: 1px solid black; padding: 5px; width: 90%;"> <strong>PO NO:</strong></div>
+      </td>
+      <td rowspan="2" style="text-align: left; width: 75%;">
+        <div style="border: 1px solid black; padding: 5px; width: 98%; height: 56px;">
+          <strong>{{jobCardDetails?.CustomerPONo}}</strong></div>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: left; width: 10%;">
+        <div style="border: 1px solid black; padding: 5px; width: 90%; height: 26px;"> <strong>MC STYLE :</strong></div>
+      </td>
+      <td style="text-align: left; width: 20%;">
+        <div style="border: 1px solid black; padding: 5px; width: 90%; height: 26px;">
+          <strong>{{jobCardDetails?.ExtraColumn3}}</strong></div>
+      </td>
+      <!-- <td style="text-align: left; width: 75%;"><div style="border: 1px solid black; padding: 5px; width: 100%;"><strong>MARKETING EXECUTIVE :</strong></div></td> -->
+    </tr>
+  </table>
+  <table style="border: none; border: 1px solid black; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr style="border-bottom: 1px solid black;">
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px; ">
+        <strong>Item Name</strong>
+      </td>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px; ">
+        <strong>Paper Size</strong>
+      </td>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px; ">
+        <strong>No. Of Ups</strong>
+      </td>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px; ">
+        <strong>Paper GSM</strong>
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px; ">
+        {{upsData.ItemCode}}
+      </td>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px; ">
+        {{upsData.PaperSize}}
+      </td>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px;">
+        {{upsData.NoOfUps}}
+      </td>
+      <td style="border: 1px solid black; text-align: left; width: 30%; padding: 5px;">
+        {{upsData.PaperGsm}}
+      </td>
+    </tr>
+  </table>
+  <table style="border: none; border-collapse: collapse;width: 100%">
+    <tr>
+      <td style="text-align: right; width: 40%;">
+        <div style="padding: 5px; width: 100%;"> <strong></strong></div>
+      </td>
+      <td style="text-align: left; width: 28%;">
+        <div style="padding: 5px; width: 100%; font-size: 10px;">Buyer: {{materialDetails[0]?.BrandName}} </div>
+      </td>
+    </tr>
+  </table>
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left;">
+        <div style="padding: 5px; width: 100%;">DELIVERY PARTY : <strong>{{jobCardDetails?.DelParty}}</strong></div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <th
+        style="border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        SL</th>
+      <th
+        style="border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Work Order No</th>
+
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Item Name</th>
+
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Color</th>
+
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Size</th>
+
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Style</th>
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Dz Qty</th>
+
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Order Qty</th>
+
+      <th
+        style="border: 1px solid black; background-color: black; color: white; padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Plan Qty</th>
+
+      <th
+        style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+        Production Qty</th>
+
+    </tr>
+
+    <tr *ngFor="let breakdown of breakdownDetails; let i = index">
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px; text-align: center;">
+        {{i+1}}
+      </td>
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.WorkOrderNo}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.SampleName}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.Column1Value}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.Column2Value}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.Column3Value}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{(breakdown?.TotalOrdQty/12).toFixed(2)}}</td>
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.TotalOrdQty}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.PlanQTY}}</td>
+
+      <td style="border: 1px solid black; padding: 5px;font-size: 12px">{{breakdown?.ProductionQty}}</td>
+
+    </tr>
+    <tr>
+      <td colspan="6"></td>
+      <td>{{(orderTotal/12).toFixed(2)}}</td>
+      <td>{{orderTotal}}</td>
+      <td>{{planTotal}}
+      <td>{{productionTotal}}</td>
+    </tr>
+
+  </table>
+
+  <table style="border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td colspan="2">
+        <div style="padding: 5px; width: 100%; text-align: left; font-size: 13px;"> <strong>
+            {{materialDetails[0]?.Title}}
+          </strong></div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 30%; text-align: left; padding: 5px;"><strong>Requisition No : </strong>
+        {{materialDetails[0]?.MaterialRequisitionNo}} </td>
+      <td style="text-align: left; padding: 5px;"><strong>Requisition Date : </strong>
+        {{materialDetails[0]?.RequisitionDate}} </td>
+    </tr>
+    <tr>
+      <td style="width: 30%; text-align: left; padding: 5px;"><strong>Requisition By :
+        </strong>{{materialDetails[0]?.PreparedBy}} </td>
+      <td style="text-align: left; padding: 5px;"><strong>Production Plan Date :
+        </strong>{{materialDetails[0]?.PlanStartDate}} </td>
+    </tr>
+  </table>
+
+  <div class="row" style="box-sizing: border-box;width: 100%; ">
+
+    <table style="border-collapse: collapse;width: 100%; font-size: 10px;">
+
+      <tr>
+        <th
+          style="border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          SL</th>
+        <th
+          style="border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Work Order</th>
+
+        <th
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Item</th>
+        <th
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Order Qty</th>
+        <th
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Required Qty</th>
+
+        <th
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Production Wastage</th>
+
+        <th
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Setting Wastage</th>
+
+        <th
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          Total Qty</th>
+
+      </tr>
+
+      <tr *ngFor="let yarn of materialDetails; let i = index">
+        <td
+          style="border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">
+          {{i + 1}}
+        </td>
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">
+          {{yarn?.WorkOrderNo}}</td>
+
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;;font-size: 12px">
+          {{yarn?.ItemDescription}}</td>
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          {{orderTotal}}</td>
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          {{yarn?.RequiredQty.toFixed(2)}}</td>
+
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          {{yarn?.ProductionWastage.toFixed(2)}}</td>
+
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          {{yarn?.SettingWastage.toFixed(2)}}</td>
+
+        <td
+          style=" border: 1px solid black;padding: 5px;padding-top: 4px; padding-bottom: 4px;text-align: left;font-size: 12px">
+          {{yarn?.TotalQty.toFixed(2)}}</td>
+
+      </tr>
+      <tr>
+        <td colspan="6" style="text-align: right;"> <strong> Grand Total: </strong></td>
+        <td><strong>{{materialTotal.toFixed(2)}}</strong></td>
+      </tr>
+
+    </table>
+
+  </div>
+
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left;">
+        <div style="padding: 5px; width: 100%;"><strong> Narration :</strong> {{jobCardDetails?.Narration}} </div>
+      </td>
+    </tr>
+  </table>
+
+  <table style="border: none; border-collapse: collapse;width: 100%; font-size: 10px;">
+    <tr>
+      <td style="text-align: left;">
+        <div style="padding: 5px; width: 100%;"><strong> NPD Remarks :</strong> {{jobCardDetails?.SpecialInstruction}}
+        </div>
+      </td>
+    </tr>
+  </table>
+
+
+
+  <table style="margin-top: 30px;padding: 5px;width: 100%;text-align: center; font-size: 10px;">
+
+    <tr>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;;font-size: 12px">{{jobCardDetails?.WOCreatedBy}}</td>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px">{{jobCardDetails?.csname}}</td>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+
+      <td style="border-bottom: 2px solid black;padding: 4px;font-size: 12px"></td>
+
+    </tr>
+
+    <tr>
+
+      <td style="padding: 5px">Prepared By</td>
+
+      <td>Customer Service</td>
+
+      <td>Designer</td>
+
+      <td>Production Incharge</td>
+
+      <td>QC Incharge</td>
+
+    </tr>
+
+  </table>
+
+  <p style="font-size: 10px;">{{lastLine}}</p>
+
+</div>

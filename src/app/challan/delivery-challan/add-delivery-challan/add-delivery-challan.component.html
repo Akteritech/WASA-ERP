@@ -1,0 +1,237 @@
+<div class="pt-5">
+
+<button *ngIf="this.editId" class="ui tiny orange button" type="button" (click)="this.back()">
+  <i class   ="arrow left icon"></i>
+  Back
+</button><form class="ui form" #form='ngForm' onsubmit="return false;"  autocomplete="off" enctype="multipart/form-data">
+  <div class="ui segment  mt-2">
+    <h4 class="ui teal dividing header">
+<!--      <button class="ui tiny orange button my-1" type="button"  (click)="back()">-->
+<!--        <i class="arrow left icon"></i> Back-->
+<!--      </button>-->
+      <br>
+      New Delivery Challan
+    </h4>
+    <sui-message class="warning mb-2 mt-2" *ngIf="!master.companyid && !master.customerid">
+      <li>
+        <strong>Note : </strong>  Fields marked with asterisk <strong>(*) </strong> are mandatory
+      </li>
+    </sui-message>
+<!--    {{master | json}}-->
+<!--    {{detailsArray | json}}-->
+    <div class="equal width fields">
+      <div class="field required">
+        <label>Company</label>
+        <sui-select required placeholder="Company  "
+                    class="selection"
+                    [options]="companies"
+                    [isDisabled]="this.editId"
+                    [(ngModel)]="master.companyid"
+                    name="companyname"
+                    [isSearchable]="true"
+                    labelField="companyname"
+                    valueField="companyid"
+                    #selectCompanyName>
+          <sui-select-option *ngFor="let op of selectCompanyName.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field required">
+        <label>Customer Name</label>
+        <sui-select required placeholder=" "
+                    class="selection"
+                    [(ngModel)]="master.customerid"
+                    [isDisabled]="this.editId"
+                    name="clientname"
+                    [options]="customers"
+                    (input)="optionsLookupCustomer($event.target.value)"
+                    (ngModelChange)="getWorkOrderByCompanyAndCustomer()"
+                    labelField="clientname"
+                    valueField="clientid"
+                    [isSearchable]="true"
+                    #selectCustomerName>
+          <sui-select-option *ngFor="let op of selectCustomerName.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+<!--      <div class="field required">-->
+<!--        <label>Sample Name</label>-->
+<!--        <sui-select-->
+<!--                class="selection" placeholder=" "-->
+<!--                [(ngModel)]="selectSample"-->
+<!--                name="samplename"-->
+<!--                (input)="optionsLookupSampleItems($event.target.value)"-->
+<!--                [options]="items"-->
+<!--                labelField="samplename"-->
+<!--                [isSearchable]="true"-->
+<!--                #selectSampleNamert>-->
+<!--          <sui-select-option *ngFor="let o of selectSampleNamert.filteredOptions" [value]="o"></sui-select-option>-->
+<!--        </sui-select>-->
+<!--      </div>-->
+      <div class="field required" *ngIf="!this.editId">
+        <label>Work Order No</label>
+        <sui-select [required]="true" placeholder=" "
+                    class="selection"
+                    [options]="workOrders"
+                    [isDisabled]="this.editId"
+                    [(ngModel)]="master.workorderid"
+                    name="workorderno"
+                    [isSearchable]="true"
+                    labelField="WorkOrderNo"
+                    valueField="WorkOrderID"
+                    #selectworkorderno>
+          <sui-select-option *ngFor="let op of selectworkorderno.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+<div class="field" *ngIf="this.editId">
+  <label>Work Order No</label>
+<div>{{this.master?.workorder?.workorderno}}</div>
+
+</div>
+    </div>
+    <div class="equal width fields">
+      <div  class="field required">
+        <label> Challan Date</label>
+        <input disabled required  suiDatepicker [pickerMode]="'date'"
+                [(ngModel)]="master.orderreceivedate" name="workOrderDate">
+      </div>
+      <div class="field">
+        <label>Urn No.</label>
+        <input placeholder="Quantity" type="number" [(ngModel)]="urnno"  name="size"  />
+      </div>
+
+      <div class="field">
+        <button type="button" class="ui teal tiny button" (click)="searchByUrn()">
+          Search
+        </button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Narration</label>
+        <textarea placeholder="naration" rows="2" [(ngModel)]="master.remarks"  name="size"></textarea>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <button type="button" class="ui teal tiny button my-1"  (click)="getPartIdForBreakdown();getBreakDown()">
+          Get
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ui segment mt-2" >
+    <h4 class="ui teal header center aligned"> Delivery Challan Details</h4>
+    <table class="ui very compact teal celled unstackable table">
+      <thead>
+      <tr>
+        <th>S.No</th>
+        <th style="width: 260px">Sample Name</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Style</th>
+        <th>keyentry4</th>
+        <th>keyentry5</th>
+        <th>keyentry6</th>
+<!--        <th>keyentry7</th>-->
+<!--        <th>keyentry8</th>-->
+<!--        <th>keyentry9</th>-->
+        <th style="width: 100px">Order  qty</th>
+        <th>Unit </th>
+        <th>Challan Qty</th>
+        <th>Already Challan Qty</th>
+        <th>Remaining Qty</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of detailsArray; let i = index" >
+        <td>{{i+1}} </td>
+        <td>
+          <div class="field" style="width: 200px">
+            <input placeholder="" disabled type="text" [(ngModel)]="item.SampleName"  name="samplename{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input placeholder="" disabled type="text" [(ngModel)]="item.KeyEntry1"  name="keyentry1{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input placeholder="" disabled type="text" [(ngModel)]="item.KeyEntry2"  name="keyentry2{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input placeholder="    " disabled type="text" [(ngModel)]="item.KeyEntry3"  name="keyentry3{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input placeholder="" disabled type="number" [(ngModel)]="item.KeyEntry4"  name="keyentry4{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input placeholder="" disabled type="number" [(ngModel)]="item.KeyEntry5"  name="keyentry5{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <input placeholder="" disabled type="number" [(ngModel)]="item.KeyEntry6"  name="keyentry6{{i}}"  />
+          </div>
+        </td>
+<!--        <td>-->
+<!--          <div class="field">-->
+<!--            <input placeholder="" disabled type="number" [(ngModel)]="item.KeyEntry7"  name="keyentry7{{i}}"  />-->
+<!--          </div>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <div class="field">-->
+<!--            <input placeholder="" disabled type="number" [(ngModel)]="item.KeyEntry8"  name="keyentry8{{i}}"  />-->
+<!--          </div>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <div class="field">-->
+<!--            <input placeholder="" disabled type="number" [(ngModel)]="item.KeyEntry9"  name="keyentry9{{i}}"  />-->
+<!--          </div>-->
+<!--        </td>-->
+        <td>
+          <div class="field required" style="width: 100px">
+            <input placeholder="" disabled type="number" [(ngModel)]="item.OrderQty"  name="challanbreakdownqty{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field required">
+            <input placeholder="" disabled type="text" [(ngModel)]="item.Unit"  name="unit{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field required">
+            <input placeholder=""  type="number" [(ngModel)]="item.ChallanQty"  name="challanqty{{i}}"  />
+          </div>
+        </td>
+        <td>
+          <div class="field required">
+            <input placeholder="" disabled type="number" [(ngModel)]="item.AlreadyChallanedQty"  name="alreadychallanqty{{i}}"  />
+          </div>
+        </td>
+        <td>
+         {{item.OrderQty - item.AlreadyChallanedQty}}
+        </td>
+<!--        <td>-->
+<!--          <button type="button" class="ui teal tiny button my-1"  (click)="addBreakdownDetail()">-->
+<!--            Add-->
+<!--          </button>-->
+<!--        </td>-->
+      </tr>
+      </tbody>
+    </table>
+    <button type="button" class="ui teal tiny button my-1" (click)="add(form)" *ngIf="!this.currentRoute?.toString()?.includes('edit')">
+      Save
+    </button>
+    <button type="button" class="ui primary tiny button my-1" (click)="update(form)" *ngIf="this.currentRoute?.toString()?.includes('edit')">
+      Update
+    </button>
+  </div>
+
+</form>
+</div>

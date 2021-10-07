@@ -1,0 +1,165 @@
+<form onsubmit="return false;" class="ui small inline form cardmy2" #form='ngForm'>
+    <div class="pt-5">
+        <button class="ui orange small button" (click)="this.backClicked()">Go Back</button>
+    </div>
+    <div class="ui segment">
+<!--        {{ customerid | json}}-->
+<!--        {{ challanno | json}}-->
+<!--        {{ toDate | json}}-->
+<!--        {{ fromDate | json}}-->
+<!--        {{ companyid | json}}-->
+<!--        {{ deliverystatus | json}}-->
+        <div class="equal width fields">
+            <div class="field">
+                <label>Client</label>
+                <sui-select class="selection" name="Client" placeholder=" "
+                            [(ngModel)]="customerid"
+                            [options]="clients"
+                            (input)="optionsLookupClient($event.target.value)"
+                            labelField="clientname"
+                            valueField="clientid"
+                            [isSearchable]="true"
+                            #multiSelectClients>
+                    <sui-select-option *ngFor="let option of multiSelectClients.filteredOptions"
+                                       [value]="option"></sui-select-option>
+                </sui-select>
+            </div>
+            <div class="field">
+                <label>Challan No.</label>
+                <input  type="text" [(ngModel)]="challanno"   id="challanno" name="challanno" autofocus placeholder="challan no."/>
+            </div>
+            <div class="field required">
+                <label>Company</label>
+                <sui-select required placeholder="Company  "
+                            class="selection"
+                            [options]="companies"
+                            [(ngModel)]="companyid"
+                            (input)="getCompanies($event.target.value)"
+                            name="companyname"
+                            [isSearchable]="true"
+                            labelField="companyname"
+                            valueField="companyid"
+                            #selectCompanyName>
+                    <sui-select-option *ngFor="let op of selectCompanyName.filteredOptions" [value]="op"></sui-select-option>
+                </sui-select>
+            </div>
+            <div class="field required">
+                <label>Delivery Status</label>
+                <sui-select required placeholder="Company  "
+                            class="selection"
+                            [(ngModel)]="deliverystatus"
+                            name="companyname">
+                    <sui-select-option value="Undelivered" *ngIf="this.currentRoute?.toString()?.includes('status1')"></sui-select-option>
+                    <sui-select-option value="Delivered" *ngIf="this.currentRoute?.toString()?.includes('status2')"></sui-select-option>
+                    <sui-select-option value="Receipt" *ngIf="this.currentRoute?.toString()?.includes('receipt')"></sui-select-option>
+                </sui-select>
+            </div>
+            <div class="field">
+                <label>From Date</label>
+                <input placeholder="challan date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="fromDate" name="deliveryDate" >
+            </div>
+            <div class="field">
+                <label>To Date</label>
+                <input placeholder="challan date" suiDatepicker type="date" pickerMode="date" [(ngModel)]="toDate" name="deliveryDate1"  >
+            </div>
+            <!--      <div class="field">-->
+            <!--        <label>&nbsp;</label>-->
+            <!--        <sui-checkbox [(ngModel)]="deliveryChallan.isdelivered" name="isdelivered">Is Delivered?</sui-checkbox>-->
+            <!--      </div>-->
+
+        </div>
+        <div class="equal width fields">
+            <div class="field">
+                <label>&nbsp;</label>
+                <button type="button" class="ui teal small button " (click)="search()">
+                    Search
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('status2')">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small green button" (click)="form.resetForm()">
+                    Receipt
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('status1') || this.currentRoute?.toString()?.includes('receipt') ">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small blue button" (click)="updateStatus()">
+                    Delivered
+                </button>
+            </div>
+            <div class="field">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small red button" (click)="reset()">
+                    Reset
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('status2')">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small black button" (click)="updateStatus()">
+                    Undelivered
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('status1')">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small green button" (click)="exportCsv()">
+                    Undelivered Excel Report
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('status2')">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small green button" (click)="exportCsv()">
+                    delivered Excel Report
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('status2')">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small green button" (click)="exportCsv()">
+                    Excel Receipt Report
+                </button>
+            </div>
+            <div class="field" *ngIf="this.currentRoute?.toString()?.includes('receipt')">
+                <label>&nbsp;</label>
+                <button type="button" class="ui small green button" (click)="exportCsv()">
+                    Excel  Report
+                </button>
+            </div>
+        </div>
+        <table class="ui mini very compact unstackable blue table">
+            <thead>
+            <tr>
+                <th>
+                    <sui-checkbox  class="middle aligned" name="foreign" [(ngModel)]="selectALlRecord" (ngModelChange)="selectAll()"></sui-checkbox>
+                </th>
+                <th>S.No</th>
+                <th>Challan No</th>
+                <th>Work Order No</th>
+                <th>Sample Name</th>
+                <th>Challan Qty</th>
+                <th>Client</th>
+                <th>Challan Date</th>
+                <th>Delivery Date</th>
+                <th>Challan Receipt Date</th>
+                <th>Is Delivered</th>
+                <th>Is Challan Receipt Found</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of tableData; let i = index">
+                <td><sui-checkbox  class="mt-2" [(ngModel)]="s.selected" name="{{i}}" (click)="select(s,i)"></sui-checkbox>
+                </td>
+                <td>{{i+1}} </td>
+                <td>{{s?.ChallanNo}}</td>
+                <td>{{s?.WorkOrderNo}}</td>
+                <td>{{s?.SampleName}}</td>
+                <td>{{s?.CHALQTY}}</td>
+                <td>{{s?.ClientName}}</td>
+                <td>{{s?.ChallanDate }}</td>
+                <td>{{s?.DeliverydDate}}</td>
+                <td>{{s?.ChalanReciptDate}}</td>
+                <td>{{s?.IsDelivered}}</td>
+                <td>{{s?.IsChallanRecieptFound}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

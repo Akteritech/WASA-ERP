@@ -1,0 +1,97 @@
+<app-submit-code *ngIf="!visible" page="EditAttendance" (valid)="visible = true"></app-submit-code>
+<div class="pt-5">
+  <form onsubmit="return false;" class="ui small inline form mt-2" #form='ngForm' *ngIf="visible">
+    <h4 class="ui teal dividing header">Search Attendance</h4>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Department</label>
+        <sui-select placeholder="." class="selection" name="department" [(ngModel)]="department" [isSearchable]="true"
+          [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept>
+          <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
+        </sui-select>
+      </div>
+      <div class="field">
+        <label>Card No</label>
+        <input type="text" [(ngModel)]="cardNo" name="cardNo" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Date</label>
+        <input suiDatepicker type="date" pickerMode="date" [(ngModel)]="date" name="toDate" autocomplete="off">
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="mr-1 ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui teal tiny button" (click)="newAttendance()">Search New Attendance</button>
+      </div>
+      <div class="mr-1 ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui teal tiny button" (click)="missingAttendance()">Search Missing
+          Attendance</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny red button" (click)="reset()">Reset</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny purple button" (click)="fullAttendance()">Full Attendance</button>
+      </div>
+    </div>
+    <div class="equal width fields">
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny orange button" (click)="update()">Update</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny black button" (click)="makeAbsent()">Make Absent</button>
+      </div>
+      <div class="ml-1">
+        <label>&nbsp;</label>
+        <button type="button" class="ui tiny black button" (click)="showAbsent()">Show Absent List</button>
+      </div>
+    </div>
+  </form>
+  <table class="ui mini very compact unstackable teal table" *ngIf="visible">
+    <thead>
+      <tr>
+        <th><input type="checkbox" name="allchek" [(ngModel)]="allCheck" (ngModelChange)="changeCheck()"></th>
+        <th>Si</th>
+        <th>Name</th>
+        <th>Card</th>
+        <th>Department</th>
+        <th>Date</th>
+        <th>In Time</th>
+        <th>Out Time</th>
+        <th *ngIf="!addNew">Shift End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tableData; let i = index">
+        <td><input type="checkbox" name="check{{i}}" [(ngModel)]="checks[i]"></td>
+        <td>{{i+1+(currentPage - 1) * pageSize}} </td>
+        <td>{{item.Name}}</td>
+        <td>{{item.CadrNo}}</td>
+        <td>{{item.Deptment}}</td>
+        <td>{{item.AttenDate}}</td>
+        <td><input type="time" name="intime{{i}}" [(ngModel)]="item.InTime"></td>
+        <td><input type="time" name="outtime{{i}}" [(ngModel)]="item.OutTime"></td>
+        <td>
+          <sui-select *ngIf="addNew" class="selection" name="department" [(ngModel)]="item.AttendStatus">
+            <sui-select-option value="P"></sui-select-option>
+            <sui-select-option value="L"></sui-select-option>
+            <sui-select-option value="OS"></sui-select-option>
+            <sui-select-option value="W"></sui-select-option>
+            <sui-select-option value="H"></sui-select-option>
+          </sui-select>
+          <span *ngIf="!addNew">{{item.ShiftOut}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <sui-pagination *ngIf="visible" [collectionSize]="totalItemCount" [pageSize]="pageSize" [hasNavigationLinks]="true"
+    [hasBoundaryLinks]="true" [hasEllipses]="true" [maxSize]="5" [canRotate]="true" [(page)]="currentPage"
+    (pageChange)="pageChange()">
+  </sui-pagination>
+</div>

@@ -1,0 +1,109 @@
+<!--<div class="field">-->
+<!--  <h4 class="ui header m-0">&nbsp; EMP ID &nbsp; : &nbsp; <span style="color: #f2711c">{{emp?.empId}}</span></h4>-->
+<!--  <div class="ui divider"></div>-->
+<!--  <div class="ui two column grid ">-->
+<!--    <div class="row">-->
+<!--      <table class="column ">-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--          <td class=""><strong>Full Name</strong></td><td > : </td><td>&nbsp;&nbsp;{{emp?.firstname}} {{emp?.middlename}} {{emp?.lastname}} </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class=""><strong>Full Name in Bangla</strong></td><td > : </td><td> {{emp?.empfullnameinbangla}} </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td><strong>Father Name </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.fathersname}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Mother Name </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.mothersname}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td><strong>Gender </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.sex}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Marital status </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.maritalstatus}}</td>-->
+<!--        </tr>-->
+
+<!--        </tbody>-->
+<!--      </table>-->
+<!--      <table class="column">-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--          <td ><strong>DOB </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.dob}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Blood Group </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.bloodgroup}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td><strong>Religion </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.religion}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Nationality </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.nationality}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Identification Type </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.empidentificationtypeid}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td ><strong>Identification Mark </strong></td><td > : </td><td >&nbsp;&nbsp;{{emp?.identificationmark}}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="">
+  <div  id="printContent" >
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+          <h2 class="center aligned vertically">EMP ID. #{{emp?.empId}}</h2>
+        </div>
+        <!--        <div class="four wide column">-->
+        <!--          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="comp?.companyid" [bc-display-value]="false"></ngx-barcode>-->
+        <!--        </div>-->
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center"><strong>EMP NO. &nbsp;&nbsp;:&nbsp;&nbsp;</strong><strong>{{emp?.prevempId}}</strong> </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title:Employee</strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>Full Name&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{emp?.firstname}} {{emp?.middlename}} {{emp?.lastname}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Full Name In Bangla &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </strong> {{emp?.empfullnameinbangla}}  </td>
+          <td  rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+            <img width="200" height="200" *ngIf="emp?.imagepath" src="{{ api.baseUrl + emp?.imagepath }}"  alt="" >
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px" ><strong>Father Name  &nbsp;&nbsp;:&nbsp;&nbsp;</strong>{{emp?.fathersname}}</td>
+          <td style="border: 1px solid black;padding: 5px" ><strong>Mother Name &nbsp;&nbsp;:&nbsp;&nbsp; </strong>{{emp?.mothersname}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px" ><strong>Blood Group &nbsp;&nbsp;:&nbsp;&nbsp;</strong> &nbsp;&nbsp;{{emp?.bloodgroup1?.listitem}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Gender  &nbsp;&nbsp;&nbsp;:&nbsp;</strong> {{emp?.sex2?.listitem}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Marital status :&nbsp;&nbsp; </strong> {{emp?.maritalstatus1?.listitem}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Date of Birth :&nbsp;&nbsp; </strong> {{emp?.dob.substring(0, 10)}}</td>
+
+        </tr>
+        <tr>
+          <td  style="border: 1px solid black;padding: 5px" ><strong>Religion &nbsp;:&nbsp;&nbsp; </strong> {{emp?.ReligionDetails?.listitem}}  </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Nationality  :&nbsp;&nbsp; </strong>{{emp?.nationality1?.listitem}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Identification Type &nbsp;:&nbsp;&nbsp; </strong> {{emp?.empidentificationtypeid}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Identification Mark &nbsp;:&nbsp;&nbsp; </strong> {{emp?.identificationmark}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong> National ID No. &nbsp;:&nbsp;&nbsp; </strong> {{emp?.idno}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

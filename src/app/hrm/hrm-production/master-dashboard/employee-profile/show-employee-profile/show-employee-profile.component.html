@@ -1,0 +1,117 @@
+
+<div class="" [ngStyle]="{'background-color':'#71797E'}">
+  <div id="printContent">
+    <div id="sample">
+      <div class="ui grid">
+        <div class="ten wide column">
+          <h2 class="center aligned vertically">EMP Card No. #{{emp?.EMP_CARD_NO}}</h2>
+        </div>
+        <!--        <div class="four wide column">-->
+        <!--          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="comp?.companyid" [bc-display-value]="false"></ngx-barcode>-->
+        <!--        </div>-->
+      </div>
+      <table style="margin-bottom: 5px;border-collapse: collapse;width: 100%">
+        <tr>
+          <td colspan="2" style="border: 1px solid black;border-left: 1px solid black;padding: 5px;text-align: center">
+            <strong>EMP ID. &nbsp;&nbsp;:&nbsp;&nbsp;</strong><strong>{{emp?.EMP_ID}}</strong> </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid black;padding: 5px;text-align: center"><strong>Title:Employee
+              Profile</strong> </td>
+        </tr>
+      </table>
+      <table style="margin-bottom: 5px;width: 100%;border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 1px solid black;border-top: 1px solid black;padding: 5px"><strong>
+              Name&nbsp;&nbsp;:&nbsp;&nbsp;</strong> {{emp?.EMP_NAME_ENG}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Full Name In Bangla &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
+            </strong> {{emp?.EMP_NAME_BNG}} </td>
+          <td rowspan="5" style="border-top: 0px solid black;padding-left: 30px; padding-top: 20px; ">
+            <img width="200" height="200" [src]="this.api.imageToShow" alt="">
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Division ID
+              &nbsp;&nbsp;:&nbsp;&nbsp;</strong>{{emp?.DIVISION_ID}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Department ID &nbsp;&nbsp;:&nbsp;&nbsp;
+            </strong>{{emp?.DEPARTMENT_ID}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Group ID &nbsp;&nbsp;:&nbsp;&nbsp;</strong>
+            &nbsp;&nbsp;{{emp?.GROUP_ID}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Designation ID &nbsp;&nbsp;&nbsp;:&nbsp;</strong>
+            {{emp?.DESIGNATION_ID}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>ATTEND DEVICE NO :&nbsp;&nbsp; </strong>
+            {{emp?.ATTEND_DEVICE_NO}}</td>
+          <!--          <td style="border: 1px solid black;padding: 5px"><strong> Date of Birth :&nbsp;&nbsp; </strong> {{emp?.dob.substring(0, 10)}}</td>-->
+
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>EMP STATUS &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.EMP_STATUS}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Lunch Start Time :&nbsp;&nbsp;
+            </strong>{{emp?.LUNCH_TIME_START}} </td>
+        </tr>
+        <tr>
+
+
+          <td style="border: 1px solid black;padding: 5px"><strong>Lunch End Time &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.LUNCH_TIME_END}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Shift ID &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.SHIFT_ID}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Shift Start Date &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.SHIFT_START_DATE | date}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Joining Date &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.JOINING_DATE | date}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Grade ID &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.GRADE_ID}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Joining Salary &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.JOINING_SALARY}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Present Salary &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.PRESENT_SALARY}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Hollyday Amount &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.HOLLYDAY_AMOUNT}}</td>
+        </tr>
+
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Tiffin Amount &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.TIFFIN_AMOUNT}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Night Amount &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.NIGHT_AMOUNT}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Earned Leave &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.EARNED_LEAVE}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>El Start Date &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.EL_START_DATE | date}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Last Pramotion/Demotion &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.LAST_PROMOTION_DEMOTION}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Last Increment Amount &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.LAST_INCREMENT_AMOUNT}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Buyer Salary &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.BUYER_SALARY}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Buyer Joining Date &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.BUYER_JOINING | date}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong>Section Id &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.SECTION_ID}} </td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Work Days &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.Workdays}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong> Shift Status &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.SHIFT_STATUS}}</td>
+          <td style="border: 1px solid black;padding: 5px"><strong>Buyer Mode &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.BuyerMode}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid black;padding: 5px"><strong> Emp OT Activity &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.EMP_OT_ACTIVITY}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

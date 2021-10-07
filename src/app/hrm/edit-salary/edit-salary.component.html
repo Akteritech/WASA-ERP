@@ -1,0 +1,69 @@
+<form onsubmit="return false;" class="ui small inline form mt-2">
+  <h4 class="ui teal dividing header">Earnings</h4>
+  <div class="equal width fields">
+    <div class="field">
+      <label>Tiffin Allowance</label>
+      <input type="text" name="arear" [(ngModel)]="data['Allow-Incr-Arear']">
+    </div>
+    <div class="field">
+      <label>Misc.Allow./Arrear</label>
+      <input type="text" name="special" [(ngModel)]="data.SpecialAllowance">
+    </div>
+    <div class="field">
+      <label>Perform Bonus</label>
+      <input type="text" name="attend" [(ngModel)]="data.ATTENDANCE_BONOUS">
+    </div>
+    <div class="field">
+      <label>Festival Bonus</label>
+      <input type="text" name="festival" [(ngModel)]="data.FESTIVAL_BONUS">
+    </div>
+    
+    <div class="field">
+      <label>OT Hour</label>
+      <input type="text" name="ot" [(ngModel)]="data.OTHour">
+    </div>
+  </div>
+  <h4 class="ui teal dividing header">Deducation</h4>
+  <div class="equal width fields">
+    <div class="field">
+      <label>PF</label>
+      <input type="text" name="cd" [(ngModel)]="data.CDAmountDeposit">
+    </div>
+    <div class="field">
+      <label>ITDS</label>
+      <input type="text" name="itds" [(ngModel)]="data.TaxAmount">
+    </div>
+    <div class="field">
+      <label>Absent Days</label>
+      <input type="text" name="absent" [(ngModel)]="data.AbsentDays">
+    </div>
+   
+   
+  </div>
+  <h4 class="ui teal dividing header"></h4>
+  <div class="equal width fields">
+    <div class="field">
+      <label>Advance</label>
+      <input type="text" name="advance" [(ngModel)]="data.AdvanceAmount">
+    </div>
+    <div class="field">
+      <label>Loan</label>
+      <input type="text" name="Loan" [(ngModel)]="data.Loan">
+    </div>
+    <div class="field">
+      <label>PF Loan</label>
+      <input type="text" name="PFLoan" [(ngModel)]="data.PFLoan">
+    </div>
+    <div class="field">
+      <label>EIPS</label>
+      <input type="text" name="EIPS" [(ngModel)]="data.EIPS">
+    </div>
+    <div class="field">
+      <label>Others</label>
+      <input type="text" name="adjuts" [(ngModel)]="data.adjustmentAmount">
+    </div>
+  </div>
+  <div class="ml-1">
+    <label>&nbsp;</label><button class="ui tiny red button" (click)="update()">Update</button>
+  </div>
+</form>
