@@ -4,9 +4,12 @@
     <div style="font-size: 10px;" *ngFor="let person of jobcards">
       <table style="border-collapse: collapse;width: 100%;">
         <tr>
-          <td style="padding: 5px;text-align: center;">
-            <div style="font-size: 16px; font-weight: bold;">{{person.company}}</div>
-            <div>Saidabad Water Treatment Plant.</div>
+          <td style="padding: 3px;text-align: left;">
+            <img src="assets/avatar.jpg" alt="HTML5 Icon" style="width:80px;height:80px;">
+          </td>
+          <td style="padding: 3px;text-align: center;">
+            <div style="font-size: 18px; font-weight: bold;">DHAKA WASA</div>
+            <div style="font-size: 14px; font-weight: bold;">{{person.company}}</div>
             <div style="font-weight: bold;">Monthly Job Card Report</div>
             <div style="font-weight: bold; text-decoration: underline;">{{dateString}}</div>
           </td>
@@ -17,7 +20,7 @@
           <td style="width: 65%; padding: 5px;">
             <div>Card No : {{person.card}}</div>
             <div>Departmennt : {{person.department}}</div>
-            <div>Date of Joining : {{person.join.substring(0,10)}}</div>
+            <!-- <div>Date of Joining : {{person.join.substring(0,10)}}</div> -->
           </td>
           <td style="width: 35%; padding: 5px;">
             <div>Name : {{person.name}} </div>

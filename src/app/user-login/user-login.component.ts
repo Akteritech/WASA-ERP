@@ -62,7 +62,7 @@ export class UserLoginComponent implements OnInit {
       }
       else if (res[0].msg == 1) {
 
-        if(this.username == 'Admin' && this.password == '123' ) {
+        if(this.username == 'Admin' && this.password == '321' ) {
           sessionStorage.setItem('userid', '172');
           sessionStorage.setItem('constid', '-1');
           sessionStorage.setItem('username', this.api.buyermodeUser);

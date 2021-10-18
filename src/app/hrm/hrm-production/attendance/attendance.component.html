@@ -18,27 +18,27 @@
           <sui-select-option *ngFor="let op of companies" [value]="op"></sui-select-option>
         </sui-select>
       </div>
-      <div class="field">
+      <!-- <div class="field">
         <label class="ui white dividing header">Department</label>
         <sui-select placeholder="." class="selection" name="department" [(ngModel)]="department" [isSearchable]="true"
           [options]="departments" labelField="DeptEngNm" valueField="DEPARTMENT_ID" #selectDept >
           <sui-select-option *ngFor="let op of selectDept.filteredOptions" [value]="op"></sui-select-option>
         </sui-select>
-      </div>
-      <div class="field" hidden="true">
+      </div> -->
+      <!-- <div class="field" hidden="true">
         <label class="ui white dividing header">Sections</label>
         <sui-select placeholder="." class="selection" name="section" [(ngModel)]="section" [options]="sections"
           labelField="SecEngNm" valueField="SECTION_ID" #selectSection (ngModelChange)="get()">
           <sui-select-option *ngFor="let op of selectSection.filteredOptions" [value]="op"></sui-select-option>
         </sui-select>
-      </div>
-      <div class="field">
+      </div> -->
+      <!-- <div class="field">
         <label class="ui white dividing header">Shift</label>
         <sui-select placeholder="." class="selection" name="shifts" [(ngModel)]="shift" [options]="shifts"
           labelField="SHIFT_NAME_ENG" valueField="SHIFT_ID" #selectshift (ngModelChange)="get()">
           <sui-select-option *ngFor="let op of selectshift.filteredOptions" [value]="op"></sui-select-option>
         </sui-select>
-      </div>
+      </div> -->
       <div class="field" hidden="true">
         <label class="ui white dividing header">Work Limit</label>
         <input type="number" name="workHour" [(ngModel)]="hours">
@@ -55,7 +55,7 @@
       </div>
 
       <div class="field">
-        <label class="ui white dividing header">  ID No</label>
+        <label class="ui white dividing header">WASA ID</label>
         <input type="text" [(ngModel)]="cardNo" name="cardNo" autocomplete="off" >
       </div>
       <div class="field">
@@ -77,18 +77,18 @@
         
 
       </div>
-      <div class="ml-1">
+      <!-- <div class="ml-1">
         <label>&nbsp;</label>
         <button type="button" class="ui drakgrey button" (click)="excelGenerate()">
           <i class="book icon"></i>
           Download Attendance</button>
-      </div>
-      <div class="ml-1">
+      </div> -->
+      <!-- <div class="ml-1">
         <label>&nbsp;</label>
         <button type="button" class="ui drakgrey button" (click)="pdf('attendanceReport')">
           <i class="clock icon"></i>
           Attendance preview</button>
-      </div>
+      </div> -->
         <label>&nbsp;</label>
         <button type="button" class="ui drakgrey button" (click)="jobcard()">
           <i class="history icon"></i>
@@ -132,18 +132,18 @@
           <i class="info icon"></i>
           Out Time Missing </button>
       </div>
-      <div class="ml-1">
+      <!-- <div class="ml-1">
         <label>&nbsp;</label>
         <button type="button" class="ui drakgrey button" (click)="workHour()">
           <i class="hourglass icon"></i>
           Early Out</button>
-      </div>
-      <div class="ml-1">
+      </div> -->
+      <!-- <div class="ml-1">
         <label>&nbsp;</label>
         <button type="button" class="ui drakgrey button" (click)="movementReport()">
           <i class="history icon"></i>
            Movement</button>
-      </div>
+      </div> -->
      
       <!-- <div class="ml-1">
         <label>&nbsp;</label>
@@ -156,10 +156,10 @@
     <thead>
       <tr>
         <th >SL</th>
-        <th>Area</th>
-        <th >Department Name</th>
+        <th>Division</th>
+        <!-- <th >Department Name</th> -->
         <!-- <th>Section</th> -->
-        <th >ID No</th>
+        <th >WASA ID</th>
         <th >Photo</th>
         <th >Employee Name</th>
         <th >Designation</th>
@@ -174,7 +174,7 @@
       <tr *ngFor="let s of attendenceReportData; let i = index">
         <td >{{i+1+(meta.currentPage - 1) * meta.itemsPerPage}} </td>
         <td >{{s?.CompanyName}}</td>
-        <td >{{s?.Dep_Name}}</td>
+        <!-- <td >{{s?.Dep_Name}}</td> -->
         <!-- <td>{{s?.Section}}</td> -->
         <td >{{s?.EMP_CARD_NO}}</td>
         <td><img src="assets/employees/{{s?.EMP_CARD_NO}}.jpg"  alt="" height="70px" width="70px" style="border-radius: 50%;border:3px solid rgb(243, 17, 17)" ></td>
