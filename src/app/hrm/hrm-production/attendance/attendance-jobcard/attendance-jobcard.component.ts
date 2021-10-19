@@ -34,6 +34,7 @@ export class AttendanceJobcardComponent implements OnInit {
 		if (this.card) link += '&card=' + this.card;
 		if (this.department) link += '&department=' + encodeURIComponent(this.department);
 		if (this.zone) link += '&zone=' + this.zone;
+		
 		this.api.getdata(link).subscribe((res: any) => {
 			//res = res.slice(0, 30);
 			const cards = new Set<string>(res.map((e: any) => e.EMP_CARD_NO));
