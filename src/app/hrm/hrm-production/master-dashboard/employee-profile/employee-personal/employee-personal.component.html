@@ -74,12 +74,12 @@
           <sui-select-option *ngFor="let option of selectgender.filteredOptions" [value]="option"></sui-select-option>
         </sui-select>
       </div>
-      <div class="field required">
+      <div class="field">
         <label>Date Of Birth</label>
         <input suiDatepicker [(ngModel)]="emp.BIRTH_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="BIRTH_DATE">
       </div>
-      <div class="field required">
+      <div class="field">
         <label>Place Of Birth</label>
         <!-- <input suiDatepicker [(ngModel)]="emp.BIRTH_PLACE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="BIRTH_PLACE"> -->
@@ -104,12 +104,12 @@
           </sui-select-option>
         </sui-select>
       </div>
-      <div class="field required">
+      <div class="field">
         <label>Last Education</label>
         <input required type="number" [(ngModel)]="emp.LAST_EDUCATION" id="LAST_EDUCATION" name="LAST_EDUCATION"
           placeholder="Last Education" />
       </div>
-      <div class="field required">
+      <div class="field">
         <label>Total No. Of Experience</label>
         <input required type="number" [(ngModel)]="emp.TOTAL_EXPERIENCE" id="TOTAL_EXPERIENCE" name="TOTAL_EXPERIENCE"
           placeholder="Total No. Of Experience" />

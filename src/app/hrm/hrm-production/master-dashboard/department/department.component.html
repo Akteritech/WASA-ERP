@@ -27,10 +27,12 @@
             </div>
             <div class="field ">
               <label>Department Name English</label>
-              <sui-select placeholder="Select Department" class="selection" name="department" [options]="departments"
+              <input type="text" placeholder="Department Name English" id="departmentnamebangla" name="department"
+              maxlength="50" [(ngModel)]="department.DeptEngNm">
+              <!-- <sui-select placeholder="Select Department" class="selection" name="department" [options]="departments"
                 [(ngModel)]="department.DeptEngNm" [isSearchable]="true" labelField="DeptEngNm" valueField="DeptEngNm">
                 <sui-select-option *ngFor="let op of departments" [value]="op"></sui-select-option>
-              </sui-select>
+              </sui-select> -->
             </div>
             <div class="field">
               <label>Department Name Bangla</label>

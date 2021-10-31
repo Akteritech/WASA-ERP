@@ -126,7 +126,7 @@
           </sui-select-option>
         </sui-select>
       </div>
-      <div class="field">
+      <div class="field required false">
         <label>Last Card No</label>
         <input required type="text" [(ngModel)]="emp.LINE_ID" id="LINE_ID" name="LINE_ID"
           placeholder="Identification Type" />
@@ -176,7 +176,7 @@
       </div>
     </div>
     <div class="equal width fields">
-      <div class="field required">
+      <div class="false field required ">
         <label>Date Of Birth</label>
         <input suiDatepicker [(ngModel)]="emp.SHIFT_START_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="SHIFT_START_DATE">
@@ -194,7 +194,7 @@
           </sui-select-option>
         </sui-select>
       </div>
-      <div class="field required">
+      <div class="field required false">
         <label>Joining Salary</label>
         <input required type="number" (ngModelChange)="getPresentSalary()" [(ngModel)]="emp.JOINING_SALARY"
           id="JOINING_SALARY" name="JOINING_SALARY" placeholder="Identification Type" />
@@ -238,11 +238,11 @@
         <input required type="text" [(ngModel)]="emp.BUYER_SALARY" id="BUYER_SALARY" name="BUYER_SALARY"
           placeholder="Identification Mark" />
       </div>
-      <div class="field required">
+      <!-- <div class="field required">
         <label>Buyer Joining Date</label>
         <input suiDatepicker [(ngModel)]="emp.BUYER_JOINING" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="BUYER_JOINING">
-      </div>
+      </div> -->
     </div>
     <div class="equal width fields">
       <div class="field">
@@ -323,11 +323,11 @@
         <sui-checkbox class="mt-2" [(ngModel)]="emp.EMP_OT_ACTIVITY" name="EMP_OT_ACTIVITY">
         </sui-checkbox>
       </div>
-      <div class="field">
+      <!-- <div class="field">
         <label>Buyer Mode</label>
         <sui-checkbox class="mt-2" [(ngModel)]="emp.BuyerMode" name="BuyerMode">
         </sui-checkbox>
-      </div>
+      </div> -->
     </div>
 
     <div>
