@@ -8,69 +8,6 @@
       <h2 style="margin-top: 1px;" [ngStyle]="{'color':'orange'}">Configuration</h2>
     </div>
   </div> 
-  
-  <div class="ui link divided stackable three cards">
-    <a class="card raised cardmy2" [routerLink]="['employee']" [ngStyle]="{'background-color':'darkgrey'}">
-      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
-        <div class="ui grid w-100">
-          <div class="nine wide column">
-            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Employee</h1>
-          </div>
-          <div class="seven wide column">
-            <div class="ui image">
-              <img src="assets/employee_profile.png" style="height: 80.38px; width: 88.38px">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
-          Add Employee and View Employee
-        </div>
-      </div>
-    </a>
-  
-    <a class="card raised cardmy2" [routerLink]="['employee-profile']" [ngStyle]="{'background-color':'darkgrey'}">
-      <div class="ui centered my-4" [ngStyle]="{'background-color':'#71797E'}">
-        <div class="ui grid w-100">
-          <div class="nine wide column">
-            <h1 class="ml-4" [ngStyle]="{'color':'darkgrey'}">Employee Profile</h1>
-          </div>
-          <div class="seven wide column">
-            <div class="ui image">
-              <img src="assets/employee.png" style="height: 80.38px; width: 88.38px">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
-          Add Employee and View Employee
-        </div>
-      </div>
-    </a>
-
-    <a class="card raised cardmy2" [routerLink]="['employee_transfer']" [ngStyle]="{'background-color':'darkgrey'}">
-      <div class="ui centered my-4"[ngStyle]="{'background-color':'#71797E'}">
-        <div class="ui grid w-100">
-          <div class="nine wide column">
-            <h1 class="ml-4" [ngStyle]="{'color':'darkgrey'}">Employee Transfer</h1>
-          </div>
-          <div class="seven wide column">
-            <div class="ui image">
-              <img src="assets/emp_transfer.png" style="height: 80.38px; width: 88.38px">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
-          Add Employee Transfer and View Employee Transfer
-        </div>
-      </div>
-    </a>
-
-  </div>
 
   <div class="ui link divided stackable three cards">
     <a class="card raised cardmy2" [routerLink]="['division']" [ngStyle]="{'background-color':'darkgrey'}">
@@ -135,6 +72,72 @@
     
   </div>
 
+  
+  <div class="ui link divided stackable three cards">
+    <a class="card raised cardmy2" [routerLink]="['section']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-4" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-4" [ngStyle]="{'color':'darkgrey'}">Section</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/section.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Section and View Section
+        </div>
+      </div>
+    </a>
+
+  
+    <a class="card raised cardmy2" [routerLink]="['employee-profile']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-4" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-4" [ngStyle]="{'color':'darkgrey'}">Employee Profile</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/employee.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee and View Employee
+        </div>
+      </div>
+    </a>
+
+    <a class="card raised cardmy2" [routerLink]="['employee_transfer']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-4"[ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-4" [ngStyle]="{'color':'darkgrey'}">Employee Transfer</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/emp_transfer.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee Transfer and View Employee Transfer
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  
   <div class="ui link divided stackable three cards">
     <a class="card raised cardmy2" [routerLink]="['holidaysetup']" [ngStyle]="{'background-color':'darkgrey'}">
       <div class="ui centered my-4" [ngStyle]="{'background-color':'#71797E'}">
@@ -198,26 +201,7 @@
   </div>
 
   <div class="ui link divided stackable three cards">
-    <a class="card raised cardmy2" [routerLink]="['section']" [ngStyle]="{'background-color':'darkgrey'}">
-      <div class="ui centered my-4" [ngStyle]="{'background-color':'#71797E'}">
-        <div class="ui grid w-100">
-          <div class="nine wide column">
-            <h1 class="ml-4" [ngStyle]="{'color':'darkgrey'}">Section</h1>
-          </div>
-          <div class="seven wide column">
-            <div class="ui image">
-              <img src="assets/section.png" style="height: 80.38px; width: 88.38px">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
-          Add Section and View Section
-        </div>
-      </div>
-    </a>
-
+    
     <a class="card raised cardmy2" [routerLink]="['shift']" [ngStyle]="{'background-color':'darkgrey'}">
       <div class="ui centered my-4" [ngStyle]="{'background-color':'#71797E'}">
         <div class="ui grid w-100">
@@ -238,28 +222,6 @@
       </div>
     </a>
 
-    <a class="card raised cardmy2" [routerLink]="['photogallery']" [ngStyle]="{'background-color':'darkgrey'}">
-      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
-        <div class="ui grid w-100">
-          <div class="nine wide column">
-            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Photo Gallery</h1>
-          </div>
-          <div class="seven wide column">
-            <div class="ui image">
-              <img src="assets/photo_gallery.png" style="height: 80.38px; width: 88.38px">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content">
-        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
-          View and Search Photo Of Employees
-        </div>
-      </div>
-    </a>
-    
-  </div>
-  <div class="ui link divided stackable three cards">
     <a class="card raised cardmy2" [routerLink]="['letterDraft']" [ngStyle]="{'background-color':'darkgrey'}">
       <div class="ui centered my-4"[ngStyle]="{'background-color':'#71797E'}">
         <div class="ui grid w-100">
@@ -298,8 +260,13 @@
         </div>
       </div>
     </a>
+
     
-    <a class="card raised cardmy2" [routerLink]="['pagepermission']" [ngStyle]="{'background-color':'darkgrey'}">
+    
+  </div>
+  <!-- <div class="ui link divided stackable three cards"> -->
+ 
+    <!-- <a class="card raised cardmy2" [routerLink]="['pagepermission']" [ngStyle]="{'background-color':'darkgrey'}">
       <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
         <div class="ui grid w-100">
           <div class="nine wide column">
@@ -318,6 +285,44 @@
         </div>
       </div>
     </a>
-  </div>
+    <a class="card raised cardmy2" [routerLink]="['photogallery']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Photo Gallery</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/photo_gallery.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          View and Search Photo Of Employees
+        </div>
+      </div>
+    </a> -->
+    <!-- <a class="card raised cardmy2" [routerLink]="['employee']" [ngStyle]="{'background-color':'darkgrey'}">
+      <div class="ui centered my-3" [ngStyle]="{'background-color':'#71797E'}">
+        <div class="ui grid w-100">
+          <div class="nine wide column">
+            <h1 class="ml-3" [ngStyle]="{'color':'darkgrey'}">Employee</h1>
+          </div>
+          <div class="seven wide column">
+            <div class="ui image">
+              <img src="assets/employee_profile.png" style="height: 80.38px; width: 88.38px">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="center aligned description " style="font-weight: bold; color: rgba(0,0,0,0.76)">
+          Add Employee and View Employee
+        </div>
+      </div>
+    </a> -->
+  <!-- </div> -->
 
 </div>

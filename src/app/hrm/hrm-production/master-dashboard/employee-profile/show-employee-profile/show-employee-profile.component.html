@@ -1,11 +1,16 @@
 
-<div class="" [ngStyle]="{'background-color':'#71797E'}">
   <div id="printContent">
-    <div id="sample">
+    <div id="sample"> 
       <div class="ui grid">
+       <div>
+        <img src="assets/avatar.jpg" style="width:80px;height:80px;">
+       </div>
         <div class="ten wide column">
-          <h2 class="center aligned vertically">EMP Card No. #{{emp?.EMP_CARD_NO}}</h2>
+          <h1 style="text-align: center">DHAKA WASA</h1>
+          <h2 style="text-align: center">Employee Profile</h2>
+          <h2 style="text-align: center">#{{emp?.EMP_CARD_NO}}</h2>
         </div>
+        
         <!--        <div class="four wide column">-->
         <!--          <ngx-barcode [bc-height]="50" [bc-width]="2"  [bc-margin-top]="0" [bc-value]="comp?.companyid" [bc-display-value]="false"></ngx-barcode>-->
         <!--        </div>-->
@@ -51,14 +56,14 @@
         <tr>
           <td style="border: 1px solid black;padding: 5px"><strong>EMP STATUS &nbsp;:&nbsp;&nbsp; </strong>
             {{emp?.EMP_STATUS}} </td>
-          <!-- <td style="border: 1px solid black;padding: 5px"><strong>Lunch Start Time :&nbsp;&nbsp;
-            </strong>{{emp?.LUNCH_TIME_START}} </td> -->
+          <td style="border: 1px solid black;padding: 5px"><strong>Lunch Start Time :&nbsp;&nbsp;
+            </strong>{{emp?.LUNCH_TIME_START}} </td>
         </tr>
         <tr>
 
 
-          <!-- <td style="border: 1px solid black;padding: 5px"><strong>Lunch End Time &nbsp;:&nbsp;&nbsp; </strong>
-            {{emp?.LUNCH_TIME_END}} </td> -->
+          <td style="border: 1px solid black;padding: 5px"><strong>Lunch End Time &nbsp;:&nbsp;&nbsp; </strong>
+            {{emp?.LUNCH_TIME_END}} </td>
           <td style="border: 1px solid black;padding: 5px"><strong>Shift ID &nbsp;:&nbsp;&nbsp; </strong>
             {{emp?.SHIFT_ID}}</td>
           <td style="border: 1px solid black;padding: 5px"><strong> Shift Start Date &nbsp;:&nbsp;&nbsp; </strong>
@@ -114,4 +119,4 @@
       </table>
     </div>
   </div>
-</div>
+
