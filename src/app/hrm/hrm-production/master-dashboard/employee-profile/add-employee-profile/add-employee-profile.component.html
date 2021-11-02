@@ -29,12 +29,12 @@
     <div class="ui two column grid">
       <div class="fourteen wide column">
         <div class="equal width fields">
-          <!--          <div class="required field">-->
-          <!--            <label>Employee ID</label>-->
+                   <!-- <div class="required field">-->
+                     <!-- <label>Employee ID</label>-->
           <!--            <div class="ui labeled input">-->
           <!--              <input required type="text" [(ngModel)]="emp.EMP_ID" name="EMP_ID" placeholder="no" />-->
           <!--            </div>-->
-          <!--          </div>-->
+          <!--          </div> -->
           <div class="field">
             <label>Employee Type</label>
             <sui-select name="emptype" class="selection" [(ngModel)]="emp.EMP_TYPE" [options]="api.EmployeeType"
@@ -126,7 +126,7 @@
           </sui-select-option>
         </sui-select>
       </div>
-      <div class="field required false">
+      <div class="field">
         <label>Last Card No</label>
         <input required type="text" [(ngModel)]="emp.LINE_ID" id="LINE_ID" name="LINE_ID"
           placeholder="Identification Type" />
@@ -176,12 +176,12 @@
       </div>
     </div>
     <div class="equal width fields">
-      <div class="false field required ">
+      <div class="field">
         <label>Date Of Birth</label>
         <input suiDatepicker [(ngModel)]="emp.SHIFT_START_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="SHIFT_START_DATE">
       </div>
-      <div class="field required">
+      <div class="field">
         <label>Joining Date</label>
         <input suiDatepicker [(ngModel)]="emp.JOINING_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="JOINING_DATE">
@@ -194,14 +194,14 @@
           </sui-select-option>
         </sui-select>
       </div>
-      <div class="field required false">
+      <div class="field required">
         <label>Joining Salary</label>
         <input required type="number" (ngModelChange)="getPresentSalary()" [(ngModel)]="emp.JOINING_SALARY"
           id="JOINING_SALARY" name="JOINING_SALARY" placeholder="Identification Type" />
       </div>
     </div>
     <div class="equal width fields">
-      <div class="field required">
+      <div class="field">
         <label>Present Salary</label>
         <input required type="number" disabled [(ngModel)]="emp.PRESENT_SALARY" id="PRESENT_SALARY"
           name="PRESENT_SALARY" placeholder="National ID No." />
@@ -222,28 +222,28 @@
           placeholder="Identification Mark" />
       </div>
     </div>
-    <div class="equal width fields">
-      <div class="field ">
+    <!-- <div class="equal width fields"> -->
+      <!-- <div class="field ">
         <label>Earned Leave</label>
         <input required type="text" [(ngModel)]="emp.EARNED_LEAVE" id="EARNED_LEAVE" name="EARNED_LEAVE"
           placeholder="Identification Mark" />
-      </div>
-      <div class="field ">
+      </div> -->
+      <!-- <div class="field ">
         <label>EL Start Date</label>
         <input suiDatepicker [(ngModel)]="emp.EL_START_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="EL_START_DATE">
-      </div>
-      <div class="field ">
+      </div> -->
+      <!-- <div class="field ">
         <label>Buyer/Present Salary</label>
         <input required type="text" [(ngModel)]="emp.BUYER_SALARY" id="BUYER_SALARY" name="BUYER_SALARY"
           placeholder="Identification Mark" />
-      </div>
+      </div> -->
       <!-- <div class="field required">
         <label>Buyer Joining Date</label>
         <input suiDatepicker [(ngModel)]="emp.BUYER_JOINING" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="BUYER_JOINING">
       </div> -->
-    </div>
+    <!-- </div> -->
     <div class="equal width fields">
       <div class="field">
         <label>Last Pramotion /Demotion</label>
@@ -270,16 +270,16 @@
           placeholder="Identification Type" />
       </div>
     </div>
-    <div class="equal width fields">
-      <div class="field">
+    <!-- <div class="equal width fields"> -->
+      <!-- <div class="field">
         <label>Pay Category</label>
         <sui-select class="selection" name="pay" placeholder="Select " [(ngModel)]="emp.PAY_CATEGORY"
           [options]="api.payCategory" labelField="name" valueField="value" [isSearchable]="true" #SelectPayCategory>
           <sui-select-option *ngFor="let option of SelectPayCategory.filteredOptions" [value]="option">
           </sui-select-option>
         </sui-select>
-      </div>
-      <div class="field">
+      </div> -->
+      <!-- <div class="field">
         <label>Percentage/fixed Amount</label>
         <input required type="text" [(ngModel)]="emp.PERCENTAGE" id="Amount" name="Amount" placeholder=" " />
       </div>
@@ -287,31 +287,31 @@
         <label>PF Member</label>
         <sui-checkbox class="mt-2" [(ngModel)]="emp.PF_MEMBER" name="PF_MEMBER">
         </sui-checkbox>
-      </div>
-      <div class="field">
+      </div> -->
+      <!-- <div class="field">
         <label>CD/PF Amount</label>
         <input required type="text" [(ngModel)]="emp.PF_AMOUNT" id="PF_AMOUNT" name="PF_AMOUNT" placeholder=" " />
-      </div>
-    </div>
-    <div class="equal width fields">
+      </div> -->
+    <!-- </div> -->
+    <!-- <div class="equal width fields">
       <div class="field">
         <label>Shift Started</label>
         <input suiDatepicker [(ngModel)]="emp.PF_DATE" [pickerUseNativeOnMobile]="true" pickerMode="date"
           name="PF_DATE">
-      </div>
-      <div class="field">
+      </div> -->
+      <!-- <div class="field">
         <label>ITDS</label>
         <input required type="text" [(ngModel)]="emp.ITDS" id="ITDS" name="ITDS" placeholder=" " />
       </div>
       <div class="field">
         <label>Salary Cash Amount</label>
         <input required type="number" [(ngModel)]="emp.CashAmount" id="CashAmount" name="CashAmount" placeholder=" " />
-      </div>
-      <div class="field">
+      </div> -->
+      <!-- <div class="field">
         <label>Rocket Acc No.</label>
         <input required type="text" [(ngModel)]="emp.RocketAC" id="RocketAC" name="RocketAC" placeholder=" " />
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
     <div class="equal width fields">
       <div class="field">
         <label>Active</label>
