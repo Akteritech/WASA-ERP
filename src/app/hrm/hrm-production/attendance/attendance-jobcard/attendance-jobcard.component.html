@@ -35,7 +35,7 @@
           <th style="width: 20%; border-right:1px solid black;  padding: 5px;">DATE</th>
           <th style="width: 20%; border-right:1px solid black;  padding: 5px;">IN TIME</th>
           <th style="width: 20%; border-right:1px solid black;  padding: 5px;">OUT TIME</th>
-          <th style="width: 20%; border-right:1px solid black;  padding: 5px;">SHIFT</th>
+          <th style="width: 20%; border-right:1px solid black;  padding: 5px;">CATEGORY/SHIFT</th>
           <th style="width: 10%; border-right:1px solid black;  padding: 5px;">STATUS </th>
           <th style="width: 5%; border-right:1px solid black;  padding: 5px;">TOTAL HOUR </th>
           <th style="width: 5%;  padding: 5px;">OT </th>
@@ -66,10 +66,10 @@
       </table> -->
       <table style="border-collapse: collapse;width: 100%; font-size: 10px; font-weight: bold;">
         <tr>
-          <td style="padding: 5px; width: 12%; text-align: left; font-weight: bold; font-size: 14px;">Present (P + L) - {{person.present}}</td>
-          <td style="padding: 5px; width: 10%; text-align: left; font-weight: bold; font-size: 14px;">Late (L) - {{person.late}}</td>
+          <td style="padding: 5px; width: 12%; text-align: left; font-weight: bold; font-size: 14px;">Present (P) - {{person.present}}</td>
+          <td style="padding: 5px; width: 10%; text-align: left; font-weight: bold; font-size: 14px;">Late in (L) - {{person.late}}</td>
           <td style="padding: 5px; width: 12%; text-align: left; font-weight: bold; font-size: 14px;">Absent (A) - {{person.absent}}</td>
-          <td style="padding: 5px; width: 10%; text-align: left; font-weight: bold; font-size: 14px;">(SL)- {{person.sickLeave}}</td>
+          <!-- <td style="padding: 5px; width: 10%; text-align: left; font-weight: bold; font-size: 14px;">(SL)- {{person.sickLeave}}</td> -->
           <td style="padding: 5px; width: 10%; text-align: left; font-weight: bold; font-size: 14px;">(CL)- {{person.casualLeave}}</td>
           <!-- <td style="padding: 5px; width: 10%; text-align: left;">(LWP)- 0</td> -->
           <td style="padding: 5px; width: 12%; text-align: left; font-weight: bold; font-size: 14px;">Weekend (W)- {{person.weekend}}</td>

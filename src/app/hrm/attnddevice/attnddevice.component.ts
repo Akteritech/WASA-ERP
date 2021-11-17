@@ -215,7 +215,7 @@ export class AttnddeviceComponent implements OnInit {
     });
   }
   machineAttendance(machineno) {
-    this.api.getdata('employee-attendences/zonedeviceattend?zone=' + sessionStorage.getItem('zoneaccess') + '&device=' + machineno + '&date1=' + '2021-08-28' + '&date2=' + '2021-08-29' ).subscribe((res: any[]) => {
+    this.api.getdata('employee-attendences/zonedeviceattend?zone=' + sessionStorage.getItem('zoneaccess') + '&device=' + machineno + '&date1=' + '28-08-2021' + '&date2=' + '29-08-2021' ).subscribe((res: any[]) => {
       this.devicedata = res.slice(0);
       this.alldevicedata = res;
       //  this.meta.totalItemCount = res.length;

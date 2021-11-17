@@ -300,7 +300,7 @@ orderType = [
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
   formatDate(date): string {
-    return this.datePipe.transform(date, 'yyyy-MM-dd');
+    return this.datePipe.transform(date, 'dd-MM-yyyy');
   }
   getBlobThumbnail(url): Observable<Blob> {
     const headers = new HttpHeaders({
